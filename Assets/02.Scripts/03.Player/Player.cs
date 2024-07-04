@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using static InputKeyManager;
 
 public class Player : PlayerController 
 {
@@ -10,14 +11,21 @@ public class Player : PlayerController
     public delegate void PlayerMoveHandler( bool value );
     public static event PlayerMoveHandler OnPlayerMove, OnPlayerAttack;
 
+    private PhotonView PV;
+    private Rigidbody rigid;
+    private CharacterController characterController;
+
+    InputKeyManager keyManager;
+
     void Awake() {
         // 레퍼런스 초기화 
         PV = GetComponent<PhotonView>();
         rigid = GetComponent<Rigidbody>();
         characterController = GetComponent<CharacterController>();
+        keyManager = InputKeyManager.instance.GetComponent<InputKeyManager>();
     }
 
-     void OnEnable() {
+    void OnEnable() {
         OnPlayerMove += PlayerMove;
         OnPlayerAttack += PlayerAttack;
     }
@@ -41,7 +49,7 @@ public class Player : PlayerController
     void FixedUpdate() {
         // delegate 등록
         if (PV.IsMine) {
-            bool isRun = Input.GetKey(KeyCode.LeftShift);
+            bool isRun = Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Run));
             OnPlayerMove?.Invoke(isRun);
         }
     }
@@ -58,8 +66,8 @@ public class Player : PlayerController
     public override void PlayerMove(bool type) {
         Debug.Log("플레이어 이동");
         if (PV.IsMine) {
-            float z = Input.GetAxis("Vertical") * Time.deltaTime * 5.0f;
-            float x = Input.GetAxis("Horizontal") * Time.deltaTime * 5.0f;
+            float z = Input.GetAxis("Vertical") * Time.deltaTime * 5.0f;               
+            float x = Input.GetAxis("Horizontal") * Time.deltaTime * 5.0f;            
 
             transform.Translate(x, 0, z);
         }
