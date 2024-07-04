@@ -1,5 +1,7 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class Player : PlayerController 
@@ -12,11 +14,11 @@ public class Player : PlayerController
         // 레퍼런스 초기화 
     }
 
-    void OnEnable() {
+    public override void OnEnable() {
         OnPlayerMove += PlayerMove;
         OnPlayerAttack += PlayerAttack;
     }
-    void OnDisable() {
+    public override void OnDisable() {
         OnPlayerMove -= PlayerMove;
         OnPlayerAttack -= PlayerAttack;
     }
@@ -84,5 +86,19 @@ public class Player : PlayerController
     // 플레이어 사망
     public override void PlayerDead() {
         throw new System.NotImplementedException();
+    }
+    public override void OnPhotonSerializeView( PhotonStream stream, PhotonMessageInfo info ) {
+        if (stream.IsWriting) {
+            // 데이터 전송
+            stream.SendNext(rigid.position);
+            stream.SendNext(rigid.rotation);
+            stream.SendNext(rigid.velocity);
+        }
+        else {
+            // 데이터 수신
+            rigid.position = (Vector3)stream.ReceiveNext();
+            rigid.rotation = (Quaternion)stream.ReceiveNext();
+            rigid.velocity = (Vector3)stream.ReceiveNext();
+        }
     }
 }
