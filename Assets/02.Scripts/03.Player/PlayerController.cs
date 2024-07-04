@@ -13,7 +13,7 @@ interface IPlayer {
     void PlayerDead();                  // 플레이어 사망 
 }
 
-public abstract class PlayerController : MonoBehaviourPunCallbacks, IPlayer, IPunObservable
+public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservable
 {
     // 플레이어 이동속도 
     [SerializeField]
@@ -35,6 +35,7 @@ public abstract class PlayerController : MonoBehaviourPunCallbacks, IPlayer, IPu
     protected bool isThrow;             // 아이템 버리는 상태 
     protected bool isDead;              // 사망 상태 
 
+    public PhotonView PV;
     public Rigidbody rigid; 
     public CharacterController characterController;
     

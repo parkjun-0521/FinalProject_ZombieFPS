@@ -26,6 +26,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
         Screen.SetResolution(1920, 1080, false);
     }
 
+    void Start() {
+        PhotonNetwork.AutomaticallySyncScene = true;
+    }
+
     void Update() {
         if (StatusText != null) {
             StatusText.text = PhotonNetwork.NetworkClientState.ToString();
@@ -86,7 +90,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
     // 방에 입장했을 때 동작하는 부분 
     public override void OnJoinedRoom() {
         Debug.Log("방참가완료");
+        //SceneManager.sceneLoaded += OnSceneLoaded;
         ChangeScene("03.MainGameScene"); // 게임 씬으로 변경
+
+    }
+    private void OnSceneLoaded( Scene scene, LoadSceneMode mode ) {
+        if (scene.name == "03.MainGameScene") {
+            PhotonNetwork.Instantiate("PlayerPrefab", Vector3.zero, Quaternion.identity);
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
     }
 
     public override void OnLeftRoom() {
@@ -121,6 +133,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
     }
 
     public void ChangeScene( string sceneName ) {
-        SceneManager.LoadScene(sceneName);
+        PhotonNetwork.LoadLevel(sceneName);
     }
 }

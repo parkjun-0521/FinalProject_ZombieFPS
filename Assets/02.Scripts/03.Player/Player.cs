@@ -12,13 +12,16 @@ public class Player : PlayerController
 
     void Awake() {
         // 레퍼런스 초기화 
+        PV = GetComponent<PhotonView>();
+        rigid = GetComponent<Rigidbody>();
+        characterController = GetComponent<CharacterController>();
     }
 
-    public override void OnEnable() {
+     void OnEnable() {
         OnPlayerMove += PlayerMove;
         OnPlayerAttack += PlayerAttack;
     }
-    public override void OnDisable() {
+    void OnDisable() {
         OnPlayerMove -= PlayerMove;
         OnPlayerAttack -= PlayerAttack;
     }
@@ -27,17 +30,20 @@ public class Player : PlayerController
         // 변수 초기화 
     }
 
+
     void Update() {
         // 단발적인 행동 
-        bool isAttack = Input.GetMouseButton(0);
-        OnPlayerAttack?.Invoke(isAttack);
+       /* bool isAttack = Input.GetMouseButton(0);
+        OnPlayerAttack?.Invoke(isAttack);*/
 
     }
 
     void FixedUpdate() {
         // delegate 등록
-        bool isRun = Input.GetKey(KeyCode.LeftShift);
-        OnPlayerMove?.Invoke(isRun);
+        if (PV.IsMine) {
+            bool isRun = Input.GetKey(KeyCode.LeftShift);
+            OnPlayerMove?.Invoke(isRun);
+        }
     }
 
     void OnTriggerEnter( Collider other ) {
@@ -51,6 +57,12 @@ public class Player : PlayerController
     // 플레이어 이동 ( 달리는 중인가 check bool ) 
     public override void PlayerMove(bool type) {
         Debug.Log("플레이어 이동");
+        if (PV.IsMine) {
+            float z = Input.GetAxis("Vertical") * Time.deltaTime * 5.0f;
+            float x = Input.GetAxis("Horizontal") * Time.deltaTime * 5.0f;
+
+            transform.Translate(x, 0, z);
+        }
     }
 
     // 플레이어 점프 
@@ -66,11 +78,7 @@ public class Player : PlayerController
 
     // 플레이어 공격 ( 근접인지 원거리인지 판단 bool ) 
     public override void PlayerAttack( bool type ) {
-        if (isJump) return;
-
-
-
-        throw new System.NotImplementedException();
+        Debug.Log("공격");
     }
 
     // 아이템 버리기 ( 버리는 item id가져오기 )
