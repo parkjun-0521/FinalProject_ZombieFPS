@@ -5,7 +5,6 @@ using UnityEngine;
 public class InputKeyManager : MonoBehaviour {
     public static InputKeyManager instance;
 
-
     // 열거형 변수 선언 
     public enum KeyCodeTypes {
         LeftMove,

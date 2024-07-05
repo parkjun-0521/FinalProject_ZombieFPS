@@ -36,7 +36,12 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     protected bool isThrow;             // 아이템 버리는 상태 
     protected bool isDead;              // 사망 상태 
 
-    
+    public Vector3 moveForce;
+
+    public PhotonView PV;
+    public Rigidbody rigid;
+    public CharacterController characterController;
+
     public abstract void PlayerMove(bool type);
     public abstract void PlayerJump();
     public abstract void PlayerInteraction();
@@ -45,5 +50,4 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     public abstract void ItemThrow();
     public abstract void PlayerDead();
     public abstract void OnPhotonSerializeView( PhotonStream stream, PhotonMessageInfo info );
-
 }
