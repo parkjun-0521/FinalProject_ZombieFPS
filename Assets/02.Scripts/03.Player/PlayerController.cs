@@ -32,6 +32,7 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     protected bool isJump;              // 점프 상태
     protected bool isInteraction;       // 상호작용 상태 
     protected bool isAttack;            // 공격 상태 
+    public bool isAtkDistance;          // 공격 거리 ( false 원거리, true 근거리 ) 
     protected bool isThrow;             // 아이템 버리는 상태 
     protected bool isDead;              // 사망 상태 
 

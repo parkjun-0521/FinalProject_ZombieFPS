@@ -41,9 +41,12 @@ public class Player : PlayerController
 
     void Update() {
         // 단발적인 행동 
-       /* bool isAttack = Input.GetMouseButton(0);
-        OnPlayerAttack?.Invoke(isAttack);*/
-
+        if (PV.IsMine) {
+            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Attack))){
+                bool isAttack = isAtkDistance;
+                OnPlayerAttack?.Invoke(isAttack);
+            }
+        }
     }
 
     void FixedUpdate() {
@@ -86,7 +89,12 @@ public class Player : PlayerController
 
     // 플레이어 공격 ( 근접인지 원거리인지 판단 bool ) 
     public override void PlayerAttack( bool type ) {
-        Debug.Log("공격");
+        if (!type) {        // 원거리 공격 
+            Debug.Log("원거리 공격");
+        }
+        else {              // 근거리 공격 
+            Debug.Log("근거리 공격");
+        }
     }
 
     // 아이템 버리기 ( 버리는 item id가져오기 )
