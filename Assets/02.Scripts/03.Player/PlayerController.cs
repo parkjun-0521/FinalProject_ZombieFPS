@@ -23,12 +23,18 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     [SerializeField]
     protected float runSpeed;
 
+    // 플레이어 점프 힘 
+    [SerializeField]
+    protected float jumpForce;
+
+    // 중력 계수 ( 점프 후 착지 )
+    [SerializeField]
+    protected float gravity;
+
     // Player 체력 
     private float hp;
     public float PlayerHp {  get { return hp; } set { hp = value; } }
 
-    protected bool isWalk;              // 걷고있는 상태 
-    protected bool isRun;               // 달리는 상태 
     protected bool isJump;              // 점프 상태
     protected bool isInteraction;       // 상호작용 상태 
     protected bool isAttack;            // 공격 상태 
@@ -36,10 +42,15 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     protected bool isThrow;             // 아이템 버리는 상태 
     protected bool isDead;              // 사망 상태 
 
-    public Vector3 moveForce;
+    // 사용 안할 꺼 같은데 예외처리에 필요할 Bool 변수 모음 
+    protected bool isWalk;              // 걷고있는 상태 
+    protected bool isRun;               // 달리는 상태   
 
-    public PhotonView PV;
-    public Rigidbody rigid;
+    public Vector3 moveForce;           // Player 이동 방향 및 힘 
+    public LayerMask enemyLayer;        // Enemy Layer 변수 
+
+    public PhotonView PV;               // 포톤 ( 동기화 관련 및 서버 관련 ) 
+    public Rigidbody rigid;             
     public CharacterController characterController;
 
     public abstract void PlayerMove(bool type);
@@ -49,5 +60,8 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     public abstract void ItemThrowAway( int id );
     public abstract void ItemThrow();
     public abstract void PlayerDead();
+    // 포톤 동기화 메소드
     public abstract void OnPhotonSerializeView( PhotonStream stream, PhotonMessageInfo info );
+
+ 
 }

@@ -86,13 +86,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 0.5
+  m_Height: 1.4
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 2, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!54 &2714116732936836852
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -213,7 +213,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  runSpeed: 0
+  runSpeed: 10
+  jumpForce: 10
+  gravity: -20
   isAtkDistance: 0
   moveForce: {x: 0, y: 0, z: 0}
   PV: {fileID: 0}
