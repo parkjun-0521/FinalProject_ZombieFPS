@@ -65,8 +65,12 @@ public class Player : PlayerController
         // 단발적인 행동 
         if (PV.IsMine) {
             if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Attack))){
-                bool isAttack = isAtkDistance;
-                OnPlayerAttack?.Invoke(isAttack);
+                // 일정 딜레이가 될 때 마다 총알을 발사
+                if (Time.time - lastAttackTime >= attackMaxDelay) {             
+                    bool isAttack = isAtkDistance;
+                    OnPlayerAttack?.Invoke(isAttack);
+                    lastAttackTime = Time.time;         // 딜레이 초기화
+                }
             }
             else if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Jump))) {
                 OnPlayerJump?.Invoke();
@@ -97,6 +101,7 @@ public class Player : PlayerController
             float x = 0f;   
             float z = 0f;
 
+            // 걷기, 달리기 속도 조절
             float playerSpeed = type ? runSpeed : speed;
 
             // 좌우 이동
@@ -111,6 +116,7 @@ public class Player : PlayerController
             else if(Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.UpMove)))
                 z = 1f;
 
+            // 공중에 떠있는지 확인
             if (!characterController.isGrounded) {
                 moveForce.y += gravity * Time.deltaTime;
             }
@@ -137,6 +143,7 @@ public class Player : PlayerController
     // 플레이어 점프 
     public override void PlayerJump(){
         if (PV.IsMine) {         
+            // 땅에 붙어있을 때 점프
             if(characterController.isGrounded)  {
                 moveForce.y = jumpForce;
             }
@@ -151,18 +158,32 @@ public class Player : PlayerController
 
     // 플레이어 공격 ( 근접인지 원거리인지 판단 bool ) 
     public override void PlayerAttack( bool type ) {
-        if (!type) {        // 원거리 공격 
-            Debug.Log("원거리 공격");
-            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2), 0);
-            Debug.DrawRay(ray.origin, ray.direction * 100, Color.red);
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, enemyLayer)) {
-                Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.red);
-                Debug.Log("적 공격");
+        if (PV.IsMine) {
+            if (!type) {        // 원거리 공격 
+                // 카메라 중앙에서 Ray 생성 
+                Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+                // Ray 테스트 
+                Debug.DrawLine(ray.origin, ray.origin + ray.direction * 1000, Color.red);                       // 나중에 지우기
+                // 충돌 확인 및 총알 생성 
+                if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, enemyLayer)) {
+                    Debug.Log("적 공격");
+                    // 총알 생성 
+                    // 애니메이션 생성 
+                    // 파티클 또는 스프라이트 이미지로 이펙트 표현 
+                    // 데미지는 Bullet에서 처리 체력은 좀비에서 감소 시킬 예정
+                }
+            }
+            else {              // 근거리 공격 
+                Debug.Log("근거리 공격");
+                // 근거리 공격 애니메이션 
+                // 데미지는 weapon에서 줄꺼임 그리고 체력은 좀비에서 감소시킬예정
             }
         }
-        else {              // 근거리 공격 
-            Debug.Log("근거리 공격");
-        }
+    }
+
+    // 무기 교체
+    public override void WeaponSwap() {
+        int itemID = 0;
     }
 
     // 아이템 버리기 ( 버리는 item id가져오기 )
@@ -179,6 +200,8 @@ public class Player : PlayerController
     public override void PlayerDead() {
         throw new System.NotImplementedException();
     }
+
+    // 플레이어 동기화
     public override void OnPhotonSerializeView( PhotonStream stream, PhotonMessageInfo info ) {
         if (stream.IsWriting) {
             // 데이터 전송 ( 동기화 ) 
