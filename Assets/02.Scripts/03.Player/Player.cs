@@ -91,20 +91,30 @@ public class Player : PlayerController
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
         if (Physics.Raycast(ray, out hit, interactionRange, LayerMask.NameToLayer("Player") | LayerMask.NameToLayer("Item")))   //레이어 이름, 거리에대해 상의
         {
-            if(hit.collider.tag == "Item")                                  //만약 아이템이면
+            if(hit.collider.tag == "Item")//만약 아이템이면
             {
                 //ex)text : 'E' 아이템줍기 ui띄워주기
-                //hit.collider.GetComponent<Item>.itemCode
-            }
-            else if(hit.collider.tag == "Player")
-            {
-                if(hit.collider.GetComponent<Player>().isFaint == true)     //만약 태그가 player고 기절이 true면
+                if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
                 {
-                    //ex)text : 'E' 플레이어 살리기 ui띄워주기
-                    //slider or shader로 (slider가 편할듯) 살려주기
+                    //hit.collider.GetComponent<Item>.itemCode....
+                }
+            }
+            else if(hit.collider.tag == "Player")//만약 플레이어면
+            {
+                //ex)text : 'E' 플레이어 살리기 ui띄워주기
+                if (hit.collider.GetComponent<Player>().isFaint == true) //만약 태그가 player고 기절이 true면
+                {
+                    if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
+                    {
+                        //slider or shader로 (slider가 편할듯) 살려주기 바가 차오름
+                        //슬라이더 밸류가 1이 되는순간 순간 그녀석의 player에 접근해서 PlayerRevive()함수호출
+                    }
                 }
             }
         }
+        //아이템 사용은 인벤토리가 없어서 감이안옴 일단 내가 손에 들고있어야하고 손에 들고있는상태로 좌클릭시
+        //슬라이더로하든 이미지박고 시계 돌아가는거처럼 만들든해서 value가 1이되는순간 Hp(프로퍼티) = +30(회복아이템 회복계수)
+        //그리고 아이템 계수 차감
     }
 
     // 플레이어 공격 ( 근접인지 원거리인지 판단 bool ) 
