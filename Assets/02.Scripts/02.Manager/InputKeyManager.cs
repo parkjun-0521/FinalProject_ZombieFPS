@@ -14,7 +14,11 @@ public class InputKeyManager : MonoBehaviour {
         Down,
         Run,
         Jump,
-        Attack
+        Attack,
+        Weapon1,
+        Weapon2,
+        Weapon3,
+        Weapon4
     }
 
     // 雕寂呈府肺 虐 包府 
@@ -40,6 +44,10 @@ public class InputKeyManager : MonoBehaviour {
         keyMappings[KeyCodeTypes.Run] = KeyCode.LeftShift;
         keyMappings[KeyCodeTypes.Jump] = KeyCode.Space;
         keyMappings[KeyCodeTypes.Attack] = KeyCode.Mouse0;
+        keyMappings[KeyCodeTypes.Weapon1] = KeyCode.Alpha1;     // 盔芭府 公扁 
+        keyMappings[KeyCodeTypes.Weapon2] = KeyCode.Alpha2;     // 辟芭府 公扁
+        keyMappings[KeyCodeTypes.Weapon3] = KeyCode.Alpha3;     // 捧么 公扁 
+        keyMappings[KeyCodeTypes.Weapon4] = KeyCode.Alpha4;     // 鳃蒲 
     }
 
     public KeyCode GetKeyCode( KeyCodeTypes action ) {
