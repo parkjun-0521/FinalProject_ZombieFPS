@@ -328,7 +328,7 @@ GameObject:
   - component: {fileID: 47132822}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -965,10 +965,6 @@ PrefabInstance:
     - target: {fileID: 2714116732936836858, guid: 6c30940cf8ef16d438b2e9a3478f7b24, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2714116732936836859, guid: 6c30940cf8ef16d438b2e9a3478f7b24, type: 3}
-      propertyPath: weapons.Array.size
-      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2714116732936836859, guid: 6c30940cf8ef16d438b2e9a3478f7b24, type: 3}
       propertyPath: weapons.Array.data[0]
