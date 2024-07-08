@@ -281,6 +281,7 @@ public class Player : PlayerController
     {
         if (PV.IsMine) {
             Debug.Log("힐팩");
+            //힐 하는시간 변수로 빼고 대충 중앙에 ui띄우고 힐 하는시간 지나면 Hp = (+30) 코루틴사용이 좋겠지 중간에 키입력시 return 애니메이션추가;
         }
     }
 
