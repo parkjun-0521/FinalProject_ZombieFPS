@@ -22,6 +22,8 @@ public class Player : PlayerController
 
     public Camera playerCamera;
 
+    private bool cursorLocked = true;
+
     void Awake()
     {
         // 레퍼런스 초기화 
@@ -79,9 +81,26 @@ public class Player : PlayerController
             else if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Jump)) && isJump) {
                 OnPlayerJump?.Invoke();
             }
+
+            if (Input.GetKeyDown(KeyCode.LeftAlt) || Input.GetKeyDown(KeyCode.RightAlt)) {
+                ToggleCursor();
+            }
+
+            if (cursorLocked) {
+                bool isRun = Input.GetKey(KeyCode.LeftShift);
+                OnPlayerMove?.Invoke(isRun);
+
+                float z = Input.GetAxis("Vertical") * Time.deltaTime * 5.0f;
+                float x = Input.GetAxis("Horizontal") * Time.deltaTime * 5.0f;
+                transform.Translate(x, 0, z);
+            }
         }
     }
-
+    private void ToggleCursor() {
+        cursorLocked = !cursorLocked;
+        Cursor.visible = !cursorLocked;
+        Cursor.lockState = cursorLocked ? CursorLockMode.Locked : CursorLockMode.None;
+    }
 
     void FixedUpdate() {
         // delegate 등록
