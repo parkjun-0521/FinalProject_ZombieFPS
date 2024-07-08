@@ -43,12 +43,6 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     protected bool isFaint = false;                        //기절했는지 true false
     public Image bloodScreen;                             //피격시 화면 빨갛게 할 이미지
     public Image healScreen;                      //치유시 화면 연두색 할 이미지
- 
-    
-    protected bool isWalk;              // 걷고있는 상태 
-    protected bool isRun;               // 달리는 상태 
-    private float hp;
-    public float PlayerHp {  get { return hp; } set { hp = value; } }
 
     [Header("공격=======")]
     public GameObject[] weapons;        // 무기 종류 ( 순서대로 넣어줘야 함, 0 : 원거리, 1 : 근접, 2 : 투척, 3 : 힐팩 )

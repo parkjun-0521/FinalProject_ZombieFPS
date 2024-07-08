@@ -15,7 +15,7 @@ public class InputKeyManager : MonoBehaviour {
         Run,
         Jump,
         Attack,
-        Interaction
+        Interaction,
         Weapon1,
         Weapon2,
         Weapon3,
