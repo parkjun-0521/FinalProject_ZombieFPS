@@ -398,7 +398,7 @@ public class Player : PlayerController
 
     protected override IEnumerator ShowBloodScreen()                        //화면 붉게
     {
-        bloodScreen.color = new Color(1, 0, 0, Random.Range(0.1f, 0.15f));  //시뻘겋게 변경
+        bloodScreen.color = new Color(1, 0, 0, UnityEngine.Random.Range(0.1f, 0.15f));  //시뻘겋게 변경
         yield return new WaitForSeconds(0.5f);                              //0.5f초 후에   - 이거 변수로 뺄까?
         bloodScreen.color = Color.clear;                                    //화면 정상적으로 변경!
     }

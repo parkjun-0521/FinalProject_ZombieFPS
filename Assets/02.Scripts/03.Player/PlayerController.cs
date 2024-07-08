@@ -83,17 +83,10 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     public abstract void PlayerDead();
     // 포톤 동기화 메소드
     public abstract void OnPhotonSerializeView( PhotonStream stream, PhotonMessageInfo info );
-<<<<<<< HEAD
-
-
-
-
 
     protected abstract void ChangeHp(float value);
     protected abstract void PlayerFaint();
     protected abstract IEnumerator ShowBloodScreen();
     protected abstract IEnumerator ShowHealScreen();
     public abstract void PlayerRevive();                //외부에서 접근에서 할거라 public
-=======
->>>>>>> Player_Attack
 }
