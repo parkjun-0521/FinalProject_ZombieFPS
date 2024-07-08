@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,11 +9,12 @@ interface IEnemy {
     void EnemyAttack();     // 좀비 공격
     void EnemyDaed();       // 좀비 사망 
     void EnemyTracking();   // 좀비 추적
+ 
 
 }
 
 
-public abstract class EnemyController : MonoBehaviour, IEnemy {
+public abstract class EnemyController : MonoBehaviourPun, IEnemy {
 
     // 좀비 걷기 속도 
     [SerializeField]
@@ -36,5 +38,6 @@ public abstract class EnemyController : MonoBehaviour, IEnemy {
     public abstract void EnemyAttack();
     public abstract void EnemyRun();
     public abstract void EnemyTracking();
+    
 
 }
