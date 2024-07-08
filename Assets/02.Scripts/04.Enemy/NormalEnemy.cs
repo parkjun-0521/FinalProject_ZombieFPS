@@ -32,11 +32,7 @@ public class NormalEnemy : EnemyController
        
 
     }
-    public override void EnemyLooking()
-    {
-         
-
-    }
+  
 
     //보통 적 NPC의 이동
     public override void EnemyMove()
