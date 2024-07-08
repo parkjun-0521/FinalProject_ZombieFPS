@@ -5,7 +5,6 @@ using UnityEngine;
 public class InputKeyManager : MonoBehaviour {
     public static InputKeyManager instance;
 
-
     // 열거형 변수 선언 
     public enum KeyCodeTypes {
         LeftMove,
@@ -17,6 +16,10 @@ public class InputKeyManager : MonoBehaviour {
         Jump,
         Attack,
         Interaction
+        Weapon1,
+        Weapon2,
+        Weapon3,
+        Weapon4
     }
 
     // 딕셔너리로 키 관리 
@@ -35,14 +38,18 @@ public class InputKeyManager : MonoBehaviour {
         keyMappings = new Dictionary<KeyCodeTypes, KeyCode>();
 
         // 각 디셔너리 키에 맞는 키보드 값을 추가 
-        keyMappings[KeyCodeTypes.LeftMove] = KeyCode.LeftArrow;
-        keyMappings[KeyCodeTypes.RightMove] = KeyCode.RightArrow;
-        keyMappings[KeyCodeTypes.DownMove] = KeyCode.DownArrow;
-        keyMappings[KeyCodeTypes.UpMove] = KeyCode.UpArrow;
+        keyMappings[KeyCodeTypes.LeftMove] = KeyCode.A;
+        keyMappings[KeyCodeTypes.RightMove] = KeyCode.D;
+        keyMappings[KeyCodeTypes.DownMove] = KeyCode.S;
+        keyMappings[KeyCodeTypes.UpMove] = KeyCode.W;
         keyMappings[KeyCodeTypes.Run] = KeyCode.LeftShift;
         keyMappings[KeyCodeTypes.Jump] = KeyCode.Space;
         keyMappings[KeyCodeTypes.Attack] = KeyCode.Mouse0;
         keyMappings[KeyCodeTypes.Interaction] = KeyCode.E;
+        keyMappings[KeyCodeTypes.Weapon1] = KeyCode.Alpha1;     // 원거리 무기 
+        keyMappings[KeyCodeTypes.Weapon2] = KeyCode.Alpha2;     // 근거리 무기
+        keyMappings[KeyCodeTypes.Weapon3] = KeyCode.Alpha3;     // 투척 무기 
+        keyMappings[KeyCodeTypes.Weapon4] = KeyCode.Alpha4;     // 힐팩 
     }
 
     public KeyCode GetKeyCode( KeyCodeTypes action ) {
