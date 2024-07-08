@@ -114,7 +114,7 @@ public class Player : PlayerController
 
     void OnTriggerEnter( Collider other )                       //좀비 트리거콜라이더에 enter했을때
     {
-        if (other.tag == "Enemy")                                //좀비로할지 enemy로할지 쨌든 태그 상의
+        if (other.CompareTag("Enemy"))                                //좀비로할지 enemy로할지 쨌든 태그 상의
         {
             //hp = -(other.GetComponent<Enemy>().attackdamage)  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
         }
@@ -174,7 +174,6 @@ public class Player : PlayerController
         }
     }
 
-
     // 플레이어 점프 
     public override void PlayerJump() {
         // 땅에 붙어있을 때 점프
@@ -183,7 +182,6 @@ public class Player : PlayerController
             isJump = false;
         }
     }
-
 
     // 플레이어 상호작용 
     public override void PlayerInteraction() {
@@ -251,6 +249,7 @@ public class Player : PlayerController
 
             Vector3 targetPoint;
 
+            muzzleFlashEffect.Play();
             // 충돌 확인
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, enemyLayer)) {
                 Debug.Log("총 공격");
@@ -275,7 +274,6 @@ public class Player : PlayerController
         }
     }
 
-
     // 근거리 아이템 힐팩 
     void ItemHealpack()
     {
@@ -289,6 +287,31 @@ public class Player : PlayerController
     {
         if (PV.IsMine) {
             Debug.Log("투척 공격");
+            float throwForce = 10f;    // 던지는 힘
+
+            GameObject grenade = Pooling.instance.GetObject(1); // 총알이 들어가 있는 index로 변경 (0은 임시)
+            grenade.transform.position = grenadePos.position; // bullet 위치 초기화                   
+            grenade.transform.rotation = Quaternion.identity; // bullet 회전값 초기화 
+
+            Rigidbody grenadeRigid = grenade.GetComponent<Rigidbody>();
+
+            // 카메라의 중앙에서 나가는 레이 구하기
+            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+            RaycastHit hit;
+
+            Vector3 targetPoint;
+            if (Physics.Raycast(ray, out hit)) {
+                targetPoint = hit.point;  // 목표 지점이 충돌 지점
+            }
+            else {
+                targetPoint = ray.GetPoint(1000);  // 충돌이 없으면 먼 지점으로 설정
+            }
+
+            // 던질 방향 계산
+            Vector3 throwDirection = (targetPoint - grenade.transform.position).normalized;
+
+            // Rigidbody에 힘을 가함
+            grenadeRigid.AddForce(throwDirection * throwForce, ForceMode.VelocityChange);
         }
     }
 
@@ -339,44 +362,19 @@ public class Player : PlayerController
         throw new System.NotImplementedException();
     }
 
-    // 플레이어 사망
-    public override void PlayerDead() {
-        throw new System.NotImplementedException();
-    }
-
-    // 플레이어 동기화
-    public override void OnPhotonSerializeView( PhotonStream stream, PhotonMessageInfo info ) {
-        /*if (stream.IsWriting) {
-            // 데이터 전송 ( 동기화 ) 
-            stream.SendNext(rigid.position);    // 위치 
-            stream.SendNext(rigid.rotation);    // 회전
-            stream.SendNext(rigid.velocity);    // 속도 
-        }
-        else {
-            // 데이터 수신
-            rigid.position = (Vector3)stream.ReceiveNext();
-            rigid.rotation = (Quaternion)stream.ReceiveNext();
-            rigid.velocity = (Vector3)stream.ReceiveNext();
-        }*/
-    }
-
-
-
-    protected override void ChangeHp(float value)
-    {
+    // 체력 변화 
+    public override void ChangeHp( float value ) {
         hp += value;
-        if(value > 0)
-        {
+        if (value > 0) {
             StartCoroutine(ShowHealScreen());   //힐 화면 출력
         }
-        else if(value < 0)
-        {
+        else if (value < 0) {
             StartCoroutine(ShowBloodScreen());  //피격화면 출력 
         }
     }
 
-    protected override void PlayerFaint()       
-    {
+    // 플레이어 기절 
+    public override void PlayerFaint() {
         if (hp <= 0)                            //만약 플레이어 체력이 0보다 작아지면
         {
             hp = 0;                             //여기서 hp를 0 으로 강제로 해줘야 부활, ui에서 편할거같음
@@ -387,7 +385,8 @@ public class Player : PlayerController
         }
     }
 
-    public override void PlayerRevive()      //플레이어 부활 - 다른플레이어가 부활할때 얘의 player에 접근해서 호출 내부에선 안쓸꺼임 제세동기를만들지않는이상...
+    // 플레이어 부활
+    public override void PlayerRevive()            //플레이어 부활 - 다른플레이어가 부활할때 얘의 player에 접근해서 호출 내부에선 안쓸꺼임 제세동기를만들지않는이상...
     {                                        //PlayerFaint 함수와 반대로 하면 됨
         isFaint = false;                     //기절상태 false
         OnPlayerMove += PlayerMove;          //움직이는거 더하고
@@ -396,20 +395,27 @@ public class Player : PlayerController
         Hp = 50;                             //부활시 반피로 변경! maxHp = 100; 을 따로 선언해서 maxHp / 2해도 되는데 풀피는 100하겠지 뭐
     }
 
-    protected override IEnumerator ShowBloodScreen()                        //화면 붉게
+    // 플레이어 사망
+    public override void PlayerDead() {
+        throw new System.NotImplementedException();
+    }
+   
+    // 피격시 셰이더 변경 
+    IEnumerator ShowBloodScreen()                  //화면 붉게
     {
         bloodScreen.color = new Color(1, 0, 0, UnityEngine.Random.Range(0.1f, 0.15f));  //시뻘겋게 변경
-        yield return new WaitForSeconds(0.5f);                              //0.5f초 후에   - 이거 변수로 뺄까?
-        bloodScreen.color = Color.clear;                                    //화면 정상적으로 변경!
+        yield return new WaitForSeconds(0.5f);                                          //0.5f초 후에   - 이거 변수로 뺄까?
+        bloodScreen.color = Color.clear;                                                //화면 정상적으로 변경!
     }
-    protected override IEnumerator ShowHealScreen()                         //화면 연두색 
+    // 힐팩 아이템 사용시 셰이더 변경 
+    IEnumerator ShowHealScreen()                   //화면 연두색 
     {
         float curTime = Time.time;                                          //현재의 시간을 변수로 저장을하고
         healScreen.color = new Color(1, 1, 1, 1);                           //힐 하는 이미지로 변경
-        while(true)                                                         //반복문 1초후에 해제
+        while (true)                                                        //반복문 1초후에 해제
         {
             yield return new WaitForSeconds(0.1f);                          //0.1초마다           
-            float lerpColor = 1 - (Time.time - curTime);                    
+            float lerpColor = 1 - (Time.time - curTime);
             healScreen.color = new Color(1, 1, 1, lerpColor);               //대충 조금씩 없어진다고 생각하면됨(러프)
             if (lerpColor <= 0)                                             //1초후에
             {
@@ -419,27 +425,29 @@ public class Player : PlayerController
         }
     }
 
-    public override float Hp                         //hp 프로퍼티
-    {
-        get
-        {
-            return hp;                               //그냥 반환
+    // 플레이어 동기화
+    public override void OnPhotonSerializeView( PhotonStream stream, PhotonMessageInfo info ) {
+        if (stream.IsWriting) {
+            // 데이터 전송 ( 동기화 ) 
+            stream.SendNext(rigid.position);    // 위치 
+            stream.SendNext(rigid.rotation);    // 회전
+            stream.SendNext(rigid.velocity);    // 속도 
         }
-        set
-        {
-            ChangeHp(value);                         //hp를 value만큼 더함 즉 피해량을 양수로하면 힐이됨 음수로 해야함 여기서 화면 시뻘겋게 and 연두색도함
-            PlayerFaint();                           //만약 hp를 수정했을때 체력이 0보다 작으면 기절
-            Debug.Log("플레이어 hp 변경" + hp);
+        else {
+            // 데이터 수신
+            rigid.position = (Vector3)stream.ReceiveNext();
+            rigid.rotation = (Quaternion)stream.ReceiveNext();
+            rigid.velocity = (Vector3)stream.ReceiveNext();
         }
     }
 
-    
-    [ContextMenu("프로퍼티--")]                      //TEST용 추후삭제
+
+    [ContextMenu("프로퍼티--")]                     //TEST용 추후삭제
     void test()
     {
         Hp = -1;
     }
-    [ContextMenu("프로퍼티++")]                      //TEST용 추후삭제
+    [ContextMenu("프로퍼티++")]                     //TEST용 추후삭제
     void test2()
     {
         Hp = +1;
