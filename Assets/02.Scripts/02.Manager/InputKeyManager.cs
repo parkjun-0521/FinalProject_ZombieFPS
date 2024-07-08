@@ -15,7 +15,8 @@ public class InputKeyManager : MonoBehaviour {
         Down,
         Run,
         Jump,
-        Attack
+        Attack,
+        Interaction
     }
 
     // µñ¼Å³Ê¸®·Î Å° °ü¸® 
@@ -41,6 +42,7 @@ public class InputKeyManager : MonoBehaviour {
         keyMappings[KeyCodeTypes.Run] = KeyCode.LeftShift;
         keyMappings[KeyCodeTypes.Jump] = KeyCode.Space;
         keyMappings[KeyCodeTypes.Attack] = KeyCode.Mouse0;
+        keyMappings[KeyCodeTypes.Interaction] = KeyCode.E;
     }
 
     public KeyCode GetKeyCode( KeyCodeTypes action ) {

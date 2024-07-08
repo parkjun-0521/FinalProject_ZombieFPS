@@ -17,6 +17,7 @@ public class Player : PlayerController
 
     InputKeyManager keyManager;
 
+    
     void Awake() {
         // 레퍼런스 초기화 
         PV = GetComponent<PhotonView>();
@@ -48,14 +49,19 @@ public class Player : PlayerController
 
     void FixedUpdate() {
         // delegate 등록
-        if (PV.IsMine) {
+        if (PV.IsMine)
+        {
             bool isRun = Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Run));
             OnPlayerMove?.Invoke(isRun);
         }
     }
 
-    void OnTriggerEnter( Collider other ) {
-
+    void OnTriggerEnter( Collider other )                       //좀비 트리거콜라이더에 enter했을때
+    {
+        if(other.tag == "Enemy")                                //좀비로할지 enemy로할지 쨌든 태그 상의
+        {
+            //hp = -(other.GetComponent<Enemy>().attackdamage)  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
+        }
     }
 
     void OnCollisionEnter( Collision collision ) {
@@ -81,7 +87,34 @@ public class Player : PlayerController
 
     // 플레이어 상호작용 
     public override void PlayerInteraction() {
-        throw new System.NotImplementedException();
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+        if (Physics.Raycast(ray, out hit, interactionRange, LayerMask.NameToLayer("Player") | LayerMask.NameToLayer("Item")))   //레이어 이름, 거리에대해 상의
+        {
+            if(hit.collider.tag == "Item")//만약 아이템이면
+            {
+                //ex)text : 'E' 아이템줍기 ui띄워주기
+                if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
+                {
+                    //hit.collider.GetComponent<Item>.itemCode....
+                }
+            }
+            else if(hit.collider.tag == "Player")//만약 플레이어면
+            {
+                //ex)text : 'E' 플레이어 살리기 ui띄워주기
+                if (hit.collider.GetComponent<Player>().isFaint == true) //만약 태그가 player고 기절이 true면
+                {
+                    if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
+                    {
+                        //slider or shader로 (slider가 편할듯) 살려주기 바가 차오름
+                        //슬라이더 밸류가 1이 되는순간 순간 그녀석의 player에 접근해서 PlayerRevive()함수호출
+                    }
+                }
+            }
+        }
+        //아이템 사용은 인벤토리가 없어서 감이안옴 일단 내가 손에 들고있어야하고 손에 들고있는상태로 좌클릭시
+        //슬라이더로하든 이미지박고 시계 돌아가는거처럼 만들든해서 value가 1이되는순간 Hp(프로퍼티) = +30(회복아이템 회복계수)
+        //그리고 아이템 계수 차감
     }
 
     // 플레이어 공격 ( 근접인지 원거리인지 판단 bool ) 
@@ -116,5 +149,90 @@ public class Player : PlayerController
             rigid.rotation = (Quaternion)stream.ReceiveNext();
             rigid.velocity = (Vector3)stream.ReceiveNext();
         }
+    }
+
+
+
+    protected override void ChangeHp(float value)
+    {
+        hp += value;
+        if(value > 0)
+        {
+            StartCoroutine(ShowHealScreen());   //힐 화면 출력
+        }
+        else if(value < 0)
+        {
+            StartCoroutine(ShowBloodScreen());  //피격화면 출력 
+        }
+    }
+
+    protected override void PlayerFaint()       
+    {
+        if (hp <= 0)                            //만약 플레이어 체력이 0보다 작아지면
+        {
+            hp = 0;                             //여기서 hp를 0 으로 강제로 해줘야 부활, ui에서 편할거같음
+            isFaint = true;                     //기절상태 true
+            OnPlayerMove -= PlayerMove;         //움직이는거막고
+            OnPlayerAttack -= PlayerAttack;     //공격도 막겠다
+            //anim.setbool("isFaint", true);    //기절 애니메이션 출력 나중에 플레이어 완성되면 추가
+        }
+    }
+
+    public override void PlayerRevive()      //플레이어 부활 - 다른플레이어가 부활할때 얘의 player에 접근해서 호출 내부에선 안쓸꺼임 제세동기를만들지않는이상...
+    {                                        //PlayerFaint 함수와 반대로 하면 됨
+        isFaint = false;                     //기절상태 false
+        OnPlayerMove += PlayerMove;          //움직이는거 더하고
+        OnPlayerAttack += PlayerAttack;      //공격도 더함 
+        //anim.setbool("isFaint", false);    //기절 애니메이션 출력 나중에 플레이어 완성되면 추가
+        Hp = 50;                             //부활시 반피로 변경! maxHp = 100; 을 따로 선언해서 maxHp / 2해도 되는데 풀피는 100하겠지 뭐
+    }
+
+    protected override IEnumerator ShowBloodScreen()                        //화면 붉게
+    {
+        bloodScreen.color = new Color(1, 0, 0, Random.Range(0.1f, 0.15f));  //시뻘겋게 변경
+        yield return new WaitForSeconds(0.5f);                              //0.5f초 후에   - 이거 변수로 뺄까?
+        bloodScreen.color = Color.clear;                                    //화면 정상적으로 변경!
+    }
+    protected override IEnumerator ShowHealScreen()                         //화면 연두색 
+    {
+        float curTime = Time.time;                                          //현재의 시간을 변수로 저장을하고
+        healScreen.color = new Color(1, 1, 1, 1);                           //힐 하는 이미지로 변경
+        while(true)                                                         //반복문 1초후에 해제
+        {
+            yield return new WaitForSeconds(0.1f);                          //0.1초마다           
+            float lerpColor = 1 - (Time.time - curTime);                    
+            healScreen.color = new Color(1, 1, 1, lerpColor);               //대충 조금씩 없어진다고 생각하면됨(러프)
+            if (lerpColor <= 0)                                             //1초후에
+            {
+                healScreen.color = Color.clear;                             //컬러를 0000으로 해서 정상적으로 변경하고
+                break;                                                      //break로 반복문 탈출
+            }
+        }
+    }
+
+    public override float Hp                         //hp 프로퍼티
+    {
+        get
+        {
+            return hp;                               //그냥 반환
+        }
+        set
+        {
+            ChangeHp(value);                         //hp를 value만큼 더함 즉 피해량을 양수로하면 힐이됨 음수로 해야함 여기서 화면 시뻘겋게 and 연두색도함
+            PlayerFaint();                           //만약 hp를 수정했을때 체력이 0보다 작으면 기절
+            Debug.Log("플레이어 hp 변경" + hp);
+        }
+    }
+
+    
+    [ContextMenu("프로퍼티--")]                      //TEST용 추후삭제
+    void test()
+    {
+        Hp = -1;
+    }
+    [ContextMenu("프로퍼티++")]                      //TEST용 추후삭제
+    void test2()
+    {
+        Hp = +1;
     }
 }
