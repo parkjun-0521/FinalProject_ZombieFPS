@@ -12,11 +12,18 @@ public class NormalEnemy : EnemyController
     private NavMeshAgent nav;
     private Vector3 origin = new Vector3(0, 0, 0);
  
+
+
+
+
     //일정범위 지정 반지름단위
     public float rangeOut=10f;
     //리셋 속도 10고정
     public float resetSpeed=10f;
     InputKeyManager keyManager;
+    //추적거리
+    float maxDistance = 100f;
+    RaycastHit rayhit;
 
     bool isRangeOut = false;
     bool shouldEvaluate = true;
@@ -55,6 +62,24 @@ public class NormalEnemy : EnemyController
             }
             shouldEvaluate = true;
         }
+
+        //nav.SetDestination(target.position);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       
         
     }
@@ -91,6 +116,15 @@ public class NormalEnemy : EnemyController
 
     }
 
+    public override void EnemyRun()
+    {
+        throw new System.NotImplementedException();
+    }
+    public override void EnemyTracking()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public override void EnemyAttack()
     {
         throw new System.NotImplementedException();
@@ -102,15 +136,9 @@ public class NormalEnemy : EnemyController
     }
 
 
-    public override void EnemyRun()
-    {
-        throw new System.NotImplementedException();
-    }
+    
 
-    public override void EnemyTracking()
-    {
-        throw new System.NotImplementedException();
-    }
+    
 
     // Start is called before the first frame update
 
