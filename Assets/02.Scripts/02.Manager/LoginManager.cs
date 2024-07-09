@@ -12,7 +12,7 @@ public class LoginManager : MonoBehaviour
 
     void Start() {
         NetworkManager.Instance.NickNameInput = idInput;
-        NetworkManager.Instance.StatusText = StatusText;
+        NetworkManager.Instance.statusText = StatusText;
         loginButton.onClick.AddListener(OnLogin);
     }
 

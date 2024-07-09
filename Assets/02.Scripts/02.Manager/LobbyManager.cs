@@ -18,13 +18,13 @@ public class LobbyManager : MonoBehaviour
     public Button NextBtn;          // 이후 버튼
 
     void Start() {
-        NetworkManager.Instance.StatusText = statusText;
+        NetworkManager.Instance.statusText = statusText;
         NetworkManager.Instance.roomInput = roomInput;
         NetworkManager.Instance.NickNameInput = nicknameInput;
 
-        NetworkManager.Instance.CellBtn = CellBtn;
-        NetworkManager.Instance.PreviousBtn = PreviousBtn;
-        NetworkManager.Instance.NextBtn = NextBtn;
+        NetworkManager.Instance.cellBtn = CellBtn;
+        NetworkManager.Instance.previousBtn = PreviousBtn;
+        NetworkManager.Instance.nextBtn = NextBtn;
 
         createRoomButton.onClick.AddListener(() => NetworkManager.Instance.CreateRoom());
         exitButton.onClick.AddListener(() => NetworkManager.Instance.Disconnect());

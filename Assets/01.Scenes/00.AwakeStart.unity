@@ -132,6 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 111150978}
+  - component: {fileID: 111150979}
   - component: {fileID: 111150977}
   m_Layer: 0
   m_Name: NetworkManager
@@ -152,12 +153,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9f8655f61569cd4f8a9b86f3104608c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StatusText: {fileID: 0}
+  statusText: {fileID: 0}
+  PV: {fileID: 111150979}
   roomInput: {fileID: 0}
-  joinRoomInput: {fileID: 0}
   NickNameInput: {fileID: 0}
   playerName: 
-  minimumPlayers: 2
+  cellBtn: []
+  previousBtn: {fileID: 0}
+  nextBtn: {fileID: 0}
+  chatText: []
+  chatInput: {fileID: 0}
 --- !u!4 &111150978
 Transform:
   m_ObjectHideFlags: 0
@@ -173,6 +178,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &111150979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111150976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1893186998
 GameObject:
   m_ObjectHideFlags: 0

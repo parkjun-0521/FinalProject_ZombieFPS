@@ -11,15 +11,20 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
     // 싱글톤 구현 
     public static NetworkManager Instance;
 
-    public Text StatusText;
+    [Header("ETC")]
+    public Text statusText;
+    public PhotonView PV;
     public InputField roomInput ,NickNameInput;
     public string playerName;
 
-    public Button[] CellBtn;        // 방 버튼
-    public Button PreviousBtn;      // 이전 버튼 
-    public Button NextBtn;          // 이후 버튼
+    public Button[] cellBtn;        // 방 버튼
+    public Button previousBtn;      // 이전 버튼 
+    public Button nextBtn;          // 이후 버튼
     List<RoomInfo> myList = new List<RoomInfo>();
     int currentPage = 1, maxPage, multiple = 0;
+
+    public Text[] chatText;
+    public InputField chatInput;
 
     void Awake() {
         if (Instance == null) {
@@ -38,8 +43,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
     }
 
     void Update() {
-        if (StatusText != null) {
-            StatusText.text = PhotonNetwork.NetworkClientState.ToString();
+        if (statusText != null) {
+            statusText.text = PhotonNetwork.NetworkClientState.ToString();
         }
     }
 
@@ -129,7 +134,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
         }
     }
 
-    // 방 입장 
+    // 방 입장 ( 로비 리스트 구현 부분 ) 
     public void MyListClick( int num ) {
         if (num == -2) --currentPage;
         else if (num == -1) ++currentPage;
@@ -147,18 +152,18 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
     }
     void MyListRenewal() {
         // 최대페이지
-        maxPage = (myList.Count % CellBtn.Length == 0) ? myList.Count / CellBtn.Length : myList.Count / CellBtn.Length + 1;
+        maxPage = (myList.Count % cellBtn.Length == 0) ? myList.Count / cellBtn.Length : myList.Count / cellBtn.Length + 1;
 
         // 이전, 다음버튼
-        PreviousBtn.interactable = (currentPage <= 1) ? false : true;
-        NextBtn.interactable = (currentPage >= maxPage) ? false : true;
+        previousBtn.interactable = (currentPage <= 1) ? false : true;
+        nextBtn.interactable = (currentPage >= maxPage) ? false : true;
 
         // 페이지에 맞는 리스트 대입
-        multiple = (currentPage - 1) * CellBtn.Length;
-        for (int i = 0; i < CellBtn.Length; i++) {
-            CellBtn[i].interactable = (multiple + i < myList.Count) ? true : false;
-            CellBtn[i].transform.GetChild(0).GetComponent<Text>().text = (multiple + i < myList.Count) ? myList[multiple + i].Name : "";
-            CellBtn[i].transform.GetChild(1).GetComponent<Text>().text = (multiple + i < myList.Count) ? myList[multiple + i].PlayerCount + "/" + myList[multiple + i].MaxPlayers : "";
+        multiple = (currentPage - 1) * cellBtn.Length;
+        for (int i = 0; i < cellBtn.Length; i++) {
+            cellBtn[i].interactable = (multiple + i < myList.Count) ? true : false;
+            cellBtn[i].transform.GetChild(0).GetComponent<Text>().text = (multiple + i < myList.Count) ? myList[multiple + i].Name : "";
+            cellBtn[i].transform.GetChild(1).GetComponent<Text>().text = (multiple + i < myList.Count) ? myList[multiple + i].PlayerCount + "/" + myList[multiple + i].MaxPlayers : "";
         }
     }
     public override void OnRoomListUpdate( List<RoomInfo> roomList ) {
@@ -171,6 +176,29 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
             else if (myList.IndexOf(roomList[i]) != -1) myList.RemoveAt(myList.IndexOf(roomList[i]));
         }
         MyListRenewal();
+    }
+
+
+    // 채팅 구현 부분 
+    public void Send() {
+        PV.RPC("ChatRPC", RpcTarget.All, PhotonNetwork.NickName + " : " + chatInput.text);
+        chatInput.text = "";
+    }
+
+    [PunRPC] // RPC는 플레이어가 속해있는 방 모든 인원에게 전달한다
+    void ChatRPC( string msg ) {
+        bool isInput = false;
+        for (int i = 0; i < chatText.Length; i++)
+            if (chatText[i].text == "") {
+                isInput = true;
+                chatText[i].text = msg;
+                break;
+            }
+        if (!isInput) // 꽉차면 한칸씩 위로 올림
+        {
+            for (int i = 1; i < chatText.Length; i++) chatText[i - 1].text = chatText[i].text;
+            chatText[chatText.Length - 1].text = msg;
+        }
     }
 
     public void ChangeScene( string sceneName ) {
