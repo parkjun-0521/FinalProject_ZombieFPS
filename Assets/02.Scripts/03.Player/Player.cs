@@ -468,6 +468,20 @@ public class Player : PlayerController
         }
     }
 
+    IEnumerator HealItemUse()           //체력회복아이템 임시
+    {
+        int hpTime = 0;
+        while(!Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction))) //상호작용키(e)를 안누르면
+        {
+            yield return new WaitForSeconds(0.1f);
+            hpTime++;
+            if(hpTime > 80)
+            {
+                Hp = 40;
+                break;
+            }
+        }
+    }
     
     [ContextMenu("프로퍼티--")]                      //TEST용 추후삭제
     void test()
