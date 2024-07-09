@@ -30,6 +30,16 @@ public class Player : PlayerController
         PV = GetComponent<PhotonView>();
         if (PV.IsMine) {
             rigid = GetComponent<Rigidbody>();
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                Transform child = transform.GetChild(i);
+                Animator myComponent = child.GetComponent<Animator>();
+                if (myComponent != null)
+                {
+                    animator = myComponent;
+                    break;
+                }
+            }
 
             Cursor.visible = false;                         // 마우스 커서 비활성화
             Cursor.lockState = CursorLockMode.Locked;       // 마우스 커서 현재 위치 고정 
@@ -72,14 +82,19 @@ public class Player : PlayerController
             if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Attack))) {
                 // 총,칼 0.1초, 수류탄,힐팩 1초 딜레이
                 attackMaxDelay = stanceWeaponType ? 1.0f : 0.1f;
+                animator.SetBool("isRifleMoveShot", true);  //총쏘는 애니메이션
                 // 일정 딜레이가 될 때 마다 총알을 발사
                 if (Time.time - lastAttackTime >= attackMaxDelay) {
                     OnPlayerAttack?.Invoke(isAtkDistance);
-                    lastAttackTime = Time.time;         // 딜레이 초기화
+                    lastAttackTime = Time.time;                 // 딜레이 초기화
                 }
             }
             else if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Jump)) && isJump) {
                 OnPlayerJump?.Invoke();
+            }
+            if (Input.GetKeyUp(keyManager.GetKeyCode(KeyCodeTypes.Attack)))
+            {
+                animator.SetBool("isRifleMoveShot", false);
             }
 
             if (Input.GetKeyDown(KeyCode.LeftAlt) || Input.GetKeyDown(KeyCode.RightAlt)) {
@@ -108,7 +123,7 @@ public class Player : PlayerController
         {
             bool isRun = Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Run));
             OnPlayerMove?.Invoke(isRun);
-            OnPlayerRotation?.Invoke();
+            OnPlayerRotation?.Invoke(); 
         }
     }
 
@@ -290,6 +305,7 @@ public class Player : PlayerController
     {
         if (PV.IsMine) {
             Debug.Log("투척 공격");
+            animator.SetTrigger("isGranadeThrow");
         }
     }
 
@@ -304,6 +320,7 @@ public class Player : PlayerController
                 isAtkDistance = stanceWeaponType = false;
                 Debug.Log("원거리");
                 weaponSelected = true;
+                animator.SetTrigger("isDrawRifle");
             }
             else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Weapon2))) {   // 근접 무기
                 weaponIndex = 1;
@@ -311,6 +328,7 @@ public class Player : PlayerController
                 stanceWeaponType = false;
                 Debug.Log("근거리");
                 weaponSelected = true;
+                animator.SetTrigger("isDrawMelee");
             }
             else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Weapon3))) {   // 투척 무기
                 weaponIndex = 2;
@@ -318,6 +336,7 @@ public class Player : PlayerController
                 stanceWeaponType = true;
                 Debug.Log("투척");
                 weaponSelected = true;
+                
             }
             else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Weapon4))) {   // 힐팩
                 weaponIndex = 3;
@@ -341,8 +360,19 @@ public class Player : PlayerController
     }
 
     // 플레이어 사망
-    public override void PlayerDead() {
-        throw new System.NotImplementedException();
+    public override void PlayerDead()
+    {
+        if (hp <= 0 && isFaint)                            //만약 플레이어 체력이 0보다 작고 기절상태
+        {
+            hp = 0;                                 //여기서 hp를 0   //anim.setbool("isFaint", true);    //기절 애니메이션 출력 나중에 플레이어 완성되면 추가
+            OnPlayerMove -= PlayerMove;             // 플레이어 이동 
+            OnPlayerRotation -= PlayerRotation;     // 플레이어  회전
+            OnPlayerJump -= PlayerJump;             // 플레이어 점프 
+            OnPlayerAttack -= PlayerAttack;         // 플레이어 공격
+            OnPlayerSwap -= WeaponSwap;             // 무기 교체
+            animator.SetTrigger("isDead");          //죽었을때 애니메이션 출력
+
+        }
     }
 
     // 플레이어 동기화
@@ -384,16 +414,19 @@ public class Player : PlayerController
             isFaint = true;                     //기절상태 true
             OnPlayerMove -= PlayerMove;         //움직이는거막고
             OnPlayerAttack -= PlayerAttack;     //공격도 막겠다
-            //anim.setbool("isFaint", true);    //기절 애니메이션 출력 나중에 플레이어 완성되면 추가
+            animator.SetTrigger("isFaint");     //기절 애니메이션 출력 
         }
     }
+
+   
+
 
     public override void PlayerRevive()      //플레이어 부활 - 다른플레이어가 부활할때 얘의 player에 접근해서 호출 내부에선 안쓸꺼임 제세동기를만들지않는이상...
     {                                        //PlayerFaint 함수와 반대로 하면 됨
         isFaint = false;                     //기절상태 false
         OnPlayerMove += PlayerMove;          //움직이는거 더하고
         OnPlayerAttack += PlayerAttack;      //공격도 더함 
-        //anim.setbool("isFaint", false);    //기절 애니메이션 출력 나중에 플레이어 완성되면 추가
+        animator.SetTrigger("isRevive");    //기절 애니메이션 출력 나중에 플레이어 완성되면 추가
         Hp = 50;                             //부활시 반피로 변경! maxHp = 100; 을 따로 선언해서 maxHp / 2해도 되는데 풀피는 100하겠지 뭐
     }
 
@@ -430,6 +463,7 @@ public class Player : PlayerController
         {
             ChangeHp(value);                         //hp를 value만큼 더함 즉 피해량을 양수로하면 힐이됨 음수로 해야함 여기서 화면 시뻘겋게 and 연두색도함
             PlayerFaint();                           //만약 hp를 수정했을때 체력이 0보다 작으면 기절
+            PlayerDead();                            //만약 기절상태고 hp가 0보다 작으면 사망
             Debug.Log("플레이어 hp 변경" + hp);
         }
     }

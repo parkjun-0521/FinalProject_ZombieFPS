@@ -427,6 +427,7 @@ MonoBehaviour:
     m_Bits: 1
   PV: {fileID: 0}
   rigid: {fileID: 0}
+  animator: {fileID: 0}
   playerCamera: {fileID: 3889226454062301499}
 --- !u!114 &1555921595
 MonoBehaviour:
@@ -1184,6 +1185,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: c99537a5ec6872e42af9706f9a279e74, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: c99537a5ec6872e42af9706f9a279e74, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d1d2be1c3d1bf094c8e51e5b9ad18249, type: 2}
     - target: {fileID: 13700000, guid: c99537a5ec6872e42af9706f9a279e74, type: 3}
       propertyPath: m_CastShadows
       value: 0
