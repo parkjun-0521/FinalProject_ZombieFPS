@@ -5,14 +5,21 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Unity.VisualScripting;
 
 public class NetworkManager : MonoBehaviourPunCallbacks {
     // 싱글톤 구현 
     public static NetworkManager Instance;
 
     public Text StatusText;
-    public InputField roomInput, joinRoomInput ,NickNameInput;
+    public InputField roomInput ,NickNameInput;
     public string playerName;
+
+    public Button[] CellBtn;        // 방 버튼
+    public Button PreviousBtn;      // 이전 버튼 
+    public Button NextBtn;          // 이후 버튼
+    List<RoomInfo> myList = new List<RoomInfo>();
+    int currentPage = 1, maxPage, multiple = 0;
 
     void Awake() {
         if (Instance == null) {
@@ -61,13 +68,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
     public override void OnJoinedLobby() {
         Debug.Log("로비접속 완료");
         ChangeScene("02.LobbyScene");
+        myList.Clear();
     }
 
     // 방 만들기 ( MaxPlayers = 최대인원 수 ) 
-    public void CreateRoom() => PhotonNetwork.CreateRoom(roomInput.text, new RoomOptions { MaxPlayers = 4 });
-
-    // 방 입장 ( 방 번호에 맞는 방을 입장할 수 있음 ) 
-    public void JoinRoom() => PhotonNetwork.JoinRoom(joinRoomInput.text);
+    public void CreateRoom() => PhotonNetwork.CreateRoom(roomInput.text == "" ? "Room" + Random.Range(0, 100) : roomInput.text, new RoomOptions { MaxPlayers = 4 });
 
     // 방을 만들면서 입장
     // CreateRoom : CreateRoom은 매번 새로운 방을 만듦. 방이 이미 존재하는 경우에 방만들기 실패 
@@ -90,15 +95,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
     // 방에 입장했을 때 동작하는 부분 
     public override void OnJoinedRoom() {
         Debug.Log("방참가완료");
-        //SceneManager.sceneLoaded += OnSceneLoaded;
-        ChangeScene("03.MainGameScene"); // 게임 씬으로 변경
-
-    }
-    private void OnSceneLoaded( Scene scene, LoadSceneMode mode ) {
-        if (scene.name == "03.MainGameScene") {
-            PhotonNetwork.Instantiate("PlayerPrefab", Vector3.zero, Quaternion.identity);
-            SceneManager.sceneLoaded -= OnSceneLoaded;
-        }
+        PhotonNetwork.LoadLevel("03.MainGameScene");
     }
 
     public override void OnLeftRoom() {
@@ -130,6 +127,50 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
             print("로비에 있는지? : " + PhotonNetwork.InLobby);
             print("연결됐는지? : " + PhotonNetwork.IsConnected);
         }
+    }
+
+    // 방 입장 
+    public void MyListClick( int num ) {
+        if (num == -2) --currentPage;
+        else if (num == -1) ++currentPage;
+        else {
+            int index = multiple + num;
+            if (index >= 0 && index < myList.Count) {
+                PhotonNetwork.JoinRoom(myList[index].Name);
+            }
+            else {
+                Debug.LogWarning("Invalid room index: " + index);
+                Debug.LogWarning("Invalid room index: " + num);
+            }
+        }
+        MyListRenewal();
+    }
+    void MyListRenewal() {
+        // 최대페이지
+        maxPage = (myList.Count % CellBtn.Length == 0) ? myList.Count / CellBtn.Length : myList.Count / CellBtn.Length + 1;
+
+        // 이전, 다음버튼
+        PreviousBtn.interactable = (currentPage <= 1) ? false : true;
+        NextBtn.interactable = (currentPage >= maxPage) ? false : true;
+
+        // 페이지에 맞는 리스트 대입
+        multiple = (currentPage - 1) * CellBtn.Length;
+        for (int i = 0; i < CellBtn.Length; i++) {
+            CellBtn[i].interactable = (multiple + i < myList.Count) ? true : false;
+            CellBtn[i].transform.GetChild(0).GetComponent<Text>().text = (multiple + i < myList.Count) ? myList[multiple + i].Name : "";
+            CellBtn[i].transform.GetChild(1).GetComponent<Text>().text = (multiple + i < myList.Count) ? myList[multiple + i].PlayerCount + "/" + myList[multiple + i].MaxPlayers : "";
+        }
+    }
+    public override void OnRoomListUpdate( List<RoomInfo> roomList ) {
+        int roomCount = roomList.Count;
+        for (int i = 0; i < roomCount; i++) {
+            if (!roomList[i].RemovedFromList) {
+                if (!myList.Contains(roomList[i])) myList.Add(roomList[i]);
+                else myList[myList.IndexOf(roomList[i])] = roomList[i];
+            }
+            else if (myList.IndexOf(roomList[i]) != -1) myList.RemoveAt(myList.IndexOf(roomList[i]));
+        }
+        MyListRenewal();
     }
 
     public void ChangeScene( string sceneName ) {

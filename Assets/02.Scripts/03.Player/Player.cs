@@ -6,6 +6,7 @@ using System.IO;
 using System.Threading;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using static InputKeyManager;
 
 public class Player : PlayerController 
@@ -69,7 +70,7 @@ public class Player : PlayerController
         // 단발적인 행동 
         if (PV.IsMine) {
             OnPlayerSwap?.Invoke();
-            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Attack))) {
+            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Attack)) && !EventSystem.current.IsPointerOverGameObject()) {
                 // 총,칼 0.1초, 수류탄,힐팩 1초 딜레이
                 attackMaxDelay = stanceWeaponType ? 1.0f : 0.1f;
                 // 일정 딜레이가 될 때 마다 총알을 발사
@@ -78,21 +79,14 @@ public class Player : PlayerController
                     lastAttackTime = Time.time;         // 딜레이 초기화
                 }
             }
-            else if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Jump)) && isJump) {
+            
+            if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Jump)) && isJump) {
                 OnPlayerJump?.Invoke();
             }
-
-            if (Input.GetKeyDown(KeyCode.LeftAlt) || Input.GetKeyDown(KeyCode.RightAlt)) {
+          
+            // 마우스 커서 생성 
+            if (Input.GetKeyDown(KeyCode.LeftAlt)) {
                 ToggleCursor();
-            }
-
-            if (cursorLocked) {
-                bool isRun = Input.GetKey(KeyCode.LeftShift);
-                OnPlayerMove?.Invoke(isRun);
-
-                float z = Input.GetAxis("Vertical") * Time.deltaTime * 5.0f;
-                float x = Input.GetAxis("Horizontal") * Time.deltaTime * 5.0f;
-                transform.Translate(x, 0, z);
             }
         }
     }
@@ -104,17 +98,18 @@ public class Player : PlayerController
 
     void FixedUpdate() {
         // delegate 등록
-        if (PV.IsMine)
-        {
-            bool isRun = Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Run));
-            OnPlayerMove?.Invoke(isRun);
-            OnPlayerRotation?.Invoke();
+        if (PV.IsMine) {
+            if (cursorLocked) {
+                bool isRun = Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Run));
+                OnPlayerMove?.Invoke(isRun);
+                OnPlayerRotation?.Invoke();
+            }
         }
     }
 
     void OnTriggerEnter( Collider other )                       //좀비 트리거콜라이더에 enter했을때
     {
-        if (other.CompareTag("Enemy"))                                //좀비로할지 enemy로할지 쨌든 태그 상의
+        if (other.CompareTag("Enemy"))                          //좀비로할지 enemy로할지 쨌든 태그 상의
         {
             //hp = -(other.GetComponent<Enemy>().attackdamage)  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
         }
@@ -245,7 +240,7 @@ public class Player : PlayerController
             // 카메라 중앙에서 Ray 생성 
             Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
             // Ray 테스트 
-            Debug.DrawLine(ray.origin, ray.origin + ray.direction * 1000, Color.red);                       // 나중에 지우기
+            Debug.DrawLine(ray.origin, ray.origin + ray.direction * 1000, Color.red); // 나중에 지우기
 
             Vector3 targetPoint;
 
@@ -262,15 +257,17 @@ public class Player : PlayerController
 
             // 총알 생성 (오브젝트 풀링 사용)
             GameObject bullet = Pooling.instance.GetObject(0); // 총알이 들어가 있는 index로 변경 (0은 임시)
-            bullet.transform.position = bulletPos.position; // bullet 위치 초기화                   
-            bullet.transform.rotation = Quaternion.identity; // bullet 회전값 초기화 
+            bullet.transform.position = bulletPos.position; // bullet 위치 초기화
+            bullet.transform.rotation = Quaternion.identity; // bullet 회전값 초기화
 
             // 총알의 방향 설정
             Vector3 direction = (targetPoint - bulletPos.position).normalized;
 
-            // 총알에 힘을 가하여 발사
+
+            // 총알의 초기 속도를 플레이어의 이동 속도로 설정하고 발사 방향 설정
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
-            rb.AddForce(direction * 300f, ForceMode.Impulse);
+            rb.AddForce(direction * 300f, ForceMode.VelocityChange); // 발사 방향과 속도를 함께 적용
+
         }
     }
 
@@ -287,13 +284,14 @@ public class Player : PlayerController
     {
         if (PV.IsMine) {
             Debug.Log("투척 공격");
-            float throwForce = 10f;    // 던지는 힘
+            float throwForce = 15f;    // 던지는 힘
+
 
             GameObject grenade = Pooling.instance.GetObject(1); // 총알이 들어가 있는 index로 변경 (0은 임시)
+            Rigidbody grenadeRigid = grenade.GetComponent<Rigidbody>();
+            grenadeRigid.velocity = Vector3.zero;
             grenade.transform.position = grenadePos.position; // bullet 위치 초기화                   
             grenade.transform.rotation = Quaternion.identity; // bullet 회전값 초기화 
-
-            Rigidbody grenadeRigid = grenade.GetComponent<Rigidbody>();
 
             // 카메라의 중앙에서 나가는 레이 구하기
             Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
@@ -306,7 +304,6 @@ public class Player : PlayerController
             else {
                 targetPoint = ray.GetPoint(1000);  // 충돌이 없으면 먼 지점으로 설정
             }
-
             // 던질 방향 계산
             Vector3 throwDirection = (targetPoint - grenade.transform.position).normalized;
 
@@ -427,7 +424,7 @@ public class Player : PlayerController
 
     // 플레이어 동기화
     public override void OnPhotonSerializeView( PhotonStream stream, PhotonMessageInfo info ) {
-        if (stream.IsWriting) {
+        /*if (stream.IsWriting) {
             // 데이터 전송 ( 동기화 ) 
             stream.SendNext(rigid.position);    // 위치 
             stream.SendNext(rigid.rotation);    // 회전
@@ -438,7 +435,7 @@ public class Player : PlayerController
             rigid.position = (Vector3)stream.ReceiveNext();
             rigid.rotation = (Quaternion)stream.ReceiveNext();
             rigid.velocity = (Vector3)stream.ReceiveNext();
-        }
+        }*/
     }
 
 
