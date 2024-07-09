@@ -8,7 +8,7 @@ interface IEnemy {
     void EnemyRun();        // 좀비 달리기 
     void EnemyAttack();     // 좀비 공격
     void EnemyDaed();       // 좀비 사망 
-    void EnemyTracking();   // 좀비 추적
+    void EnemyTracking(Vector3 _targetPos);   // 좀비 추적
  
 
 }
@@ -37,7 +37,7 @@ public abstract class EnemyController : MonoBehaviourPun, IEnemy {
     public abstract void EnemyMove();
     public abstract void EnemyAttack();
     public abstract void EnemyRun();
-    public abstract void EnemyTracking();
+    public abstract void EnemyTracking(Vector3 _targetPos);
     
 
 }
