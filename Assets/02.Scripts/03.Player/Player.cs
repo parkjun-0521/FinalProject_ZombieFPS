@@ -162,7 +162,11 @@ public class Player : PlayerController
 
             // 걷기, 달리기 속도 조절
             float playerSpeed = type ? runSpeed : speed;
+            //애니메이션
+            animator.SetFloat("speedBlend", type ? 1.0f : 0.5f);
+            
 
+            
             // 좌우 이동
             if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.LeftMove)))
                 x = -1f;
@@ -337,13 +341,14 @@ public class Player : PlayerController
                 stanceWeaponType = true;
                 Debug.Log("투척");
                 weaponSelected = true;
-                
+                animator.SetTrigger("isDrawGranade");
             }
             else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Weapon4))) {   // 힐팩
                 weaponIndex = 3;
                 isAtkDistance = stanceWeaponType = true;
                 Debug.Log("힐");
                 weaponSelected = true;
+                animator.SetTrigger("isDrawHeal");
             }
 
             if (!weaponSelected) return;
@@ -472,6 +477,7 @@ public class Player : PlayerController
     IEnumerator HealItemUse()                                                     //체력회복아이템사용 임시
     {
         int hpTime = 0;
+        animator.SetTrigger("isHealUse");
         while(!Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction))) //상호작용키(e)를 누르면 취소
         {
             yield return new WaitForSeconds(0.1f);
