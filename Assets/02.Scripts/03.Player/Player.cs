@@ -297,6 +297,7 @@ public class Player : PlayerController
         if (PV.IsMine) {
             Debug.Log("힐팩");
             //힐 하는시간 변수로 빼고 대충 중앙에 ui띄우고 힐 하는시간 지나면 Hp = (+30) 코루틴사용이 좋겠지 중간에 키입력시 return 애니메이션추가;
+            
         }
     }
 
@@ -393,7 +394,7 @@ public class Player : PlayerController
 
 
 
-    protected override void ChangeHp(float value)
+    protected override void ChangeHp(float value)//플레이어 hp 변경 프로퍼티 내부에서 실행
     {
         hp += value;
         if(value > 0)
@@ -406,7 +407,7 @@ public class Player : PlayerController
         }
     }
 
-    protected override void PlayerFaint()       
+    protected override void PlayerFaint()       //플레이어 기절 함수
     {
         if (hp <= 0)                            //만약 플레이어 체력이 0보다 작아지면
         {
@@ -468,13 +469,14 @@ public class Player : PlayerController
         }
     }
 
-    IEnumerator HealItemUse()           //체력회복아이템 임시
+    IEnumerator HealItemUse()                                                     //체력회복아이템사용 임시
     {
         int hpTime = 0;
-        while(!Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction))) //상호작용키(e)를 안누르면
+        while(!Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction))) //상호작용키(e)를 누르면 취소
         {
             yield return new WaitForSeconds(0.1f);
             hpTime++;
+            //ui출력추가
             if(hpTime > 80)
             {
                 Hp = 40;
