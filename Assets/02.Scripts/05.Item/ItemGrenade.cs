@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class ItemGrenade : ItemController {
+public class ItemGrenade : MonoBehaviour {
+    [HideInInspector]
+    public Rigidbody rigid;
+    [HideInInspector]
+    public new Collider collider;       // 각 아이템의 콜라이더 
+
     public float second;
     public GameObject Explosionrange;       // 폭발 범위
     public ParticleSystem explosionEffect;
@@ -11,11 +16,6 @@ public class ItemGrenade : ItemController {
     void Awake() {
         collider = GetComponent<SphereCollider>();
         rigid = GetComponent<Rigidbody>();
-    }
-
-    void Start() {
-        itemID = 3;         // 아이템 ID
-        damege = 0.2f;      // 퍼센트 데미지
     }
 
     void OnEnable() {

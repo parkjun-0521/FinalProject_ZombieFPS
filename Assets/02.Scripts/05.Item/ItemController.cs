@@ -1,22 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class ItemController : MonoBehaviour
-{
+
+[CreateAssetMenu(fileName = "New Item", menuName = "New Item/item")]
+public class ItemController : ScriptableObject {
     public enum ItemType {
-        Gun,
-        Sword,
-        Healpack,
-        Grenade
+        Gun,                            // 총
+        Sword,                          // 칼
+        Healpack,                       // 힐팩 
+        Grenade,                        // 수류탄
+        FireGrenade,                    // 화염병 
+        SupportFireGrenade,             // 지원사격 수류탄
+        Magazine                        // 탄창 
     }
-
     public ItemType type;
-    public int itemID;                  // 아이템 ID
-    public float damege;                // 아이템 데미지 ( 수류탄 : 데미지, 힐팩 : 힐량 ) 
 
-    [HideInInspector]
-    public Rigidbody rigid;
-    [HideInInspector]
-    public new Collider collider;       // 각 아이템의 콜라이더 
+    public Sprite itemImage;            // 아이템 이미지
+    public string itemName;             // 아이템 이름
+    public float damege;                // 아이템 데미지 ( 수류탄 : 데미지, 힐팩 : 힐량 ) 
 }

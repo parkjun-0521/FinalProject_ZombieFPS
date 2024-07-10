@@ -91,7 +91,11 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
 
     [Header("컴포넌트=======")]
     public PhotonView PV;               // 포톤 ( 동기화 관련 및 서버 관련 ) 
-    public Rigidbody rigid;             
+    public Rigidbody rigid;
+
+    [Header("인벤토리=======")]
+    public GameObject inventory;        // 인벤토리 UI
+    public Inventory theInventory;
 
     public abstract void PlayerMove(bool type);
     public abstract void PlayerJump();

@@ -17,14 +17,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
     public InputField roomInput ,NickNameInput;
     public string playerName;
 
-    public Button[] cellBtn;        // 방 버튼
-    public Button previousBtn;      // 이전 버튼 
-    public Button nextBtn;          // 이후 버튼
-    List<RoomInfo> myList = new List<RoomInfo>();
-    int currentPage = 1, maxPage, multiple = 0;
+    bool playerCreated = false;
 
-    public Text[] chatText;
-    public InputField chatInput;
+    public Button[] cellBtn;                        // 방 버튼
+    public Button previousBtn;                      // 이전 버튼 
+    public Button nextBtn;                          // 다음 버튼
+    List<RoomInfo> myList = new List<RoomInfo>();   // 방 리스트 
+    int currentPage = 1, maxPage, multiple = 0;     // 페이지, 한페이지의 방 번호
+
+    public Text[] chatText;                         // 채팅 배열 
+    public InputField chatInput;                    // 채팅 입력 input
 
     void Awake() {
         if (Instance == null) {
@@ -40,6 +42,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
 
     void Start() {
         PhotonNetwork.AutomaticallySyncScene = true;
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void Update() {
@@ -113,6 +116,27 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
     public override void OnJoinRoomFailed( short returnCode, string message ) => print("방참가실패");
     public override void OnJoinRandomFailed( short returnCode, string message ) => print("방랜덤참가실패");
 
+    private void OnSceneLoaded( Scene scene, LoadSceneMode mode ) {
+        // 씬 로드 후 플레이어 생성
+        if (PhotonNetwork.InRoom) {
+            CreatePlayer();
+        }
+    }
+    public void CreatePlayer() {
+        if (!playerCreated) {
+            GameObject player = PhotonNetwork.Instantiate("PlayerPrefab", GetRandomSpawnPosition(), Quaternion.identity);
+            if (player != null) {
+                playerCreated = true;
+            }
+        }
+    }
+    private Vector3 GetRandomSpawnPosition() {
+        // 임의의 스폰 위치를 반환 (예시로 10x10 범위 내에서 무작위 위치를 선택)
+        float x = Random.Range(-5f, 5f);
+        float y = 0f; // 평면 상에 위치시키기 위해 y 좌표는 0으로 설정
+        float z = Random.Range(-5f, 5f);
+        return new Vector3(x, y, z);
+    }
 
     [ContextMenu("정보")]
     void Info() {
@@ -136,17 +160,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
 
     // 방 입장 ( 로비 리스트 구현 부분 ) 
     public void MyListClick( int num ) {
-        if (num == -2) --currentPage;
-        else if (num == -1) ++currentPage;
+        if (num == -2) --currentPage;                   // 이전 버튼을 눌렀을 때 
+        else if (num == -1) ++currentPage;              // 다음 버튼을 눌렀을 때
         else {
             int index = multiple + num;
-            if (index >= 0 && index < myList.Count) {
-                PhotonNetwork.JoinRoom(myList[index].Name);
-            }
-            else {
-                Debug.LogWarning("Invalid room index: " + index);
-                Debug.LogWarning("Invalid room index: " + num);
-            }
+            PhotonNetwork.JoinRoom(myList[index].Name); // 방 리스트 클릭시 입장 
         }
         MyListRenewal();
     }
@@ -181,22 +199,27 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
 
     // 채팅 구현 부분 
     public void Send() {
+        // RPC 동기화 
         PV.RPC("ChatRPC", RpcTarget.All, PhotonNetwork.NickName + " : " + chatInput.text);
+        // 채팅을 친 후 input창 초기화 
         chatInput.text = "";
     }
 
     [PunRPC] // RPC는 플레이어가 속해있는 방 모든 인원에게 전달한다
     void ChatRPC( string msg ) {
         bool isInput = false;
-        for (int i = 0; i < chatText.Length; i++)
+        for (int i = 0; i < chatText.Length; i++) {
             if (chatText[i].text == "") {
                 isInput = true;
                 chatText[i].text = msg;
                 break;
             }
+        }
+
         if (!isInput) // 꽉차면 한칸씩 위로 올림
         {
-            for (int i = 1; i < chatText.Length; i++) chatText[i - 1].text = chatText[i].text;
+            for (int i = 1; i < chatText.Length; i++) 
+                chatText[i - 1].text = chatText[i].text;
             chatText[chatText.Length - 1].text = msg;
         }
     }
