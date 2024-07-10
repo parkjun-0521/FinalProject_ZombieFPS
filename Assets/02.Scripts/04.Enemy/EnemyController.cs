@@ -2,13 +2,14 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 interface IEnemy {
     void EnemyMove();       // 좀비 이동 
     void EnemyRun();        // 좀비 달리기 
     void EnemyAttack();     // 좀비 공격
     void EnemyDaed();       // 좀비 사망 
-    void EnemyTracking(Vector3 _targetPos);   // 좀비 추적
+    void EnemyTracking();   // 좀비 추적
  
 
 }
@@ -24,6 +25,15 @@ public abstract class EnemyController : MonoBehaviourPun, IEnemy {
     [SerializeField]
     protected float runSpeed;
 
+
+    protected PhotonView PV;
+    protected Rigidbody rigid;
+    protected NavMeshAgent nav;
+    protected Vector3 origin = new Vector3(0, 0, 0);
+    protected Animator ani;
+
+
+
     // 좀비 체력 
     private float hp;
     public float EnemyHp { get { return hp; } set { hp = value; } }
@@ -37,7 +47,7 @@ public abstract class EnemyController : MonoBehaviourPun, IEnemy {
     public abstract void EnemyMove();
     public abstract void EnemyAttack();
     public abstract void EnemyRun();
-    public abstract void EnemyTracking(Vector3 _targetPos);
+    public abstract void EnemyTracking();
     
 
 }
