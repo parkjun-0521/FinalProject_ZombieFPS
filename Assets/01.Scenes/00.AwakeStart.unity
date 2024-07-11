@@ -132,6 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 111150978}
+  - component: {fileID: 111150979}
   - component: {fileID: 111150977}
   m_Layer: 0
   m_Name: NetworkManager
@@ -152,11 +153,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9f8655f61569cd4f8a9b86f3104608c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StatusText: {fileID: 0}
+  statusText: {fileID: 0}
+  PV: {fileID: 111150979}
   roomInput: {fileID: 0}
-  joinRoomInput: {fileID: 0}
   NickNameInput: {fileID: 0}
   playerName: 
+  cellBtn: []
+  previousBtn: {fileID: 0}
+  nextBtn: {fileID: 0}
+  chatText: []
+  chatInput: {fileID: 0}
 --- !u!4 &111150978
 Transform:
   m_ObjectHideFlags: 0
@@ -172,52 +178,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1095701045
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1095701046}
-  - component: {fileID: 1095701047}
-  m_Layer: 0
-  m_Name: PoolingManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1095701046
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1095701045}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1095701047
+--- !u!114 &111150979
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1095701045}
+  m_GameObject: {fileID: 111150976}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bb4b0ee8cd7ee74596c8a5028700428, type: 3}
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabs:
-  - {fileID: 6074835666653049350, guid: 4b626d1816acb014998d521f7d6f45e7, type: 3}
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1893186998
 GameObject:
   m_ObjectHideFlags: 0
