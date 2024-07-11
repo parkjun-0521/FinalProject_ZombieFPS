@@ -163,21 +163,34 @@ public class Player : PlayerController
             // 걷기, 달리기 속도 조절
             float playerSpeed = type ? runSpeed : speed;
             //애니메이션
-            animator.SetFloat("speedBlend", type ? 1.0f : 0.5f);
-            
+            animator.SetFloat("speedBlend", 0);
 
-            
+
             // 좌우 이동
             if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.LeftMove)))
+            {
+                animator.SetFloat("speedBlend", type ? 1.0f : 0.5f);
                 x = -1f;
+            }
+               
             else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.RightMove)))
+            {
+                animator.SetFloat("speedBlend", type ? 1.0f : 0.5f);
                 x = 1f;
+            }
 
             // 상하 이동         
             if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.DownMove)))
+            {
+                animator.SetFloat("speedBlend", type ? 1.0f : 0.5f);
                 z = -1f;
+            }
             else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.UpMove)))
+            {
+                animator.SetFloat("speedBlend", type ? 1.0f : 0.5f);
                 z = 1f;
+            }
+
 
             Vector3 moveDirection = (transform.forward * z + transform.right * x).normalized;
             rigid.MovePosition(transform.position + moveDirection * playerSpeed * Time.deltaTime);
@@ -326,6 +339,7 @@ public class Player : PlayerController
                 Debug.Log("원거리");
                 weaponSelected = true;
                 animator.SetTrigger("isDrawRifle");
+                StartCoroutine(AnimReset());
             }
             else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Weapon2))) {   // 근접 무기
                 weaponIndex = 1;
@@ -334,6 +348,7 @@ public class Player : PlayerController
                 Debug.Log("근거리");
                 weaponSelected = true;
                 animator.SetTrigger("isDrawMelee");
+                StartCoroutine(AnimReset());
             }
             else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Weapon3))) {   // 투척 무기
                 weaponIndex = 2;
@@ -342,6 +357,7 @@ public class Player : PlayerController
                 Debug.Log("투척");
                 weaponSelected = true;
                 animator.SetTrigger("isDrawGranade");
+                StartCoroutine(AnimReset());
             }
             else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Weapon4))) {   // 힐팩
                 weaponIndex = 3;
@@ -349,6 +365,7 @@ public class Player : PlayerController
                 Debug.Log("힐");
                 weaponSelected = true;
                 animator.SetTrigger("isDrawHeal");
+                StartCoroutine(AnimReset());
             }
 
             if (!weaponSelected) return;
@@ -489,6 +506,15 @@ public class Player : PlayerController
                 break;
             }
         }
+    }
+
+    IEnumerator AnimReset()
+    {
+        yield return new WaitForSeconds(0.3f);
+        animator.ResetTrigger("isDrawGranade");
+        animator.ResetTrigger("isDrawHeal");
+        animator.ResetTrigger("isDrawRifle");
+        animator.ResetTrigger("isDrawMelee");
     }
     
     [ContextMenu("프로퍼티--")]                      //TEST용 추후삭제
