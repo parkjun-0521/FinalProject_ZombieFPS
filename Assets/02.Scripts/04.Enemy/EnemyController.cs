@@ -2,6 +2,7 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 interface IEnemy {
     void EnemyMove();       // 좀비 이동 
@@ -23,6 +24,15 @@ public abstract class EnemyController : MonoBehaviourPun, IEnemy {
     // 좀비 달리기 속도
     [SerializeField]
     protected float runSpeed;
+
+
+    protected PhotonView PV;
+    protected Rigidbody rigid;
+    protected NavMeshAgent nav;
+    protected Vector3 origin = new Vector3(0, 0, 0);
+    protected Animator ani;
+
+
 
     // 좀비 체력 
     private float hp;
