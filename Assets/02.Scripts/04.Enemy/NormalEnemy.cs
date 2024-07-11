@@ -20,13 +20,13 @@ public class NormalEnemy : EnemyController
     public float rad = 3f;
     public float distance = 5f;
     public LayerMask layermask;
- 
 
+    private Transform playerTr;
 
     bool isRangeOut = false;
     bool shouldEvaluate = true;
     bool isNow = true;
-
+    bool isTracing = false;
 
 
     void Awake()
@@ -44,7 +44,7 @@ public class NormalEnemy : EnemyController
     void Start()
     {
         InvokeRepeating("EnemyMove", 0.5f, 3.0f);
-        
+        playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
     }
     void Update()
     {
@@ -67,9 +67,15 @@ public class NormalEnemy : EnemyController
             shouldEvaluate = true;
 
         }
-        if(isWalk&&isNow)
+       
+        if (isWalk&&isNow)
         {
             EnemyTracking();
+        }
+        if(isTracing)
+        {
+            
+            EnemyRun();
         }
       
 
@@ -90,13 +96,10 @@ public class NormalEnemy : EnemyController
             CancelInvoke("EnemyMove"); 
             rigid.velocity = Vector3.zero;
             rigid.angularVelocity = Vector3.zero;
-            Debug.Log("reset:ING");
+            //Debug.Log("reset:ING");
             Vector3 direction = (Vector3.zero - transform.position).normalized;
             rigid.AddForce(direction * resetSpeed , ForceMode.VelocityChange);
-            if (ani != null)
-            {
-                ani.SetTrigger("Walk");
-            }
+           
             isRangeOut = true;
             isNow = false;
             rigid.velocity = Vector3.zero;
@@ -104,11 +107,7 @@ public class NormalEnemy : EnemyController
         }
         else
         {
-            Debug.Log("Move");
-            if (ani != null)
-            {
-                ani.SetTrigger("Walk");
-            }
+            //Debug.Log("Move");
             rigid.AddForce(dest * speed * Time.deltaTime,ForceMode.VelocityChange);
             rigid.velocity = Vector3.zero;
             rigid.angularVelocity = Vector3.zero;
@@ -120,29 +119,25 @@ public class NormalEnemy : EnemyController
     {
         isRun = true;
         nav.speed = runSpeed;
-        if (ani != null)
-        {
-            ani.SetTrigger("Run");
-        }
+        nav.destination = playerTr.position;
 
     }
     public override void EnemyTracking()
     {
-        isTracking = true;
+        
         Vector3 skyLay = new Vector3(transform.position.x, 10, transform.position.z);
         RaycastHit hit;
         bool isHit = Physics.SphereCast(skyLay, rad, Vector3.down, out hit, distance, layermask);
-
-
         if (isHit)
         {
             CancelInvoke("EnemyMove");
             rigid.velocity = Vector3.zero;
             rigid.angularVelocity = Vector3.zero;
-            Debug.Log("CircleCast hit: " + hit.collider.tag);
             transform.LookAt(hit.transform);
+            isTracing = true;
         }
-
+        
+ 
 
     }
 
