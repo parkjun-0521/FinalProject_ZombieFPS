@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class Slot : MonoBehaviour {
     public ItemController item; // 획득한 아이템
-    public int itemCount; // 획득한 아이템의 개수
-    public Image itemImage;  // 아이템의 이미지
+    public int itemCount;       // 획득한 아이템의 개수
+    public Image itemImage;     // 아이템의 이미지
 
     [SerializeField]
     private Text text_Count;
@@ -27,9 +26,11 @@ public class Slot : MonoBehaviour {
         itemCount = _count;
         itemImage.sprite = item.itemImage;
 
-        if (item.type != ItemController.ItemType.Gun    && 
-            item.type != ItemController.ItemType.Sword  && 
-            item.type != ItemController.ItemType.Healpack) {
+        if (ItemController.ItemType.Gun != _item.type &&
+            ItemController.ItemType.ShotGun != _item.type &&
+            ItemController.ItemType.Sword1 != _item.type &&
+            ItemController.ItemType.Sword2 != _item.type &&
+            ItemController.ItemType.Healpack != _item.type) {
             go_CountImage.SetActive(true);
             text_Count.text = itemCount.ToString();
         }

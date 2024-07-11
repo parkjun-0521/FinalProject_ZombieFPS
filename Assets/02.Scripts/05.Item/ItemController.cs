@@ -7,8 +7,10 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "New Item", menuName = "New Item/item")]
 public class ItemController : ScriptableObject {
     public enum ItemType {
-        Gun,                            // ÃÑ
-        Sword,                          // Ä®
+        Gun,                            // ÃÑ 1
+        ShotGun,                        // ÃÑ 2
+        Sword1,                         // Ä® 1
+        Sword2,                         // Ä® 2
         Healpack,                       // ÈúÆÑ 
         Grenade,                        // ¼ö·ùÅº
         FireGrenade,                    // È­¿°º´ 
