@@ -7,22 +7,33 @@ using UnityEngine.UI;
 public class LobbyManager : MonoBehaviour
 {
     public InputField roomInput;
-    public InputField joinRoomInput;
     public InputField nicknameInput;
     public Text statusText;
     public Button createRoomButton;
     public Button joinRoomButton;
     public Button exitButton;
 
+    public Button[] CellBtn;        // 방 버튼
+    public Button PreviousBtn;      // 이전 버튼 
+    public Button NextBtn;          // 이후 버튼
+
     void Start() {
-        NetworkManager.Instance.StatusText = statusText;
+        NetworkManager.Instance.statusText = statusText;
         NetworkManager.Instance.roomInput = roomInput;
-        NetworkManager.Instance.joinRoomInput = joinRoomInput;
         NetworkManager.Instance.NickNameInput = nicknameInput;
 
+        NetworkManager.Instance.cellBtn = CellBtn;
+        NetworkManager.Instance.previousBtn = PreviousBtn;
+        NetworkManager.Instance.nextBtn = NextBtn;
+
         createRoomButton.onClick.AddListener(() => NetworkManager.Instance.CreateRoom());
-        joinRoomButton.onClick.AddListener(() => NetworkManager.Instance.JoinRoom());
         exitButton.onClick.AddListener(() => NetworkManager.Instance.Disconnect());
+        for (int i = 0; i < CellBtn.Length; i++) {
+            int index  = i;
+            CellBtn[i].onClick.AddListener(() => NetworkManager.Instance.MyListClick(index));
+        }
+        PreviousBtn.onClick.AddListener(() => NetworkManager.Instance.MyListClick(-2));
+        NextBtn.onClick.AddListener(() => NetworkManager.Instance.MyListClick(-1));
         
 
         // 씬 전환 후 UI 요소 초기화

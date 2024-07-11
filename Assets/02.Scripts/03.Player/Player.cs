@@ -6,6 +6,7 @@ using System.IO;
 using System.Threading;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using static InputKeyManager;
 
 public class Player : PlayerController 
@@ -15,7 +16,7 @@ public class Player : PlayerController
     public static event PlayerMoveHandler OnPlayerMove, OnPlayerAttack;
 
     public delegate void PlayerJumpedHandler();
-    public static event PlayerJumpedHandler OnPlayerRotation, OnPlayerJump, OnPlayerSwap;
+    public static event PlayerJumpedHandler OnPlayerRotation, OnPlayerJump, OnPlayerSwap, OnPlayerInteraction, OnPlayerInventory;
 
     private RotateToMouse rotateToMouse;
     private InputKeyManager keyManager;
@@ -49,11 +50,13 @@ public class Player : PlayerController
 
     void OnEnable() {
         // 이벤트 등록
-        OnPlayerMove += PlayerMove;             // 플레이어 이동 
-        OnPlayerRotation += PlayerRotation;     // 플레이어  회전
-        OnPlayerJump += PlayerJump;             // 플레이어 점프 
-        OnPlayerAttack += PlayerAttack;         // 플레이어 공격
-        OnPlayerSwap += WeaponSwap;             // 무기 교체
+        OnPlayerMove += PlayerMove;                 // 플레이어 이동 
+        OnPlayerRotation += PlayerRotation;         // 플레이어 회전
+        OnPlayerJump += PlayerJump;                 // 플레이어 점프 
+        OnPlayerAttack += PlayerAttack;             // 플레이어 공격
+        OnPlayerSwap += WeaponSwap;                 // 무기 교체
+        OnPlayerInteraction += PlayerInteraction;   // 플레이어 상호작용
+        OnPlayerInventory += PlayerInventory;
     }
 
     void OnDisable() {
@@ -63,6 +66,8 @@ public class Player : PlayerController
         OnPlayerJump -= PlayerJump;
         OnPlayerAttack -= PlayerAttack;
         OnPlayerSwap -= WeaponSwap;
+        OnPlayerInteraction -= PlayerInteraction;   // 플레이어 상호작용
+        OnPlayerInventory -= PlayerInventory;
     }
 
     void Start() {
@@ -78,8 +83,11 @@ public class Player : PlayerController
     void Update() {
         // 단발적인 행동 
         if (PV.IsMine) {
+            // 무기 스왑 
             OnPlayerSwap?.Invoke();
-            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Attack))) {
+
+            // 공격
+            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Attack)) && !EventSystem.current.IsPointerOverGameObject()) {
                 // 총,칼 0.1초, 수류탄,힐팩 1초 딜레이
                 attackMaxDelay = stanceWeaponType ? 1.0f : 0.1f;
                 animator.SetBool("isRifleMoveShot", true);  //총쏘는 애니메이션
@@ -89,7 +97,9 @@ public class Player : PlayerController
                     lastAttackTime = Time.time;                 // 딜레이 초기화
                 }
             }
-            else if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Jump)) && isJump) {
+            
+            // 점프 
+            if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Jump)) && isJump) {
                 OnPlayerJump?.Invoke();
             }
             if (Input.GetKeyUp(keyManager.GetKeyCode(KeyCodeTypes.Attack)))
@@ -97,17 +107,21 @@ public class Player : PlayerController
                 animator.SetBool("isRifleMoveShot", false);
             }
 
-            if (Input.GetKeyDown(KeyCode.LeftAlt) || Input.GetKeyDown(KeyCode.RightAlt)) {
-                ToggleCursor();
+            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Inventory))) {
+                OnPlayerInventory?.Invoke();
+            }
+          
+            // 플레이어 상호작용
+            if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction))) {
+                OnPlayerInteraction?.Invoke();
             }
 
-            if (cursorLocked) {
-                bool isRun = Input.GetKey(KeyCode.LeftShift);
-                OnPlayerMove?.Invoke(isRun);
+            // 플레이어 회전
+            OnPlayerRotation?.Invoke();
 
-                float z = Input.GetAxis("Vertical") * Time.deltaTime * 5.0f;
-                float x = Input.GetAxis("Horizontal") * Time.deltaTime * 5.0f;
-                transform.Translate(x, 0, z);
+            // 마우스 커서 생성 
+            if (Input.GetKeyDown(KeyCode.LeftAlt)) {
+                ToggleCursor();
             }
         }
     }
@@ -119,27 +133,30 @@ public class Player : PlayerController
 
     void FixedUpdate() {
         // delegate 등록
-        if (PV.IsMine)
-        {
-            bool isRun = Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Run));
-            OnPlayerMove?.Invoke(isRun);
-            OnPlayerRotation?.Invoke(); 
+        if (PV.IsMine) {
+            // 이동
+            if (cursorLocked) {
+                bool isRun = Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Run));
+                OnPlayerMove?.Invoke(isRun);
+            }
         }
     }
 
     void OnTriggerEnter( Collider other )                       //좀비 트리거콜라이더에 enter했을때
     {
-        if (other.tag == "Enemy")                                //좀비로할지 enemy로할지 쨌든 태그 상의
-        {
-            //hp = -(other.GetComponent<Enemy>().attackdamage)  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
+        if (PV.IsMine) {
+            // 적과 충돌 
+            if (other.CompareTag("Enemy")){
+                //hp = -(other.GetComponent<Enemy>().attackdamage)  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
+            }
         }
     }
 
     void OnCollisionEnter(Collision collision)
     {
         if (PV.IsMine) {
-            if (collision.gameObject.CompareTag("Ground")) // 지면 태그 설정 필요
-            {
+            // 지면 태그 필요 
+            if (collision.gameObject.CompareTag("Ground")) {
                 isJump = true;
             }
         }
@@ -206,7 +223,6 @@ public class Player : PlayerController
         }
     }
 
-
     // 플레이어 점프 
     public override void PlayerJump() {
         // 땅에 붙어있을 때 점프
@@ -216,6 +232,26 @@ public class Player : PlayerController
         }
     }
 
+    // 인벤토리 활성화
+    public void PlayerInventory() {
+        OnPlayerMove -= PlayerMove;                 // 플레이어 이동 해제
+        OnPlayerRotation -= PlayerRotation;         // 플레이어 회전 해제
+        OnPlayerJump -= PlayerJump;                 // 플레이어 점프 해제
+        OnPlayerAttack -= PlayerAttack;             // 플레이어 공격 해제
+        OnPlayerSwap -= WeaponSwap;                 // 무기 교체 해제
+        OnPlayerInteraction -= PlayerInteraction;   // 플레이어 상호작용 해제
+        inventory.SetActive(true);
+    }
+    // 인벤토리 비활성화
+    public void InventoryClose() {
+        OnPlayerMove += PlayerMove;                 // 플레이어 이동 
+        OnPlayerRotation += PlayerRotation;         // 플레이어 회전
+        OnPlayerJump += PlayerJump;                 // 플레이어 점프 
+        OnPlayerAttack += PlayerAttack;             // 플레이어 공격
+        OnPlayerSwap += WeaponSwap;                 // 무기 교체
+        OnPlayerInteraction += PlayerInteraction;   // 플레이어 상호작용
+        inventory.SetActive(false);
+    }
 
     // 플레이어 상호작용 
     public override void PlayerInteraction() {
@@ -223,26 +259,20 @@ public class Player : PlayerController
         Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
         if (Physics.Raycast(ray, out hit, interactionRange, LayerMask.NameToLayer("Player") | LayerMask.NameToLayer("Item")))   //레이어 이름, 거리에대해 상의
         {
-            if(hit.collider.tag == "Item")//만약 아이템이면
-            {
-                //ex)text : 'E' 아이템줍기 ui띄워주기
-                if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
-                {
-                    //hit.collider.GetComponent<Item>.itemCode....
-                }
+            if (hit.collider.CompareTag("Item")) {           //ex)text : 'E' 아이템줍기 ui띄워주기
+                Debug.Log(hit.collider.transform.GetComponent<ItemPickUp>().item.itemName + " 획득 했습니다.");  // 인벤토리 넣기
+                theInventory.AcquireItem(hit.collider.transform.GetComponent<ItemPickUp>().item);
+                // 아이템 제거
+                hit.collider.gameObject.SetActive(false);
             }
-            else if(hit.collider.tag == "Player")//만약 플레이어면
-            {
+            else if (hit.collider.CompareTag("Player")) {    //만약 플레이어면
                 //ex)text : 'E' 플레이어 살리기 ui띄워주기
                 if (hit.collider.GetComponent<Player>().isFaint == true) //만약 태그가 player고 기절이 true면
                 {
-                    if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
-                    {
-                        //slider or shader로 (slider가 편할듯) 살려주기 바가 차오름
-                        //슬라이더 밸류가 1이 되는순간 순간 그녀석의 player에 접근해서 PlayerRevive()함수호출
-                    }
+                    //slider or shader로 (slider가 편할듯) 살려주기 바가 차오름
+                    //슬라이더 밸류가 1이 되는순간 순간 그녀석의 player에 접근해서 PlayerRevive()함수호출
                 }
-            }
+            }        
         }
         //아이템 사용은 인벤토리가 없어서 감이안옴 일단 내가 손에 들고있어야하고 손에 들고있는상태로 좌클릭시
         //슬라이더로하든 이미지박고 시계 돌아가는거처럼 만들든해서 value가 1이되는순간 Hp(프로퍼티) = +30(회복아이템 회복계수)
@@ -279,10 +309,11 @@ public class Player : PlayerController
             // 카메라 중앙에서 Ray 생성 
             Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
             // Ray 테스트 
-            Debug.DrawLine(ray.origin, ray.origin + ray.direction * 1000, Color.red);                       // 나중에 지우기
+            Debug.DrawLine(ray.origin, ray.origin + ray.direction * 1000, Color.red); // 나중에 지우기
 
             Vector3 targetPoint;
 
+            muzzleFlashEffect.Play();
             // 충돌 확인
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, enemyLayer)) {
                 Debug.Log("총 공격");
@@ -295,18 +326,19 @@ public class Player : PlayerController
 
             // 총알 생성 (오브젝트 풀링 사용)
             GameObject bullet = Pooling.instance.GetObject(0); // 총알이 들어가 있는 index로 변경 (0은 임시)
-            bullet.transform.position = bulletPos.position; // bullet 위치 초기화                   
-            bullet.transform.rotation = Quaternion.identity; // bullet 회전값 초기화 
+            bullet.transform.position = bulletPos.position; // bullet 위치 초기화
+            bullet.transform.rotation = Quaternion.identity; // bullet 회전값 초기화
 
             // 총알의 방향 설정
             Vector3 direction = (targetPoint - bulletPos.position).normalized;
 
-            // 총알에 힘을 가하여 발사
+
+            // 총알의 초기 속도를 플레이어의 이동 속도로 설정하고 발사 방향 설정
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
-            rb.AddForce(direction * 300f, ForceMode.Impulse);
+            rb.AddForce(direction * 300f, ForceMode.VelocityChange); // 발사 방향과 속도를 함께 적용
+
         }
     }
-
 
     // 근거리 아이템 힐팩 
     void ItemHealpack()
@@ -324,6 +356,31 @@ public class Player : PlayerController
         if (PV.IsMine) {
             Debug.Log("투척 공격");
             animator.SetTrigger("isGranadeThrow");
+            float throwForce = 15f;    // 던지는 힘
+
+
+            GameObject grenade = Pooling.instance.GetObject(1); // 총알이 들어가 있는 index로 변경 (0은 임시)
+            Rigidbody grenadeRigid = grenade.GetComponent<Rigidbody>();
+            grenadeRigid.velocity = Vector3.zero;
+            grenade.transform.position = grenadePos.position; // bullet 위치 초기화                   
+            grenade.transform.rotation = Quaternion.identity; // bullet 회전값 초기화 
+
+            // 카메라의 중앙에서 나가는 레이 구하기
+            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+            RaycastHit hit;
+
+            Vector3 targetPoint;
+            if (Physics.Raycast(ray, out hit)) {
+                targetPoint = hit.point;  // 목표 지점이 충돌 지점
+            }
+            else {
+                targetPoint = ray.GetPoint(1000);  // 충돌이 없으면 먼 지점으로 설정
+            }
+            // 던질 방향 계산
+            Vector3 throwDirection = (targetPoint - grenade.transform.position).normalized;
+
+            // Rigidbody에 힘을 가함
+            grenadeRigid.AddForce(throwDirection * throwForce, ForceMode.VelocityChange);
         }
     }
 
@@ -382,6 +439,39 @@ public class Player : PlayerController
         throw new System.NotImplementedException();
     }
 
+    // 체력 변화 
+    public override void ChangeHp( float value ) {
+        hp += value;
+        if (value > 0) {
+            StartCoroutine(ShowHealScreen());   //힐 화면 출력
+        }
+        else if (value < 0) {
+            StartCoroutine(ShowBloodScreen());  //피격화면 출력 
+        }
+    }
+
+    // 플레이어 기절 
+    public override void PlayerFaint() {
+        if (hp <= 0)                            //만약 플레이어 체력이 0보다 작아지면
+       {
+            hp = 0;                             //여기서 hp를 0 으로 강제로 해줘야 부활, ui에서 편할거같음
+            isFaint = true;                     //기절상태 true
+            OnPlayerMove -= PlayerMove;         //움직이는거막고
+            OnPlayerAttack -= PlayerAttack;     //공격도 막겠다
+            animator.SetTrigger("isFaint");     //기절 애니메이션 출력 
+        }
+    }
+
+    // 플레이어 부활
+    public override void PlayerRevive()            //플레이어 부활 - 다른플레이어가 부활할때 얘의 player에 접근해서 호출 내부에선 안쓸꺼임 제세동기를만들지않는이상...
+    {                                        //PlayerFaint 함수와 반대로 하면 됨
+        isFaint = false;                     //기절상태 false
+        OnPlayerMove += PlayerMove;          //움직이는거 더하고
+        OnPlayerAttack += PlayerAttack;      //공격도 더함 
+        animator.SetTrigger("isRevive");    //기절 애니메이션 출력 나중에 플레이어 완성되면 추가
+        Hp = 50;                             //부활시 반피로 변경! maxHp = 100; 을 따로 선언해서 maxHp / 2해도 되는데 풀피는 100하겠지 뭐
+    }
+
     // 플레이어 사망
     public override void PlayerDead()
     {
@@ -397,97 +487,29 @@ public class Player : PlayerController
 
         }
     }
-
-    // 플레이어 동기화
-    public override void OnPhotonSerializeView( PhotonStream stream, PhotonMessageInfo info ) {
-        /*if (stream.IsWriting) {
-            // 데이터 전송 ( 동기화 ) 
-            stream.SendNext(rigid.position);    // 위치 
-            stream.SendNext(rigid.rotation);    // 회전
-            stream.SendNext(rigid.velocity);    // 속도 
-        }
-        else {
-            // 데이터 수신
-            rigid.position = (Vector3)stream.ReceiveNext();
-            rigid.rotation = (Quaternion)stream.ReceiveNext();
-            rigid.velocity = (Vector3)stream.ReceiveNext();
-        }*/
-    }
-
-
-
-    protected override void ChangeHp(float value)//플레이어 hp 변경 프로퍼티 내부에서 실행
-    {
-        hp += value;
-        if(value > 0)
-        {
-            StartCoroutine(ShowHealScreen());   //힐 화면 출력
-        }
-        else if(value < 0)
-        {
-            StartCoroutine(ShowBloodScreen());  //피격화면 출력 
-        }
-    }
-
-    protected override void PlayerFaint()       //플레이어 기절 함수
-    {
-        if (hp <= 0)                            //만약 플레이어 체력이 0보다 작아지면
-        {
-            hp = 0;                             //여기서 hp를 0 으로 강제로 해줘야 부활, ui에서 편할거같음
-            isFaint = true;                     //기절상태 true
-            OnPlayerMove -= PlayerMove;         //움직이는거막고
-            OnPlayerAttack -= PlayerAttack;     //공격도 막겠다
-            animator.SetTrigger("isFaint");     //기절 애니메이션 출력 
-        }
-    }
-
    
-
-
-    public override void PlayerRevive()      //플레이어 부활 - 다른플레이어가 부활할때 얘의 player에 접근해서 호출 내부에선 안쓸꺼임 제세동기를만들지않는이상...
-    {                                        //PlayerFaint 함수와 반대로 하면 됨
-        isFaint = false;                     //기절상태 false
-        OnPlayerMove += PlayerMove;          //움직이는거 더하고
-        OnPlayerAttack += PlayerAttack;      //공격도 더함 
-        animator.SetTrigger("isRevive");    //기절 애니메이션 출력 나중에 플레이어 완성되면 추가
-        Hp = 50;                             //부활시 반피로 변경! maxHp = 100; 을 따로 선언해서 maxHp / 2해도 되는데 풀피는 100하겠지 뭐
-    }
-
-    protected override IEnumerator ShowBloodScreen()                        //화면 붉게
+    // 피격시 셰이더 변경 
+    IEnumerator ShowBloodScreen()                  //화면 붉게
     {
         bloodScreen.color = new Color(1, 0, 0, UnityEngine.Random.Range(0.1f, 0.15f));  //시뻘겋게 변경
-        yield return new WaitForSeconds(0.5f);                              //0.5f초 후에   - 이거 변수로 뺄까?
-        bloodScreen.color = Color.clear;                                    //화면 정상적으로 변경!
+        yield return new WaitForSeconds(0.5f);                                          //0.5f초 후에   - 이거 변수로 뺄까?
+        bloodScreen.color = Color.clear;                                                //화면 정상적으로 변경!
     }
-    protected override IEnumerator ShowHealScreen()                         //화면 연두색 
+    // 힐팩 아이템 사용시 셰이더 변경 
+    IEnumerator ShowHealScreen()                   //화면 연두색 
     {
         float curTime = Time.time;                                          //현재의 시간을 변수로 저장을하고
         healScreen.color = new Color(1, 1, 1, 1);                           //힐 하는 이미지로 변경
-        while(true)                                                         //반복문 1초후에 해제
+        while (true)                                                        //반복문 1초후에 해제
         {
             yield return new WaitForSeconds(0.1f);                          //0.1초마다           
-            float lerpColor = 1 - (Time.time - curTime);                    
+            float lerpColor = 1 - (Time.time - curTime);
             healScreen.color = new Color(1, 1, 1, lerpColor);               //대충 조금씩 없어진다고 생각하면됨(러프)
             if (lerpColor <= 0)                                             //1초후에
             {
                 healScreen.color = Color.clear;                             //컬러를 0000으로 해서 정상적으로 변경하고
                 break;                                                      //break로 반복문 탈출
             }
-        }
-    }
-
-    public override float Hp                         //hp 프로퍼티
-    {
-        get
-        {
-            return hp;                               //그냥 반환
-        }
-        set
-        {
-            ChangeHp(value);                         //hp를 value만큼 더함 즉 피해량을 양수로하면 힐이됨 음수로 해야함 여기서 화면 시뻘겋게 and 연두색도함
-            PlayerFaint();                           //만약 hp를 수정했을때 체력이 0보다 작으면 기절
-            PlayerDead();                            //만약 기절상태고 hp가 0보다 작으면 사망
-            Debug.Log("플레이어 hp 변경" + hp);
         }
     }
 
@@ -516,13 +538,29 @@ public class Player : PlayerController
         animator.ResetTrigger("isDrawRifle");
         animator.ResetTrigger("isDrawMelee");
     }
-    
+
+    // 플레이어 동기화
+    public override void OnPhotonSerializeView( PhotonStream stream, PhotonMessageInfo info ) {
+        /*if (stream.IsWriting) {
+            // 데이터 전송 ( 동기화 ) 
+            stream.SendNext(rigid.position);    // 위치 
+            stream.SendNext(rigid.rotation);    // 회전
+            stream.SendNext(rigid.velocity);    // 속도 
+        }
+        else {
+            // 데이터 수신
+            rigid.position = (Vector3)stream.ReceiveNext();
+            rigid.rotation = (Quaternion)stream.ReceiveNext();
+            rigid.velocity = (Vector3)stream.ReceiveNext();
+        }*/
+    }
+
     [ContextMenu("프로퍼티--")]                      //TEST용 추후삭제
     void test()
     {
         Hp = -1;
     }
-    [ContextMenu("프로퍼티++")]                      //TEST용 추후삭제
+    [ContextMenu("프로퍼티++")]                     //TEST용 추후삭제
     void test2()
     {
         Hp = +1;

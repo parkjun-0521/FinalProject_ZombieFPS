@@ -16,6 +16,7 @@ public class InputKeyManager : MonoBehaviour {
         Jump,
         Attack,
         Interaction,
+        Inventory,
         Weapon1,
         Weapon2,
         Weapon3,
@@ -46,6 +47,7 @@ public class InputKeyManager : MonoBehaviour {
         keyMappings[KeyCodeTypes.Jump] = KeyCode.Space;
         keyMappings[KeyCodeTypes.Attack] = KeyCode.Mouse0;
         keyMappings[KeyCodeTypes.Interaction] = KeyCode.E;
+        keyMappings[KeyCodeTypes.Inventory] = KeyCode.Tab;
         keyMappings[KeyCodeTypes.Weapon1] = KeyCode.Alpha1;     // 원거리 무기 
         keyMappings[KeyCodeTypes.Weapon2] = KeyCode.Alpha2;     // 근거리 무기
         keyMappings[KeyCodeTypes.Weapon3] = KeyCode.Alpha3;     // 투척 무기 
