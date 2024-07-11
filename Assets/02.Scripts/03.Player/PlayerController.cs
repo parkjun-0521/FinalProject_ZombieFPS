@@ -80,8 +80,7 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     protected bool isDead;              // 사망 상태 
 
     // 사용 안할 꺼 같은데 예외처리에 필요할 Bool 변수 모음 
-    protected bool isWalk;              // 걷고있는 상태 
-    protected bool isRun;               // 달리는 상태   
+    protected bool isMove;              // 걷고있는 상태 
 
     public Vector3 moveForce;           // Player 이동 방향 및 힘 
     public LayerMask enemyLayer;        // Enemy Layer 변수 

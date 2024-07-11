@@ -90,7 +90,9 @@ public class Player : PlayerController
             if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Attack)) && !EventSystem.current.IsPointerOverGameObject()) {
                 // 총,칼 0.1초, 수류탄,힐팩 1초 딜레이
                 attackMaxDelay = stanceWeaponType ? 1.0f : 0.1f;
+
                 animator.SetBool("isRifleMoveShot", true);  //총쏘는 애니메이션
+
                 // 일정 딜레이가 될 때 마다 총알을 발사
                 if (Time.time - lastAttackTime >= attackMaxDelay) {
                     OnPlayerAttack?.Invoke(isAtkDistance);
@@ -102,11 +104,14 @@ public class Player : PlayerController
             if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Jump)) && isJump) {
                 OnPlayerJump?.Invoke();
             }
+
+            // 공격 이후 애니메이션 
             if (Input.GetKeyUp(keyManager.GetKeyCode(KeyCodeTypes.Attack)))
             {
                 animator.SetBool("isRifleMoveShot", false);
             }
 
+            // 인벤토리
             if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Inventory))) {
                 OnPlayerInventory?.Invoke();
             }
@@ -125,6 +130,8 @@ public class Player : PlayerController
             }
         }
     }
+
+    // 마우스 커서 생성 
     private void ToggleCursor() {
         cursorLocked = !cursorLocked;
         Cursor.visible = !cursorLocked;
@@ -179,35 +186,30 @@ public class Player : PlayerController
 
             // 걷기, 달리기 속도 조절
             float playerSpeed = type ? runSpeed : speed;
-            //애니메이션
-            animator.SetFloat("speedBlend", 0);
-
 
             // 좌우 이동
-            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.LeftMove)))
-            {
-                animator.SetFloat("speedBlend", type ? 1.0f : 0.5f);
+            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.LeftMove))) {
+                isMove = true;
                 x = -1f;
             }
-               
-            else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.RightMove)))
-            {
-                animator.SetFloat("speedBlend", type ? 1.0f : 0.5f);
+            else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.RightMove))) {
+                isMove = true;
                 x = 1f;
             }
-
             // 상하 이동         
-            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.DownMove)))
-            {
-                animator.SetFloat("speedBlend", type ? 1.0f : 0.5f);
+            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.DownMove))) {
+                isMove = true;
                 z = -1f;
             }
-            else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.UpMove)))
-            {
-                animator.SetFloat("speedBlend", type ? 1.0f : 0.5f);
+            else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.UpMove))) {
+                isMove = true;
                 z = 1f;
             }
 
+            if(isMove) 
+                animator.SetFloat("speedBlend", type ? 1.0f : 0.5f);
+            else 
+                animator.SetFloat("speedBlend", 0);
 
             Vector3 moveDirection = (transform.forward * z + transform.right * x).normalized;
             rigid.MovePosition(transform.position + moveDirection * playerSpeed * Time.deltaTime);
@@ -262,6 +264,7 @@ public class Player : PlayerController
             if (hit.collider.CompareTag("Item")) {           //ex)text : 'E' 아이템줍기 ui띄워주기
                 Debug.Log(hit.collider.transform.GetComponent<ItemPickUp>().item.itemName + " 획득 했습니다.");  // 인벤토리 넣기
                 theInventory.AcquireItem(hit.collider.transform.GetComponent<ItemPickUp>().item);
+
                 // 아이템 제거
                 hit.collider.gameObject.SetActive(false);
             }

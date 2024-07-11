@@ -123,12 +123,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
         }
     }
     public void CreatePlayer() {
-        if (!playerCreated) {
-            GameObject player = PhotonNetwork.Instantiate("PlayerPrefab", GetRandomSpawnPosition(), Quaternion.identity);
-            if (player != null) {
-                playerCreated = true;
-            }
-        }
+        GameObject player = PhotonNetwork.Instantiate("PlayerPrefab", GetRandomSpawnPosition(), Quaternion.identity);
     }
     private Vector3 GetRandomSpawnPosition() {
         // 임의의 스폰 위치를 반환 (예시로 10x10 범위 내에서 무작위 위치를 선택)
