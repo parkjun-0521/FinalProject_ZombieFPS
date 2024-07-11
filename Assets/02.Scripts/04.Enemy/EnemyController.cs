@@ -8,7 +8,7 @@ interface IEnemy {
     void EnemyMove();       // 좀비 이동 
     void EnemyRun();        // 좀비 달리기 
     void EnemyAttack();     // 좀비 공격
-    void EnemyDaed();       // 좀비 사망 
+    void EnemyDead();       // 좀비 사망 
     void EnemyTracking();   // 좀비 추적
  
 
@@ -35,19 +35,30 @@ public abstract class EnemyController : MonoBehaviourPun, IEnemy {
 
 
     // 좀비 체력 
-    private float hp;
-    public float EnemyHp { get { return hp; } set { hp = value; } }
+    protected float hp;
+    public float Hp
+    {
+        get
+        {
+            return hp;                          //그냥 반환
+        }
+        set
+        {
+            ChangeHp(value);                   //hp를 value만큼 더함 즉 피해량을 양수로하면 힐이됨 음수로 해야함 여기서 화면 시뻘겋게 and 연두색도함
+            EnemyDead();                      //만약 hp를 수정했을때 체력이 0보다 작으면 기절
+            Debug.Log("좀비 hp 변경" + hp);
+        }
+    }
 
     protected bool isWalk;              // 걷고있는 상태 
     protected bool isRun;               // 달리는 상태 
     protected bool isAttack;            // 공격 하는 상태 
     protected bool isTracking;          // 추적 상태 
 
-    public abstract void EnemyDaed();
+    public abstract void EnemyDead();
     public abstract void EnemyMove();
     public abstract void EnemyAttack();
     public abstract void EnemyRun();
     public abstract void EnemyTracking();
-    
-
+    public abstract void ChangeHp(float value);
 }
