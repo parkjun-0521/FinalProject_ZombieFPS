@@ -22,6 +22,7 @@ public class NormalEnemy : EnemyController
     public LayerMask layermask;
 
     private Transform playerTr;
+    
 
     bool isRangeOut = false;
     bool shouldEvaluate = true;
@@ -36,15 +37,16 @@ public class NormalEnemy : EnemyController
         rigid = GetComponent<Rigidbody>();
         nav = GetComponent<NavMeshAgent>();
         ani = GetComponent<Animator>();
+        playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
+ 
     }
 
-  
+
 
 
     void Start()
     {
         InvokeRepeating("EnemyMove", 0.5f, 3.0f);
-        playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
     }
     void Update()
     {
@@ -120,11 +122,17 @@ public class NormalEnemy : EnemyController
         isRun = true;
         nav.speed = runSpeed;
         nav.destination = playerTr.position;
+        float versusDist = Vector3.Distance(transform.position, playerTr.position);
+        if(versusDist<3.3f)
+        {
+            nav.isStopped = true;
+        }
+
+
 
     }
     public override void EnemyTracking()
-    {
-        
+    {        
         Vector3 skyLay = new Vector3(transform.position.x, 10, transform.position.z);
         RaycastHit hit;
         bool isHit = Physics.SphereCast(skyLay, rad, Vector3.down, out hit, distance, layermask);
@@ -136,14 +144,12 @@ public class NormalEnemy : EnemyController
             transform.LookAt(hit.transform);
             isTracing = true;
         }
-        
- 
-
-    }
+     }
 
     public override void EnemyAttack()
     {
-        throw new System.NotImplementedException();
+
+
     }
 
     public override void EnemyDaed()
