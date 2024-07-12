@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class NormalEnemy : EnemyController
 {
 
-    
+
 
 
 
@@ -41,7 +41,11 @@ public class NormalEnemy : EnemyController
  
     }
 
-
+    private void OnEnable()
+    {
+        hp = maxHp;
+        //델리게이트 사망에서 뻈으니 다 넣기
+    }
 
 
     void Start()
@@ -84,18 +88,20 @@ public class NormalEnemy : EnemyController
     }
     void OnTriggerEnter(Collider other)                       //총알, 근접무기...triggerEnter
     {
-        if (PV.IsMine)
+        if (other.CompareTag("Bullet"))             // 총알과 trigger
         {
-            if (other.CompareTag("Bullet"))             // 총알과 trigger
-            {
-                //Hp = -(other.GetComponent<Bullet>().attackdamage)  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
-                //BloodEffect(other.transform.position);
-            }
-            else if (other.CompareTag("Weapon"))        // 근접무기와 trigger
-            {
-                //Hp = -(other.GetComponent<Weapon>().attackdamage)
-                //BloodEffect(other.transform.position);
-            }
+            Hp = -(other.GetComponent<Bullet>().scriptableObject.damage);  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
+            BloodEffect(other.transform.position);
+            other.gameObject.SetActive(false);
+        }
+        else if (other.CompareTag("Weapon"))        // 근접무기와 trigger
+        {
+            //Hp = -(other.GetComponent<Weapon>().attackdamage)
+            BloodEffect(other.transform.position);
+        }
+        else if (other.CompareTag("Granade"))
+        {
+            //Hp = -(other.GetComponent<ItemGrenade>().attackdamage);
         }
     }
 
@@ -171,7 +177,7 @@ public class NormalEnemy : EnemyController
     {
         if (hp <= 0)
         {
-            //사망애니메이션출력
+            //ani.setTrigger("Dead");
             //델리게이트 다른거 다 빼기
             //?초후에
             //gameObject.SetActive(false); 풀링할거니까
@@ -185,22 +191,18 @@ public class NormalEnemy : EnemyController
         {
             //좀비가 체력회복할일은 없겠지만 나중에 보스 or 엘리트 좀비가 주변몹 회복할수도있으니 확장성때매 놔둠
             //힐 좀비 주변에 +모양 파티클생성
+            hp = (+value);
         }
         else if (value < 0)
         {
             //공격맞은거
-            //피격 애니메이션?
+            //ani.setTrigger("피격모션");
             hp = (-value);
         }
     }
 
     public void BloodEffect(Vector3 pos)
     {
-        //피터지는 이펙트를 풀링으로 만들어두고 이게 실행되는순간 이 위치로 순간이동
-        //하면서 실행하고 실행이 끝나면 active(false);
+        Pooling.instance.GetObject(1).transform.position = pos;
     }
-
-
-
-
 }

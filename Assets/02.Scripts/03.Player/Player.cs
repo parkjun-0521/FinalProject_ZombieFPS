@@ -334,8 +334,9 @@ public class Player : PlayerController
 
 
             // 총알의 초기 속도를 플레이어의 이동 속도로 설정하고 발사 방향 설정
-            Rigidbody rb = bullet.GetComponent<Rigidbody>();
-            rb.AddForce(direction * 300f, ForceMode.VelocityChange); // 발사 방향과 속도를 함께 적용
+            // Rigidbody rb = bullet.GetComponent<Rigidbody>();
+            // rb.AddForce(direction * 50f, ForceMode.VelocityChange); // 발사 방향과 속도를 함께 적용
+           
 
         }
     }

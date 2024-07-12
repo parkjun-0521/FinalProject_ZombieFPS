@@ -17,6 +17,7 @@ interface IEnemy {
 
 public abstract class EnemyController : MonoBehaviourPun, IEnemy {
 
+    
     // 좀비 걷기 속도 
     [SerializeField]
     protected float speed;
@@ -32,9 +33,10 @@ public abstract class EnemyController : MonoBehaviourPun, IEnemy {
     protected Vector3 origin = new Vector3(0, 0, 0);
     protected Animator ani;
 
-
-
-    // 좀비 체력 
+    //좀비 최대 체력
+    [SerializeField]
+    protected float maxHp;
+    // 좀비 현재 체력 
     protected float hp;
     public float Hp
     {

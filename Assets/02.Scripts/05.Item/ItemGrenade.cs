@@ -13,6 +13,7 @@ public class ItemGrenade : MonoBehaviour {
     public GameObject Explosionrange;       // Æø¹ß ¹üÀ§
     public ParticleSystem explosionEffect;
 
+
     void Awake() {
         collider = GetComponent<SphereCollider>();
         rigid = GetComponent<Rigidbody>();
