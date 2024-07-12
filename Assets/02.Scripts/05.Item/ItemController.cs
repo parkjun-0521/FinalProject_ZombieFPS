@@ -19,6 +19,7 @@ public class ItemController : ScriptableObject {
     }
     public ItemType type;
 
+    public int itemID;
     public Sprite itemImage;            // 아이템 이미지
     public string itemName;             // 아이템 이름
     public float damege;                // 아이템 데미지 ( 수류탄 : 데미지, 힐팩 : 힐량 ) 

@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler {
+    public int slotID;          // 장착 가능한 슬롯 ID
     public ItemController item; // 획득한 아이템
     public int itemCount;       // 획득한 아이템의 개수
     public Image itemImage;     // 아이템의 이미지
@@ -13,6 +15,15 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
     private Text text_Count;
     [SerializeField]
     private GameObject go_CountImage;
+
+    private Inventory inventory;
+
+    private Rect baseRect;
+
+    void Awake() {
+        inventory = GetComponentInParent<Inventory>();
+        baseRect = transform.parent.parent.GetComponent<RectTransform>().rect;
+    }
 
     // 아이템 이미지의 투명도 조절
     private void SetColor( float _alpha ) {
@@ -25,9 +36,9 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
     public void AddItem( ItemController _item, int _count = 1 ) {
         item = _item;
         if (ItemController.ItemType.Magazine == _item.type)
-            _count = 30;
+            _count = 30;    // 총알은 30발 
         else
-            _count = 1;
+            _count = 1;     // 나머진 1개씩 
         itemCount = _count;
         itemImage.sprite = item.itemImage;
 
@@ -68,37 +79,44 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
 
     public void OnPointerClick( PointerEventData eventData ) {
         if (eventData.button == PointerEventData.InputButton.Right) {
-            if (item != null) {
-                if (item.type == ItemController.ItemType.Gun) {
-                    // 장착
-                    Debug.Log("총");
-                }
-                else if (item.type == ItemController.ItemType.ShotGun){
-                    Debug.Log("샷건");
-                }
-                else if (item.type == ItemController.ItemType.Sword1) {
-                    Debug.Log("칼1");
-                }
-                else if (item.type == ItemController.ItemType.Sword2) {
-                    Debug.Log("칼2");
-                }
-                else if(item.type == ItemController.ItemType.Magazine) {
-                    Debug.Log("탄약");
-                }
-                else if(item.type == ItemController.ItemType.Grenade) {
-                    Debug.Log("수류탄");
-                }
-                else if(item.type == ItemController.ItemType.FireGrenade) {
-                    Debug.Log("화염병");
-                }
-                else if(item.type == ItemController.ItemType.SupportFireGrenade) {
-                    Debug.Log("지원 수류탄");
-                }
-                else if(item.type == ItemController.ItemType.Healpack) {
-                    Debug.Log("힐팩");
-                    SetSlotCount(-1);
+            if (item == null) return;
+/*  Test
+            if(slotID == 1) {
+                Debug.Log(item.type);
+            }
+            else if(slotID == 2) {
+                Debug.Log(item.type);
+            }
+            else if(slotID == 3) {
+                Debug.Log(item.type);
+            }
+            else if(slotID == 4) {
+                Debug.Log(item.type);
+            }
+*/
+            if (eventData.button == PointerEventData.InputButton.Right) {
+                if (item != null && item.itemID != 0) {
+                    Slot targetSlot = inventory.FindSlotByID(item.itemID);
+
+                    if (targetSlot != null && targetSlot != this) {
+                        if (targetSlot.item == null) {
+                            targetSlot.AddItem(item, itemCount);
+                            ClearSlot();
+                        }
+                        else {
+                            int tempItemCount = targetSlot.itemCount;
+                            ItemController tempItem = targetSlot.item;
+
+                            targetSlot.AddItem(item, itemCount);
+                            AddItem(tempItem, tempItemCount);
+                        }
+                    }
+                    else {
+                        Debug.Log("해당 슬롯이 없습니다.");
+                    }
                 }
             }
+            
         }
     }
 
@@ -118,6 +136,19 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
 
     // 마우스 드래그가 끝났을 때 발생하는 이벤트
     public void OnEndDrag( PointerEventData eventData ) {
+
+        // 아이템 버리기 
+        if(DragSlot.instance.transform.localPosition.x < baseRect.xMin 
+           || DragSlot.instance.transform.localPosition.x > baseRect.xMax
+           || DragSlot.instance.transform.localPosition.y < baseRect.yMin
+           || DragSlot.instance.transform.localPosition.y > baseRect.yMax) {
+
+            // 아이템 프리팹 생성해줘야함 
+            Debug.Log("풀링에 아이템 집어 넣고 생성해줘야함 ");
+
+            DragSlot.instance.dragSlot.ClearSlot();
+        }
+
         DragSlot.instance.SetColor(0);
         DragSlot.instance.dragSlot = null;
     }
@@ -129,14 +160,20 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
     }
 
     private void ChangeSlot() {
-        ItemController _tempItem = item;
-        int _tempItemCount = itemCount;
+        if (slotID == 0 || DragSlot.instance.dragSlot.item.itemID == slotID) {
+            ItemController _tempItem = item;
+            int _tempItemCount = itemCount;
 
-        AddItem(DragSlot.instance.dragSlot.item, DragSlot.instance.dragSlot.itemCount);
+            AddItem(DragSlot.instance.dragSlot.item, DragSlot.instance.dragSlot.itemCount);
 
-        if (_tempItem != null)
-            DragSlot.instance.dragSlot.AddItem(_tempItem, _tempItemCount);
-        else
-            DragSlot.instance.dragSlot.ClearSlot();
+            if (_tempItem != null)
+                DragSlot.instance.dragSlot.AddItem(_tempItem, _tempItemCount);
+            else
+                DragSlot.instance.dragSlot.ClearSlot();
+        }
+    }
+
+    public bool HasItem() {
+        return item != null; // item이 null이 아니면 슬롯에 아이템이 있음
     }
 }

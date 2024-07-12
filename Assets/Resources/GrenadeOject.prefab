@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 391476628684390421}
   - component: {fileID: 391476628684390440}
   - component: {fileID: 481646740342597364}
+  - component: {fileID: 327282102159181589}
   m_Layer: 0
   m_Name: GrenadeOject
   m_TagString: Grenade
@@ -207,14 +208,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c43cd1b8dbf1fb4cb1aeed06b8cb3da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 3
-  itemID: 0
-  damege: 0
   rigid: {fileID: 0}
   collider: {fileID: 0}
   second: 4
   Explosionrange: {fileID: 391476627754886691}
   explosionEffect: {fileID: 5202783331454762892}
+  itemData: {fileID: 11400000, guid: 9de3cdf7065428f488208fb86731cd73, type: 2}
 --- !u!96 &481646740342597364
 TrailRenderer:
   serializedVersion: 2
@@ -314,6 +313,28 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &327282102159181589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 391476628684390422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &5371826964293008490
 PrefabInstance:
   m_ObjectHideFlags: 0

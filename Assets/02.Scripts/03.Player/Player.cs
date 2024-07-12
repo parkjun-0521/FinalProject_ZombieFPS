@@ -112,8 +112,9 @@ public class Player : PlayerController
             }
 
             // 인벤토리
-            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Inventory))) {
+            if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Inventory))) {
                 OnPlayerInventory?.Invoke();
+                ToggleCursor();
             }
           
             // 플레이어 상호작용
@@ -236,50 +237,63 @@ public class Player : PlayerController
 
     // 인벤토리 활성화
     public void PlayerInventory() {
-        OnPlayerMove -= PlayerMove;                 // 플레이어 이동 해제
-        OnPlayerRotation -= PlayerRotation;         // 플레이어 회전 해제
-        OnPlayerJump -= PlayerJump;                 // 플레이어 점프 해제
-        OnPlayerAttack -= PlayerAttack;             // 플레이어 공격 해제
-        OnPlayerSwap -= WeaponSwap;                 // 무기 교체 해제
-        OnPlayerInteraction -= PlayerInteraction;   // 플레이어 상호작용 해제
-        inventory.SetActive(true);
+        if (PV.IsMine) {
+            OnPlayerMove -= PlayerMove;                 // 플레이어 이동 해제
+            OnPlayerRotation -= PlayerRotation;         // 플레이어 회전 해제
+            OnPlayerJump -= PlayerJump;                 // 플레이어 점프 해제
+            OnPlayerAttack -= PlayerAttack;             // 플레이어 공격 해제
+            OnPlayerSwap -= WeaponSwap;                 // 무기 교체 해제
+            OnPlayerInteraction -= PlayerInteraction;   // 플레이어 상호작용 해제
+            inventory.SetActive(true);
+        }
     }
     // 인벤토리 비활성화
     public void InventoryClose() {
-        OnPlayerMove += PlayerMove;                 // 플레이어 이동 
-        OnPlayerRotation += PlayerRotation;         // 플레이어 회전
-        OnPlayerJump += PlayerJump;                 // 플레이어 점프 
-        OnPlayerAttack += PlayerAttack;             // 플레이어 공격
-        OnPlayerSwap += WeaponSwap;                 // 무기 교체
-        OnPlayerInteraction += PlayerInteraction;   // 플레이어 상호작용
-        inventory.SetActive(false);
+        if (PV.IsMine) {
+            // 마우스 비활성화
+            Cursor.visible = false;                         // 마우스 커서 비활성화
+            Cursor.lockState = CursorLockMode.Locked;       // 마우스 커서 현재 위치 고정 
+            ToggleCursor();
+
+            OnPlayerMove += PlayerMove;                 // 플레이어 이동 
+            OnPlayerRotation += PlayerRotation;         // 플레이어 회전
+            OnPlayerJump += PlayerJump;                 // 플레이어 점프 
+            OnPlayerAttack += PlayerAttack;             // 플레이어 공격
+            OnPlayerSwap += WeaponSwap;                 // 무기 교체
+            OnPlayerInteraction += PlayerInteraction;   // 플레이어 상호작용
+            inventory.SetActive(false);
+        }
     }
 
     // 플레이어 상호작용 
     public override void PlayerInteraction() {
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-        if (Physics.Raycast(ray, out hit, interactionRange, LayerMask.NameToLayer("Player") | LayerMask.NameToLayer("Item")))   //레이어 이름, 거리에대해 상의
-        {
-            if (hit.collider.CompareTag("Item")) {           //ex)text : 'E' 아이템줍기 ui띄워주기
-                Debug.Log(hit.collider.transform.GetComponent<ItemPickUp>().item.itemName + " 획득 했습니다.");  // 인벤토리 넣기
-                theInventory.AcquireItem(hit.collider.transform.GetComponent<ItemPickUp>().item);
-
-                // 아이템 제거
-                hit.collider.gameObject.SetActive(false);
-            }
-            else if (hit.collider.CompareTag("Player")) {    //만약 플레이어면
-                //ex)text : 'E' 플레이어 살리기 ui띄워주기
-                if (hit.collider.GetComponent<Player>().isFaint == true) //만약 태그가 player고 기절이 true면
-                {
-                    //slider or shader로 (slider가 편할듯) 살려주기 바가 차오름
-                    //슬라이더 밸류가 1이 되는순간 순간 그녀석의 player에 접근해서 PlayerRevive()함수호출
+        if (PV.IsMine) {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+            int layerMask = LayerMask.GetMask("Player", "Item");
+            if (Physics.Raycast(ray, out hit, interactionRange, layerMask))   //레이어 이름, 거리에대해 상의
+            {
+                if (hit.collider.CompareTag("Item")) {           // ex)text : 'E' 아이템줍기 ui띄워주기
+                    if (theInventory.IsFull()) {
+                        Debug.Log("인벤토리가 가득 찼습니다. 더 이상 아이템을 줍지 못합니다.");
+                    }
+                    else {
+                        Debug.Log(hit.collider.transform.GetComponent<ItemPickUp>().item.itemName + " 획득 했습니다.");  // 인벤토리 넣기
+                        theInventory.AcquireItem(hit.collider.transform.GetComponent<ItemPickUp>().item);
+                        // 아이템 제거
+                        hit.collider.gameObject.SetActive(false);
+                    }
                 }
-            }        
+                else if (hit.collider.CompareTag("Player")) {    //만약 플레이어면
+                                                                 //ex)text : 'E' 플레이어 살리기 ui띄워주기
+                    if (hit.collider.GetComponent<Player>().isFaint == true) //만약 태그가 player고 기절이 true면
+                    {
+                        //slider or shader로 (slider가 편할듯) 살려주기 바가 차오름
+                        //슬라이더 밸류가 1이 되는순간 순간 그녀석의 player에 접근해서 PlayerRevive()함수호출
+                    }
+                }
+            }
         }
-        //아이템 사용은 인벤토리가 없어서 감이안옴 일단 내가 손에 들고있어야하고 손에 들고있는상태로 좌클릭시
-        //슬라이더로하든 이미지박고 시계 돌아가는거처럼 만들든해서 value가 1이되는순간 Hp(프로퍼티) = +30(회복아이템 회복계수)
-        //그리고 아이템 계수 차감
     }
 
     // 플레이어 공격 ( 근접인지 원거리인지 판단 bool ) 
@@ -339,7 +353,6 @@ public class Player : PlayerController
             // 총알의 초기 속도를 플레이어의 이동 속도로 설정하고 발사 방향 설정
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
             rb.AddForce(direction * 300f, ForceMode.VelocityChange); // 발사 방향과 속도를 함께 적용
-
         }
     }
 
@@ -348,6 +361,7 @@ public class Player : PlayerController
     {
         if (PV.IsMine) {
             Debug.Log("힐팩");
+
             //힐 하는시간 변수로 빼고 대충 중앙에 ui띄우고 힐 하는시간 지나면 Hp = (+30) 코루틴사용이 좋겠지 중간에 키입력시 return 애니메이션추가;
             
         }
