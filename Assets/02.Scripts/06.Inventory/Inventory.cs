@@ -23,11 +23,21 @@ public class Inventory : MonoBehaviour {
     }
     public void DecreaseMagazineCount()
     {
-        foreach (var slot in allSlots) {
+        foreach (Slot slot in allSlots) {
             if (slot.item != null && slot.item.type == ItemController.ItemType.Magazine) {
                 slot.SetSlotCount(-1);
             }
         }
+    }
+
+    public bool HasMagazine()
+    {
+        foreach (Slot slot in allSlots) {
+            if (slot.item != null && slot.item.type == ItemController.ItemType.Magazine && slot.itemCount > 0) {
+                return true; // 탄창이 하나라도 있으면 true 반환
+            }
+        }
+        return false; // 모든 슬롯을 검사했지만 탄창이 없는 경우
     }
 
     public void AcquireItem( ItemController _item, int _count = 1 ) {

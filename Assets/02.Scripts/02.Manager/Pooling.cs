@@ -32,7 +32,6 @@ public class Pooling : MonoBehaviourPun {
     public GameObject GetObject(string key)
     {
         if (!pools.ContainsKey(key)) {
-            Debug.LogError("Invalid key for pool: " + key);
             return null;
         }
 
@@ -43,11 +42,6 @@ public class Pooling : MonoBehaviourPun {
                 PhotonView objPhotonView = obj.GetComponent<PhotonView>();
                 if (objPhotonView == null) {
                     objPhotonView = obj.AddComponent<PhotonView>();
-                    // 추가적으로 PhotonView 설정이 필요할 수 있습니다.
-                }
-                if (photonView == null) {
-                    Debug.LogError("PhotonView component on this script is null.");
-                    return null; // 또는 적절한 오류 처리를 합니다.
                 }
                 select = obj;
                 photonView.RPC("ActivateObject", RpcTarget.All, objPhotonView.ViewID);
@@ -65,7 +59,6 @@ public class Pooling : MonoBehaviourPun {
             }
 
             if (prefab == null) {
-                Debug.LogError("Prefab with key not found: " + key);
                 return null;
             }
 

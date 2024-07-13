@@ -339,6 +339,11 @@ public class Player : PlayerController
     void GunAttack()
     {
         if (PV.IsMine) {
+            if (!theInventory.HasMagazine()) {
+                Debug.Log("탄창 없음");
+                return; // 탄창이 없으면 메소드를 종료하여 총을 쏘지 않음
+            }
+
             // 카메라 중앙에서 Ray 생성 
             Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
             // Ray 테스트 
