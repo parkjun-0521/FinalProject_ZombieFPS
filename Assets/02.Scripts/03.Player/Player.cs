@@ -274,15 +274,7 @@ public class Player : PlayerController
             if (Physics.Raycast(ray, out hit, interactionRange, layerMask))   //레이어 이름, 거리에대해 상의
             {
                 if (hit.collider.CompareTag("Item")) {           // ex)text : 'E' 아이템줍기 ui띄워주기
-                    if (theInventory.IsFull()) {
-                        Debug.Log("인벤토리가 가득 찼습니다. 더 이상 아이템을 줍지 못합니다.");
-                    }
-                    else {
-                        Debug.Log(hit.collider.transform.GetComponent<ItemPickUp>().item.itemName + " 획득 했습니다.");  // 인벤토리 넣기
-                        theInventory.AcquireItem(hit.collider.transform.GetComponent<ItemPickUp>().item);
-                        // 아이템 제거
-                        hit.collider.gameObject.SetActive(false);
-                    }
+                    ItemPickUp(hit.collider.gameObject);
                 }
                 else if (hit.collider.CompareTag("Player")) {    //만약 플레이어면
                                                                  //ex)text : 'E' 플레이어 살리기 ui띄워주기
@@ -293,6 +285,30 @@ public class Player : PlayerController
                     }
                 }
             }
+        }
+    }
+
+    private void ItemPickUp(GameObject itemObj) {
+        if (theInventory.IsFull()) {
+            Debug.Log("인벤토리가 가득 찼습니다. 더 이상 아이템을 줍지 못합니다.");
+        }
+        else {
+            Debug.Log(itemObj.transform.GetComponent<ItemPickUp>().item.itemName + " 획득 했습니다.");  // 인벤토리 넣기
+            theInventory.AcquireItem(itemObj.transform.GetComponent<ItemPickUp>().item);
+            // 아이템 제거
+            PV.RPC("ItemPickUpRPC", RpcTarget.AllBuffered, itemObj.GetComponent<PhotonView>().ViewID);    
+        }
+    }
+
+    [PunRPC]
+    private void ItemPickUpRPC(int viewID)
+    {
+        GameObject itemObj = PhotonNetwork.GetPhotonView(viewID).gameObject;
+        if (itemObj != null) {
+            itemObj.SetActive(false);
+        }
+        else {
+            Debug.LogError("Item object not found with viewID: " + viewID);
         }
     }
 
@@ -341,10 +357,13 @@ public class Player : PlayerController
                 targetPoint = ray.origin + ray.direction * 1000f;
             }
 
+            theInventory.DecreaseMagazineCount();
+
             // 총알 생성 (오브젝트 풀링 사용)
-            GameObject bullet = Pooling.instance.GetObject(0); // 총알이 들어가 있는 index로 변경 (0은 임시)
+            GameObject bullet = Pooling.instance.GetObject("Bullet"); // 총알이 들어가 있는 index로 변경 (0은 임시)
             bullet.transform.position = bulletPos.position; // bullet 위치 초기화
             bullet.transform.rotation = Quaternion.identity; // bullet 회전값 초기화
+
 
             // 총알의 방향 설정
             Vector3 direction = (targetPoint - bulletPos.position).normalized;
@@ -376,7 +395,7 @@ public class Player : PlayerController
             float throwForce = 15f;    // 던지는 힘
 
 
-            GameObject grenade = Pooling.instance.GetObject(1); // 총알이 들어가 있는 index로 변경 (0은 임시)
+            GameObject grenade = Pooling.instance.GetObject("GrenadeObject"); // 총알이 들어가 있는 index로 변경 (0은 임시)
             Rigidbody grenadeRigid = grenade.GetComponent<Rigidbody>();
             grenadeRigid.velocity = Vector3.zero;
             grenade.transform.position = grenadePos.position; // bullet 위치 초기화                   

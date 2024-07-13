@@ -13,11 +13,21 @@ public class Inventory : MonoBehaviour {
     private GameObject go_MauntingSlotsParent;  // Slot들의 부모인 Grid Setting 
 
     public List<Slot> slots;            // 슬롯들 배열
+    public List<Slot> allSlots;
 
     void Start() {
         slots = new List<Slot>();       // slots를 List로 초기화
         slots.AddRange(go_SlotsParent.GetComponentsInChildren<Slot>());
         slots.AddRange(go_MauntingSlotsParent.GetComponentsInChildren<Slot>());
+        allSlots = new List<Slot>(GetComponentsInChildren<Slot>(true));
+    }
+    public void DecreaseMagazineCount()
+    {
+        foreach (var slot in allSlots) {
+            if (slot.item != null && slot.item.type == ItemController.ItemType.Magazine) {
+                slot.SetSlotCount(-1);
+            }
+        }
     }
 
     public void AcquireItem( ItemController _item, int _count = 1 ) {
@@ -29,6 +39,10 @@ public class Inventory : MonoBehaviour {
                 if (slots[i].item != null && slots[i].slotID == 0)  // null 이라면 slots[i].item.itemName 할 때 런타임 에러 나서
                 {
                     if (slots[i].item.itemName == _item.itemName) {
+                        if (ItemController.ItemType.Magazine == _item.type)
+                            _count = 30;    // 총알은 30발 
+                        else
+                            _count = 1;
                         slots[i].SetSlotCount(_count);
                         return;
                     }

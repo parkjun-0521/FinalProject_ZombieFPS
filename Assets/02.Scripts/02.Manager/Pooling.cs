@@ -7,10 +7,13 @@ public class Pooling : MonoBehaviourPun {
     public static Pooling instance;
 
     public GameObject[] prefabs;            // 생성될 오브젝트 
-    List<GameObject>[] pools;
+    private Dictionary<string, List<GameObject>> pools;
+
+    PhotonView photonView;
 
     void Awake()
     {
+        photonView = GetComponent<PhotonView>();
         if (instance == null) {
             instance = this;
         }
@@ -18,46 +21,73 @@ public class Pooling : MonoBehaviourPun {
             Destroy(gameObject);
             return;
         }
+
         // pools 초기화 
-        pools = new List<GameObject>[prefabs.Length];
-        for (int index = 0; index < prefabs.Length; index++) {
-            pools[index] = new List<GameObject>();
+        pools = new Dictionary<string, List<GameObject>>();
+        foreach (GameObject prefab in prefabs) {
+            pools[prefab.name] = new List<GameObject>();
         }
     }
 
-    public GameObject GetObject(int index)
+    public GameObject GetObject(string key)
     {
-        if (index < 0 || index >= pools.Length) {
-            Debug.LogError("Invalid index for pool");
+        if (!pools.ContainsKey(key)) {
+            Debug.LogError("Invalid key for pool: " + key);
             return null;
         }
+
         GameObject select = null;
 
-        try {
-            foreach (GameObject obj in pools[index]) {
-                // 오브젝트가 비활성화 되었을 시 활성화
-                if (obj != null && !obj.activeSelf) {
-                    select = obj;
-                    obj.SetActive(true);
+        foreach (GameObject obj in pools[key]) {
+            if (obj != null && !obj.activeSelf) {
+                PhotonView objPhotonView = obj.GetComponent<PhotonView>();
+                if (objPhotonView == null) {
+                    objPhotonView = obj.AddComponent<PhotonView>();
+                    // 추가적으로 PhotonView 설정이 필요할 수 있습니다.
+                }
+                if (photonView == null) {
+                    Debug.LogError("PhotonView component on this script is null.");
+                    return null; // 또는 적절한 오류 처리를 합니다.
+                }
+                select = obj;
+                photonView.RPC("ActivateObject", RpcTarget.All, objPhotonView.ViewID);
+                break;
+            }
+        }
+
+        if (select == null) {
+            GameObject prefab = null;
+            foreach (GameObject p in prefabs) {
+                if (p.name == key) {
+                    prefab = p;
                     break;
                 }
             }
 
-            // 오브젝트가 없을 때 오브젝트 생성 후 pools에 추가
-            if (select == null) {
-                if (PhotonNetwork.IsConnected && PhotonNetwork.InRoom) {
-                    select = PhotonNetwork.Instantiate(prefabs[index].name, Vector3.zero, Quaternion.identity);
-                }
-                else {
-                    select = Instantiate(prefabs[index], Vector3.zero, Quaternion.identity);
-                }
-                pools[index].Add(select);
+            if (prefab == null) {
+                Debug.LogError("Prefab with key not found: " + key);
+                return null;
             }
-        }
-        catch (System.Exception ex) {
-            Debug.LogError("Error in GetObject: " + ex.Message);
+
+            if (PhotonNetwork.IsConnected && PhotonNetwork.InRoom) {
+                select = PhotonNetwork.Instantiate(prefab.name, Vector3.zero, Quaternion.identity);
+            }
+            else {
+                select = Instantiate(prefab, Vector3.zero, Quaternion.identity);
+            }
+            pools[key].Add(select);
         }
 
         return select;
+    }
+
+
+    [PunRPC]
+    void ActivateObject(int viewID)
+    {
+        PhotonView targetView = PhotonView.Find(viewID);
+        if (targetView != null) {
+            targetView.gameObject.SetActive(true);
+        }
     }
 }

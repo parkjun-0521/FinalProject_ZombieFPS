@@ -1,3 +1,5 @@
+using Photon.Pun;
+using Photon.Pun.Demo.Asteroids;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -5,7 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler {
+public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler {
     public int slotID;          // 장착 가능한 슬롯 ID
     public ItemController item; // 획득한 아이템
     public int itemCount;       // 획득한 아이템의 개수
@@ -59,6 +61,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
 
     // 해당 슬롯의 아이템 갯수 업데이트
     public void SetSlotCount( int _count ) {
+
         itemCount += _count;
         text_Count.text = itemCount.ToString();
 
@@ -80,20 +83,9 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
     public void OnPointerClick( PointerEventData eventData ) {
         if (eventData.button == PointerEventData.InputButton.Right) {
             if (item == null) return;
-/*  Test
-            if(slotID == 1) {
-                Debug.Log(item.type);
+            if(item.type == ItemController.ItemType.Magazine) {
+                SetSlotCount(-1);
             }
-            else if(slotID == 2) {
-                Debug.Log(item.type);
-            }
-            else if(slotID == 3) {
-                Debug.Log(item.type);
-            }
-            else if(slotID == 4) {
-                Debug.Log(item.type);
-            }
-*/
             if (eventData.button == PointerEventData.InputButton.Right) {
                 if (item != null && item.itemID != 0) {
                     Slot targetSlot = inventory.FindSlotByID(item.itemID);
@@ -136,21 +128,26 @@ public class Slot : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDra
 
     // 마우스 드래그가 끝났을 때 발생하는 이벤트
     public void OnEndDrag( PointerEventData eventData ) {
+        if (photonView.IsMine) {
+            // 아이템 버리기 
+            if (DragSlot.instance.transform.localPosition.x < baseRect.xMin
+               || DragSlot.instance.transform.localPosition.x > baseRect.xMax
+               || DragSlot.instance.transform.localPosition.y < baseRect.yMin
+               || DragSlot.instance.transform.localPosition.y > baseRect.yMax) {
 
-        // 아이템 버리기 
-        if(DragSlot.instance.transform.localPosition.x < baseRect.xMin 
-           || DragSlot.instance.transform.localPosition.x > baseRect.xMax
-           || DragSlot.instance.transform.localPosition.y < baseRect.yMin
-           || DragSlot.instance.transform.localPosition.y > baseRect.yMax) {
+                // 아이템 프리팹 생성해줘야함 
+                string itemName = item.type.ToString();
+                // 아이템 프리팹 생성
+                GameObject itemObj = Pooling.instance.GetObject(itemName);
+                itemObj.transform.position = gameObject.GetComponentInParent<Player>().bulletPos.position; // bullet 위치 초기화
+                itemObj.transform.rotation = Quaternion.identity; // bullet 회전값 초기화
 
-            // 아이템 프리팹 생성해줘야함 
-            Debug.Log("풀링에 아이템 집어 넣고 생성해줘야함 ");
+                DragSlot.instance.dragSlot.ClearSlot();
+            }
 
-            DragSlot.instance.dragSlot.ClearSlot();
+            DragSlot.instance.SetColor(0);
+            DragSlot.instance.dragSlot = null;
         }
-
-        DragSlot.instance.SetColor(0);
-        DragSlot.instance.dragSlot = null;
     }
 
     // 해당 슬롯에 무언가가 마우스 드롭 됐을 때 발생하는 이벤트
