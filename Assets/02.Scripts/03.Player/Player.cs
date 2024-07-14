@@ -271,6 +271,7 @@ public class Player : PlayerController
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
             int layerMask = LayerMask.GetMask("Player", "Item");
+            float radius = 1.5f;
             if (Physics.Raycast(ray, out hit, interactionRange, layerMask))   //레이어 이름, 거리에대해 상의
             {
                 if (hit.collider.CompareTag("Item")) {           // ex)text : 'E' 아이템줍기 ui띄워주기
@@ -293,10 +294,16 @@ public class Player : PlayerController
             Debug.Log("인벤토리가 가득 찼습니다. 더 이상 아이템을 줍지 못합니다.");
         }
         else {
-            Debug.Log(itemObj.transform.GetComponent<ItemPickUp>().item.itemName + " 획득 했습니다.");  // 인벤토리 넣기
-            theInventory.AcquireItem(itemObj.transform.GetComponent<ItemPickUp>().item);
-            // 아이템 제거
-            PV.RPC("ItemPickUpRPC", RpcTarget.AllBuffered, itemObj.GetComponent<PhotonView>().ViewID);    
+            if (PhotonNetwork.IsConnected && PhotonNetwork.InRoom) {
+                Debug.Log(itemObj.transform.GetComponent<ItemPickUp>().item.itemName + " 획득 했습니다.");  // 인벤토리 넣기
+                theInventory.AcquireItem(itemObj.transform.GetComponent<ItemPickUp>().item);
+                // 아이템 제거
+                PV.RPC("ItemPickUpRPC", RpcTarget.AllBuffered, itemObj.GetComponent<PhotonView>().ViewID);
+            }
+            else {
+                theInventory.AcquireItem(itemObj.transform.GetComponent<ItemPickUp>().item);
+                itemObj.SetActive(false);
+            }
         }
     }
 
@@ -308,7 +315,7 @@ public class Player : PlayerController
             itemObj.SetActive(false);
         }
         else {
-            Debug.LogError("Item object not found with viewID: " + viewID);
+            Debug.LogError("viewID: " + viewID);
         }
     }
 
@@ -339,7 +346,7 @@ public class Player : PlayerController
     void GunAttack()
     {
         if (PV.IsMine) {
-            if (!theInventory.HasMagazine()) {
+            if (!theInventory.HasItemUse(ItemController.ItemType.Magazine)) {
                 Debug.Log("탄창 없음");
                 return; // 탄창이 없으면 메소드를 종료하여 총을 쏘지 않음
             }
@@ -362,7 +369,7 @@ public class Player : PlayerController
                 targetPoint = ray.origin + ray.direction * 1000f;
             }
 
-            theInventory.DecreaseMagazineCount();
+            theInventory.DecreaseMagazineCount(ItemController.ItemType.Magazine);
 
             // 총알 생성 (오브젝트 풀링 사용)
             GameObject bullet = Pooling.instance.GetObject("Bullet"); // 총알이 들어가 있는 index로 변경 (0은 임시)
@@ -384,6 +391,11 @@ public class Player : PlayerController
     void ItemHealpack()
     {
         if (PV.IsMine) {
+            if (!theInventory.HasItemUse(ItemController.ItemType.Healpack)) {
+                Debug.Log("힐팩 없음");
+                return; // 탄창이 없으면 메소드를 종료하여 총을 쏘지 않음
+            }
+            theInventory.DecreaseMagazineCount(ItemController.ItemType.Healpack);
             Debug.Log("힐팩");
 
             //힐 하는시간 변수로 빼고 대충 중앙에 ui띄우고 힐 하는시간 지나면 Hp = (+30) 코루틴사용이 좋겠지 중간에 키입력시 return 애니메이션추가;
@@ -400,7 +412,7 @@ public class Player : PlayerController
             float throwForce = 15f;    // 던지는 힘
 
 
-            GameObject grenade = Pooling.instance.GetObject("GrenadeObject"); // 총알이 들어가 있는 index로 변경 (0은 임시)
+            GameObject grenade = Pooling.instance.GetObject("GrenadeObject"); 
             Rigidbody grenadeRigid = grenade.GetComponent<Rigidbody>();
             grenadeRigid.velocity = Vector3.zero;
             grenade.transform.position = grenadePos.position; // bullet 위치 초기화                   

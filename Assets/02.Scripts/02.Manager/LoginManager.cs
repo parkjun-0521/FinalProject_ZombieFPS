@@ -87,6 +87,8 @@ public class LoginManager : MonoBehaviour
                 Debug.Log("회원이 만들어지지 않음");
             }
             else {
+                createUserIDInput.text = "";
+                createUserPWInput.text = "";
                 Debug.Log("회원가입 완료");
             }
         } 
