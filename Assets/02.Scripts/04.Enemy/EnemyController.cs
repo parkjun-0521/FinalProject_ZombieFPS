@@ -15,7 +15,7 @@ interface IEnemy {
 }
 
 
-public abstract class EnemyController : MonoBehaviourPun, IEnemy {
+public class EnemyController : MonoBehaviourPun, IEnemy {
 
     
     // 좀비 걷기 속도 
@@ -37,6 +37,7 @@ public abstract class EnemyController : MonoBehaviourPun, IEnemy {
     [SerializeField]
     protected float maxHp;
     // 좀비 현재 체력 
+    
     protected float hp;
     public float Hp
     {
@@ -46,21 +47,32 @@ public abstract class EnemyController : MonoBehaviourPun, IEnemy {
         }
         set
         {
-            ChangeHp(value);                   //hp를 value만큼 더함 즉 피해량을 양수로하면 힐이됨 음수로 해야함 여기서 화면 시뻘겋게 and 연두색도함
-            EnemyDead();                      //만약 hp를 수정했을때 체력이 0보다 작으면 기절
-            Debug.Log("좀비 hp 변경" + hp);
+            if(hp > 0)
+            {
+                ChangeHp(value);                   //hp를 value만큼 더함 즉 피해량을 양수로하면 힐이됨 음수로 해야함 여기서 화면 시뻘겋게 and 연두색도함
+                EnemyDead();                      //만약 hp를 수정했을때 체력이 0보다 작으면 기절
+                Debug.Log(hp);
+            }
         }
     }
+
+    public float damage;
 
     protected bool isWalk;              // 걷고있는 상태 
     protected bool isRun;               // 달리는 상태 
     protected bool isAttack;            // 공격 하는 상태 
     protected bool isTracking;          // 추적 상태 
 
-    public abstract void EnemyDead();
-    public abstract void EnemyMove();
-    public abstract void EnemyAttack();
-    public abstract void EnemyRun();
-    public abstract void EnemyTracking();
-    public abstract void ChangeHp(float value);
+    public virtual void EnemyDead() { }
+    public virtual void EnemyMove() { }
+    public virtual void EnemyAttack() { }
+    public virtual void EnemyRun() { }
+    public virtual void EnemyTracking() { }
+    public virtual void ChangeHp(float value) { }
+    public virtual void BloodEffect(Vector3 pos, Collider other = null)
+    {
+        Pooling.instance.GetObject(1).transform.position = pos;
+        
+
+    }
 }

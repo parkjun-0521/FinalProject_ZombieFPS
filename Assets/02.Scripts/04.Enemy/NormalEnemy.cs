@@ -30,15 +30,16 @@ public class NormalEnemy : EnemyController
     bool isTracing = false;
 
 
+
     void Awake()
     {
         // 레퍼런스 초기화 
         PV = GetComponent<PhotonView>();
         rigid = GetComponent<Rigidbody>();
         nav = GetComponent<NavMeshAgent>();
-        ani = GetComponent<Animator>();
+        ani = GetComponentInChildren<Animator>();
         playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
- 
+        
     }
 
     private void OnEnable()
@@ -86,23 +87,25 @@ public class NormalEnemy : EnemyController
       
 
     }
+    
     void OnTriggerEnter(Collider other)                       //총알, 근접무기...triggerEnter
     {
         if (other.CompareTag("Bullet"))             // 총알과 trigger
         {
             Hp = -(other.GetComponent<Bullet>().scriptableObject.damage);  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
-            BloodEffect(other.transform.position);
             other.gameObject.SetActive(false);
         }
         else if (other.CompareTag("Weapon"))        // 근접무기와 trigger
         {
             //Hp = -(other.GetComponent<Weapon>().attackdamage)
-            BloodEffect(other.transform.position);
+            BloodEffect(transform.position);
         }
-        else if (other.CompareTag("Granade"))
+        else if (other.CompareTag("Player"))
         {
-            //Hp = -(other.GetComponent<ItemGrenade>().attackdamage);
+            other.GetComponent<Player>().Hp = -damage;
         }
+        else
+            return;
     }
 
     //보통 적 NPC의 이동
@@ -122,7 +125,7 @@ public class NormalEnemy : EnemyController
             //Debug.Log("reset:ING");
             Vector3 direction = (Vector3.zero - transform.position).normalized;
             rigid.AddForce(direction * resetSpeed , ForceMode.VelocityChange);
-           
+            
             isRangeOut = true;
             isNow = false;
             rigid.velocity = Vector3.zero;
@@ -177,10 +180,10 @@ public class NormalEnemy : EnemyController
     {
         if (hp <= 0)
         {
-            //ani.setTrigger("Dead");
+            ani.SetTrigger("isDead");
             //델리게이트 다른거 다 빼기
             //?초후에
-            //gameObject.SetActive(false); 풀링할거니까
+            //gameObject.SetActive(false); 
         }
     }
 
@@ -191,18 +194,11 @@ public class NormalEnemy : EnemyController
         {
             //좀비가 체력회복할일은 없겠지만 나중에 보스 or 엘리트 좀비가 주변몹 회복할수도있으니 확장성때매 놔둠
             //힐 좀비 주변에 +모양 파티클생성
-            hp = (+value);
         }
         else if (value < 0)
         {
             //공격맞은거
             //ani.setTrigger("피격모션");
-            hp = (-value);
         }
-    }
-
-    public void BloodEffect(Vector3 pos)
-    {
-        Pooling.instance.GetObject(1).transform.position = pos;
     }
 }

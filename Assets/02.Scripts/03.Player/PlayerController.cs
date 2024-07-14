@@ -42,6 +42,9 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     [SerializeField]
     protected float interactionRange = 2.0f;    //상호작용최대거리
     protected float hp = 100.0f;                //플레이어hp 
+
+    [Header("UI======")] [SerializeField]
+    protected GameObject playerReviveUI;
     public float Hp                             //hp 프로퍼티
     {
         get {
@@ -53,7 +56,7 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
             Debug.Log("플레이어 hp 변경" + hp);
         }
     }
-
+    [SerializeField]
     protected bool isFaint = false;             //기절했는지 true false
     public Image bloodScreen;                   //피격시 화면 빨갛게 할 이미지
     public Image healScreen;                    //치유시 화면 연두색 할 이미지
@@ -93,6 +96,7 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     public PhotonView PV;               // 포톤 ( 동기화 관련 및 서버 관련 ) 
     public Rigidbody rigid;
     public Animator animator;
+    public Animator handAnimator;
 
     [Header("인벤토리=======")]
     public GameObject inventory;        // 인벤토리 UI

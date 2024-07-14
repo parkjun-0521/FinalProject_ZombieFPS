@@ -207,14 +207,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c43cd1b8dbf1fb4cb1aeed06b8cb3da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 3
-  itemID: 0
-  damege: 0
   rigid: {fileID: 0}
   collider: {fileID: 0}
   second: 4
   Explosionrange: {fileID: 391476627754886691}
   explosionEffect: {fileID: 5202783331454762892}
+  scriptableObject: {fileID: 11400000, guid: e711292e935d4894891c14211f888358, type: 2}
 --- !u!96 &481646740342597364
 TrailRenderer:
   serializedVersion: 2

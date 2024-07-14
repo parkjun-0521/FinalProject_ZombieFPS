@@ -6,9 +6,4 @@ public class Bullet : MonoBehaviour
 {
     public ItemController scriptableObject;
 
-    private void Update()
-    {
-        
-        
-    }
 }
