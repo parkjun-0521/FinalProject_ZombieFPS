@@ -444,7 +444,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -663,6 +662,9 @@ MonoBehaviour:
   idInput: {fileID: 683739072}
   passwordInput: {fileID: 884108812}
   loginButton: {fileID: 1646805696}
+  createUserIDInput: {fileID: 797833302}
+  createUserPWInput: {fileID: 1881811193}
+  createUserButton: {fileID: 1415725128}
   StatusText: {fileID: 1242921760}
 --- !u!224 &363998701 stripped
 RectTransform:
