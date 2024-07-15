@@ -71,7 +71,11 @@ MonoBehaviour:
   distance: 5
   layermask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
+  maxTracingSpeed: 5
+  meleeDelay: 4
+  attackColliderPrefab: {fileID: 0}
+  attackPoint: {fileID: 0}
 --- !u!54 &2740344462459586791
 Rigidbody:
   m_ObjectHideFlags: 0
