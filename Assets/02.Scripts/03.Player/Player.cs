@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -74,6 +75,7 @@ public class Player : PlayerController
         if (PV.IsMine) {
             keyManager = InputKeyManager.instance.GetComponent<InputKeyManager>();
             playerCamera.gameObject.SetActive(true);
+            ItemController[] items = FindObjectsOfType<ItemController>(true); // true를 사용하여 비활성화된 오브젝트도 포함
         }
         else {
             playerCamera.gameObject.SetActive(false);
@@ -271,7 +273,6 @@ public class Player : PlayerController
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
             int layerMask = LayerMask.GetMask("Player", "Item");
-            float radius = 1.5f;
             if (Physics.Raycast(ray, out hit, interactionRange, layerMask))   //레이어 이름, 거리에대해 상의
             {
                 if (hit.collider.CompareTag("Item")) {           // ex)text : 'E' 아이템줍기 ui띄워주기
@@ -407,11 +408,19 @@ public class Player : PlayerController
     void ItemGrenade()
     {
         if (PV.IsMine) {
+            if (!theInventory.HasItemUse(ItemController.ItemType.Grenade) && 
+                !theInventory.HasItemUse(ItemController.ItemType.FireGrenade) && 
+                !theInventory.HasItemUse(ItemController.ItemType.SupportFireGrenade)) {
+
+                Debug.Log("투척무기 없음");
+                return; // 탄창이 없으면 메소드를 종료하여 총을 쏘지 않음
+            }
+
             Debug.Log("투척 공격");
             animator.SetTrigger("isGranadeThrow");
             float throwForce = 15f;    // 던지는 힘
 
-
+            theInventory.DecreaseMagazineCount(ItemController.ItemType.Grenade);
             GameObject grenade = Pooling.instance.GetObject("GrenadeObject"); 
             Rigidbody grenadeRigid = grenade.GetComponent<Rigidbody>();
             grenadeRigid.velocity = Vector3.zero;

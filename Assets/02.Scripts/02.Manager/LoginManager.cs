@@ -18,10 +18,10 @@ public class LoginManager : MonoBehaviour
 
     public Text StatusText;
 
-    string LoginURL = "http://localhost/Zombie_Login.php";
-    string CreateUserURL = "http://localhost/Zombie_NewCreateUser.php";
-    //string LoginURL = "http://223.131.75.181:1356//Zombie_Login.php";
-    //string CreateUserURL = "http://223.131.75.181:1356/Zombie_NewCreateUser.php";
+    //string LoginURL = "http://localhost/Zombie_Login.php";
+    //string CreateUserURL = "http://localhost/Zombie_NewCreateUser.php";
+    string LoginURL = "http://223.131.75.181:1356//Zombie_Login.php";
+    string CreateUserURL = "http://223.131.75.181:1356/Zombie_NewCreateUser.php";
 
     void Start() {
         NetworkManager.Instance.NickNameInput = idInput;

@@ -179,7 +179,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2304225384201997074}
-  - component: {fileID: 924182443362614856}
+  - component: {fileID: 707657337602109251}
   m_Layer: 10
   m_Name: Range
   m_TagString: Untagged
@@ -202,8 +202,8 @@ Transform:
   m_Father: {fileID: 1154866981055428298}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &924182443362614856
-SphereCollider:
+--- !u!65 &707657337602109251
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -213,5 +213,5 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.25
-  m_Center: {x: 0, y: 0.1, z: 0}
+  m_Size: {x: 0.3, y: 0.3, z: 0.3}
+  m_Center: {x: 0, y: 0, z: 0}

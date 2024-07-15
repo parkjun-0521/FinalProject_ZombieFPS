@@ -105,6 +105,7 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     public abstract void ItemThrowAway( int id );
     public abstract void PlayerFaint();
     public abstract void PlayerRevive();   
+
     public abstract void PlayerDead();
     // 플레이어 체력 변화 이벤트 
     public abstract void ChangeHp( float value );        

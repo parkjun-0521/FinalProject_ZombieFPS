@@ -49,10 +49,18 @@ public class Inventory : MonoBehaviour {
                 if (slots[i].item != null && slots[i].slotID == 0)  // null 이라면 slots[i].item.itemName 할 때 런타임 에러 나서
                 {
                     if (slots[i].item.itemName == _item.itemName) {
-                        if (ItemController.ItemType.Magazine == _item.type)
-                            _count = 30;    // 총알은 30발 
-                        else
-                            _count = 1;
+                        if (!_item.isPickUp) {
+                            if (ItemController.ItemType.Magazine == _item.type)
+                                _count = _item.itemCount;    // 총알은 30발 
+                            else
+                                _count = _item.itemCount;
+                        }
+                        else {
+                            if (ItemController.ItemType.Magazine == _item.type)
+                                _count = _item.totalCount;    // 총알은 30발 
+                            else
+                                _count = _item.totalCount;
+                        }
                         slots[i].SetSlotCount(_count);
                         return;
                     }
@@ -62,6 +70,18 @@ public class Inventory : MonoBehaviour {
 
         for (int i = 0; i < slots.Count; i++) {
             if (slots[i].item == null && slots[i].slotID == 0) {
+                if (!_item.isPickUp) {
+                    if (ItemController.ItemType.Magazine == _item.type)
+                        _count = _item.itemCount;    // 총알은 30발 
+                    else
+                        _count = _item.itemCount;
+                }
+                else {
+                    if (ItemController.ItemType.Magazine == _item.type)
+                        _count = _item.totalCount;    // 총알은 30발 
+                    else
+                        _count = _item.totalCount;
+                }
                 slots[i].AddItem(_item, _count);
                 return;
             }

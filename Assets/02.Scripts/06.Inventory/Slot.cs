@@ -35,14 +35,12 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
     }
 
     // 인벤토리에 새로운 아이템 슬롯 추가
-    public void AddItem( ItemController _item, int _count = 1 ) {
+    public void AddItem( ItemController _item, int _count) {
         item = _item;
-        if (ItemController.ItemType.Magazine == _item.type)
-            _count = 30;    // 총알은 30발 
-        else
-            _count = 1;     // 나머진 1개씩 
-        itemCount = _count;
+        itemCount += _count;
         itemImage.sprite = item.itemImage;
+        // RPC로 isPickUp 속성을 false로 설정
+        photonView.RPC("SetItemPickupStatus", RpcTarget.AllBuffered, _item.itemPrimaryID);
 
         if (ItemController.ItemType.Gun != _item.type       &&
             ItemController.ItemType.ShotGun != _item.type   &&
@@ -55,8 +53,18 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
             text_Count.text = "0";
             go_CountImage.SetActive(false);
         }
-
         SetColor(1);
+    }
+    [PunRPC]
+    public void SetItemPickupStatus( int itemID ) {
+        // 모든 ItemController를 찾아서 itemID가 일치하는 아이템의 isPickUp 속성을 false로 설정
+        ItemController[] allItems = Resources.FindObjectsOfTypeAll<ItemController>();
+        foreach (ItemController item in allItems) {
+            if (item.itemPrimaryID == itemID) {
+                item.isPickUp = false;
+                break;
+            }
+        }
     }
 
     // 해당 슬롯의 아이템 갯수 업데이트
@@ -83,9 +91,6 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
     public void OnPointerClick( PointerEventData eventData ) {
         if (eventData.button == PointerEventData.InputButton.Right) {
             if (item == null) return;
-            if(item.type == ItemController.ItemType.Magazine) {
-                SetSlotCount(-1);
-            }
             if (eventData.button == PointerEventData.InputButton.Right) {
                 if (item != null && item.itemID != 0) {
                     Slot targetSlot = inventory.FindSlotByID(item.itemID);
@@ -139,8 +144,11 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
                 string itemName = item.type.ToString();
                 // 아이템 프리팹 생성
                 GameObject itemObj = Pooling.instance.GetObject(itemName);
+                photonView.RPC("SetItemProperties", RpcTarget.AllBuffered, itemObj.GetComponent<PhotonView>().ViewID, itemCount);
+
                 itemObj.transform.position = gameObject.GetComponentInParent<Player>().bulletPos.position; // bullet 위치 초기화
                 itemObj.transform.rotation = Quaternion.identity; // bullet 회전값 초기화
+
 
                 DragSlot.instance.dragSlot.ClearSlot();
             }
@@ -148,6 +156,12 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
             DragSlot.instance.SetColor(0);
             DragSlot.instance.dragSlot = null;
         }
+    }
+    [PunRPC]
+    private void SetItemProperties( int itemViewID, int itemCount ) {
+        GameObject itemObj = PhotonView.Find(itemViewID).gameObject;
+        itemObj.GetComponent<ItemPickUp>().item.totalCount = itemCount;
+        itemObj.GetComponent<ItemPickUp>().item.isPickUp = true;
     }
 
     // 해당 슬롯에 무언가가 마우스 드롭 됐을 때 발생하는 이벤트

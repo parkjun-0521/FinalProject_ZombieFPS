@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 793917278634077883}
   m_Layer: 10
   m_Name: Gun
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -179,7 +179,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1308125706801029004}
-  - component: {fileID: 6108850218395989244}
+  - component: {fileID: 1157508904436787804}
   m_Layer: 10
   m_Name: Range
   m_TagString: Item
@@ -202,8 +202,8 @@ Transform:
   m_Father: {fileID: 1551386107059371076}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &6108850218395989244
-SphereCollider:
+--- !u!65 &1157508904436787804
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -213,5 +213,5 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Size: {x: 0.3, y: 0.3, z: 0.3}
   m_Center: {x: 0, y: 0, z: 0}
