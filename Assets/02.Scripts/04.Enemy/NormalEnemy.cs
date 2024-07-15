@@ -34,11 +34,11 @@ public class NormalEnemy : EnemyController
     void Awake()
     {
         // 레퍼런스 초기화 
-        PV = GetComponent<PhotonView>();
+        //PV = GetComponent<PhotonView>();
         rigid = GetComponent<Rigidbody>();
         nav = GetComponent<NavMeshAgent>();
         ani = GetComponentInChildren<Animator>();
-        playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
+        
         
     }
 
@@ -52,6 +52,7 @@ public class NormalEnemy : EnemyController
     void Start()
     {
         InvokeRepeating("EnemyMove", 0.5f, 3.0f);
+        playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
     }
     void Update()
     {

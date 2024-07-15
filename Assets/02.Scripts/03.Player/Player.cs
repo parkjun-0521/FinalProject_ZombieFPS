@@ -48,6 +48,7 @@ public class Player : PlayerController
             Cursor.visible = false;                         // 마우스 커서 비활성화
             Cursor.lockState = CursorLockMode.Locked;       // 마우스 커서 현재 위치 고정 
             rotateToMouse = GetComponentInChildren<RotateToMouse>();
+
         }
     }
 
@@ -505,7 +506,6 @@ public class Player : PlayerController
     {
         if (Physics.Raycast(ray, out hit, interactionRange, LayerMask.NameToLayer("Player") | LayerMask.NameToLayer("Item")))
         {
-            Debug.Log(hit.collider.name);
             if (hit.collider.CompareTag("Player"))
             {
                 isRayPlayer = true;
