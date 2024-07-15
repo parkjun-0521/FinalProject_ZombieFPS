@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 608050b07e1b37245af9406cf19a92b6, type: 3}
   m_Name: _Magazine Item
   m_EditorClassIdentifier: 
-  type: 6
-  itemImage: {fileID: 21300000, guid: b528c1b33a65cf94ea74f830b54c9acb, type: 3}
+  type: 8
+  itemID: 0
+  itemImage: {fileID: 21300000, guid: 01410d26447fa1d4f8adb2356ea696e3, type: 3}
   itemName: Magazine
-  damage: 100
+  damege: 0
+  itemCount: 30
+  isPickUp: 0
+  totalCount: 150

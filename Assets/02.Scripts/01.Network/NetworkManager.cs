@@ -17,8 +17,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
     public InputField roomInput ,NickNameInput;
     public string playerName;
 
-    bool playerCreated = false;
-
     public Button[] cellBtn;                        // 방 버튼
     public Button previousBtn;                      // 이전 버튼 
     public Button nextBtn;                          // 다음 버튼

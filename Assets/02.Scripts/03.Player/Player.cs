@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -78,6 +79,7 @@ public class Player : PlayerController
         if (PV.IsMine) {
             keyManager = InputKeyManager.instance.GetComponent<InputKeyManager>();
             playerCamera.gameObject.SetActive(true);
+            ItemController[] items = FindObjectsOfType<ItemController>(true); // true를 사용하여 비활성화된 오브젝트도 포함
         }
         else {
             playerCamera.gameObject.SetActive(false);
@@ -94,7 +96,9 @@ public class Player : PlayerController
             if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Attack)) && !EventSystem.current.IsPointerOverGameObject()) {
                 // 총,칼 0.1초, 수류탄,힐팩 1초 딜레이
                 attackMaxDelay = stanceWeaponType ? 1.0f : 0.1f;
+
                 animator.SetBool("isRifleMoveShot", true);  //총쏘는 애니메이션
+
                 // 일정 딜레이가 될 때 마다 총알을 발사
                 if (Time.time - lastAttackTime >= attackMaxDelay) {
                     OnPlayerAttack?.Invoke(isAtkDistance);
@@ -106,13 +110,17 @@ public class Player : PlayerController
             if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Jump)) && isJump) {
                 OnPlayerJump?.Invoke();
             }
+
+            // 공격 이후 애니메이션 
             if (Input.GetKeyUp(keyManager.GetKeyCode(KeyCodeTypes.Attack)))
             {
                 animator.SetBool("isRifleMoveShot", false);
             }
 
-            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Inventory))) {
+            // 인벤토리
+            if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Inventory))) {
                 OnPlayerInventory?.Invoke();
+                ToggleCursor();
             }
           
             // 플레이어 상호작용
@@ -134,6 +142,8 @@ public class Player : PlayerController
 
         }
     }
+
+    // 마우스 커서 생성 
     private void ToggleCursor() {
         cursorLocked = !cursorLocked;
         Cursor.visible = !cursorLocked;
@@ -188,35 +198,30 @@ public class Player : PlayerController
 
             // 걷기, 달리기 속도 조절
             float playerSpeed = type ? runSpeed : speed;
-            //애니메이션
-            animator.SetFloat("speedBlend", 0);
-
 
             // 좌우 이동
-            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.LeftMove)))
-            {
-                animator.SetFloat("speedBlend", type ? 1.0f : 0.5f);
+            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.LeftMove))) {
+                isMove = true;
                 x = -1f;
             }
-               
-            else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.RightMove)))
-            {
-                animator.SetFloat("speedBlend", type ? 1.0f : 0.5f);
+            else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.RightMove))) {
+                isMove = true;
                 x = 1f;
             }
-
             // 상하 이동         
-            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.DownMove)))
-            {
-                animator.SetFloat("speedBlend", type ? 1.0f : 0.5f);
+            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.DownMove))) {
+                isMove = true;
                 z = -1f;
             }
-            else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.UpMove)))
-            {
-                animator.SetFloat("speedBlend", type ? 1.0f : 0.5f);
+            else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.UpMove))) {
+                isMove = true;
                 z = 1f;
             }
 
+            if(isMove) 
+                animator.SetFloat("speedBlend", type ? 1.0f : 0.5f);
+            else 
+                animator.SetFloat("speedBlend", 0);
 
             Vector3 moveDirection = (transform.forward * z + transform.right * x).normalized;
             rigid.MovePosition(transform.position + moveDirection * playerSpeed * Time.deltaTime);
@@ -243,48 +248,83 @@ public class Player : PlayerController
 
     // 인벤토리 활성화
     public void PlayerInventory() {
-        OnPlayerMove -= PlayerMove;                 // 플레이어 이동 해제
-        OnPlayerRotation -= PlayerRotation;         // 플레이어 회전 해제
-        OnPlayerJump -= PlayerJump;                 // 플레이어 점프 해제
-        OnPlayerAttack -= PlayerAttack;             // 플레이어 공격 해제
-        OnPlayerSwap -= WeaponSwap;                 // 무기 교체 해제
-        OnPlayerInteraction -= PlayerInteraction;   // 플레이어 상호작용 해제
-        inventory.SetActive(true);
+        if (PV.IsMine) {
+            OnPlayerMove -= PlayerMove;                 // 플레이어 이동 해제
+            OnPlayerRotation -= PlayerRotation;         // 플레이어 회전 해제
+            OnPlayerJump -= PlayerJump;                 // 플레이어 점프 해제
+            OnPlayerAttack -= PlayerAttack;             // 플레이어 공격 해제
+            OnPlayerSwap -= WeaponSwap;                 // 무기 교체 해제
+            OnPlayerInteraction -= PlayerInteraction;   // 플레이어 상호작용 해제
+            inventory.SetActive(true);
+        }
     }
     // 인벤토리 비활성화
     public void InventoryClose() {
-        OnPlayerMove += PlayerMove;                 // 플레이어 이동 
-        OnPlayerRotation += PlayerRotation;         // 플레이어 회전
-        OnPlayerJump += PlayerJump;                 // 플레이어 점프 
-        OnPlayerAttack += PlayerAttack;             // 플레이어 공격
-        OnPlayerSwap += WeaponSwap;                 // 무기 교체
-        OnPlayerInteraction += PlayerInteraction;   // 플레이어 상호작용
-        inventory.SetActive(false);
+        if (PV.IsMine) {
+            // 마우스 비활성화
+            Cursor.visible = false;                         // 마우스 커서 비활성화
+            Cursor.lockState = CursorLockMode.Locked;       // 마우스 커서 현재 위치 고정 
+            ToggleCursor();
+
+            OnPlayerMove += PlayerMove;                 // 플레이어 이동 
+            OnPlayerRotation += PlayerRotation;         // 플레이어 회전
+            OnPlayerJump += PlayerJump;                 // 플레이어 점프 
+            OnPlayerAttack += PlayerAttack;             // 플레이어 공격
+            OnPlayerSwap += WeaponSwap;                 // 무기 교체
+            OnPlayerInteraction += PlayerInteraction;   // 플레이어 상호작용
+            inventory.SetActive(false);
+        }
     }
 
     // 플레이어 상호작용 
     public override void PlayerInteraction() {
-        
-        if (Physics.Raycast(ray, out hit, interactionRange, LayerMask.NameToLayer("Player") | LayerMask.NameToLayer("Item")))   //레이어 이름, 거리에대해 상의
-        {
-            if (hit.collider.CompareTag("Item")) {           //ex)text : 'E' 아이템줍기 ui띄워주기
-                Debug.Log(hit.collider.transform.GetComponent<ItemPickUp>().item.itemName + " 획득 했습니다.");  // 인벤토리 넣기
-                theInventory.AcquireItem(hit.collider.transform.GetComponent<ItemPickUp>().item);
-                // 아이템 제거
-                hit.collider.gameObject.SetActive(false);
-            }
-            else if (hit.collider.CompareTag("Player")) {    //만약 플레이어면
-                //ex)text : 'E' 플레이어 살리기 ui띄워주기
-                if (hit.collider.GetComponent<Player>().isFaint == true) //만약 태그가 player고 기절이 true면
-                {
-                    //slider or shader로 (slider가 편할듯) 살려주기 바가 차오름
-                    //슬라이더 밸류가 1이 되는순간 순간 그녀석의 player에 접근해서 PlayerRevive()함수호출
+        if (PV.IsMine) {
+            int layerMask = LayerMask.GetMask("Player", "Item");
+            if (Physics.Raycast(ray, out hit, interactionRange, layerMask))   //레이어 이름, 거리에대해 상의
+            {
+                if (hit.collider.CompareTag("Item")) {           // ex)text : 'E' 아이템줍기 ui띄워주기
+                    ItemPickUp(hit.collider.gameObject);
                 }
-            }        
+                else if (hit.collider.CompareTag("Player")) {    //만약 플레이어면
+                                                                 //ex)text : 'E' 플레이어 살리기 ui띄워주기
+                    if (hit.collider.GetComponent<Player>().isFaint == true) //만약 태그가 player고 기절이 true면
+                    {
+                        //slider or shader로 (slider가 편할듯) 살려주기 바가 차오름
+                        //슬라이더 밸류가 1이 되는순간 순간 그녀석의 player에 접근해서 PlayerRevive()함수호출
+                    }
+                }
+            }
         }
-        //아이템 사용은 인벤토리가 없어서 감이안옴 일단 내가 손에 들고있어야하고 손에 들고있는상태로 좌클릭시
-        //슬라이더로하든 이미지박고 시계 돌아가는거처럼 만들든해서 value가 1이되는순간 Hp(프로퍼티) = +30(회복아이템 회복계수)
-        //그리고 아이템 계수 차감
+    }
+
+    private void ItemPickUp(GameObject itemObj) {
+        if (theInventory.IsFull()) {
+            Debug.Log("인벤토리가 가득 찼습니다. 더 이상 아이템을 줍지 못합니다.");
+        }
+        else {
+            if (PhotonNetwork.IsConnected && PhotonNetwork.InRoom) {
+                Debug.Log(itemObj.transform.GetComponent<ItemPickUp>().item.itemName + " 획득 했습니다.");  // 인벤토리 넣기
+                theInventory.AcquireItem(itemObj.transform.GetComponent<ItemPickUp>().item);
+                // 아이템 제거
+                PV.RPC("ItemPickUpRPC", RpcTarget.AllBuffered, itemObj.GetComponent<PhotonView>().ViewID);
+            }
+            else {
+                theInventory.AcquireItem(itemObj.transform.GetComponent<ItemPickUp>().item);
+                itemObj.SetActive(false);
+            }
+        }
+    }
+
+    [PunRPC]
+    private void ItemPickUpRPC(int viewID)
+    {
+        GameObject itemObj = PhotonNetwork.GetPhotonView(viewID).gameObject;
+        if (itemObj != null) {
+            itemObj.SetActive(false);
+        }
+        else {
+            Debug.LogError("viewID: " + viewID);
+        }
     }
 
     // 플레이어 공격 ( 근접인지 원거리인지 판단 bool ) 
@@ -314,6 +354,11 @@ public class Player : PlayerController
     void GunAttack()
     {
         if (PV.IsMine) {
+            if (!theInventory.HasItemUse(ItemController.ItemType.Magazine)) {
+                Debug.Log("탄창 없음");
+                return; // 탄창이 없으면 메소드를 종료하여 총을 쏘지 않음
+            }
+
             // 카메라 중앙에서 Ray 생성 
             Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
             // Ray 테스트 
@@ -334,10 +379,13 @@ public class Player : PlayerController
                 targetPoint = ray.origin + ray.direction * 1000f;
             }
 
+            theInventory.DecreaseMagazineCount(ItemController.ItemType.Magazine);
+
             // 총알 생성 (오브젝트 풀링 사용)
-            GameObject bullet = Pooling.instance.GetObject(0); // 총알이 들어가 있는 index로 변경 (0은 임시)
+            GameObject bullet = Pooling.instance.GetObject("Bullet"); // 총알이 들어가 있는 index로 변경 (0은 임시)
             bullet.transform.position = bulletPos.position; // bullet 위치 초기화
             bullet.transform.rotation = Quaternion.identity; // bullet 회전값 초기화
+
             // 총알의 방향 설정
             Vector3 direction = (targetPoint - bulletPos.position).normalized;
 
@@ -345,8 +393,6 @@ public class Player : PlayerController
             // 총알의 초기 속도를 플레이어의 이동 속도로 설정하고 발사 방향 설정
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
             rb.AddForce(direction * 50f, ForceMode.VelocityChange); // 발사 방향과 속도를 함께 적용
-          
-
         }
     }
 
@@ -354,7 +400,13 @@ public class Player : PlayerController
     void ItemHealpack()
     {
         if (PV.IsMine) {
+            if (!theInventory.HasItemUse(ItemController.ItemType.Healpack)) {
+                Debug.Log("힐팩 없음");
+                return; // 탄창이 없으면 메소드를 종료하여 총을 쏘지 않음
+            }
+            theInventory.DecreaseMagazineCount(ItemController.ItemType.Healpack);
             Debug.Log("힐팩");
+
             //힐 하는시간 변수로 빼고 대충 중앙에 ui띄우고 힐 하는시간 지나면 Hp = (+30) 코루틴사용이 좋겠지 중간에 키입력시 return 애니메이션추가;
             
         }
@@ -364,12 +416,20 @@ public class Player : PlayerController
     void ItemGrenade()
     {
         if (PV.IsMine) {
+            if (!theInventory.HasItemUse(ItemController.ItemType.Grenade) && 
+                !theInventory.HasItemUse(ItemController.ItemType.FireGrenade) && 
+                !theInventory.HasItemUse(ItemController.ItemType.SupportFireGrenade)) {
+
+                Debug.Log("투척무기 없음");
+                return; // 탄창이 없으면 메소드를 종료하여 총을 쏘지 않음
+            }
+
             Debug.Log("투척 공격");
             animator.SetTrigger("isGranadeThrow");
             float throwForce = 15f;    // 던지는 힘
 
-
-            GameObject grenade = Pooling.instance.GetObject(2); // 총알이 들어가 있는 index로 변경 (0은 임시)
+            theInventory.DecreaseMagazineCount(ItemController.ItemType.Grenade);
+            GameObject grenade = Pooling.instance.GetObject("GrenadeObject"); 
             Rigidbody grenadeRigid = grenade.GetComponent<Rigidbody>();
             grenadeRigid.velocity = Vector3.zero;
             grenade.transform.position = grenadePos.position; // bullet 위치 초기화                   

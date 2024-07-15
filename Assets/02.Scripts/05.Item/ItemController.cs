@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,7 +20,13 @@ public class ItemController : ScriptableObject {
     }
     public ItemType type;
 
+    public int itemPrimaryID;
+    public int itemID;
     public Sprite itemImage;            // 아이템 이미지
     public string itemName;             // 아이템 이름
+
     public float damage;                // 아이템 데미지 ( 수류탄 : 데미지, 힐팩 : 힐량 ) 
+    public int itemCount;
+    public bool isPickUp;
+    public int totalCount;
 }
