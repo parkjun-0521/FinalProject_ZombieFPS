@@ -10,7 +10,7 @@ public class NormalEnemy : EnemyController
     public MoveDelegate moveDelegate;
 
 
-
+    
     //일정범위 지정 반지름단위
     public float rangeOut = 10f;
     //리셋 속도 5고정
@@ -45,7 +45,16 @@ public class NormalEnemy : EnemyController
         rigid = GetComponent<Rigidbody>();
         nav = GetComponent<NavMeshAgent>();
         ani = GetComponent<Animator>();
-        playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
+        //if(PV == null)
+        //{
+        //    Debug.LogError("PhotonView component is missing on " + gameObject.name);
+        //}
+
+        // 예: 포톤 뷰를 사용하여 특정 초기화를 수행
+        //if (PV.IsMine)
+        {
+            
+        }
     }
 
 
@@ -54,10 +63,12 @@ public class NormalEnemy : EnemyController
     void Start()
     {
         moveDelegate = RandomMove;
+        playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
         InvokeRepeating("EnemyMove", 0.5f, 3.0f);
     }
     void Update()
     {
+
         Vector3 enemyPos = transform.position;
         Vector3 enemyDir = transform.forward;
 

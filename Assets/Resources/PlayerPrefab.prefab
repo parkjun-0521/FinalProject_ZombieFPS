@@ -1097,7 +1097,7 @@ GameObject:
   - component: {fileID: 2714116732936836859}
   - component: {fileID: 1555921595}
   - component: {fileID: 1785810442}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlayerPrefab
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1268,6 +1268,7 @@ MonoBehaviour:
   muzzleFlashEffect: {fileID: 198000011915214823}
   PV: {fileID: 0}
   rigid: {fileID: 0}
+  animator: {fileID: 0}
   inventory: {fileID: 467621082}
   theInventory: {fileID: 119739485}
   playerCamera: {fileID: 3889226454062301499}
