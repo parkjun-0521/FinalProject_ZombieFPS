@@ -20,8 +20,13 @@ public class NormalEnemy : EnemyController
     public float rad = 3f;
     public float distance = 5f;
     public LayerMask layermask;
+    public float maxTracingSpeed;
 
     private Transform playerTr;
+
+    public float meleeDelay = 4.0f;
+    float nextAttack = 4;
+
 
     bool isRangeOut = false;
     bool shouldEvaluate = false;
@@ -32,7 +37,6 @@ public class NormalEnemy : EnemyController
     //공격
     public GameObject attackColliderPrefab;
     public Transform attackPoint;
-    public float attackDuration = 0.5f;
 
     void Awake()
     {
@@ -138,8 +142,16 @@ public class NormalEnemy : EnemyController
     public override void EnemyRun()
     {
         isRun = true;
+        
+        
         nav.speed = runSpeed;
         nav.destination = playerTr.position;
+        if(rigid.velocity.magnitude > maxTracingSpeed)
+        {
+            rigid.velocity = rigid.velocity.normalized * maxTracingSpeed;
+
+        }
+        
         float versusDist = Vector3.Distance(transform.position, playerTr.position);
         if (versusDist < 3.3f)
         {
@@ -174,13 +186,15 @@ public class NormalEnemy : EnemyController
 
     public override void EnemyMeleeAttack()
     {
-
-
-        GameObject attackCollider = Instantiate(attackColliderPrefab, attackPoint.position, attackPoint.rotation);
-        Destroy(attackCollider, attackDuration); // 일정 시간이 지나면 collider 제거
-
-
-        throw new System.NotImplementedException();
+        nextAttack += Time.deltaTime;
+        if (nextAttack > meleeDelay)
+        {
+            GameObject attackCollider = Instantiate(attackColliderPrefab, attackPoint.position, attackPoint.rotation);
+            Destroy(attackCollider, 0.1f);
+            Debug.Log("ATtak");
+            nextAttack = 0;
+        }
+      
 
     }
 
