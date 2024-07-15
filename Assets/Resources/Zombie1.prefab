@@ -62,12 +62,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34d6d2a0842b3644bb20a0737688f00e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  speed: 10
   runSpeed: 0
   maxHp: 100
-  damage: 5
+  damage: 50
   rangeOut: 10
-  resetSpeed: 5
+  resetSpeed: 10
   rad: 3
   distance: 5
   layermask:
@@ -205,7 +205,7 @@ PrefabInstance:
     - target: {fileID: -261036649715583443, guid: e88b81dbbde6e97419fd1f6bdc41d4ca, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 4cde5aac7288f054380fe768f78a0311, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: -248205118133468548, guid: e88b81dbbde6e97419fd1f6bdc41d4ca, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -272,6 +272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BodyMaterials:
   - {fileID: 2100000, guid: 4cde5aac7288f054380fe768f78a0311, type: 2}
+  meshRenderer: {fileID: 6514232877444234716}
   eyesGlow: 1
 --- !u!1 &5881608883650671659 stripped
 GameObject:
@@ -292,3 +293,8 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!137 &6514232877444234716 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -261036649715583443, guid: e88b81dbbde6e97419fd1f6bdc41d4ca, type: 3}
+  m_PrefabInstance: {fileID: 2740344462615235569}
+  m_PrefabAsset: {fileID: 0}

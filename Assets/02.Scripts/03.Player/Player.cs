@@ -27,6 +27,7 @@ public class Player : PlayerController
     private bool cursorLocked = true;
     RaycastHit hit;
     Ray ray;
+    bool isRayPlayer = false;
     void Awake()
     {
         // 레퍼런스 초기화 
@@ -504,17 +505,17 @@ public class Player : PlayerController
     {
         if (Physics.Raycast(ray, out hit, interactionRange, LayerMask.NameToLayer("Player") | LayerMask.NameToLayer("Item")))
         {
+            Debug.Log(hit.collider.name);
             if (hit.collider.CompareTag("Player"))
             {
+                isRayPlayer = true;
                 Player otherPlayer = hit.collider.GetComponent<Player>();
                 if (otherPlayer.isFaint && hit.collider.CompareTag("Player"))
                 {
                     playerReviveUI.SetActive(true);
                     if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
                     {
-                        //playerReviveUI.SetActive(false);
                         StartCoroutine(CorPlayerReviveUI(8.0f, otherPlayer));
-                        //StopCoroutine("CorPlayerReviveUI");
                     }
                 }
             }
@@ -522,9 +523,10 @@ public class Player : PlayerController
         else
         {
             playerReviveUI.SetActive(false);
+            isRayPlayer = false;
         }
     }
-
+    //플레이어 부활 코루틴 + ui
     IEnumerator CorPlayerReviveUI(float time, Player otherPlayer)
     {
         Image fillImage = playerReviveUI.GetComponent<Image>();
@@ -534,8 +536,14 @@ public class Player : PlayerController
             yield return new WaitForSeconds(0.1f);
             _time += 0.1f;
             fillImage.fillAmount = _time / time;
+            if(!isRayPlayer)
+            {
+                fillImage.fillAmount = 0;
+                yield break;
+            }
         }
         otherPlayer.PlayerRevive();
+        fillImage.fillAmount = 0;
         playerReviveUI.SetActive(false);
     }
     // 피격시 셰이더 변경 
