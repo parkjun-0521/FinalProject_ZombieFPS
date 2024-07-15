@@ -12,7 +12,10 @@ GameObject:
   - component: {fileID: 7539397063348559057}
   - component: {fileID: 7539397063348559056}
   - component: {fileID: 7539397063348559059}
-  m_Layer: 0
+  - component: {fileID: 496663064}
+  - component: {fileID: 1704372699}
+  - component: {fileID: 1704372701}
+  m_Layer: 20
   m_Name: TEST_ENEMY
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -62,9 +65,9 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_Constraints: 84
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
 --- !u!114 &7539397063348559059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,9 +81,72 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  runSpeed: 0
+  runSpeed: 10
   rangeOut: 10
-  resetSpeed: 10
+  resetSpeed: 5
+  rad: 5
+  distance: 10
+  layermask:
+    serializedVersion: 2
+    m_Bits: 64
+--- !u!195 &496663064
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7539397063348559062}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 1
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &1704372699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7539397063348559062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b83f634c82b0c4e41bc673bef6d975de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mycolor: {r: 1, g: 0, b: 0, a: 1}
+  Myraduis: 5
+--- !u!114 &1704372701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7539397063348559062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &7539397063822646473
 GameObject:
   m_ObjectHideFlags: 0
