@@ -8,10 +8,10 @@ interface IEnemy {
     void EnemyMove();       // 좀비 이동 
     void EnemyRun();        // 좀비 달리기 
     void EnemyAttack();     // 좀비 공격
+    void EnemyMeleeAttack();     // 좀비 공격
     void EnemyDead();       // 좀비 사망 
     void EnemyTracking();   // 좀비 추적
- 
-
+    
 }
 
 
@@ -63,16 +63,16 @@ public class EnemyController : MonoBehaviourPun, IEnemy {
     protected bool isAttack;            // 공격 하는 상태 
     protected bool isTracking;          // 추적 상태 
 
+
     public virtual void EnemyDead() { }
-    public virtual void EnemyMove() { }
     public virtual void EnemyAttack() { }
-    public virtual void EnemyRun() { }
-    public virtual void EnemyTracking() { }
     public virtual void ChangeHp(float value) { }
     public virtual void BloodEffect(Vector3 pos, Collider other = null)
     {
         Pooling.instance.GetObject(1).transform.position = pos;
-        
-
     }
+    public virtual void EnemyMove() { }
+    public virtual void EnemyMeleeAttack() { }
+    public virtual void EnemyRun() { }
+    public virtual void EnemyTracking() { }
 }
