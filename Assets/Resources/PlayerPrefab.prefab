@@ -116,6 +116,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   go_InventoryBase: {fileID: 467621082}
   go_SlotsParent: {fileID: 940950092}
+  go_MauntingSlotsParent: {fileID: 1556596763}
+  slots: []
+  allSlots: []
 --- !u!1 &308220294
 GameObject:
   m_ObjectHideFlags: 0
@@ -1549,6 +1552,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotCamXAxisSpeed: 10
   rotCamYAxisSpeed: 7
+  rotationSmoothness: 2
   cameraTransform: {fileID: 420292477}
 --- !u!114 &1785810442
 MonoBehaviour:

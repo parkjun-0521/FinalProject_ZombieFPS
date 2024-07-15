@@ -69,7 +69,7 @@ public class EnemyController : MonoBehaviourPun, IEnemy {
     public virtual void ChangeHp(float value) { }
     public virtual void BloodEffect(Vector3 pos, Collider other = null)
     {
-        Pooling.instance.GetObject(1).transform.position = pos;
+        Pooling.instance.GetObject("BloodSprayEffect").transform.position = pos;
     }
     public virtual void EnemyMove() { }
     public virtual void EnemyMeleeAttack() { }
