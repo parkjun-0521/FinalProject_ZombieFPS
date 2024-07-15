@@ -25,20 +25,15 @@ public class NormalEnemy : EnemyController
     
 
     bool isRangeOut = false;
-<<<<<<< Updated upstream
     bool shouldEvaluate = true;
     bool isNow = true;
     bool isTracing = false;
 
-=======
-    bool shouldEvaluate = false;
-    bool isNow = false;
 
     //공격
     public GameObject attackColliderPrefab;
     public Transform attackPoint;
     public float attackDuration = 0.5f;
->>>>>>> Stashed changes
 
     void Awake()
     {
@@ -89,14 +84,12 @@ public class NormalEnemy : EnemyController
             
             EnemyRun();
         }
-<<<<<<< Updated upstream
-      
-=======
+
         if(nav.isStopped== true)
         {
             EnemyMeleeAttack();
         }
->>>>>>> Stashed changes
+
 
     }
    
@@ -165,13 +158,10 @@ public class NormalEnemy : EnemyController
 
     public override void EnemyMeleeAttack()
     {
-<<<<<<< Updated upstream
 
-
-=======
         GameObject attackCollider = Instantiate(attackColliderPrefab, attackPoint.position, attackPoint.rotation);
         Destroy(attackCollider, attackDuration); // 일정 시간이 지나면 collider 제거
->>>>>>> Stashed changes
+
     }
 
     public override void EnemyDead()
