@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using static InputKeyManager;
 
 public class Player : PlayerController 
@@ -25,7 +26,9 @@ public class Player : PlayerController
     public Camera playerCamera;
 
     private bool cursorLocked = true;
-
+    RaycastHit hit;
+    Ray ray;
+    bool isRayPlayer = false;
     void Awake()
     {
         // 레퍼런스 초기화 
@@ -46,6 +49,7 @@ public class Player : PlayerController
             Cursor.visible = false;                         // 마우스 커서 비활성화
             Cursor.lockState = CursorLockMode.Locked;       // 마우스 커서 현재 위치 고정 
             rotateToMouse = GetComponentInChildren<RotateToMouse>();
+
         }
     }
 
@@ -131,6 +135,11 @@ public class Player : PlayerController
             if (Input.GetKeyDown(KeyCode.LeftAlt)) {
                 ToggleCursor();
             }
+            
+            ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+            //사람 죽은놈 쪽으로 레이쏴서 ui true
+            PlayerReviveUI();
+
         }
     }
 
@@ -233,7 +242,7 @@ public class Player : PlayerController
         // 땅에 붙어있을 때 점프
         if (PV.IsMine) {
             rigid.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            isJump = false;
+            isJump = false; 
         }
     }
 
@@ -270,8 +279,6 @@ public class Player : PlayerController
     // 플레이어 상호작용 
     public override void PlayerInteraction() {
         if (PV.IsMine) {
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
             int layerMask = LayerMask.GetMask("Player", "Item");
             if (Physics.Raycast(ray, out hit, interactionRange, layerMask))   //레이어 이름, 거리에대해 상의
             {
@@ -364,6 +371,8 @@ public class Player : PlayerController
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, enemyLayer)) {
                 Debug.Log("총 공격");
                 targetPoint = hit.point;
+                hit.transform.GetComponent<EnemyController>().BloodEffect(hit.point);
+                
             }
             else {
                 // 레이가 맞지 않았을 때는 먼 지점을 목표로 설정
@@ -377,14 +386,13 @@ public class Player : PlayerController
             bullet.transform.position = bulletPos.position; // bullet 위치 초기화
             bullet.transform.rotation = Quaternion.identity; // bullet 회전값 초기화
 
-
             // 총알의 방향 설정
             Vector3 direction = (targetPoint - bulletPos.position).normalized;
 
 
             // 총알의 초기 속도를 플레이어의 이동 속도로 설정하고 발사 방향 설정
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
-            rb.AddForce(direction * 300f, ForceMode.VelocityChange); // 발사 방향과 속도를 함께 적용
+            rb.AddForce(direction * 50f, ForceMode.VelocityChange); // 발사 방향과 속도를 함께 적용
         }
     }
 
@@ -518,19 +526,29 @@ public class Player : PlayerController
        {
             hp = 0;                             //여기서 hp를 0 으로 강제로 해줘야 부활, ui에서 편할거같음
             isFaint = true;                     //기절상태 true
-            OnPlayerMove -= PlayerMove;         //움직이는거막고
-            OnPlayerAttack -= PlayerAttack;     //공격도 막겠다
+            OnPlayerMove -= PlayerMove;
+            OnPlayerRotation -= PlayerRotation;
+            OnPlayerJump -= PlayerJump;
+            OnPlayerAttack -= PlayerAttack;
+            OnPlayerSwap -= WeaponSwap;
+            OnPlayerInteraction -= PlayerInteraction;   // 플레이어 상호작용
+            OnPlayerInventory -= PlayerInventory;
             animator.SetTrigger("isFaint");     //기절 애니메이션 출력 
         }
     }
 
     // 플레이어 부활
-    public override void PlayerRevive()            //플레이어 부활 - 다른플레이어가 부활할때 얘의 player에 접근해서 호출 내부에선 안쓸꺼임 제세동기를만들지않는이상...
-    {                                        //PlayerFaint 함수와 반대로 하면 됨
-        isFaint = false;                     //기절상태 false
-        OnPlayerMove += PlayerMove;          //움직이는거 더하고
-        OnPlayerAttack += PlayerAttack;      //공격도 더함 
-        animator.SetTrigger("isRevive");    //기절 애니메이션 출력 나중에 플레이어 완성되면 추가
+    public override void PlayerRevive()             //플레이어 부활 - 다른플레이어가 부활할때 얘의 player에 접근해서 호출 내부에선 안쓸꺼임 제세동기를만들지않는이상...
+    {                                               //PlayerFaint 함수와 반대로 하면 됨
+        isFaint = false;                            //기절상태 false
+        OnPlayerMove += PlayerMove;                 // 플레이어 이동 
+        OnPlayerRotation += PlayerRotation;         // 플레이어 회전
+        OnPlayerJump += PlayerJump;                 // 플레이어 점프 
+        OnPlayerAttack += PlayerAttack;             // 플레이어 공격
+        OnPlayerSwap += WeaponSwap;                 // 무기 교체
+        OnPlayerInteraction += PlayerInteraction;   // 플레이어 상호작용
+        OnPlayerInventory += PlayerInventory;
+        animator.SetTrigger("isRevive");     //기절 애니메이션 출력 나중에 플레이어 완성되면 추가
         Hp = 50;                             //부활시 반피로 변경! maxHp = 100; 을 따로 선언해서 maxHp / 2해도 되는데 풀피는 100하겠지 뭐
     }
 
@@ -540,16 +558,54 @@ public class Player : PlayerController
         if (hp <= 0 && isFaint)                            //만약 플레이어 체력이 0보다 작고 기절상태
         {
             hp = 0;                                 //여기서 hp를 0   //anim.setbool("isFaint", true);    //기절 애니메이션 출력 나중에 플레이어 완성되면 추가
-            OnPlayerMove -= PlayerMove;             // 플레이어 이동 
-            OnPlayerRotation -= PlayerRotation;     // 플레이어  회전
-            OnPlayerJump -= PlayerJump;             // 플레이어 점프 
-            OnPlayerAttack -= PlayerAttack;         // 플레이어 공격
-            OnPlayerSwap -= WeaponSwap;             // 무기 교체
             animator.SetTrigger("isDead");          //죽었을때 애니메이션 출력
-
         }
     }
    
+    void PlayerReviveUI()
+    {
+        if (Physics.Raycast(ray, out hit, interactionRange, LayerMask.NameToLayer("Player") | LayerMask.NameToLayer("Item")))
+        {
+            if (hit.collider.CompareTag("Player"))
+            {
+                isRayPlayer = true;
+                Player otherPlayer = hit.collider.GetComponent<Player>();
+                if (otherPlayer.isFaint && hit.collider.CompareTag("Player"))
+                {
+                    playerReviveUI.SetActive(true);
+                    if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
+                    {
+                        StartCoroutine(CorPlayerReviveUI(8.0f, otherPlayer));
+                    }
+                }
+            }
+        }
+        else
+        {
+            playerReviveUI.SetActive(false);
+            isRayPlayer = false;
+        }
+    }
+    //플레이어 부활 코루틴 + ui
+    IEnumerator CorPlayerReviveUI(float time, Player otherPlayer)
+    {
+        Image fillImage = playerReviveUI.GetComponent<Image>();
+        float _time = 0;
+        while (time >= _time)
+        {
+            yield return new WaitForSeconds(0.1f);
+            _time += 0.1f;
+            fillImage.fillAmount = _time / time;
+            if(!isRayPlayer)
+            {
+                fillImage.fillAmount = 0;
+                yield break;
+            }
+        }
+        otherPlayer.PlayerRevive();
+        fillImage.fillAmount = 0;
+        playerReviveUI.SetActive(false);
+    }
     // 피격시 셰이더 변경 
     IEnumerator ShowBloodScreen()                  //화면 붉게
     {

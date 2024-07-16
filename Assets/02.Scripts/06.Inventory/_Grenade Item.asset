@@ -13,8 +13,11 @@ MonoBehaviour:
   m_Name: _Grenade Item
   m_EditorClassIdentifier: 
   type: 5
+  itemPrimaryID: 4
   itemID: 3
   itemImage: {fileID: 21300000, guid: 75df3e39d5e5bb94e87bea3c0c983c17, type: 3}
   itemName: Grenade
-  damege: 0.4
+  damage: 0
   itemCount: 1
+  isPickUp: 0
+  totalCount: 4
