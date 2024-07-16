@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using Unity.VisualScripting;
 using UnityEditor;
@@ -342,10 +343,51 @@ public class Player : PlayerController
         }
     }
 
+    // 미장착 아이템 사용 불가
+    public bool ItemNotEquipped(int slotID)
+    {
+        // theInventory에서 Inventory 컴포넌트를 가져옴
+        Inventory inventory = theInventory.GetComponent<Inventory>();
+        // MountingSlotsParent에서 Slot 컴포넌트들을 가져오고, ID가 3인 슬롯을 찾음
+        Slot slotWithID = inventory.go_MauntingSlotsParent.GetComponentsInChildren<Slot>().FirstOrDefault(slot => slot.slotID == slotID);
+
+        if (slotWithID == null || slotWithID.item == null) {
+            Debug.Log("장비가 장착되지 않음");
+            return false;
+        }
+
+        switch (slotID) {
+            case 3:
+                // ID가 3인 슬롯이 null이거나 비어 있는 경우의 조건문
+                if (slotWithID != null && slotWithID.item.type == ItemController.ItemType.Grenade) {
+                    theInventory.DecreaseMagazineCount(ItemController.ItemType.Grenade);
+                }
+                else if (slotWithID != null && slotWithID.item.type == ItemController.ItemType.FireGrenade) {
+                    theInventory.DecreaseMagazineCount(ItemController.ItemType.FireGrenade);
+                }
+                else if (slotWithID != null && slotWithID.item.type == ItemController.ItemType.SupportFireGrenade) {
+                    theInventory.DecreaseMagazineCount(ItemController.ItemType.SupportFireGrenade);
+                }
+                break;
+            case 4:
+                theInventory.DecreaseMagazineCount(ItemController.ItemType.Healpack);
+                break;
+        }
+
+        return true;
+    }
+
     // 근접 칼
     void SwordAttack()
     {
         if (PV.IsMine) {
+            if (!theInventory.HasItemUse(ItemController.ItemType.Sword1) && !theInventory.HasItemUse(ItemController.ItemType.Sword2)) {
+                Debug.Log("칼이 없음");
+                return;
+            }
+            if (!ItemNotEquipped(2))
+                return;
+
             Debug.Log("칼 공격");
             // 근거리 공격 애니메이션 
             // 데미지는 weapon에서 줄꺼임 그리고 체력은 좀비에서 감소시킬예정
@@ -356,6 +398,10 @@ public class Player : PlayerController
     void GunAttack()
     {
         if (PV.IsMine) {
+
+            if (!ItemNotEquipped(1))
+                return;
+
             if (!theInventory.HasItemUse(ItemController.ItemType.Magazine)) {
                 Debug.Log("탄창 없음");
                 return; // 탄창이 없으면 메소드를 종료하여 총을 쏘지 않음
@@ -373,24 +419,21 @@ public class Player : PlayerController
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, enemyLayer)) {
                 Debug.Log("총 공격");
                 targetPoint = hit.point;
-                hit.transform.GetComponent<EnemyController>().BloodEffect(hit.point);
-                
+                hit.transform.GetComponent<EnemyController>().BloodEffect(hit.point);       
             }
             else {
                 // 레이가 맞지 않았을 때는 먼 지점을 목표로 설정
                 targetPoint = ray.origin + ray.direction * 1000f;
-            }
-
-            theInventory.DecreaseMagazineCount(ItemController.ItemType.Magazine);
-
+            }         
             // 총알 생성 (오브젝트 풀링 사용)
             GameObject bullet = Pooling.instance.GetObject("Bullet"); // 총알이 들어가 있는 index로 변경 (0은 임시)
             bullet.transform.position = bulletPos.position; // bullet 위치 초기화
             bullet.transform.rotation = Quaternion.identity; // bullet 회전값 초기화
 
+            theInventory.DecreaseMagazineCount(ItemController.ItemType.Magazine);
+
             // 총알의 방향 설정
             Vector3 direction = (targetPoint - bulletPos.position).normalized;
-
 
             // 총알의 초기 속도를 플레이어의 이동 속도로 설정하고 발사 방향 설정
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
@@ -404,9 +447,11 @@ public class Player : PlayerController
         if (PV.IsMine) {
             if (!theInventory.HasItemUse(ItemController.ItemType.Healpack)) {
                 Debug.Log("힐팩 없음");
-                return; // 탄창이 없으면 메소드를 종료하여 총을 쏘지 않음
+                return; 
             }
-            theInventory.DecreaseMagazineCount(ItemController.ItemType.Healpack);
+            if (!ItemNotEquipped(4))
+                return;
+
             Debug.Log("힐팩");
 
             //힐 하는시간 변수로 빼고 대충 중앙에 ui띄우고 힐 하는시간 지나면 Hp = (+30) 코루틴사용이 좋겠지 중간에 키입력시 return 애니메이션추가;
@@ -423,14 +468,16 @@ public class Player : PlayerController
                 !theInventory.HasItemUse(ItemController.ItemType.SupportFireGrenade)) {
 
                 Debug.Log("투척무기 없음");
-                return; // 탄창이 없으면 메소드를 종료하여 총을 쏘지 않음
+                return; 
             }
+
+            if (!ItemNotEquipped(3))
+                return;
 
             Debug.Log("투척 공격");
             animator.SetTrigger("isGranadeThrow");
             float throwForce = 15f;    // 던지는 힘
 
-            theInventory.DecreaseMagazineCount(ItemController.ItemType.Grenade);
             GameObject grenade = Pooling.instance.GetObject("GrenadeObject"); 
             Rigidbody grenadeRigid = grenade.GetComponent<Rigidbody>();
             grenadeRigid.velocity = Vector3.zero;
@@ -440,17 +487,11 @@ public class Player : PlayerController
             // 카메라의 중앙에서 나가는 레이 구하기
             Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
             RaycastHit hit;
-
             Vector3 targetPoint;
-            if (Physics.Raycast(ray, out hit)) {
-                targetPoint = hit.point;  // 목표 지점이 충돌 지점
-            }
-            else {
-                targetPoint = ray.GetPoint(1000);  // 충돌이 없으면 먼 지점으로 설정
-            }
+
+            targetPoint = (Physics.Raycast(ray, out hit)) ? hit.point : ray.GetPoint(1000);
             // 던질 방향 계산
             Vector3 throwDirection = (targetPoint - grenade.transform.position).normalized;
-
             // Rigidbody에 힘을 가함
             grenadeRigid.AddForce(throwDirection * throwForce, ForceMode.VelocityChange);
         }
@@ -459,42 +500,17 @@ public class Player : PlayerController
     // 무기 교체
     public override void WeaponSwap() {
         if (PV.IsMine) {
-            int weaponIndex = -1;           // 초기 무기 인덱스 ( 빈손 ) 
-            bool weaponSelected = false;    // 무기가 선택되었는지 확인 
-
             if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Weapon1))) {        // 원거리 무기 
-                weaponIndex = 0;
-                isAtkDistance = stanceWeaponType = false;
-                Debug.Log("원거리");
-                weaponSelected = true;
-                animator.SetTrigger("isDrawRifle");
-                StartCoroutine(AnimReset());
+                WeaponSwapStatus(0, false, false, true, "isDrawRifle");
             }
             else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Weapon2))) {   // 근접 무기
-                weaponIndex = 1;
-                isAtkDistance = true;
-                stanceWeaponType = false;
-                Debug.Log("근거리");
-                weaponSelected = true;
-                animator.SetTrigger("isDrawMelee");
-                StartCoroutine(AnimReset());
+                WeaponSwapStatus(1, true, false, true, "isDrawMelee");
             }
             else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Weapon3))) {   // 투척 무기
-                weaponIndex = 2;
-                isAtkDistance = false;
-                stanceWeaponType = true;
-                Debug.Log("투척");
-                weaponSelected = true;
-                animator.SetTrigger("isDrawGranade");
-                StartCoroutine(AnimReset());
+                WeaponSwapStatus(2, false, true, true, "isDrawGranade");
             }
             else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Weapon4))) {   // 힐팩
-                weaponIndex = 3;
-                isAtkDistance = stanceWeaponType = true;
-                Debug.Log("힐");
-                weaponSelected = true;
-                animator.SetTrigger("isDrawHeal");
-                StartCoroutine(AnimReset());
+                WeaponSwapStatus(3, true, true, true, "isDrawHeal");
             }
 
             if (!weaponSelected) return;
@@ -504,6 +520,22 @@ public class Player : PlayerController
             equipWeapon = weapons[weaponIndex];
             equipWeapon.SetActive(true);
         }
+    }
+    // 무기 교체 상태 변경
+    public void WeaponSwapStatus(int weaponIndex, bool isAtkDistance, bool stanceWeaponTypem, bool weaponSelected, string Animation)
+    {
+        Inventory inventory = theInventory.GetComponent<Inventory>();
+        Slot slotWithID = inventory.go_MauntingSlotsParent.GetComponentsInChildren<Slot>().FirstOrDefault(slot => slot.slotID == weaponIndex + 1);
+        if (slotWithID == null || slotWithID.item == null) {
+            Debug.Log("장비가 장착되지 않음");
+            return;
+        }
+        this.weaponIndex = weaponIndex;
+        this.isAtkDistance = isAtkDistance;
+        this.stanceWeaponType = stanceWeaponTypem;
+        this.weaponSelected = weaponSelected;
+        animator.SetTrigger(Animation);
+        StartCoroutine(AnimReset());
     }
 
     // 아이템 버리기 ( 버리는 item id가져오기 )

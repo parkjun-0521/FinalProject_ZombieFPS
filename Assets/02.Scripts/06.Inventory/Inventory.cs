@@ -10,7 +10,7 @@ public class Inventory : MonoBehaviour {
     [SerializeField]
     private GameObject go_SlotsParent;  // Slot들의 부모인 Grid Setting 
     [SerializeField]
-    private GameObject go_MauntingSlotsParent;  // Slot들의 부모인 Grid Setting 
+    public GameObject go_MauntingSlotsParent;  // Slot들의 부모인 Grid Setting 
 
     public List<Slot> slots;            // 슬롯들 배열
     public List<Slot> allSlots;
@@ -82,7 +82,7 @@ public class Inventory : MonoBehaviour {
                     else
                         _count = _item.totalCount;
                 }
-                slots[i].AddItem(_item, _count);
+                slots[i].AddItem(_item, _count, false);
                 return;
             }
         }

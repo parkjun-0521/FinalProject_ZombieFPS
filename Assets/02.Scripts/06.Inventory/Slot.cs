@@ -35,12 +35,13 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
     }
 
     // 인벤토리에 새로운 아이템 슬롯 추가
-    public void AddItem( ItemController _item, int _count) {
+    public void AddItem( ItemController _item, int _count, bool isEquip) {
         item = _item;
         itemCount += _count;
         itemImage.sprite = item.itemImage;
         // RPC로 isPickUp 속성을 false로 설정
-        photonView.RPC("SetItemPickupStatus", RpcTarget.AllBuffered, _item.itemPrimaryID);
+        if(!isEquip)
+            photonView.RPC("SetItemPickupStatus", RpcTarget.AllBuffered, _item.itemPrimaryID);
 
         if (ItemController.ItemType.Gun != _item.type       &&
             ItemController.ItemType.ShotGun != _item.type   &&
@@ -92,29 +93,34 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
     public void OnPointerClick( PointerEventData eventData ) {
         if (eventData.button == PointerEventData.InputButton.Right) {
             if (item == null) return;
-            if (eventData.button == PointerEventData.InputButton.Right) {
-                if (item != null && item.itemID != 0) {
-                    Slot targetSlot = inventory.FindSlotByID(item.itemID);
 
-                    if (targetSlot != null && targetSlot != this) {
-                        if (targetSlot.item == null) {
-                            targetSlot.AddItem(item, itemCount);
-                            ClearSlot();
-                        }
-                        else {
-                            int tempItemCount = targetSlot.itemCount;
-                            ItemController tempItem = targetSlot.item;
+            if (item != null && item.itemID != 0) {
+                Slot targetSlot = inventory.FindSlotByID(item.itemID);
 
-                            targetSlot.AddItem(item, itemCount);
-                            AddItem(tempItem, tempItemCount);
-                        }
+                if (targetSlot != null && targetSlot != this) {
+                    if (targetSlot.item == null) {
+                        targetSlot.AddItem(item, itemCount, true);
+                        ClearSlot();
                     }
                     else {
-                        Debug.Log("해당 슬롯이 없습니다.");
+                        // 기존 아이템과 교환 전에 타겟 슬롯의 아이템 개수를 조정
+                        int existingItemCount = targetSlot.itemCount;
+                        ItemController existingItem = targetSlot.item;
+
+                        // 현재 슬롯의 아이템을 타겟 슬롯에 추가
+                        targetSlot.ClearSlot(); // 타겟 슬롯을 초기화하고 아이템 추가
+                        targetSlot.AddItem(item, itemCount, true);
+
+                        // 이전에 타겟 슬롯에 있던 아이템을 현재 슬롯으로 이동
+                        ClearSlot(); // 현재 슬롯 초기화
+                        AddItem(existingItem, existingItemCount, true); // 아이템 교환
                     }
                 }
+                else {
+                    Debug.Log("해당 슬롯이 없습니다.");
+                }
             }
-            
+
         }
     }
 
@@ -176,10 +182,10 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
             ItemController _tempItem = item;
             int _tempItemCount = itemCount;
 
-            AddItem(DragSlot.instance.dragSlot.item, DragSlot.instance.dragSlot.itemCount);
+            AddItem(DragSlot.instance.dragSlot.item, DragSlot.instance.dragSlot.itemCount, true);
 
             if (_tempItem != null)
-                DragSlot.instance.dragSlot.AddItem(_tempItem, _tempItemCount);
+                DragSlot.instance.dragSlot.AddItem(_tempItem, _tempItemCount, true);
             else
                 DragSlot.instance.dragSlot.ClearSlot();
         }
