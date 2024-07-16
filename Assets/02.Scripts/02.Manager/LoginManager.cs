@@ -59,6 +59,7 @@ public class LoginManager : MonoBehaviour
                 }
                 else // 로그인 실패
                 {
+                    Debug.Log("Server Response: " + www.downloadHandler.text);
                     Debug.Log("아이디 또는 비밀번호가 틀렸습니다");
                 }
             }

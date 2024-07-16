@@ -76,7 +76,7 @@ public class Pooling : MonoBehaviourPun {
 
 
     [PunRPC]
-    void ActivateObject(int viewID)
+    public void ActivateObject(int viewID)
     {
         PhotonView targetView = PhotonView.Find(viewID);
         if (targetView != null) {

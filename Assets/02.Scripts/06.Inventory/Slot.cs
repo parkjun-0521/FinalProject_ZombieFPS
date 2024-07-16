@@ -55,6 +55,7 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
         }
         SetColor(1);
     }
+
     [PunRPC]
     public void SetItemPickupStatus( int itemID ) {
         // 모든 ItemController를 찾아서 itemID가 일치하는 아이템의 isPickUp 속성을 false로 설정
@@ -158,7 +159,7 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
         }
     }
     [PunRPC]
-    private void SetItemProperties( int itemViewID, int itemCount ) {
+    public void SetItemProperties( int itemViewID, int itemCount ) {
         GameObject itemObj = PhotonView.Find(itemViewID).gameObject;
         itemObj.GetComponent<ItemPickUp>().item.totalCount = itemCount;
         itemObj.GetComponent<ItemPickUp>().item.isPickUp = true;

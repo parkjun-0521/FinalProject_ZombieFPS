@@ -298,25 +298,27 @@ public class Player : PlayerController
     }
 
     private void ItemPickUp(GameObject itemObj) {
-        if (theInventory.IsFull()) {
-            Debug.Log("인벤토리가 가득 찼습니다. 더 이상 아이템을 줍지 못합니다.");
-        }
-        else {
-            if (PhotonNetwork.IsConnected && PhotonNetwork.InRoom) {
-                Debug.Log(itemObj.transform.GetComponent<ItemPickUp>().item.itemName + " 획득 했습니다.");  // 인벤토리 넣기
-                theInventory.AcquireItem(itemObj.transform.GetComponent<ItemPickUp>().item);
-                // 아이템 제거
-                PV.RPC("ItemPickUpRPC", RpcTarget.AllBuffered, itemObj.GetComponent<PhotonView>().ViewID);
+        if (PV.IsMine) {
+            if (theInventory.IsFull()) {
+                Debug.Log("인벤토리가 가득 찼습니다. 더 이상 아이템을 줍지 못합니다.");
             }
             else {
-                theInventory.AcquireItem(itemObj.transform.GetComponent<ItemPickUp>().item);
-                itemObj.SetActive(false);
+                if (PhotonNetwork.IsConnected && PhotonNetwork.InRoom) {
+                    Debug.Log(itemObj.transform.GetComponent<ItemPickUp>().item.itemName + " 획득 했습니다.");  // 인벤토리 넣기
+                    theInventory.AcquireItem(itemObj.transform.GetComponent<ItemPickUp>().item);
+                    // 아이템 제거
+                    PV.RPC("ItemPickUpRPC", RpcTarget.AllBuffered, itemObj.GetComponent<PhotonView>().ViewID);
+                }
+                else {
+                    theInventory.AcquireItem(itemObj.transform.GetComponent<ItemPickUp>().item);
+                    itemObj.SetActive(false);
+                }
             }
         }
     }
 
     [PunRPC]
-    private void ItemPickUpRPC(int viewID)
+    public void ItemPickUpRPC(int viewID)
     {
         GameObject itemObj = PhotonNetwork.GetPhotonView(viewID).gameObject;
         if (itemObj != null) {
