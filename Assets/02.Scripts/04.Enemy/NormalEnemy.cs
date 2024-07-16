@@ -64,8 +64,7 @@ public class NormalEnemy : EnemyController
         moveDelegate = RandomMove;
         playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
         InvokeRepeating("EnemyMove", 0.5f, 3.0f);
-        playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
-    }
+     }
     void Update()
     {
 
