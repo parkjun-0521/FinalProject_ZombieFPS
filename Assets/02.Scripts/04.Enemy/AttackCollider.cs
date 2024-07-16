@@ -4,21 +4,15 @@ using UnityEngine;
 
 public class AttackCollider : MonoBehaviour
 {
-    Collider coll;
-    public float activeTime;
-    private void Awake()
+    // Start is called before the first frame update
+    void Start()
     {
-        coll = GetComponent<Collider>();
+        gameObject.tag = "EnemyMeleeAttack";
     }
 
-    public void StartCorAtkColl(float time) 
+    // Update is called once per frame
+    void Update()
     {
-        StartCoroutine(AttackColliderActiveTrue(time));
-    }
-    IEnumerator AttackColliderActiveTrue(float _actimeTime)
-    {
-        gameObject.SetActive(true);
-        yield return new WaitForSeconds(_actimeTime);
-        gameObject.SetActive(false);
+        
     }
 }

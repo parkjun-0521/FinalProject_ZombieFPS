@@ -700,7 +700,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5735204081922557420, guid: 05513ee3766cd074da198fe95924d339, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5735204081922557420, guid: 05513ee3766cd074da198fe95924d339, type: 3}
       propertyPath: m_TagString
@@ -1889,12 +1889,12 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1059885467}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.13
-  m_Height: 1.48
+  m_Height: 2.38
   m_Direction: 1
-  m_Center: {x: 0, y: 0.3, z: 0}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &1100729158 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 420292476, guid: 05513ee3766cd074da198fe95924d339, type: 3}

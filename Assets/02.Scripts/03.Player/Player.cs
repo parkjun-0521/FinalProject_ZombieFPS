@@ -354,9 +354,9 @@ public class Player : PlayerController
     {
         if (PV.IsMine) {
             Debug.Log("칼 공격");
-            animator.SetTrigger("isMeleeWeaponSwing");
-            handAnimator.SetTrigger("isMeleeWeaponSwing");
-            // 근거리 공격 애니메이션 
+            animator.SetTrigger("isMeleeWeaponSwing");          //외부에서 보여질때 애니메이션
+            handAnimator.SetBool("isMeleeWeaponSwing", true);   //플레이어 1인칭 애니메이션
+            StartCoroutine(AnimReset("isMeleeWeaponSwing"));
             // 데미지는 weapon에서 줄꺼임 그리고 체력은 좀비에서 감소시킬예정
         }
     }
@@ -659,13 +659,14 @@ public class Player : PlayerController
         }
     }
 
-    IEnumerator AnimReset()
+    IEnumerator AnimReset(string animString = null)
     {
         yield return new WaitForSeconds(0.3f);
         animator.ResetTrigger("isDrawGranade");
         animator.ResetTrigger("isDrawHeal");
         animator.ResetTrigger("isDrawRifle");
         animator.ResetTrigger("isDrawMelee");
+        animator.ResetTrigger(animString);
     }
 
     // 플레이어 동기화

@@ -118,7 +118,7 @@ public class NormalEnemy : EnemyController
         }
         else if (other.CompareTag("Weapon"))        // 근접무기와 trigger
         {
-            //Hp = -(other.GetComponent<Weapon>().attackdamage)
+            Hp = -10;
             BloodEffect(transform.position);
         }
         else if (other.CompareTag("Player"))
@@ -256,4 +256,6 @@ public class NormalEnemy : EnemyController
             //ani.setTrigger("피격모션");
         }
     }
+
+
 }
