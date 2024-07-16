@@ -44,7 +44,7 @@ public class Pooling : MonoBehaviourPun {
                     objPhotonView = obj.AddComponent<PhotonView>();
                 }
                 select = obj;
-                photonView.RPC("ActivateObject", RpcTarget.All, objPhotonView.ViewID);
+                //photonView.RPC("ActivateObject", RpcTarget.All, objPhotonView.ViewID);
                 break;
             }
         }

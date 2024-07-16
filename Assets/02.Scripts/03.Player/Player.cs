@@ -306,7 +306,7 @@ public class Player : PlayerController
                 Debug.Log(itemObj.transform.GetComponent<ItemPickUp>().item.itemName + " 획득 했습니다.");  // 인벤토리 넣기
                 theInventory.AcquireItem(itemObj.transform.GetComponent<ItemPickUp>().item);
                 // 아이템 제거
-                PV.RPC("ItemPickUpRPC", RpcTarget.AllBuffered, itemObj.GetComponent<PhotonView>().ViewID);
+                //PV.RPC("ItemPickUpRPC", RpcTarget.AllBuffered, itemObj.GetComponent<PhotonView>().ViewID);
             }
             else {
                 theInventory.AcquireItem(itemObj.transform.GetComponent<ItemPickUp>().item);
@@ -316,7 +316,7 @@ public class Player : PlayerController
     }
 
     [PunRPC]
-    private void ItemPickUpRPC(int viewID)
+    public void ItemPickUpRPC(int viewID)
     {
         GameObject itemObj = PhotonNetwork.GetPhotonView(viewID).gameObject;
         if (itemObj != null) {
