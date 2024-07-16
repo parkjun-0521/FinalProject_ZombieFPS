@@ -35,21 +35,14 @@ public class Player : PlayerController
         PV = GetComponent<PhotonView>();
         if (PV.IsMine) {
             rigid = GetComponent<Rigidbody>();
-            for (int i = 0; i < transform.childCount; i++)
-            {
-                Transform child = transform.GetChild(i);
-                Animator myComponent = child.GetComponent<Animator>();
-                if (myComponent != null)
-                {
-                    animator = myComponent;
-                    break;
-                }
-            }
+            Animator[] animators = GetComponentsInChildren<Animator>();
+            animator = animators[1];                        //나중에 새로운 애니메이터 중간에 들어오면 좀 불안정해짐 
+            handAnimator = animators[2]; 
 
             Cursor.visible = false;                         // 마우스 커서 비활성화
             Cursor.lockState = CursorLockMode.Locked;       // 마우스 커서 현재 위치 고정 
             rotateToMouse = GetComponentInChildren<RotateToMouse>();
-
+           
         }
     }
 
@@ -197,7 +190,7 @@ public class Player : PlayerController
 
             // 걷기, 달리기 속도 조절
             float playerSpeed = type ? runSpeed : speed;
-
+            isMove = false;
             // 좌우 이동
             if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.LeftMove))) {
                 isMove = true;
@@ -278,7 +271,7 @@ public class Player : PlayerController
     // 플레이어 상호작용 
     public override void PlayerInteraction() {
         if (PV.IsMine) {
-            int layerMask = LayerMask.GetMask("Player", "Item");
+            int layerMask = LayerMask.GetMask("LocalPlayer", "Item");
             if (Physics.Raycast(ray, out hit, interactionRange, layerMask))   
             {
                 if (hit.collider.CompareTag("Item"))
@@ -362,6 +355,7 @@ public class Player : PlayerController
         if (PV.IsMine) {
             Debug.Log("칼 공격");
             animator.SetTrigger("isMeleeWeaponSwing");
+            handAnimator.SetTrigger("isMeleeWeaponSwing");
             // 근거리 공격 애니메이션 
             // 데미지는 weapon에서 줄꺼임 그리고 체력은 좀비에서 감소시킬예정
         }
@@ -581,7 +575,7 @@ public class Player : PlayerController
    
     void PlayerReviveUI()
     {
-        if (Physics.Raycast(ray, out hit, interactionRange, LayerMask.NameToLayer("Player") | LayerMask.NameToLayer("Item")))
+        if (Physics.Raycast(ray, out hit, interactionRange, LayerMask.NameToLayer("LocalPlayer") | LayerMask.NameToLayer("Item")))
         {
             if (hit.collider.CompareTag("Player"))
             {
