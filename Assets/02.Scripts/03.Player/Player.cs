@@ -124,10 +124,10 @@ public class Player : PlayerController
             }
           
             // 플레이어 상호작용
-            if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction))) {
-                OnPlayerInteraction?.Invoke();
-            }
-
+            //if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction))) {
+            //    OnPlayerInteraction?.Invoke();
+            //}
+            OnPlayerInteraction?.Invoke();
             // 플레이어 회전
             OnPlayerRotation?.Invoke();
 
@@ -138,7 +138,6 @@ public class Player : PlayerController
             
             ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
             //사람 죽은놈 쪽으로 레이쏴서 ui true
-            PlayerReviveUI();
 
         }
     }
@@ -280,19 +279,36 @@ public class Player : PlayerController
     public override void PlayerInteraction() {
         if (PV.IsMine) {
             int layerMask = LayerMask.GetMask("Player", "Item");
-            if (Physics.Raycast(ray, out hit, interactionRange, layerMask))   //레이어 이름, 거리에대해 상의
+            if (Physics.Raycast(ray, out hit, interactionRange, layerMask))   
             {
-                if (hit.collider.CompareTag("Item")) {           // ex)text : 'E' 아이템줍기 ui띄워주기
-                    ItemPickUp(hit.collider.gameObject);
-                }
-                else if (hit.collider.CompareTag("Player")) {    //만약 플레이어면
-                                                                 //ex)text : 'E' 플레이어 살리기 ui띄워주기
-                    if (hit.collider.GetComponent<Player>().isFaint == true) //만약 태그가 player고 기절이 true면
+                if (hit.collider.CompareTag("Item"))
+                {
+                    playerReviveUI.SetActive(true);
+                    playerReviveUI.GetComponentInChildren<Text>().text = string.Format("'E' {0} 아이템 줍기", hit.collider.GetComponent<ItemPickUp>().item.itemName);
+                    if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
                     {
-                        //slider or shader로 (slider가 편할듯) 살려주기 바가 차오름
-                        //슬라이더 밸류가 1이 되는순간 순간 그녀석의 player에 접근해서 PlayerRevive()함수호출
+                        ItemPickUp(hit.collider.gameObject);
                     }
                 }
+                else if (hit.collider.CompareTag("Player"))
+                {
+                    isRayPlayer = true;
+                    Player otherPlayer = hit.collider.GetComponent<Player>();
+                    if (otherPlayer.isFaint)
+                    {
+                        playerReviveUI.SetActive(true);
+                        playerReviveUI.GetComponentInChildren<Text>().text = "'E' 플레이어 부활";
+                        if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
+                        {
+                            StartCoroutine(CorPlayerReviveUI(8.0f, otherPlayer));
+                        }
+                    }
+                }
+            }
+            else
+            {
+                playerReviveUI.SetActive(false);
+                isRayPlayer = false;
             }
         }
     }
@@ -345,6 +361,7 @@ public class Player : PlayerController
     {
         if (PV.IsMine) {
             Debug.Log("칼 공격");
+            animator.SetTrigger("isMeleeWeaponSwing");
             // 근거리 공격 애니메이션 
             // 데미지는 weapon에서 줄꺼임 그리고 체력은 좀비에서 감소시킬예정
         }
