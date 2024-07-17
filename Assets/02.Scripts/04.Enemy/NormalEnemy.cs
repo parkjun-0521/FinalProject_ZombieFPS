@@ -9,28 +9,6 @@ public class NormalEnemy : EnemyController
     public delegate void MoveDelegate();
     public MoveDelegate moveDelegate;
 
-    //일정범위 지정 반지름단위
-    public float rangeOut = 10f;
-    //리셋 속도 5고정
-    public float resetSpeed = 5f;
-    InputKeyManager keyManager;
-    //추적거리
-    public float rad = 3f;
-    public float distance = 5f;
-    public LayerMask layermask;
-    public float maxTracingSpeed;
-
-    private Transform playerTr;
-
-    public float meleeDelay = 4.0f;
-    float nextAttack = 4;
-
-
-    bool isRangeOut = false;
-    bool shouldEvaluate = false;
-    bool isNow = false;
-
-
     //공격
     public GameObject attackColliderPrefab;
     public Transform attackPoint;
@@ -64,14 +42,9 @@ public class NormalEnemy : EnemyController
         moveDelegate = RandomMove;
         playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
         InvokeRepeating("EnemyMove", 0.5f, 3.0f);
-        playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
     }
     void Update()
     {
-
-        Vector3 enemyPos = transform.position;
-        Vector3 enemyDir = transform.forward;
-
         if (isRangeOut == true)
         {
             Vector3 dest = new Vector3();
@@ -91,20 +64,17 @@ public class NormalEnemy : EnemyController
         if (isWalk && isNow)
         {
             EnemyTracking();
-
         }
+
         if (isTracking)
         {
             EnemyRun();
         }
 
-
         if(nav.isStopped== true)
         {
             EnemyMeleeAttack();
         }
-
-
 
     }
 
@@ -196,38 +166,18 @@ public class NormalEnemy : EnemyController
 
 
     }
-    public override void EnemyTracking()
-    {
-
-        Vector3 skyLay = new Vector3(transform.position.x, 10, transform.position.z);
-        RaycastHit hit;
-        bool isHit = Physics.SphereCast(skyLay, rad, Vector3.down, out hit, distance, layermask);
-
-
-        if (isHit)
-        {
-            CancelInvoke("EnemyMove");
-            rigid.velocity = Vector3.zero;
-            rigid.angularVelocity = Vector3.zero;
-            transform.LookAt(hit.transform);
-            isTracking = true;
-        }
-
-
-    }
 
     public override void EnemyMeleeAttack()
     {
         nextAttack += Time.deltaTime;
         if (nextAttack > meleeDelay)
         {
-            GameObject attackCollider = Instantiate(attackColliderPrefab, attackPoint.position, attackPoint.rotation);
-            Destroy(attackCollider, 0.1f);
+            /*GameObject attackCollider = Instantiate(attackColliderPrefab, attackPoint.position, attackPoint.rotation);
+            Destroy(attackCollider, 0.1f);*/
+            // 좀비 공격 애니메이션
             Debug.Log("ATtak");
             nextAttack = 0;
         }
-      
-
     }
 
     public override void EnemyDead()

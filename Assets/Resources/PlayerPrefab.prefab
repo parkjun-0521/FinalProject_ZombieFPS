@@ -735,7 +735,6 @@ GameObject:
   - component: {fileID: 923372507}
   - component: {fileID: 923372506}
   - component: {fileID: 923372505}
-  - component: {fileID: 923372504}
   m_Layer: 0
   m_Name: Grenade
   m_TagString: Untagged
@@ -808,19 +807,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &923372504
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 923372503}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &940950092
 GameObject:
   m_ObjectHideFlags: 0
@@ -1244,7 +1230,6 @@ GameObject:
   - component: {fileID: 1257858947}
   - component: {fileID: 1257858946}
   - component: {fileID: 1257858945}
-  - component: {fileID: 1257858944}
   m_Layer: 0
   m_Name: HealPack
   m_TagString: Untagged
@@ -1317,19 +1302,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1257858944
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1257858943}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1395529964
 GameObject:
   m_ObjectHideFlags: 0
@@ -2074,6 +2046,7 @@ MonoBehaviour:
   weaponSelected: 0
   isAtkDistance: 0
   stanceWeaponType: 0
+  countZero: 0
   moveForce: {x: 0, y: 0, z: 0}
   enemyLayer:
     serializedVersion: 2

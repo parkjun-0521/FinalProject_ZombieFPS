@@ -78,6 +78,7 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     public bool weaponSelected = false;    // 무기가 선택되었는지 확인 
     public bool isAtkDistance;          // 공격 거리 ( false 원거리, true 근거리 ) 
     public bool stanceWeaponType;       // 원거리 ( false : 원거리, true : 투척 ), 근거리 ( false : 근접, true :  힐팩 ) 각각 구분 
+    public bool countZero;
     protected bool isJump;              // 점프 상태
     protected bool isInteraction;       // 상호작용 상태 
     protected bool isAttack;            // 공격 상태 

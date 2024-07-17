@@ -11,6 +11,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static InputKeyManager;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class Player : PlayerController 
 {
@@ -358,7 +359,7 @@ public class Player : PlayerController
 
         switch (slotID) {
             case 3:
-                // ID가 3인 슬롯이 null이거나 비어 있는 경우의 조건문
+                // ID가 3인 슬롯이 null이거나 비어 있는 경우의 조건문   
                 if (slotWithID != null && slotWithID.item.type == ItemController.ItemType.Grenade) {
                     theInventory.DecreaseMagazineCount(ItemController.ItemType.Grenade);
                 }
@@ -368,9 +369,13 @@ public class Player : PlayerController
                 else if (slotWithID != null && slotWithID.item.type == ItemController.ItemType.SupportFireGrenade) {
                     theInventory.DecreaseMagazineCount(ItemController.ItemType.SupportFireGrenade);
                 }
+                if (slotWithID.itemCount == 0) 
+                    countZero = true;
                 break;
             case 4:
                 theInventory.DecreaseMagazineCount(ItemController.ItemType.Healpack);
+                if (slotWithID.itemCount == 0)
+                    countZero = true;
                 break;
         }
 
@@ -466,7 +471,6 @@ public class Player : PlayerController
             if (!theInventory.HasItemUse(ItemController.ItemType.Grenade) && 
                 !theInventory.HasItemUse(ItemController.ItemType.FireGrenade) && 
                 !theInventory.HasItemUse(ItemController.ItemType.SupportFireGrenade)) {
-
                 Debug.Log("투척무기 없음");
                 return; 
             }
@@ -490,6 +494,7 @@ public class Player : PlayerController
             Vector3 targetPoint;
 
             targetPoint = (Physics.Raycast(ray, out hit)) ? hit.point : ray.GetPoint(1000);
+
             // 던질 방향 계산
             Vector3 throwDirection = (targetPoint - grenade.transform.position).normalized;
             // Rigidbody에 힘을 가함
@@ -502,9 +507,11 @@ public class Player : PlayerController
         if (PV.IsMine) {
             if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Weapon1))) {        // 원거리 무기 
                 WeaponSwapStatus(0, false, false, true, "isDrawRifle");
+                countZero = false;
             }
             else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Weapon2))) {   // 근접 무기
                 WeaponSwapStatus(1, true, false, true, "isDrawMelee");
+                countZero = false;
             }
             else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Weapon3))) {   // 투척 무기
                 WeaponSwapStatus(2, false, true, true, "isDrawGranade");
@@ -518,7 +525,12 @@ public class Player : PlayerController
             if (equipWeapon != null)
                 equipWeapon.SetActive(false);
             equipWeapon = weapons[weaponIndex];
-            equipWeapon.SetActive(true);
+            if (!countZero) {
+                equipWeapon.SetActive(true);
+            }
+            else {
+                equipWeapon.SetActive(false);
+            }
         }
     }
     // 무기 교체 상태 변경
@@ -530,6 +542,9 @@ public class Player : PlayerController
             Debug.Log("장비가 장착되지 않음");
             return;
         }
+        if (slotWithID.itemCount > 0) 
+            countZero = false;
+
         this.weaponIndex = weaponIndex;
         this.isAtkDistance = isAtkDistance;
         this.stanceWeaponType = stanceWeaponTypem;
