@@ -158,7 +158,7 @@ public class Player : PlayerController
         if (PV.IsMine) {
             // 적과 충돌 
             if (other.CompareTag("Enemy")){
-                //hp = -(other.GetComponent<Enemy>().attackdamage)  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
+                Hp = -(other.GetComponent<EnemyController>().damage);  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
             }
         }
     }
@@ -272,6 +272,17 @@ public class Player : PlayerController
     public override void PlayerInteraction() {
         if (PV.IsMine) {
             int layerMask = LayerMask.GetMask("LocalPlayer", "Item");
+            RaycastHit[] hits = Physics.RaycastAll(Camera.main.transform.position, transform.forward, 10, layerMask);
+            Debug.DrawRay(bulletPos.position, transform.forward * 10, Color.red);
+            foreach (var a in hits)
+            {
+                if (a.collider.gameObject.name == gameObject.name)
+                {
+                    Debug.Log(transform.rotation.y);
+                }
+                Debug.Log(a.collider.gameObject.name);
+                Debug.Log(gameObject.name);
+            }
             if (Physics.Raycast(ray, out hit, interactionRange, layerMask))   
             {
                 if (hit.collider.CompareTag("Item"))
@@ -354,7 +365,7 @@ public class Player : PlayerController
     {
         if (PV.IsMine) {
             Debug.Log("칼 공격");
-            animator.SetTrigger("isMeleeWeaponSwing");          //외부에서 보여질때 애니메이션
+            animator.SetBool("isMeleeWeaponSwing", true);          //외부에서 보여질때 애니메이션
             handAnimator.SetBool("isMeleeWeaponSwing", true);   //플레이어 1인칭 애니메이션
             StartCoroutine(AnimReset("isMeleeWeaponSwing"));
             // 데미지는 weapon에서 줄꺼임 그리고 체력은 좀비에서 감소시킬예정
@@ -436,7 +447,8 @@ public class Player : PlayerController
             }
 
             Debug.Log("투척 공격");
-            animator.SetTrigger("isGranadeThrow");
+            animator.SetBool("isGranadeThrow", true);
+            StartCoroutine(AnimReset("isGranadeThrow"));
             float throwForce = 15f;    // 던지는 힘
 
             theInventory.DecreaseMagazineCount(ItemController.ItemType.Grenade);
@@ -476,8 +488,9 @@ public class Player : PlayerController
                 isAtkDistance = stanceWeaponType = false;
                 Debug.Log("원거리");
                 weaponSelected = true;
-                animator.SetTrigger("isDrawRifle");
-                StartCoroutine(AnimReset());
+                animator.SetBool("isDrawRifle", true);
+                
+                StartCoroutine(AnimReset("isDrawRifle"));
             }
             else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Weapon2))) {   // 근접 무기
                 weaponIndex = 1;
@@ -485,8 +498,8 @@ public class Player : PlayerController
                 stanceWeaponType = false;
                 Debug.Log("근거리");
                 weaponSelected = true;
-                animator.SetTrigger("isDrawMelee");
-                StartCoroutine(AnimReset());
+                animator.SetBool("isDrawMelee", true);
+                StartCoroutine(AnimReset("isDrawMelee"));
             }
             else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Weapon3))) {   // 투척 무기
                 weaponIndex = 2;
@@ -494,16 +507,16 @@ public class Player : PlayerController
                 stanceWeaponType = true;
                 Debug.Log("투척");
                 weaponSelected = true;
-                animator.SetTrigger("isDrawGranade");
-                StartCoroutine(AnimReset());
+                animator.SetBool("isDrawGranade", true);
+                StartCoroutine(AnimReset("isDrawGranade"));
             }
             else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Weapon4))) {   // 힐팩
                 weaponIndex = 3;
                 isAtkDistance = stanceWeaponType = true;
                 Debug.Log("힐");
                 weaponSelected = true;
-                animator.SetTrigger("isDrawHeal");
-                StartCoroutine(AnimReset());
+                animator.SetBool("isDrawGranade", true);
+                StartCoroutine(AnimReset("isDrawGranade"));
             }
 
             if (!weaponSelected) return;
@@ -544,7 +557,8 @@ public class Player : PlayerController
             OnPlayerSwap -= WeaponSwap;
             OnPlayerInteraction -= PlayerInteraction;   // 플레이어 상호작용
             OnPlayerInventory -= PlayerInventory;
-            animator.SetTrigger("isFaint");     //기절 애니메이션 출력 
+            animator.SetBool("isFaint", true);     //기절 애니메이션 출력 
+            StartCoroutine(AnimReset("isFaint"));
         }
     }
 
@@ -559,7 +573,8 @@ public class Player : PlayerController
         OnPlayerSwap += WeaponSwap;                 // 무기 교체
         OnPlayerInteraction += PlayerInteraction;   // 플레이어 상호작용
         OnPlayerInventory += PlayerInventory;
-        animator.SetTrigger("isRevive");     //기절 애니메이션 출력 나중에 플레이어 완성되면 추가
+        animator.SetBool("isRevive", true);     //기절 애니메이션 출력 나중에 플레이어 완성되면 추가
+        StartCoroutine(AnimReset("isRevive"));
         Hp = 50;                             //부활시 반피로 변경! maxHp = 100; 을 따로 선언해서 maxHp / 2해도 되는데 풀피는 100하겠지 뭐
     }
 
@@ -569,7 +584,8 @@ public class Player : PlayerController
         if (hp <= 0 && isFaint)                            //만약 플레이어 체력이 0보다 작고 기절상태
         {
             hp = 0;                                 //여기서 hp를 0   //anim.setbool("isFaint", true);    //기절 애니메이션 출력 나중에 플레이어 완성되면 추가
-            animator.SetTrigger("isDead");          //죽었을때 애니메이션 출력
+            animator.SetBool("isDead", true);          //죽었을때 애니메이션 출력
+            StartCoroutine(AnimReset("isDead"));
         }
     }
    
@@ -645,8 +661,9 @@ public class Player : PlayerController
     IEnumerator HealItemUse()                                                     //체력회복아이템사용 임시
     {
         int hpTime = 0;
-        animator.SetTrigger("isHealUse");
-        while(!Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction))) //상호작용키(e)를 누르면 취소
+        animator.SetBool("isHealUse", true);
+        StartCoroutine(AnimReset("isHealUse"));
+        while (!Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction))) //상호작용키(e)를 누르면 취소
         {
             yield return new WaitForSeconds(0.1f);
             hpTime++;
@@ -662,11 +679,12 @@ public class Player : PlayerController
     IEnumerator AnimReset(string animString = null)
     {
         yield return new WaitForSeconds(0.3f);
-        animator.ResetTrigger("isDrawGranade");
-        animator.ResetTrigger("isDrawHeal");
-        animator.ResetTrigger("isDrawRifle");
-        animator.ResetTrigger("isDrawMelee");
-        animator.ResetTrigger(animString);
+        //animator.ResetTrigger("isDrawGranade");
+        //animator.ResetTrigger("isDrawHeal");
+        //animator.ResetTrigger("isDrawRifle");
+        //animator.ResetTrigger("isDrawMelee");
+        //animator.ResetTrigger(animString);
+        animator.SetBool(animString, false);
     }
 
     // 플레이어 동기화

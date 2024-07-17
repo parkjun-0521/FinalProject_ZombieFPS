@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class ItemSword : MonoBehaviour
 {
     public ItemController itemData;
-
 }

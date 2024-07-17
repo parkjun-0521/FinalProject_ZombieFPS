@@ -113,20 +113,23 @@ public class NormalEnemy : EnemyController
     {
         if (other.CompareTag("Bullet"))             // 총알과 trigger
         {
-            Hp = -(other.GetComponent<Bullet>().scriptableObject.damage);  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
+            Hp = -(other.GetComponent<Bullet>().itemData.damage);  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
             other.gameObject.SetActive(false);
         }
         else if (other.CompareTag("Weapon"))        // 근접무기와 trigger
         {
-            Hp = -10;
+            Hp = -(other.GetComponent<ItemSword>().itemData.damage);
             BloodEffect(transform.position);
+        }
+        else if(other.CompareTag("Grenade"))
+        {
+            Hp = -(other.GetComponentInParent<ItemGrenade>().itemData.damage);
         }
         else if (other.CompareTag("Player"))
         {
             other.GetComponent<Player>().Hp = -damage;
         }
-        else
-            return;
+        return;
     }
 
 
@@ -257,5 +260,5 @@ public class NormalEnemy : EnemyController
         }
     }
 
-
+    
 }

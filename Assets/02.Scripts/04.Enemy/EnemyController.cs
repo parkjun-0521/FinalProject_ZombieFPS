@@ -75,7 +75,7 @@ public class EnemyController : MonoBehaviourPun, IEnemy {
     public virtual void EnemyMeleeAttack() { }
     public virtual void EnemyRun() { }
     public virtual void EnemyTracking() { }
-    public virtual void TakeDamage(float damage)
+    public virtual void EnemyTakeDamage(float damage)
     {
         Hp = -damage;
     }
