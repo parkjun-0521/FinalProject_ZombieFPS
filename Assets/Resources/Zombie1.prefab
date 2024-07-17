@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2740344462459586778}
   - component: {fileID: 2740344462459586779}
-  - component: {fileID: 2740344462459586777}
   - component: {fileID: 2740344462459586791}
+  - component: {fileID: 2740344462459586777}
+  - component: {fileID: 3034480677486605876}
   m_Layer: 20
   m_Name: Zombie1
   m_TagString: Enemy
@@ -49,33 +50,6 @@ CapsuleCollider:
   m_Height: 2.2539155
   m_Direction: 1
   m_Center: {x: 0, y: 1.1269578, z: 0}
---- !u!114 &2740344462459586777
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2740344462459586780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34d6d2a0842b3644bb20a0737688f00e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  runSpeed: 0
-  maxHp: 100
-  damage: 50
-  rangeOut: 10
-  resetSpeed: 10
-  rad: 3
-  distance: 5
-  layermask:
-    serializedVersion: 2
-    m_Bits: 64
-  maxTracingSpeed: 5
-  meleeDelay: 4
-  attackColliderPrefab: {fileID: 0}
-  attackPoint: {fileID: 0}
 --- !u!54 &2740344462459586791
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -92,6 +66,60 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &2740344462459586777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2740344462459586780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34d6d2a0842b3644bb20a0737688f00e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  runSpeed: 0
+  meleeDelay: 4
+  nextAttack: 4
+  rangeOut: 10
+  resetSpeed: 10
+  rad: 3
+  distance: 5
+  layermask:
+    serializedVersion: 2
+    m_Bits: 64
+  maxTracingSpeed: 5
+  playerTr: {fileID: 0}
+  maxHp: 100
+  damage: 50
+  isRangeOut: 0
+  shouldEvaluate: 0
+  isNow: 0
+  attackColliderPrefab: {fileID: 0}
+  attackPoint: {fileID: 0}
+--- !u!195 &3034480677486605876
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2740344462459586780}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1001 &2740344462615235569
 PrefabInstance:
   m_ObjectHideFlags: 0

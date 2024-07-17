@@ -36,7 +36,6 @@ public class NormalEnemy : EnemyController
         //델리게이트 사망에서 뻈으니 다 넣기
     }
 
-
     void Start()
     {
         moveDelegate = RandomMove;
@@ -59,7 +58,6 @@ public class NormalEnemy : EnemyController
                 isRangeOut = false;
             }
             shouldEvaluate = true;
-
         }
         if (isWalk && isNow)
         {
@@ -99,14 +97,12 @@ public class NormalEnemy : EnemyController
             return;
     }
 
-
-
-
     //보통 적 NPC의 이동
     public override void EnemyMove()
     {
         moveDelegate?.Invoke();
     }
+
     void RandomMove()
     {
         isWalk = true;
@@ -122,7 +118,6 @@ public class NormalEnemy : EnemyController
             CancelInvoke("EnemyMove");
             rigid.velocity = Vector3.zero;
             rigid.angularVelocity = Vector3.zero;
-            Debug.Log("reset:ING");
             //다시돌아오는
             Vector3 direction = (Vector3.zero - transform.position).normalized;
             rigid.AddForce(direction * resetSpeed , ForceMode.VelocityChange);
@@ -130,10 +125,7 @@ public class NormalEnemy : EnemyController
             isNow = false;
         }
         //아니면 속행
-        else
-        {
-            Debug.Log("Move");
-
+        else {
             isNow = true;
             rigid.AddForce(dest * speed * Time.deltaTime, ForceMode.VelocityChange);
         }
@@ -144,27 +136,15 @@ public class NormalEnemy : EnemyController
     public override void EnemyRun()
     {
         isRun = true;
-        
-        
+              
         nav.speed = runSpeed;
         nav.destination = playerTr.position;
         if(rigid.velocity.magnitude > maxTracingSpeed)
-        {
             rigid.velocity = rigid.velocity.normalized * maxTracingSpeed;
-
-        }
         
         float versusDist = Vector3.Distance(transform.position, playerTr.position);
-        if (versusDist < 3.3f)
-        {
-            nav.isStopped = true;
-        }
-        else
-        {
-            nav.isStopped = false;
-        }
 
-
+        nav.isStopped = (versusDist < 1f) ? true : false;
     }
 
     public override void EnemyMeleeAttack()

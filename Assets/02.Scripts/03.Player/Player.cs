@@ -11,7 +11,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static InputKeyManager;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class Player : PlayerController 
 {
@@ -24,13 +23,15 @@ public class Player : PlayerController
 
     private RotateToMouse rotateToMouse;
     private InputKeyManager keyManager;
-
     public Camera playerCamera;
 
     private bool cursorLocked = true;
+
+    // 상호작용 Ray  
     RaycastHit hit;
     Ray ray;
     bool isRayPlayer = false;
+
     void Awake()
     {
         // 레퍼런스 초기화 
@@ -137,7 +138,7 @@ public class Player : PlayerController
             if (Input.GetKeyDown(KeyCode.LeftAlt)) {
                 ToggleCursor();
             }
-            
+
             ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
             //사람 죽은놈 쪽으로 레이쏴서 ui true
             PlayerReviveUI();
@@ -299,36 +300,36 @@ public class Player : PlayerController
         }
     }
 
+    // 아이템 줍기 
     private void ItemPickUp(GameObject itemObj) {
-        if (PV.IsMine) {
+        if (PV.IsMine) { 
             if (theInventory.IsFull()) {
                 Debug.Log("인벤토리가 가득 찼습니다. 더 이상 아이템을 줍지 못합니다.");
             }
             else {
                 if (PhotonNetwork.IsConnected && PhotonNetwork.InRoom) {
-                    Debug.Log(itemObj.transform.GetComponent<ItemPickUp>().item.itemName + " 획득 했습니다.");  // 인벤토리 넣기
+                    // 인벤토리에 아이템 넣기 
                     theInventory.AcquireItem(itemObj.transform.GetComponent<ItemPickUp>().item);
-                    // 아이템 제거
+                    // 아이템 제거 동기화
                     PV.RPC("ItemPickUpRPC", RpcTarget.AllBuffered, itemObj.GetComponent<PhotonView>().ViewID);
                 }
                 else {
+                    // 룸이 아닐 때 테스트 용 ( 추후 지울 예정 ) ============================================================
                     theInventory.AcquireItem(itemObj.transform.GetComponent<ItemPickUp>().item);
                     itemObj.SetActive(false);
+                    // 룸이 아닐 때 테스트 용 ( 추후 지울 예정 ) ============================================================
                 }
             }
         }
     }
 
+    // 아이템 주웠을 때 동기화 
     [PunRPC]
     public void ItemPickUpRPC(int viewID)
     {
         GameObject itemObj = PhotonNetwork.GetPhotonView(viewID).gameObject;
-        if (itemObj != null) {
+        if (itemObj != null)
             itemObj.SetActive(false);
-        }
-        else {
-            Debug.LogError("viewID: " + viewID);
-        }
     }
 
     // 플레이어 공격 ( 근접인지 원거리인지 판단 bool ) 
@@ -352,6 +353,7 @@ public class Player : PlayerController
         // MountingSlotsParent에서 Slot 컴포넌트들을 가져오고, ID가 3인 슬롯을 찾음
         Slot slotWithID = inventory.go_MauntingSlotsParent.GetComponentsInChildren<Slot>().FirstOrDefault(slot => slot.slotID == slotID);
 
+        // 무기가 장착되지 않았을 때
         if (slotWithID == null || slotWithID.item == null) {
             Debug.Log("장비가 장착되지 않음");
             return false;
@@ -369,16 +371,18 @@ public class Player : PlayerController
                 else if (slotWithID != null && slotWithID.item.type == ItemController.ItemType.SupportFireGrenade) {
                     theInventory.DecreaseMagazineCount(ItemController.ItemType.SupportFireGrenade);
                 }
+                // 아이템을 다 쓰고 난 후 손에 있는 무기 비활성화
                 if (slotWithID.itemCount == 0) 
                     countZero = true;
                 break;
             case 4:
+                // ID가 4인 슬롯이 null이거나 비어 있는 경우의 조건문   
                 theInventory.DecreaseMagazineCount(ItemController.ItemType.Healpack);
+                // 아이템을 다 쓰고 난 후 손에 있는 무기 비활성화
                 if (slotWithID.itemCount == 0)
                     countZero = true;
                 break;
         }
-
         return true;
     }
 
@@ -390,6 +394,7 @@ public class Player : PlayerController
                 Debug.Log("칼이 없음");
                 return;
             }
+            // 아이템 미장착
             if (!ItemNotEquipped(2))
                 return;
 
@@ -403,38 +408,41 @@ public class Player : PlayerController
     void GunAttack()
     {
         if (PV.IsMine) {
-
+            // 아이템 미 장착 
             if (!ItemNotEquipped(1))
                 return;
 
+            // 탄창이 없을 때 사격 X
             if (!theInventory.HasItemUse(ItemController.ItemType.Magazine)) {
                 Debug.Log("탄창 없음");
-                return; // 탄창이 없으면 메소드를 종료하여 총을 쏘지 않음
+                return; 
             }
 
             // 카메라 중앙에서 Ray 생성 
             Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-            // Ray 테스트 
-            Debug.DrawLine(ray.origin, ray.origin + ray.direction * 1000, Color.red); // 나중에 지우기
-
             Vector3 targetPoint;
-
+            // 이펙트 생성 
             muzzleFlashEffect.Play();
             // 충돌 확인
             if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, enemyLayer)) {
-                Debug.Log("총 공격");
                 targetPoint = hit.point;
-                hit.transform.GetComponent<EnemyController>().BloodEffect(hit.point);       
+                hit.transform.GetComponent<EnemyController>().BloodEffect(hit.point);       // 좀비 피 이펙트 동작
             }
             else {
-                // 레이가 맞지 않았을 때는 먼 지점을 목표로 설정
-                targetPoint = ray.origin + ray.direction * 1000f;
+                targetPoint = ray.origin + ray.direction * 1000f;                           // 레이가 맞지 않았을 때는 먼 지점을 목표로 설정
             }         
-            // 총알 생성 (오브젝트 풀링 사용)
-            GameObject bullet = Pooling.instance.GetObject("Bullet"); // 총알이 들어가 있는 index로 변경 (0은 임시)
-            bullet.transform.position = bulletPos.position; // bullet 위치 초기화
-            bullet.transform.rotation = Quaternion.identity; // bullet 회전값 초기화
 
+            // 총알 생성 (오브젝트 풀링 사용)
+            GameObject bullet = Pooling.instance.GetObject("Bullet");   // 총알 생성 
+            bullet.transform.position = bulletPos.position;             // bullet 위치 초기화
+            bullet.transform.rotation = Quaternion.identity;            // bullet 회전값 초기화
+
+            TrailRenderer trail = bullet.GetComponent<TrailRenderer>();
+            if (trail != null) {
+                trail.Clear();
+            }
+
+            // 탄창 개수 감소
             theInventory.DecreaseMagazineCount(ItemController.ItemType.Magazine);
 
             // 총알의 방향 설정
@@ -442,7 +450,12 @@ public class Player : PlayerController
 
             // 총알의 초기 속도를 플레이어의 이동 속도로 설정하고 발사 방향 설정
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
-            rb.AddForce(direction * 50f, ForceMode.VelocityChange); // 발사 방향과 속도를 함께 적용
+
+            // 리지드바디의 속도와 각속도 초기화
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            // 발사 방향과 속도를 함께 적용
+            rb.AddForce(direction * 50f, ForceMode.VelocityChange); 
         }
     }
 
@@ -454,6 +467,7 @@ public class Player : PlayerController
                 Debug.Log("힐팩 없음");
                 return; 
             }
+            // 아이템 미장착 
             if (!ItemNotEquipped(4))
                 return;
 
@@ -474,29 +488,33 @@ public class Player : PlayerController
                 Debug.Log("투척무기 없음");
                 return; 
             }
-
+            // 아이템 미장착 
             if (!ItemNotEquipped(3))
                 return;
 
             Debug.Log("투척 공격");
             animator.SetTrigger("isGranadeThrow");
-            float throwForce = 15f;    // 던지는 힘
 
-            GameObject grenade = Pooling.instance.GetObject("GrenadeObject"); 
+            float throwForce = 15f;                                             // 던지는 힘
+            GameObject grenade = Pooling.instance.GetObject("GrenadeObject");   // 수류탄 생성 
             Rigidbody grenadeRigid = grenade.GetComponent<Rigidbody>();
-            grenadeRigid.velocity = Vector3.zero;
-            grenade.transform.position = grenadePos.position; // bullet 위치 초기화                   
-            grenade.transform.rotation = Quaternion.identity; // bullet 회전값 초기화 
+
+            // 초기 위치 설정
+            grenadeRigid.velocity = Vector3.zero;               // 생성 시 가속도 초기화
+            grenade.transform.position = grenadePos.position;   // bullet 위치 초기화                   
+            grenade.transform.rotation = Quaternion.identity;   // bullet 회전값 초기화 
 
             // 카메라의 중앙에서 나가는 레이 구하기
             Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
             RaycastHit hit;
             Vector3 targetPoint;
 
+            // 맞았을 때 , 안맞았을 때 충돌 지점 지정 
             targetPoint = (Physics.Raycast(ray, out hit)) ? hit.point : ray.GetPoint(1000);
 
             // 던질 방향 계산
             Vector3 throwDirection = (targetPoint - grenade.transform.position).normalized;
+
             // Rigidbody에 힘을 가함
             grenadeRigid.AddForce(throwDirection * throwForce, ForceMode.VelocityChange);
         }
@@ -520,42 +538,42 @@ public class Player : PlayerController
                 WeaponSwapStatus(3, true, true, true, "isDrawHeal");
             }
 
+            // 무기를 선택하지 않았을 때 
             if (!weaponSelected) return;
 
+            // 빈손일 경우 예외처리 
             if (equipWeapon != null)
                 equipWeapon.SetActive(false);
+            // 무기 선택 
             equipWeapon = weapons[weaponIndex];
-            if (!countZero) {
+            // 선택된 무기 활성화 ( 무기를 다 사용했을 시 비활성화 )
+            if (!countZero)
                 equipWeapon.SetActive(true);
-            }
-            else {
+            else
                 equipWeapon.SetActive(false);
-            }
         }
     }
-    // 무기 교체 상태 변경
-    public void WeaponSwapStatus(int weaponIndex, bool isAtkDistance, bool stanceWeaponTypem, bool weaponSelected, string Animation)
+    // 무기 교체 상태 변경 : 인자값 (0:무기ID, 1:무기 사거리, 2:무기타입, 3:무기를 선택한 상태, 4:애니메이션 ) 
+    public void WeaponSwapStatus(int weaponIndex, bool isAtkDistance, bool stanceWeaponType, bool weaponSelected, string Animation)
     {
+        // 아이템 장착된 것을 확인 후 예외 처리 
         Inventory inventory = theInventory.GetComponent<Inventory>();
         Slot slotWithID = inventory.go_MauntingSlotsParent.GetComponentsInChildren<Slot>().FirstOrDefault(slot => slot.slotID == weaponIndex + 1);
         if (slotWithID == null || slotWithID.item == null) {
             Debug.Log("장비가 장착되지 않음");
             return;
         }
+        // 아이템이 0보다 많으면 활성화 될 수 있도록 
         if (slotWithID.itemCount > 0) 
             countZero = false;
 
+        // 각 변수 상태 초기화
         this.weaponIndex = weaponIndex;
         this.isAtkDistance = isAtkDistance;
-        this.stanceWeaponType = stanceWeaponTypem;
+        this.stanceWeaponType = stanceWeaponType;
         this.weaponSelected = weaponSelected;
         animator.SetTrigger(Animation);
         StartCoroutine(AnimReset());
-    }
-
-    // 아이템 버리기 ( 버리는 item id가져오기 )
-    public override void ItemThrowAway( int id ) {
-        throw new System.NotImplementedException();
     }
 
     // 체력 변화 

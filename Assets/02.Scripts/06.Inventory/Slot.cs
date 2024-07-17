@@ -14,13 +14,12 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
     public Image itemImage;     // 아이템의 이미지
 
     [SerializeField]
-    private Text text_Count;
+    private Text text_Count;            // 아이템 개수 
     [SerializeField]
-    private GameObject go_CountImage;
+    private GameObject go_CountImage;   // 개수 Image 
+    private Inventory inventory;        // 인벤토리 스크립트 
 
-    private Inventory inventory;
-
-    private Rect baseRect;
+    private Rect baseRect;              // 아이템 버리기 범위 
 
     void Awake() {
         inventory = GetComponentInParent<Inventory>();
@@ -35,28 +34,30 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
     }
 
     // 인벤토리에 새로운 아이템 슬롯 추가
-    public void AddItem( ItemController _item, int _count, bool isEquip) {
+    public void AddItem( ItemController _item, int _count, bool isEquip ) {
         item = _item;
-        itemCount += _count;
+        itemCount = _count;
         itemImage.sprite = item.itemImage;
         // RPC로 isPickUp 속성을 false로 설정
-        if(!isEquip)
+        if (!isEquip)
             photonView.RPC("SetItemPickupStatus", RpcTarget.AllBuffered, _item.itemPrimaryID);
 
-        if (ItemController.ItemType.Gun != _item.type       &&
-            ItemController.ItemType.ShotGun != _item.type   &&
-            ItemController.ItemType.Sword1 != _item.type    &&
-            ItemController.ItemType.Sword2 != _item.type ) {
-            go_CountImage.SetActive(true);
-            text_Count.text = itemCount.ToString();
+        // 무기 종류가 아닐 때 
+        if (ItemController.ItemType.Gun != _item.type &&
+            ItemController.ItemType.ShotGun != _item.type &&
+            ItemController.ItemType.Sword1 != _item.type &&
+            ItemController.ItemType.Sword2 != _item.type) {
+            go_CountImage.SetActive(true);                      // 개수 UI 활성화 
+            text_Count.text = itemCount.ToString();             // 개수 UI 변경 
         }
         else {
-            text_Count.text = "0";
-            go_CountImage.SetActive(false);
+            text_Count.text = "0";                              // 무기종류 일때는 0 고정 
+            go_CountImage.SetActive(false);                     // 개수 UI 비활성화 
         }
         SetColor(1);
     }
 
+    // 아이템을 버리고 주웠을 때 개수를 동기화 하기위한 RPC 
     [PunRPC]
     public void SetItemPickupStatus( int itemID ) {
         // 모든 ItemController를 찾아서 itemID가 일치하는 아이템의 isPickUp 속성을 false로 설정
@@ -71,10 +72,8 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
 
     // 해당 슬롯의 아이템 갯수 업데이트
     public void SetSlotCount( int _count ) {
-
         itemCount += _count;
         text_Count.text = itemCount.ToString();
-
         if (itemCount <= 0)
             ClearSlot();
     }
@@ -156,7 +155,6 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
                 itemObj.transform.position = gameObject.GetComponentInParent<Player>().bulletPos.position; // bullet 위치 초기화
                 itemObj.transform.rotation = Quaternion.identity; // bullet 회전값 초기화
 
-
                 DragSlot.instance.dragSlot.ClearSlot();
             }
 
@@ -164,6 +162,7 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
             DragSlot.instance.dragSlot = null;
         }
     }
+
     [PunRPC]
     public void SetItemProperties( int itemViewID, int itemCount ) {
         GameObject itemObj = PhotonView.Find(itemViewID).gameObject;

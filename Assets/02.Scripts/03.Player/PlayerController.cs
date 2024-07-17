@@ -11,7 +11,6 @@ interface IPlayer {
     void PlayerInteraction();           // 플레이어 상호작용
     void PlayerAttack(bool type);       // 플레이어 공격 
     void WeaponSwap();                  // 무기 교체
-    void ItemThrowAway(int id);         // 아이템 버리기
     void PlayerFaint();                 // 플레이어 기절
     void PlayerRevive();                // 플레이어 부활
     void PlayerDead();                  // 플레이어 사망 
@@ -74,8 +73,8 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     public float lastAttackTime = 0.0f; // 마지막 공격 시간 
 
     [Header("상태변수=======")]
-    public int weaponIndex = -1;           // 초기 무기 인덱스 ( 빈손 ) 
-    public bool weaponSelected = false;    // 무기가 선택되었는지 확인 
+    public int weaponIndex = -1;        // 초기 무기 인덱스 ( 빈손 ) 
+    public bool weaponSelected = false; // 무기가 선택되었는지 확인 
     public bool isAtkDistance;          // 공격 거리 ( false 원거리, true 근거리 ) 
     public bool stanceWeaponType;       // 원거리 ( false : 원거리, true : 투척 ), 근거리 ( false : 근접, true :  힐팩 ) 각각 구분 
     public bool countZero;
@@ -109,7 +108,6 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     public abstract void PlayerInteraction();
     public abstract void PlayerAttack( bool type );
     public abstract void WeaponSwap();
-    public abstract void ItemThrowAway( int id );
     public abstract void PlayerFaint();
     public abstract void PlayerRevive();   
 
