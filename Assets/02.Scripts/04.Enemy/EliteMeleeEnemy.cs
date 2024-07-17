@@ -11,7 +11,7 @@ public class EliteMeleeEnemy : EnemyController {
     public GameObject attackColliderPrefab;
     public Transform attackPoint;
 
-
+    public GameObject[] splitZombies;
 
     void Awake() {
         // 레퍼런스 초기화 
@@ -31,6 +31,7 @@ public class EliteMeleeEnemy : EnemyController {
 
     private void OnEnable() {
         hp = maxHp;
+        ani.applyRootMotion = false;
         //델리게이트 사망에서 뻈으니 다 넣기
     }
 
@@ -39,6 +40,7 @@ public class EliteMeleeEnemy : EnemyController {
         moveDelegate = RandomMove;
         playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
         InvokeRepeating("EnemyMove", 0.5f, 3.0f);
+        ani.applyRootMotion = false;
     }
     void Update() {
         if (isRangeOut == true) {
@@ -54,15 +56,15 @@ public class EliteMeleeEnemy : EnemyController {
             }
             shouldEvaluate = true;
         }
-        if (isWalk && isNow) {
+        if (isWalk && isNow && !isDead) {
             EnemyTracking();
         }
 
-        if (isTracking) {
+        if (isTracking && !isDead) {
             EnemyRun();
         }
 
-        if (nav.isStopped == true) {
+        if (nav.isStopped == true && !isDead) {
             EnemyMeleeAttack();
         }
 
@@ -94,6 +96,7 @@ public class EliteMeleeEnemy : EnemyController {
     }
 
     void RandomMove() {
+        if (isDead) return;
         isWalk = true;
 
         float dirX = Random.Range(-40, 40);
@@ -101,6 +104,7 @@ public class EliteMeleeEnemy : EnemyController {
         Vector3 dest = new Vector3(dirX, 0, dirZ);
         transform.LookAt(dest);
         Vector3 toOrigin = origin - transform.position;
+
         //일정 범위를 나가면
         if (toOrigin.magnitude > rangeOut) {
             CancelInvoke("EnemyMove");
@@ -122,8 +126,9 @@ public class EliteMeleeEnemy : EnemyController {
         rigid.angularVelocity = Vector3.zero;
     }
     public override void EnemyRun() {
-        isRun = true;
-
+        isRun = true; 
+        ani.SetBool("isAttack", false);
+        ani.SetBool("isRun", true);
         nav.speed = runSpeed;
         nav.destination = playerTr.position;
         if (rigid.velocity.magnitude > maxTracingSpeed)
@@ -137,9 +142,7 @@ public class EliteMeleeEnemy : EnemyController {
     public override void EnemyMeleeAttack() {
         nextAttack += Time.deltaTime;
         if (nextAttack > meleeDelay) {
-            /*GameObject attackCollider = Instantiate(attackColliderPrefab, attackPoint.position, attackPoint.rotation);
-            Destroy(attackCollider, 0.1f);*/
-            // 좀비 공격 애니메이션
+            ani.SetBool("isAttack", true);
             Debug.Log("ATtak");
             nextAttack = 0;
         }
@@ -147,10 +150,14 @@ public class EliteMeleeEnemy : EnemyController {
 
     public override void EnemyDead() {
         if (hp <= 0) {
+            if (isDead) return;
+
+            for (int i = 0; i < 2; i++) {
+                Instantiate(splitZombies[i], transform.position, Quaternion.identity);
+            }
+            ani.applyRootMotion = true;
             ani.SetTrigger("isDead");
-            //델리게이트 다른거 다 빼기
-            //?초후에
-            //gameObject.SetActive(false); 
+            isDead = true;
         }
     }
 

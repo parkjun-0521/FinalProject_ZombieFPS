@@ -52,7 +52,7 @@ public class EnemyController : MonoBehaviourPun, IEnemy {
     [SerializeField]
     protected float maxHp;
     // 좀비 현재 체력 
-    protected float hp;
+    public float hp;
     public float Hp
     {
         get
@@ -63,9 +63,12 @@ public class EnemyController : MonoBehaviourPun, IEnemy {
         {
             if(hp > 0)
             {
-                ChangeHp(value);                   //hp를 value만큼 더함 즉 피해량을 양수로하면 힐이됨 음수로 해야함 여기서 화면 시뻘겋게 and 연두색도함
-                EnemyDead();                      //만약 hp를 수정했을때 체력이 0보다 작으면 기절
+                ChangeHp(value);                   //hp를 value만큼 더함 즉 피해량을 양수로하면 힐이됨 음수로 해야함 여기서 화면 시뻘겋게 and 연두색도함             
                 Debug.Log(hp);
+            }
+            else if (hp <= 0) {
+                Debug.Log("죽음");
+                EnemyDead();                      //만약 hp를 수정했을때 체력이 0보다 작으면 기절
             }
         }
     }
@@ -80,6 +83,7 @@ public class EnemyController : MonoBehaviourPun, IEnemy {
     protected bool isRun;               // 달리는 상태 
     protected bool isAttack;            // 공격 하는 상태 
     protected bool isTracking;          // 추적 상태 
+    protected bool isDead;
 
     public virtual void EnemyMove() { }
     public virtual void EnemyRun() { }
