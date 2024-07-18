@@ -18,10 +18,10 @@ public class LoginManager : MonoBehaviour
 
     public Text StatusText;
 
-    //string LoginURL = "http://localhost/Zombie_Login.php";
-    //string CreateUserURL = "http://localhost/Zombie_NewCreateUser.php";
-    string LoginURL = "http://223.131.75.181:1356//Zombie_Login.php";
-    string CreateUserURL = "http://223.131.75.181:1356/Zombie_NewCreateUser.php";
+    //string LoginURL = URLs.LoginUR;
+    //string CreateUserURL = URLs.CreateUserURL;
+    string LoginURL = URLs.LoginURL;
+    string CreateUserURL = URLs.CreateUserURL;
 
     void Start() {
         NetworkManager.Instance.NickNameInput = idInput;
@@ -59,6 +59,7 @@ public class LoginManager : MonoBehaviour
                 }
                 else // 로그인 실패
                 {
+                    Debug.Log("Server Response: " + www.downloadHandler.text);
                     Debug.Log("아이디 또는 비밀번호가 틀렸습니다");
                 }
             }
