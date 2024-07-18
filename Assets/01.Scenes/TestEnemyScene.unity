@@ -335,6 +335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Mycolor: {r: 0.07313013, g: 0, b: 1, a: 1}
+  Myraduis: 0.05
 --- !u!1 &1038858093
 GameObject:
   m_ObjectHideFlags: 0
@@ -634,8 +635,16 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8996676351511430981, guid: a571dce86a079c645b20e250bc09423f, type: 3}
+      propertyPath: speed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8996676351511430981, guid: a571dce86a079c645b20e250bc09423f, type: 3}
       propertyPath: rangeOut
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8996676351511430981, guid: a571dce86a079c645b20e250bc09423f, type: 3}
+      propertyPath: runSpeed
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8996676351511430981, guid: a571dce86a079c645b20e250bc09423f, type: 3}
       propertyPath: attackPoint

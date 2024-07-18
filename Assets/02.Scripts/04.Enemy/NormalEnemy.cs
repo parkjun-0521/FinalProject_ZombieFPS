@@ -184,9 +184,11 @@ public class NormalEnemy : EnemyController
         }
         
         float versusDist = Vector3.Distance(transform.position, playerTr.position);
-        if (versusDist < 3.3f)
+        if (versusDist < 2.3f)
         {
             nav.isStopped = true;
+            rigid.velocity = Vector3.zero;
+            rigid.angularVelocity = Vector3.zero;
         }
         else
         {
