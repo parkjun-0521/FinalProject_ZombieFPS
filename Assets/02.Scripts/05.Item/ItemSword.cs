@@ -5,4 +5,5 @@ using UnityEngine;
 public class ItemSword : MonoBehaviour
 {
     public ItemController itemData;
+
 }

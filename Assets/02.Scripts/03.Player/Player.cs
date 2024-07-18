@@ -117,9 +117,6 @@ public class Player : PlayerController
             }
           
             // 플레이어 상호작용
-            //if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction))) {
-            //    OnPlayerInteraction?.Invoke();
-            //}
             OnPlayerInteraction?.Invoke();
             // 플레이어 회전
             OnPlayerRotation?.Invoke();
@@ -157,8 +154,9 @@ public class Player : PlayerController
     {
         if (PV.IsMine) {
             // 적과 충돌 
-            if (other.CompareTag("Enemy")){
-                Hp = -(other.GetComponent<EnemyController>().damage);  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
+            if (other.CompareTag("Enemy"))
+            {
+                Hp = -(other.GetComponentInParent<EnemyController>().damage);  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
             }
         }
     }
@@ -272,18 +270,7 @@ public class Player : PlayerController
     public override void PlayerInteraction() {
         if (PV.IsMine) {
             int layerMask = LayerMask.GetMask("LocalPlayer", "Item");
-            RaycastHit[] hits = Physics.RaycastAll(Camera.main.transform.position, transform.forward, 10, layerMask);
-            Debug.DrawRay(bulletPos.position, transform.forward * 10, Color.red);
-            foreach (var a in hits)
-            {
-                if (a.collider.gameObject.name == gameObject.name)
-                {
-                    Debug.Log(transform.rotation.y);
-                }
-                Debug.Log(a.collider.gameObject.name);
-                Debug.Log(gameObject.name);
-            }
-            if (Physics.Raycast(ray, out hit, interactionRange, layerMask))   
+            if (Physics.Raycast(bulletPos.position, ray.direction, out hit, interactionRange, layerMask))   
             {
                 if (hit.collider.CompareTag("Item"))
                 {
@@ -367,7 +354,7 @@ public class Player : PlayerController
             Debug.Log("칼 공격");
             animator.SetBool("isMeleeWeaponSwing", true);          //외부에서 보여질때 애니메이션
             handAnimator.SetBool("isMeleeWeaponSwing", true);   //플레이어 1인칭 애니메이션
-            StartCoroutine(AnimReset("isMeleeWeaponSwing"));
+            StartCoroutine(AnimReset("isMeleeWeaponSwing", handAnimator));
             // 데미지는 weapon에서 줄꺼임 그리고 체력은 좀비에서 감소시킬예정
         }
     }
@@ -427,6 +414,7 @@ public class Player : PlayerController
                 return; // 탄창이 없으면 메소드를 종료하여 총을 쏘지 않음
             }
             theInventory.DecreaseMagazineCount(ItemController.ItemType.Healpack);
+            StartCoroutine(HealItemUse(6.0f, 40.0f)); ; //힐 시간, 힐량
             Debug.Log("힐팩");
 
             //힐 하는시간 변수로 빼고 대충 중앙에 ui띄우고 힐 하는시간 지나면 Hp = (+30) 코루틴사용이 좋겠지 중간에 키입력시 return 애니메이션추가;
@@ -447,8 +435,8 @@ public class Player : PlayerController
             }
 
             Debug.Log("투척 공격");
-            animator.SetBool("isGranadeThrow", true);
-            StartCoroutine(AnimReset("isGranadeThrow"));
+            animator.SetBool("isGrenadeThrow", true);
+            StartCoroutine(AnimReset("isGrenadeThrow"));
             float throwForce = 15f;    // 던지는 힘
 
             theInventory.DecreaseMagazineCount(ItemController.ItemType.Grenade);
@@ -507,16 +495,16 @@ public class Player : PlayerController
                 stanceWeaponType = true;
                 Debug.Log("투척");
                 weaponSelected = true;
-                animator.SetBool("isDrawGranade", true);
-                StartCoroutine(AnimReset("isDrawGranade"));
+                animator.SetBool("isDrawGrenade", true);
+                StartCoroutine(AnimReset("isDrawGrenade"));
             }
             else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Weapon4))) {   // 힐팩
                 weaponIndex = 3;
                 isAtkDistance = stanceWeaponType = true;
                 Debug.Log("힐");
                 weaponSelected = true;
-                animator.SetBool("isDrawGranade", true);
-                StartCoroutine(AnimReset("isDrawGranade"));
+                animator.SetBool("isHealUse", true);
+                StartCoroutine(AnimReset("isHealUse"));
             }
 
             if (!weaponSelected) return;
@@ -536,6 +524,8 @@ public class Player : PlayerController
     // 체력 변화 
     public override void ChangeHp( float value ) {
         hp += value;
+        if (hp > 100)
+            hp = 100;
         if (value > 0) {
             StartCoroutine(ShowHealScreen());   //힐 화면 출력
         }
@@ -658,33 +648,46 @@ public class Player : PlayerController
         }
     }
 
-    IEnumerator HealItemUse()                                                     //체력회복아이템사용 임시
+    //힐팩 코루틴
+    IEnumerator HealItemUse(float time, float healAmount)                                                     
     {
-        int hpTime = 0;
-        animator.SetBool("isHealUse", true);
-        StartCoroutine(AnimReset("isHealUse"));
-        while (!Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction))) //상호작용키(e)를 누르면 취소
+        OnPlayerInteraction -= PlayerInteraction;
+
+        Image fillImage = playerHealPackUI.GetComponent<Image>();
+        playerHealPackUI.SetActive(true);
+        float _time = 0;
+        while (time >= _time)
         {
             yield return new WaitForSeconds(0.1f);
-            hpTime++;
-            //ui출력추가
-            if(hpTime > 80)
+            _time += 0.1f;
+            fillImage.fillAmount = _time / time;
+            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
             {
-                Hp = 40;
-                break;
+                OnPlayerInteraction += PlayerInteraction;
+
+                playerHealPackUI.SetActive(false);
+                fillImage.fillAmount = 0;
+                yield break;
             }
         }
+        OnPlayerInteraction += PlayerInteraction;
+
+        Hp = healAmount;
+        fillImage.fillAmount = 0;
+        playerReviveUI.SetActive(false);
     }
 
-    IEnumerator AnimReset(string animString = null)
+    IEnumerator AnimReset(string animString = null, Animator handAnim = null)
     {
-        yield return new WaitForSeconds(0.3f);
-        //animator.ResetTrigger("isDrawGranade");
+        yield return new WaitForSeconds(0.1f);
+        //animator.ResetTrigger("isDrawGrenade");
         //animator.ResetTrigger("isDrawHeal");
         //animator.ResetTrigger("isDrawRifle");
         //animator.ResetTrigger("isDrawMelee");
         //animator.ResetTrigger(animString);
         animator.SetBool(animString, false);
+        if(handAnim != null)
+        handAnim.SetBool(animString, false);
     }
 
     // 플레이어 동기화

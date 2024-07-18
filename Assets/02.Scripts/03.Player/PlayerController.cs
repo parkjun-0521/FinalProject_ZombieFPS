@@ -45,6 +45,8 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
 
     [Header("UI======")] [SerializeField]
     protected GameObject playerReviveUI;
+    [SerializeField]
+    protected GameObject playerHealPackUI;
     public float Hp                             //hp 프로퍼티
     {
         get {

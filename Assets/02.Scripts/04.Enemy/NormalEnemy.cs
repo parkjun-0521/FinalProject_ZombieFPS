@@ -125,10 +125,7 @@ public class NormalEnemy : EnemyController
         {
             Hp = -(other.GetComponentInParent<ItemGrenade>().itemData.damage);
         }
-        else if (other.CompareTag("Player"))
-        {
-            other.GetComponent<Player>().Hp = -damage;
-        }
+       
         return;
     }
 
