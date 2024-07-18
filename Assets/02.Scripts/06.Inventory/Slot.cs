@@ -147,13 +147,15 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
                || DragSlot.instance.transform.localPosition.y > baseRect.yMax) {
 
                 // 아이템 프리팹 생성해줘야함 
-                string itemName = item.type.ToString();
-                // 아이템 프리팹 생성
-                GameObject itemObj = Pooling.instance.GetObject(itemName);
-                photonView.RPC("SetItemProperties", RpcTarget.AllBuffered, itemObj.GetComponent<PhotonView>().ViewID, itemCount);
+                if (DragSlot.instance.dragSlot != null && DragSlot.instance.dragSlot.item != null) {
+                    string itemName = item.type.ToString();
+                    // 아이템 프리팹 생성
+                    GameObject itemObj = Pooling.instance.GetObject(itemName);
+                    photonView.RPC("SetItemProperties", RpcTarget.AllBuffered, itemObj.GetComponent<PhotonView>().ViewID, itemCount);
 
-                itemObj.transform.position = gameObject.GetComponentInParent<Player>().bulletPos.position; // bullet 위치 초기화
-                itemObj.transform.rotation = Quaternion.identity; // bullet 회전값 초기화
+                    itemObj.transform.position = gameObject.GetComponentInParent<Player>().bulletPos.position; // bullet 위치 초기화
+                    itemObj.transform.rotation = Quaternion.identity; // bullet 회전값 초기화
+                }
 
                 DragSlot.instance.dragSlot.ClearSlot();
             }

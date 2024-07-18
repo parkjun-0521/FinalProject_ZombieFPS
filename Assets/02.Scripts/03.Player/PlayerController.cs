@@ -40,6 +40,7 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     // Player 체력 
     [SerializeField]
     protected float interactionRange = 2.0f;    //상호작용최대거리
+    [SerializeField]
     protected float hp = 100.0f;                //플레이어hp 
 
     [Header("UI======")] [SerializeField]
