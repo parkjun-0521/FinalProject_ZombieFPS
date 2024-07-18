@@ -10999,16 +10999,7 @@ MonoBehaviour:
     Name: isDrawRifle
   - Type: 9
     SynchronizeType: 2
-    Name: isDrawGranade
-  - Type: 9
-    SynchronizeType: 2
     Name: isDrawHeal
-  - Type: 9
-    SynchronizeType: 2
-    Name: isGranadeThrow
-  - Type: 9
-    SynchronizeType: 2
-    Name: isGranadeLeft
   - Type: 9
     SynchronizeType: 2
     Name: isMeleeWeaponSwing
@@ -11027,6 +11018,15 @@ MonoBehaviour:
   - Type: 9
     SynchronizeType: 2
     Name: isHealLeftOrCancel
+  - Type: 4
+    SynchronizeType: 2
+    Name: isDrawGrenade
+  - Type: 4
+    SynchronizeType: 2
+    Name: isGrenadeThrow
+  - Type: 4
+    SynchronizeType: 2
+    Name: isGrenadeLeft
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0

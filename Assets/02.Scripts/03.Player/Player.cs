@@ -384,10 +384,9 @@ public class Player : PlayerController
                 break;
             case 4:
                 // ID가 4인 슬롯이 null이거나 비어 있는 경우의 조건문   
-                theInventory.DecreaseMagazineCount(ItemController.ItemType.Healpack);
+                StartCoroutine(HealItemUse(6.0f, 40.0f, slotWithID)); ; //힐 시간, 힐량
                 // 아이템을 다 쓰고 난 후 손에 있는 무기 비활성화
-                if (slotWithID.itemCount == 0)
-                    countZero = true;
+
                 break;
         }
         return true;
@@ -481,8 +480,8 @@ public class Player : PlayerController
             if (!ItemNotEquipped(4))
                 return;
 
-            theInventory.DecreaseMagazineCount(ItemController.ItemType.Healpack);
-            StartCoroutine(HealItemUse(6.0f, 40.0f)); ; //힐 시간, 힐량
+            
+           
             Debug.Log("힐팩");
 
             //힐 하는시간 변수로 빼고 대충 중앙에 ui띄우고 힐 하는시간 지나면 Hp = (+30) 코루틴사용이 좋겠지 중간에 키입력시 return 애니메이션추가;
@@ -606,7 +605,7 @@ public class Player : PlayerController
     // 플레이어 기절 
     public override void PlayerFaint() {
         if (hp <= 0)                            //만약 플레이어 체력이 0보다 작아지면
-       {
+        {
             hp = 0;                             //여기서 hp를 0 으로 강제로 해줘야 부활, ui에서 편할거같음
             isFaint = true;                     //기절상태 true
             OnPlayerMove -= PlayerMove;
@@ -679,8 +678,8 @@ public class Player : PlayerController
         float _time = 0;
         while (time >= _time)
         {
-            yield return new WaitForSeconds(0.1f);
-            _time += 0.1f;
+            yield return null;
+            _time += Time.deltaTime;
             fillImage.fillAmount = _time / time;
             if(!isRayPlayer)
             {
@@ -718,7 +717,7 @@ public class Player : PlayerController
     }
 
     //힐팩 코루틴
-    IEnumerator HealItemUse(float time, float healAmount)                                                     
+    IEnumerator HealItemUse(float time, float healAmount, Slot slot)                                                     
     {
         OnPlayerInteraction -= PlayerInteraction;
 
@@ -727,8 +726,8 @@ public class Player : PlayerController
         float _time = 0;
         while (time >= _time)
         {
-            yield return new WaitForSeconds(0.1f);
-            _time += 0.1f;
+            yield return null;
+            _time += Time.deltaTime;
             fillImage.fillAmount = _time / time;
             if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
             {
@@ -741,9 +740,13 @@ public class Player : PlayerController
         }
         OnPlayerInteraction += PlayerInteraction;
 
+        theInventory.DecreaseMagazineCount(ItemController.ItemType.Healpack);
+        if (slot.itemCount == 0)
+            countZero = true;
+
         Hp = healAmount;
         fillImage.fillAmount = 0;
-        playerReviveUI.SetActive(false);
+        playerHealPackUI.SetActive(false);
     }
 
     IEnumerator AnimReset(string animString = null, Animator handAnim = null)
