@@ -136,7 +136,7 @@ public class EliteMeleeEnemy : EnemyController {
 
         float versusDist = Vector3.Distance(transform.position, playerTr.position);
 
-        nav.isStopped = (versusDist < 1.3f) ? true : false;
+        nav.isStopped = (versusDist < 3f) ? true : false;
     }
 
     public override void EnemyMeleeAttack() {
