@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class EliteMeleeEnemy : EnemyController {
-    public delegate void MoveDelegate();
-    public MoveDelegate moveDelegate;
+    public delegate void EnemymoveHandle();
+    public static event EnemymoveHandle OnEnemyReset, OnEnemyMove, OnEnemyTracking, OnEnemyRun, OnEnemyAttack, OnEnemyDead;
 
     //공격
     public GameObject attackColliderPrefab;
@@ -13,59 +13,74 @@ public class EliteMeleeEnemy : EnemyController {
 
     public GameObject[] splitZombies;
 
+    // HP 구현 
+    public override float Hp {
+        get {
+            return hp;                          //그냥 반환
+        }
+        set {
+            if (hp > 0) {
+                ChangeHp(value);                   //hp를 value만큼 더함 즉 피해량을 양수로하면 힐이됨 음수로 해야함 여기서 화면 시뻘겋게 and 연두색도함             
+                Debug.Log(hp);
+            }
+            else if(hp <= 0) {
+                OnEnemyDead?.Invoke();
+            }
+        }
+    }
+
     void Awake() {
         // 레퍼런스 초기화 
         //PV = GetComponent<PhotonView>();
         rigid = GetComponent<Rigidbody>();
         nav = GetComponent<NavMeshAgent>();
         ani = GetComponentInChildren<Animator>();
-
-        //if(PV == null)
-        //{
-        //    Debug.LogError("PhotonView component is missing on " + gameObject.name);
-        //}
-
-        // 예: 포톤 뷰를 사용하여 특정 초기화를 수행
-        //if (PV.IsMine)
     }
 
     private void OnEnable() {
+        OnEnemyReset += ResetEnemy;
+        OnEnemyMove += RandomMove;
+        OnEnemyTracking += EnemyTracking;
+        OnEnemyRun += EnemyRun;
+        OnEnemyAttack += EnemyMeleeAttack;
+        OnEnemyDead += EnemyDead;
+
         hp = maxHp;
         ani.applyRootMotion = false;
         //델리게이트 사망에서 뻈으니 다 넣기
     }
 
+    void OnDisable() {
+        OnEnemyReset -= ResetEnemy;
+        OnEnemyMove -= RandomMove;
+        OnEnemyTracking -= EnemyTracking;
+        OnEnemyRun -= EnemyRun;
+        OnEnemyAttack -= EnemyMeleeAttack;
+        OnEnemyDead -= EnemyDead;
+    }
 
-    void Start() {
-        moveDelegate = RandomMove;
+
+    void Start() {      
         playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
         InvokeRepeating("EnemyMove", 0.5f, 3.0f);
         ani.applyRootMotion = false;
     }
+
     void Update() {
         if (isRangeOut == true) {
-            Vector3 dest = new Vector3();
-            transform.LookAt(dest);
-            if (Vector3.Distance(transform.position, Vector3.zero) < 0.1f && shouldEvaluate) {
-                rigid.velocity = Vector3.zero;
-                rigid.angularVelocity = Vector3.zero;
-                InvokeRepeating("EnemyMove", 0.5f, 3.0f);
-                isNow = true;
-                shouldEvaluate = false;
-                isRangeOut = false;
-            }
-            shouldEvaluate = true;
-        }
-        if (isWalk && isNow && !isDead) {
-            EnemyTracking();
+            OnEnemyReset?.Invoke();
         }
 
-        if (isTracking && !isDead) {
-            EnemyRun();
+        if (isWalk) {
+            OnEnemyTracking?.Invoke();
         }
 
-        if (nav.isStopped == true && !isDead) {
-            EnemyMeleeAttack();
+        if (isTracking) {
+            OnEnemyRun?.Invoke();
+        }
+
+        if (nav.isStopped == true) {
+            OnEnemyAttack?.Invoke();
         }
 
     }
@@ -92,13 +107,25 @@ public class EliteMeleeEnemy : EnemyController {
 
     //보통 적 NPC의 이동
     public override void EnemyMove() {
-        moveDelegate?.Invoke();
+        OnEnemyMove?.Invoke();
+    }
+
+    void ResetEnemy() {
+        Vector3 dest = new Vector3();
+        transform.LookAt(dest);
+        if (Vector3.Distance(transform.position, Vector3.zero) < 0.1f && shouldEvaluate) {
+            rigid.velocity = Vector3.zero;
+            rigid.angularVelocity = Vector3.zero;
+            InvokeRepeating("EnemyMove", 0.5f, 3.0f);
+            OnEnemyTracking += EnemyTracking;
+            shouldEvaluate = false;
+            isRangeOut = false;
+        }
+        shouldEvaluate = true;
     }
 
     void RandomMove() {
-        if (isDead) return;
         isWalk = true;
-
         float dirX = Random.Range(-40, 40);
         float dirZ = Random.Range(-40, 40);
         Vector3 dest = new Vector3(dirX, 0, dirZ);
@@ -114,19 +141,21 @@ public class EliteMeleeEnemy : EnemyController {
             Vector3 direction = (Vector3.zero - transform.position).normalized;
             rigid.AddForce(direction * resetSpeed, ForceMode.VelocityChange);
             isRangeOut = true;
-            isNow = false;
+            OnEnemyTracking -= EnemyTracking;
         }
         //아니면 속행
         else {
-            isNow = true;
+            OnEnemyTracking += EnemyTracking;
             rigid.AddForce(dest * speed * Time.deltaTime, ForceMode.VelocityChange);
         }
 
         rigid.velocity = Vector3.zero;
         rigid.angularVelocity = Vector3.zero;
     }
+
     public override void EnemyRun() {
-        isRun = true; 
+        OnEnemyMove -= RandomMove;
+        isRun = true;
         ani.SetBool("isAttack", false);
         ani.SetBool("isRun", true);
         nav.speed = runSpeed;
@@ -150,14 +179,19 @@ public class EliteMeleeEnemy : EnemyController {
 
     public override void EnemyDead() {
         if (hp <= 0) {
-            if (isDead) return;
+            OnEnemyReset -= ResetEnemy;
+            OnEnemyMove -= RandomMove;
+            OnEnemyTracking -= EnemyTracking;
+            OnEnemyRun -= EnemyRun;
+            OnEnemyAttack -= EnemyMeleeAttack;
+            isWalk = false;
 
             for (int i = 0; i < 2; i++) {
                 Instantiate(splitZombies[i], transform.position, Quaternion.identity);
             }
             ani.applyRootMotion = true;
             ani.SetTrigger("isDead");
-            isDead = true;
+            OnEnemyDead -= EnemyDead;
         }
     }
 

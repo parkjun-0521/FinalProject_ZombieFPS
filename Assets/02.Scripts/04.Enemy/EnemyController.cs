@@ -8,14 +8,16 @@ using UnityEngine.AI;
 interface IEnemy {
     void EnemyMove();       // 좀비 이동 
     void EnemyRun();        // 좀비 달리기 
-    void EnemyAttack();     // 좀비 공격
+
     void EnemyMeleeAttack();// 좀비 공격
     void EnemyDead();       // 좀비 사망 
     void EnemyTracking();   // 좀비 추적
 }
 
 
-public class EnemyController : MonoBehaviourPun, IEnemy {  
+public class EnemyController : MonoBehaviourPun, IEnemy {
+
+
     // 좀비 걷기 속도 
     [SerializeField]
     protected float speed;
@@ -53,7 +55,7 @@ public class EnemyController : MonoBehaviourPun, IEnemy {
     protected float maxHp;
     // 좀비 현재 체력 
     public float hp;
-    public float Hp
+    public virtual float Hp
     {
         get
         {
@@ -66,9 +68,8 @@ public class EnemyController : MonoBehaviourPun, IEnemy {
                 ChangeHp(value);                   //hp를 value만큼 더함 즉 피해량을 양수로하면 힐이됨 음수로 해야함 여기서 화면 시뻘겋게 and 연두색도함             
                 Debug.Log(hp);
             }
-            else if (hp <= 0) {
-                Debug.Log("죽음");
-                EnemyDead();                      //만약 hp를 수정했을때 체력이 0보다 작으면 기절
+            else if(hp <= 0) {
+                EnemyDead();
             }
         }
     }
@@ -82,12 +83,10 @@ public class EnemyController : MonoBehaviourPun, IEnemy {
     protected bool isWalk;              // 걷고있는 상태 
     protected bool isRun;               // 달리는 상태 
     protected bool isAttack;            // 공격 하는 상태 
-    protected bool isTracking;          // 추적 상태 
-    protected bool isDead;
+    protected bool isTracking;          // 추적 상태
 
     public virtual void EnemyMove() { }
     public virtual void EnemyRun() { }
-    public virtual void EnemyAttack() { }
     public virtual void EnemyMeleeAttack() { }
     public virtual void EnemyDead() { }
     public virtual void EnemyTracking() {
