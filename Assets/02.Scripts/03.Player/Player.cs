@@ -109,7 +109,10 @@ public class Player : PlayerController
             }
 
             // 공격 이후 애니메이션 
-            if (Input.GetKeyUp(keyManager.GetKeyCode(KeyCodeTypes.Attack)))
+            if (Input.GetKeyUp(keyManager.GetKeyCode(KeyCodeTypes.Attack))
+                
+                
+                )
             {
                 animator.SetBool("isRifleMoveShot", false);
             }
@@ -616,7 +619,8 @@ public class Player : PlayerController
             OnPlayerSwap -= WeaponSwap;
             OnPlayerInteraction -= PlayerInteraction;   // 플레이어 상호작용
             OnPlayerInventory -= PlayerInventory;
-            animator.SetBool("isFaint", true);     //기절 애니메이션 출력 
+            animator.SetBool("isFaint", true);          //기절 애니메이션 출력 
+            inventory.SetActive(false);                 //이거 안할시 인벤토리 키고 사망시 인벤토리 끌때 버그남 
             StartCoroutine(AnimReset("isFaint"));
             StartCoroutine(PlayerFaintUI(faintTime));
             capsuleCollider.direction = 2;
