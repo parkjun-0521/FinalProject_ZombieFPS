@@ -13,5 +13,7 @@ public class GameManager : MonoBehaviourPunCallbacks {
         NetworkManager.Instance.chatText = chatText;
         NetworkManager.Instance.chatInput = chatInput;
         chatButton.onClick.AddListener(() => NetworkManager.Instance.Send());
+
+        Pooling.instance.GetObject("EliteMeleeZombie");
     }
 }

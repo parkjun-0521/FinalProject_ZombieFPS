@@ -42,8 +42,8 @@ public class EnemyController : MonoBehaviourPun, IEnemy {
     public float maxTracingSpeed;
 
     // 컴포넌트
-    public Transform playerTr;
     protected PhotonView PV;
+    public Transform playerTr;
     protected Rigidbody rigid;
     protected NavMeshAgent nav;
     protected Animator ani;
@@ -52,7 +52,7 @@ public class EnemyController : MonoBehaviourPun, IEnemy {
 
     //좀비 최대 체력
     [SerializeField]
-    protected float maxHp;
+    public float maxHp;
     // 좀비 현재 체력 
     public float hp;
     public virtual float Hp

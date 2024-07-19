@@ -6,6 +6,9 @@ using UnityEngine.AI;
 
 public class NormalEnemy : EnemyController
 {
+    public delegate void EnemymoveHandle();
+    public static event EnemymoveHandle OnEnemyReset, OnEnemyMove, OnEnemyTracking, OnEnemyRun, OnEnemyAttack, OnEnemyDead;
+
     public delegate void MoveDelegate();
     public MoveDelegate moveDelegate;
 
@@ -32,10 +35,25 @@ public class NormalEnemy : EnemyController
 
     private void OnEnable()
     {
+        OnEnemyReset += ResetEnemy;
+        OnEnemyMove += RandomMove;
+        OnEnemyTracking += EnemyTracking;
+        OnEnemyRun += EnemyRun;
+        OnEnemyAttack += EnemyMeleeAttack;
+        OnEnemyDead += EnemyDead;
+
         hp = maxHp;
         //델리게이트 사망에서 뻈으니 다 넣기
     }
 
+    private void OnDisable() {
+        OnEnemyReset -= ResetEnemy;
+        OnEnemyMove -= RandomMove;
+        OnEnemyTracking -= EnemyTracking;
+        OnEnemyRun -= EnemyRun;
+        OnEnemyAttack -= EnemyMeleeAttack;
+        OnEnemyDead -= EnemyDead;
+    }
 
     void Start()
     {
@@ -45,35 +63,10 @@ public class NormalEnemy : EnemyController
     }
     void Update()
     {
-        if (isRangeOut == true)
-        {
-            Vector3 dest = new Vector3();
-            transform.LookAt(dest);
-            if (Vector3.Distance(transform.position, Vector3.zero) < 0.1f && shouldEvaluate)
-            {
-                rigid.velocity = Vector3.zero;
-                rigid.angularVelocity = Vector3.zero;
-                InvokeRepeating("EnemyMove", 0.5f, 3.0f);
-                isNow = true;
-                shouldEvaluate = false;
-                isRangeOut = false;
-            }
-            shouldEvaluate = true;
-
-        }
-        if (isWalk && isNow)
-        {
-            EnemyTracking();
-        }
-        if (isTracking)
-        {
-            EnemyRun();
-        }
-
-        if(nav.isStopped== true)
-        {
-            EnemyMeleeAttack();
-        }
+        if (isRangeOut == true) OnEnemyReset?.Invoke();         // 범위 나갔을 때 초기화 
+        if (isWalk) OnEnemyTracking?.Invoke();      // 플레이어 추격 
+        if (isTracking) OnEnemyRun?.Invoke();           // 추격 시 달리기 
+        if (nav.isStopped == true) OnEnemyAttack?.Invoke();        // 몬스터 공격 
     }
 
     
@@ -97,7 +90,21 @@ public class NormalEnemy : EnemyController
         return;
     }
 
+    void ResetEnemy() {
 
+        Vector3 dest = new Vector3();
+        transform.LookAt(dest);
+        if (Vector3.Distance(transform.position, Vector3.zero) < 0.1f && shouldEvaluate) {
+            rigid.velocity = Vector3.zero;
+            rigid.angularVelocity = Vector3.zero;
+            InvokeRepeating("EnemyMove", 0.5f, 3.0f);
+            OnEnemyTracking += EnemyTracking;
+            shouldEvaluate = false;
+            isRangeOut = false;
+        }
+        shouldEvaluate = true;
+
+    }
 
 
     //보통 적 NPC의 이동
