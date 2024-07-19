@@ -213,6 +213,9 @@ public class EliteMeleeEnemy : EnemyController {
                                                                                         // 터지는 이펙트 추가
             bloodParticle.Play();
             damage = 50f;
+
+            // Vector3 direction = (Vector3.zero - transform.position).normalized;
+            // 노말 좀비의 이 부분을 zero가 아니라 transform.position으로 바꿔줘야함 
         }
 
         ani.applyRootMotion = true;
