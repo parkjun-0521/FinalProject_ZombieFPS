@@ -90,16 +90,19 @@ public class EnemyController : MonoBehaviourPun, IEnemy {
     public virtual void EnemyMeleeAttack() { }
     public virtual void EnemyDead() { }
     public virtual void EnemyTracking() {
+        // 여기 에러 발생 
         Vector3 skyLay = new Vector3(transform.position.x, 10, transform.position.z);
         RaycastHit hit;
         bool isHit = Physics.SphereCast(skyLay, rad, Vector3.down, out hit, distance, layermask);
 
         if (isHit) {
-            CancelInvoke("EnemyMove");
-            rigid.velocity = Vector3.zero;
-            rigid.angularVelocity = Vector3.zero;
-            transform.LookAt(hit.transform);
-            isTracking = true;
+            if (hit.transform != null) {
+                CancelInvoke("EnemyMove");
+                rigid.velocity = Vector3.zero;
+                rigid.angularVelocity = Vector3.zero;
+                transform.LookAt(hit.transform);
+                isTracking = true;
+            }
         }
     }
     public virtual void ChangeHp( float value ) { }

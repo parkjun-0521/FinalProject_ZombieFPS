@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Photon.Realtime;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ public class Player : PlayerController
     private InputKeyManager keyManager;
     public Camera playerCamera;
 
-    private bool cursorLocked = true;
+    public bool cursorLocked = true;
 
     // 상호작용 Ray  
     RaycastHit hit;
@@ -117,7 +118,6 @@ public class Player : PlayerController
             // 인벤토리
             if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Inventory))) {
                 OnPlayerInventory?.Invoke();
-                ToggleCursor();
             }
           
             // 플레이어 상호작용
@@ -137,20 +137,34 @@ public class Player : PlayerController
     }
 
     // 마우스 커서 생성 
-    private void ToggleCursor() {
-        cursorLocked = !cursorLocked;
+    public void ToggleCursor() {
+        cursorLocked = !cursorLocked;           // cursorLocked : false => 마우스가 활성화 None, true => 마우스 비활성화 Lock
         Cursor.visible = !cursorLocked;
         Cursor.lockState = cursorLocked ? CursorLockMode.Locked : CursorLockMode.None;
+        if(cursorLocked) {
+            OnPlayerMove += PlayerMove;                 // 플레이어 이동 
+            OnPlayerRotation += PlayerRotation;         // 플레이어 회전
+            OnPlayerJump += PlayerJump;                 // 플레이어 점프 
+            OnPlayerAttack += PlayerAttack;             // 플레이어 공격
+            OnPlayerSwap += WeaponSwap;                 // 무기 교체
+            OnPlayerInteraction += PlayerInteraction;   // 플레이어 상호작용
+            OnPlayerInventory += PlayerInventory;
+        }
+        else {
+            OnPlayerMove -= PlayerMove;
+            OnPlayerRotation -= PlayerRotation;
+            OnPlayerJump -= PlayerJump;
+            OnPlayerAttack -= PlayerAttack;
+            OnPlayerInteraction -= PlayerInteraction;   // 플레이어 상호작용
+        }
     }
 
     void FixedUpdate() {
         // delegate 등록
         if (PV.IsMine) {
             // 이동
-            if (cursorLocked) {
-                bool isRun = Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Run));
-                OnPlayerMove?.Invoke(isRun);
-            }
+            bool isRun = Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Run));
+            OnPlayerMove?.Invoke(isRun);
         }
     }
 
@@ -243,29 +257,16 @@ public class Player : PlayerController
     // 인벤토리 활성화
     public void PlayerInventory() {
         if (PV.IsMine) {
-            OnPlayerMove -= PlayerMove;                 // 플레이어 이동 해제
-            OnPlayerRotation -= PlayerRotation;         // 플레이어 회전 해제
-            OnPlayerJump -= PlayerJump;                 // 플레이어 점프 해제
-            OnPlayerAttack -= PlayerAttack;             // 플레이어 공격 해제
-            OnPlayerSwap -= WeaponSwap;                 // 무기 교체 해제
-            OnPlayerInteraction -= PlayerInteraction;   // 플레이어 상호작용 해제
+            cursorLocked = true;
+            ToggleCursor();
             inventory.SetActive(true);
         }
     }
     // 인벤토리 비활성화
     public void InventoryClose() {
         if (PV.IsMine) {
-            // 마우스 비활성화
-            Cursor.visible = false;                         // 마우스 커서 비활성화
-            Cursor.lockState = CursorLockMode.Locked;       // 마우스 커서 현재 위치 고정 
+            cursorLocked = false;
             ToggleCursor();
-
-            OnPlayerMove += PlayerMove;                 // 플레이어 이동 
-            OnPlayerRotation += PlayerRotation;         // 플레이어 회전
-            OnPlayerJump += PlayerJump;                 // 플레이어 점프 
-            OnPlayerAttack += PlayerAttack;             // 플레이어 공격
-            OnPlayerSwap += WeaponSwap;                 // 무기 교체
-            OnPlayerInteraction += PlayerInteraction;   // 플레이어 상호작용
             inventory.SetActive(false);
         }
     }

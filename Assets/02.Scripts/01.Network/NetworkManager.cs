@@ -14,8 +14,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
     [Header("ETC")]
     public Text statusText;
     public PhotonView PV;
-    public InputField roomInput ,NickNameInput;
+    public InputField roomInput ,NickNameInput, roomID;
     public string playerName;
+
+    public GameObject inputRoomFail;                // 방입장 실패 UI
 
     public Button[] cellBtn;                        // 방 버튼
     public Button previousBtn;                      // 이전 버튼 
@@ -80,6 +82,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
     // 방 만들기 ( MaxPlayers = 최대인원 수 ) 
     public void CreateRoom() => PhotonNetwork.CreateRoom(roomInput.text == "" ? "Room" + Random.Range(0, 100) : roomInput.text, new RoomOptions { MaxPlayers = 4 });
 
+    public void JoinRoom() => PhotonNetwork.JoinRoom(roomID.text);
+
     // 방을 만들면서 입장
     // CreateRoom : CreateRoom은 매번 새로운 방을 만듦. 방이 이미 존재하는 경우에 방만들기 실패 
     // JoinOrCreateRoom : 해당 방의 이름이 존재하면 방입장. 방이 없으면 방을 만든다. ( 무조건 방을 생성할 수 있음 )
@@ -111,7 +115,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
 
     // 예외 처리 
     public override void OnCreateRoomFailed( short returnCode, string message ) => print("방만들기실패");
-    public override void OnJoinRoomFailed( short returnCode, string message ) => print("방참가실패");
+    public override void OnJoinRoomFailed(short returnCode, string message) {
+        inputRoomFail.GetComponent<Animator>().SetBool("isFail", true);
+        print("방참가실패");
+        StartCoroutine(UIExit());
+    }
+    IEnumerator UIExit()
+    {
+        yield return new WaitForSeconds(0.1f);
+        inputRoomFail.GetComponent<Animator>().SetBool("isFail", false);
+    }
     public override void OnJoinRandomFailed( short returnCode, string message ) => print("방랜덤참가실패");
 
     private void OnSceneLoaded( Scene scene, LoadSceneMode mode ) {
