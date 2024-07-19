@@ -40,25 +40,28 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     // Player 체력 
     [SerializeField]
     protected float interactionRange = 2.0f;    //상호작용최대거리
-    protected float hp = 100.0f;                //플레이어hp 
+    protected float hp = 100.0f;                //플레이어hp
+    protected float faintTime = 30.0f;         //플레이어 기절 시간 기절시간 지날시 사망
 
     [Header("UI======")] [SerializeField]
     protected GameObject playerReviveUI;
     [SerializeField]
     protected GameObject playerHealPackUI;
+    [SerializeField]
+    protected GameObject playerFaintUI;
     public float Hp                             //hp 프로퍼티
     {
         get {
             return hp;                          //그냥 반환
         }
         set {
+            if (hp == 0) return;
             ChangeHp(value);                    //hp를 value만큼 더함 즉 피해량을 양수로하면 힐이됨 음수로 해야함 여기서 화면 시뻘겋게 and 연두색도함
             PlayerFaint();                      //만약 hp를 수정했을때 체력이 0보다 작으면 기절
             Debug.Log("플레이어 hp 변경" + hp);
         }
     }
     [SerializeField]
-    protected bool isFaint = false;             //기절했는지 true false
     public Image bloodScreen;                   //피격시 화면 빨갛게 할 이미지
     public Image healScreen;                    //치유시 화면 연두색 할 이미지
 
@@ -80,11 +83,13 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     public bool isAtkDistance;          // 공격 거리 ( false 원거리, true 근거리 ) 
     public bool stanceWeaponType;       // 원거리 ( false : 원거리, true : 투척 ), 근거리 ( false : 근접, true :  힐팩 ) 각각 구분 
     public bool countZero;
+    public bool isFaint = false;        // 기절했는지 true false
     protected bool isJump;              // 점프 상태
     protected bool isInteraction;       // 상호작용 상태 
     protected bool isAttack;            // 공격 상태 
     protected bool isThrow;             // 아이템 버리는 상태 
     protected bool isDead;              // 사망 상태 
+    
 
     // 사용 안할 꺼 같은데 예외처리에 필요할 Bool 변수 모음 
     protected bool isMove;              // 걷고있는 상태 
@@ -100,6 +105,7 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     public Rigidbody rigid;
     public Animator animator;
     public Animator handAnimator;
+    public CapsuleCollider capsuleCollider;
 
     [Header("인벤토리=======")]
     public GameObject inventory;        // 인벤토리 UI

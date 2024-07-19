@@ -40,7 +40,8 @@ public class Player : PlayerController
             rigid = GetComponent<Rigidbody>();
             Animator[] animators = GetComponentsInChildren<Animator>();
             animator = animators[1];                        //나중에 새로운 애니메이터 중간에 들어오면 좀 불안정해짐 
-            handAnimator = animators[2]; 
+            handAnimator = animators[2];
+            capsuleCollider = GetComponent<CapsuleCollider>();
 
             Cursor.visible = false;                         // 마우스 커서 비활성화
             Cursor.lockState = CursorLockMode.Locked;       // 마우스 커서 현재 위치 고정 
@@ -131,7 +132,7 @@ public class Player : PlayerController
 
             ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
             //사람 죽은놈 쪽으로 레이쏴서 ui true
-
+            
         }
     }
 
@@ -617,6 +618,8 @@ public class Player : PlayerController
             OnPlayerInventory -= PlayerInventory;
             animator.SetBool("isFaint", true);     //기절 애니메이션 출력 
             StartCoroutine(AnimReset("isFaint"));
+            StartCoroutine(PlayerFaintUI(faintTime));
+            capsuleCollider.direction = 2;
         }
     }
 
@@ -647,28 +650,47 @@ public class Player : PlayerController
         }
     }
    
-    void PlayerReviveUI()
+    //void PlayerReviveUI()  //필요없는거같은데 혹시몰라서 7/22일정도까지 문제없을시 삭제
+    //{
+    //    if (Physics.Raycast(ray, out hit, interactionRange, LayerMask.NameToLayer("LocalPlayer") | LayerMask.NameToLayer("Item")))
+    //    {
+    //        if (hit.collider.CompareTag("Player"))
+    //        {
+    //            isRayPlayer = true;
+    //            Player otherPlayer = hit.collider.GetComponent<Player>();
+    //            if (otherPlayer.isFaint && hit.collider.CompareTag("Player"))
+    //            {
+    //                playerReviveUI.SetActive(true);
+    //                if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
+    //                {
+    //                    StartCoroutine(CorPlayerReviveUI(8.0f, otherPlayer));
+    //                }
+    //            }
+    //        }
+    //    }
+    //    else
+    //    {
+    //        playerReviveUI.SetActive(false);
+    //        isRayPlayer = false;
+    //    }
+    //}
+
+    //플레이어 기절상태시 체력줄어드는 UI
+    IEnumerator PlayerFaintUI(float faintTime)
     {
-        if (Physics.Raycast(ray, out hit, interactionRange, LayerMask.NameToLayer("LocalPlayer") | LayerMask.NameToLayer("Item")))
+        Slider faintSlider = playerFaintUI.GetComponentInChildren<Slider>();
+        Image[] images = playerFaintUI.GetComponentsInChildren<Image>();
+        Color defaultColor = new Color(1, 1, 1, 0);
+        faintSlider.value = 1;
+        
+        playerFaintUI.SetActive(true);
+        while(faintSlider.value != 0)
         {
-            if (hit.collider.CompareTag("Player"))
-            {
-                isRayPlayer = true;
-                Player otherPlayer = hit.collider.GetComponent<Player>();
-                if (otherPlayer.isFaint && hit.collider.CompareTag("Player"))
-                {
-                    playerReviveUI.SetActive(true);
-                    if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
-                    {
-                        StartCoroutine(CorPlayerReviveUI(8.0f, otherPlayer));
-                    }
-                }
-            }
-        }
-        else
-        {
-            playerReviveUI.SetActive(false);
-            isRayPlayer = false;
+            yield return null;
+            faintSlider.value -= Time.deltaTime / faintTime;
+            defaultColor.a += Time.deltaTime / faintTime;
+            images[3].color = defaultColor;
+            images[4].color = defaultColor;
         }
     }
     //플레이어 부활 코루틴 + ui
