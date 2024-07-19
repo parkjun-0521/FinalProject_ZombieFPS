@@ -1353,6 +1353,10 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 34
       objectReference: {fileID: 0}
+    - target: {fileID: 3136246405974289228, guid: ffe6b758c99ddda47ad90e825935f9de, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3174076766146402356, guid: ffe6b758c99ddda47ad90e825935f9de, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -1403,7 +1407,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9035913730395517238, guid: ffe6b758c99ddda47ad90e825935f9de, type: 3}
       propertyPath: m_ApplyRootMotion
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffe6b758c99ddda47ad90e825935f9de, type: 3}

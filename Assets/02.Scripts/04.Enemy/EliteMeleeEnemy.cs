@@ -191,7 +191,7 @@ public class EliteMeleeEnemy : EnemyController {
     }
 
     public override void EnemyDead() {
-        if (hp <= 0 && photonView.IsMine) {
+        if (hp <= 0 && PV.IsMine) {
             photonView.RPC("HandleEnemyDeath", RpcTarget.AllBuffered);
         }
     }
@@ -218,7 +218,6 @@ public class EliteMeleeEnemy : EnemyController {
             // 노말 좀비의 이 부분을 zero가 아니라 transform.position으로 바꿔줘야함 
         }
 
-        ani.applyRootMotion = true;
         ani.SetBool("isDead", true);
         OnEnemyDead -= EnemyDead;
     }
