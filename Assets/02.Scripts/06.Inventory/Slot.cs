@@ -6,6 +6,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
+using static UnityEditor.PlayerSettings;
+using static UnityEditor.Progress;
 
 public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler {
     public int slotID;          // 장착 가능한 슬롯 ID
@@ -74,8 +77,9 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
     public void SetSlotCount( int _count ) {
         itemCount += _count;
         text_Count.text = itemCount.ToString();
-        if (itemCount <= 0)
+        if (itemCount <= 0) { 
             ClearSlot();
+        }
     }
 
     // 해당 슬롯 하나 삭제
@@ -99,6 +103,7 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
                 if (targetSlot != null && targetSlot != this) {
                     if (targetSlot.item == null) {
                         targetSlot.AddItem(item, itemCount, true);
+                        UIManager.Instance.weaponItem[targetSlot.item.itemID - 1].color = new Color(1, 1, 1, 1);
                         ClearSlot();
                     }
                     else {
@@ -153,11 +158,29 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
                     GameObject itemObj = Pooling.instance.GetObject(itemName);
                     photonView.RPC("SetItemProperties", RpcTarget.AllBuffered, itemObj.GetComponent<PhotonView>().ViewID, itemCount);
 
-                    itemObj.transform.position = gameObject.GetComponentInParent<Player>().bulletPos.position; // bullet 위치 초기화
-                    itemObj.transform.rotation = Quaternion.identity; // bullet 회전값 초기화
+                    itemObj.transform.position = gameObject.GetComponentInParent<Player>().bulletPos.position;
+                    itemObj.transform.rotation = Quaternion.identity;
+                }
+
+                if (item.type == ItemController.ItemType.Magazine) {
+                    UIManager.Instance.UpdateTotalBulletCount(inventory.CalculateTotalBullets());
                 }
 
                 DragSlot.instance.dragSlot.ClearSlot();
+
+                Slot[] slots = inventory.go_MauntingSlotsParent.GetComponentsInChildren<Slot>();
+                foreach (Slot slot in slots) {
+                    if (slot.item == null) {
+                        if (slot.slotID - 1 < UIManager.Instance.weaponItem.Length) {
+                            UIManager.Instance.weaponItem[slot.slotID - 1].color = new Color(1, 1, 1, 0.2f);
+                            Player PlayerHand = GetComponentInParent<Player>();
+                            if (PlayerHand.equipWeapon != null) {
+                                PlayerHand.equipWeapon.SetActive(false);
+                                PlayerHand.weaponSelected = false;
+                            }
+                        }
+                    }
+                }
             }
 
             DragSlot.instance.SetColor(0);
@@ -176,6 +199,20 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
     public void OnDrop( PointerEventData eventData ) {
         if (DragSlot.instance.dragSlot != null)
             ChangeSlot();
+
+        Slot[] slots = inventory.go_MauntingSlotsParent.GetComponentsInChildren<Slot>();
+        foreach (Slot slot in slots) {
+            if (slot.item == null) {
+                if (slot.slotID - 1 < UIManager.Instance.weaponItem.Length) {
+                    UIManager.Instance.weaponItem[slot.slotID - 1].color = new Color(1, 1, 1, 0.2f);
+                    Player PlayerHand = GetComponentInParent<Player>();
+                    if (PlayerHand.equipWeapon != null) {
+                        PlayerHand.equipWeapon.SetActive(false);
+                        PlayerHand.weaponSelected = false;
+                    }
+                }
+            }
+        }
     }
 
     private void ChangeSlot() {
@@ -184,6 +221,10 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
             int _tempItemCount = itemCount;
 
             AddItem(DragSlot.instance.dragSlot.item, DragSlot.instance.dragSlot.itemCount, true);
+
+            if (DragSlot.instance.dragSlot.item.itemID == slotID && slotID != 0) {
+                UIManager.Instance.weaponItem[slotID - 1].color = new Color(1, 1, 1, 1);
+            }
 
             if (_tempItem != null)
                 DragSlot.instance.dragSlot.AddItem(_tempItem, _tempItemCount, true);

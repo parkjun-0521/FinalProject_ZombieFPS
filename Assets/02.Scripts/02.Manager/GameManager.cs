@@ -14,6 +14,6 @@ public class GameManager : MonoBehaviourPunCallbacks {
         NetworkManager.Instance.chatInput = chatInput;
         chatButton.onClick.AddListener(() => NetworkManager.Instance.Send());
 
-        Pooling.instance.GetObject("EliteMeleeZombie");
+        //Pooling.instance.GetObject("EliteMeleeZombie");
     }
 }

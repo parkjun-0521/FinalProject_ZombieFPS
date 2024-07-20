@@ -12,6 +12,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static InputKeyManager;
+using static UnityEditor.PlayerSettings;
+using static UnityEditor.Progress;
 
 public class Player : PlayerController 
 {
@@ -115,11 +117,23 @@ public class Player : PlayerController
                 animator.SetBool("isRifleMoveShot", false);
             }
 
+            // 장전
+            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.BulletLoad)) && isGun) {
+                StartCoroutine(BulletLoad());
+            }
+
             // 인벤토리
             if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Inventory))) {
                 OnPlayerInventory?.Invoke();
             }
-          
+
+            // 설정
+            if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Setting)) && inventory.activeSelf) {
+                InventoryClose();
+                cursorLocked = false;
+                ToggleCursor();
+            }
+
             // 플레이어 상호작용
             OnPlayerInteraction?.Invoke();
             // 플레이어 회전
@@ -155,7 +169,9 @@ public class Player : PlayerController
             OnPlayerRotation -= PlayerRotation;
             OnPlayerJump -= PlayerJump;
             OnPlayerAttack -= PlayerAttack;
-            OnPlayerInteraction -= PlayerInteraction;   // 플레이어 상호작용
+            OnPlayerSwap -= WeaponSwap;                 
+            OnPlayerInteraction -= PlayerInteraction;   
+            OnPlayerInventory -= PlayerInventory;
         }
     }
 
@@ -284,6 +300,9 @@ public class Player : PlayerController
                     if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
                     {
                         ItemPickUp(hit.collider.gameObject);
+                        if(hit.collider.GetComponent<ItemPickUp>().item.type == ItemController.ItemType.Magazine) {
+                            UIManager.Instance.UpdateTotalBulletCount(theInventory.CalculateTotalBullets());
+                        }
                     }
                 }
                 else if (hit.collider.CompareTag("Player"))
@@ -381,8 +400,9 @@ public class Player : PlayerController
                     theInventory.DecreaseMagazineCount(ItemController.ItemType.SupportFireGrenade);
                 }
                 // 아이템을 다 쓰고 난 후 손에 있는 무기 비활성화
-                if (slotWithID.itemCount == 0) 
+                if (slotWithID.itemCount == 0) {
                     countZero = true;
+                }
                 break;
             case 4:
                 // ID가 4인 슬롯이 null이거나 비어 있는 경우의 조건문   
@@ -419,14 +439,29 @@ public class Player : PlayerController
     {
         if (PV.IsMine) {
             // 아이템 미 장착 
-            if (!ItemNotEquipped(1))
+            if (!ItemNotEquipped(1)) {
+                bulletCount[0] = 0;
+                UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
                 return;
+            }
 
             // 탄창이 없을 때 사격 X
             if (!theInventory.HasItemUse(ItemController.ItemType.Magazine)) {
+                bulletCount[0] = 0;
+                UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
                 Debug.Log("탄창 없음");
                 return; 
             }
+
+            if (bulletCount[0] == 0 && isGun) {
+                StartCoroutine(BulletLoad());
+                isBulletZero = true;
+            }
+
+            // 장전 필요 
+            if (isBulletZero) return;
+            // 총 장착 안하면 못 쏘게 예외 처리 
+            if (!isGun) return;
 
             // 카메라 중앙에서 Ray 생성 
             Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
@@ -454,6 +489,8 @@ public class Player : PlayerController
 
             // 탄창 개수 감소
             theInventory.DecreaseMagazineCount(ItemController.ItemType.Magazine);
+            bulletCount[0] -= 1;
+            UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
 
             // 총알의 방향 설정
             Vector3 direction = (targetPoint - bulletPos.position).normalized;
@@ -465,7 +502,28 @@ public class Player : PlayerController
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
             // 발사 방향과 속도를 함께 적용
-            rb.AddForce(direction * 50f, ForceMode.VelocityChange); 
+            rb.AddForce(direction * 50f, ForceMode.VelocityChange);     
+            
+        }
+    }
+
+    IEnumerator BulletLoad()
+    {
+        yield return new WaitForSeconds(2f);
+        Debug.Log("2초간 장전중");
+        // 여기에 뭔가 애니메이션이나 사운드 넣어줘야 할듯 
+
+        int availableBullets = theInventory.CalculateTotalBullets(); // 이 메소드는 인벤토리에서 사용 가능한 모든 총알의 수를 반환해야 함
+
+        if (availableBullets > 0) {
+            bulletCount[0] = Mathf.Min(availableBullets, 30); // 남은 총알이 30개 이상이면 30개를, 그렇지 않으면 남은 총알만큼 장전
+            UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
+            isBulletZero = false; // 총알이 남아있음
+        }
+        else {
+            bulletCount[0] = 0;
+            UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
+            isBulletZero = false; // 총알이 다 떨어짐
         }
     }
 
@@ -481,9 +539,7 @@ public class Player : PlayerController
             // 아이템 미장착 
             if (!ItemNotEquipped(4))
                 return;
-
-            
-           
+   
             Debug.Log("힐팩");
 
             //힐 하는시간 변수로 빼고 대충 중앙에 ui띄우고 힐 하는시간 지나면 Hp = (+30) 코루틴사용이 좋겠지 중간에 키입력시 return 애니메이션추가;
@@ -537,20 +593,29 @@ public class Player : PlayerController
     // 무기 교체
     public override void WeaponSwap() {
         if (PV.IsMine) {
-            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Weapon1))) {        // 원거리 무기 
-                WeaponSwapStatus(0, false, false, true, "isDrawRifle");
-                countZero = false;  
+            if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Weapon1))) {        // 원거리 무기 
+                if (WeaponSwapStatus(0, false, false, true, "isDrawRifle", 0, beforeWeapon)) {
+                    countZero = false;
+                    beforeWeapon = 1;
+                }
+                isGun = true;
             }
-            else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Weapon2))) {   // 근접 무기
-                WeaponSwapStatus(1, true, false, true, "isDrawMelee");
-                countZero = false;
+            else if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Weapon2))) {   // 근접 무기
+                if (WeaponSwapStatus(1, true, false, true, "isDrawMelee", 1, beforeWeapon)) {
+                    countZero = false;
+                    beforeWeapon = 2;
+                }
+                isGun = false;
             }
-            else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Weapon3))) {   // 투척 무기
-                 WeaponSwapStatus(2, false, true, true, "isDrawGrenade");
+            else if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Weapon3))) {   // 투척 무기
+                if(WeaponSwapStatus(2, false, true, true, "isDrawGrenade", 2, beforeWeapon))
+                    beforeWeapon = 3;
+                isGun = false;
             }
-            else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Weapon4))) {   // 힐팩
-
-                WeaponSwapStatus(3, true, true, true, "isDrawHeal");
+            else if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Weapon4))) {   // 힐팩
+                if(WeaponSwapStatus(3, true, true, true, "isDrawHeal", 3, beforeWeapon))
+                    beforeWeapon = 4;
+                isGun = false;
             }
 
             // 무기를 선택하지 않았을 때 
@@ -561,34 +626,54 @@ public class Player : PlayerController
                 equipWeapon.SetActive(false);
             // 무기 선택 
             equipWeapon = weapons[weaponIndex];
+
             // 선택된 무기 활성화 ( 무기를 다 사용했을 시 비활성화 )
-            if (!countZero)
+            if (!countZero) {
                 equipWeapon.SetActive(true);
-            else
+            }
+            else {
+                if (beforeWeapon != 0) 
+                    UIManager.Instance.weaponItem[beforeWeapon - 1].color = new Color(1, 1, 1, 0.2f);
+                beforeWeapon = 0;
                 equipWeapon.SetActive(false);
+            }
         }
     }
-    // 무기 교체 상태 변경 : 인자값 (0:무기ID, 1:무기 사거리, 2:무기타입, 3:무기를 선택한 상태, 4:애니메이션 ) 
-    public void WeaponSwapStatus(int weaponIndex, bool isAtkDistance, bool stanceWeaponType, bool weaponSelected, string Animation)
+    // 무기 교체 상태 변경 : 인자값 (0:무기ID, 1:무기 사거리, 2:무기타입, 3:무기를 선택한 상태 ) 
+    public bool WeaponSwapStatus(int weaponIndex, bool isAtkDistance, bool stanceWeaponType, bool weaponSelected, string Animation, int uiPos, int beforeWeapon)
     {
         // 아이템 장착된 것을 확인 후 예외 처리 
         Inventory inventory = theInventory.GetComponent<Inventory>();
         Slot slotWithID = inventory.go_MauntingSlotsParent.GetComponentsInChildren<Slot>().FirstOrDefault(slot => slot.slotID == weaponIndex + 1);
+        Slot slotBeforeWeaponID = inventory.go_MauntingSlotsParent.GetComponentsInChildren<Slot>().FirstOrDefault(slot => slot.slotID == beforeWeapon);
+
         if (slotWithID == null || slotWithID.item == null) {
+            UIManager.Instance.weaponItem[uiPos].color = new Color(1, 1, 1, 0.2f);
             Debug.Log("장비가 장착되지 않음");
-            return;
+            return false;
         }
         // 아이템이 0보다 많으면 활성화 될 수 있도록 
-        if (slotWithID.itemCount > 0) 
+        if (slotWithID.itemCount > 0) {
             countZero = false;
+        }
 
         // 각 변수 상태 초기화
         this.weaponIndex = weaponIndex;
         this.isAtkDistance = isAtkDistance;
         this.stanceWeaponType = stanceWeaponType;
         this.weaponSelected = weaponSelected;
+        if (beforeWeapon != 0) {
+            if (slotBeforeWeaponID.item != null) {
+                UIManager.Instance.weaponItem[beforeWeapon - 1].color = Color.white;
+            }
+            else if(slotBeforeWeaponID == null || slotBeforeWeaponID.item == null) {
+                UIManager.Instance.weaponItem[beforeWeapon - 1].color = new Color(1, 1, 1, 0.2f);
+            }
+        }
+        UIManager.Instance.weaponItem[uiPos].color = Color.green;
         animator.SetBool(Animation, true);
         StartCoroutine(AnimReset(Animation));
+        return true;
     }
 
     // 체력 변화 

@@ -2761,6 +2761,8 @@ MonoBehaviour:
   - {fileID: 923372503}
   - {fileID: 1257858943}
   equipWeapon: {fileID: 0}
+  beforeWeapon: 0
+  bulletCount: 1e0000000f000000
   bulletPos: {fileID: 710290969}
   grenadePos: {fileID: 909635662}
   attackMaxDelay: 0.1
@@ -2784,6 +2786,7 @@ MonoBehaviour:
   inventory: {fileID: 5069456818882851356}
   theInventory: {fileID: 119739485}
   playerCamera: {fileID: 3889226454062301499}
+  cursorLocked: 1
 --- !u!114 &1555921595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7318,6 +7321,28 @@ MonoBehaviour:
   itemImage: {fileID: 3954315666913708739}
   text_Count: {fileID: 884822487}
   go_CountImage: {fileID: 1794823024}
+--- !u!114 &5995313340348345467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3954315666610801594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!224 &3954315666913708736 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3954315666684573060, guid: 8c386fac80baa5043be492943524860b, type: 3}
@@ -8907,6 +8932,28 @@ MonoBehaviour:
   itemImage: {fileID: 3954315666010940562}
   text_Count: {fileID: 179534993}
   go_CountImage: {fileID: 1225930173}
+--- !u!114 &2061414145184581312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3954315665374324203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!224 &3954315665374324212 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3954315666311410913, guid: 8c386fac80baa5043be492943524860b, type: 3}
@@ -9558,6 +9605,28 @@ MonoBehaviour:
   itemImage: {fileID: 3954315665334899410}
   text_Count: {fileID: 1110725549}
   go_CountImage: {fileID: 1639205598}
+--- !u!114 &3471621360854395576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3954315666042033067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!224 &3954315666042033076 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3954315666311410913, guid: 8c386fac80baa5043be492943524860b, type: 3}
@@ -9865,6 +9934,28 @@ MonoBehaviour:
   itemImage: {fileID: 3954315665325177080}
   text_Count: {fileID: 394258101}
   go_CountImage: {fileID: 732087935}
+--- !u!114 &2103625632201709730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3954315666093652353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!224 &3954315666093652382 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3954315666311410913, guid: 8c386fac80baa5043be492943524860b, type: 3}

@@ -70,7 +70,11 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     public GameObject[] weapons;        // 무기 종류 ( 순서대로 넣어줘야 함, 0 : 원거리, 1 : 근접, 2 : 투척, 3 : 힐팩 )
     [HideInInspector]
     public GameObject equipWeapon;      // 들고 있는 무기 ( 스왑 시 비활성화 해주기 위함 ) 
-    
+    public int beforeWeapon = 0;
+    public int[] bulletCount;
+    public bool isBulletZero;
+    public bool isGun = false;
+
     public Transform bulletPos;         // 총알 나가는 위치 
     public Transform grenadePos;
 

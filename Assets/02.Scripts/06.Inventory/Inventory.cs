@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class Inventory : MonoBehaviour {
 
@@ -33,6 +34,9 @@ public class Inventory : MonoBehaviour {
                 slot.SetSlotCount(-1);
             }
         }
+        if (itemType == ItemController.ItemType.Magazine) {
+            UIManager.Instance.UpdateTotalBulletCount(CalculateTotalBullets());
+        }
     }
 
     // 아이템이 있는지 
@@ -54,12 +58,17 @@ public class Inventory : MonoBehaviour {
             ItemController.ItemType.ShotGun != _item.type &&
             ItemController.ItemType.Sword1 != _item.type  &&
             ItemController.ItemType.Sword2 != _item.type) {                 // 총과 칼은 합쳐지지 않는 무기기 때문에 if문으로 조건 처리
+
+            if (_item.type == ItemController.ItemType.Magazine) {
+                UIManager.Instance.UpdateTotalBulletCount(CalculateTotalBullets());
+            }
+
             for (int i = 0; i < slots.Count; i++) {
                 if (slots[i].item != null && slots[i].slotID == 0)          // null 이라면 slots[i].item.itemName 할 때 런타임 에러 나서
                 {
                     if (slots[i].item.itemName == _item.itemName) {
                         if (!_item.isPickUp) {
-                            if (ItemController.ItemType.Magazine == _item.type)
+                            if (ItemController.ItemType.Magazine == _item.type) 
                                 _count = _item.itemCount;                   // 총알 30발 
                             else
                                 _count = _item.itemCount;                   // 수류탄 1개 
@@ -117,5 +126,16 @@ public class Inventory : MonoBehaviour {
             }
         }
         return null;
+    }
+
+    public int CalculateTotalBullets()
+    {
+        int totalBullets = 0;
+        foreach (Slot slot in slots) {
+            if (slot.item != null && slot.item.type == ItemController.ItemType.Magazine) {
+                totalBullets += slot.itemCount;  // 각 슬롯의 아이템 개수를 합산
+            }
+        }
+        return totalBullets;
     }
 }

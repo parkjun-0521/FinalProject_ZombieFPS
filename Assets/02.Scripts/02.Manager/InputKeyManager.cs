@@ -21,7 +21,8 @@ public class InputKeyManager : MonoBehaviour {
         Weapon2,
         Weapon3,
         Weapon4,
-        Setting
+        Setting,
+        BulletLoad
     }
 
     // µñ¼Å³Ê¸®·Î Å° °ü¸® 
@@ -53,7 +54,8 @@ public class InputKeyManager : MonoBehaviour {
         keyMappings[KeyCodeTypes.Weapon2] = KeyCode.Alpha2;     // ±Ù°Å¸® ¹«±â
         keyMappings[KeyCodeTypes.Weapon3] = KeyCode.Alpha3;     // ÅõÃ´ ¹«±â 
         keyMappings[KeyCodeTypes.Weapon4] = KeyCode.Alpha4;     // ÈúÆÑ 
-        keyMappings[KeyCodeTypes.Setting] = KeyCode.Escape;     // ÈúÆÑ 
+        keyMappings[KeyCodeTypes.Setting] = KeyCode.Escape;     // ¼³Á¤
+        keyMappings[KeyCodeTypes.BulletLoad] = KeyCode.R;       // ÀåÀü 
     }
 
     public KeyCode GetKeyCode( KeyCodeTypes action ) {
