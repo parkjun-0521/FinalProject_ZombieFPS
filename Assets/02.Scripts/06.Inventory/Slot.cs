@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static ItemController;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 using static UnityEditor.PlayerSettings;
 using static UnityEditor.Progress;
@@ -77,7 +78,8 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
     public void SetSlotCount( int _count ) {
         itemCount += _count;
         text_Count.text = itemCount.ToString();
-        if (itemCount <= 0) { 
+
+        if (itemCount <= 0) {
             ClearSlot();
         }
     }
@@ -104,6 +106,7 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
                     if (targetSlot.item == null) {
                         targetSlot.AddItem(item, itemCount, true);
                         UIManager.Instance.weaponItem[targetSlot.item.itemID - 1].color = new Color(1, 1, 1, 1);
+
                         ClearSlot();
                     }
                     else {
@@ -119,6 +122,9 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
                         ClearSlot(); // 현재 슬롯 초기화
                         AddItem(existingItem, existingItemCount, true); // 아이템 교환
                     }
+
+                    inventory.UpdateTotalGrenadeCountFromUI(2);
+                    inventory.UpdateTotalGrenadeCountFromUI(3);
                 }
                 else {
                     Debug.Log("해당 슬롯이 없습니다.");
@@ -160,13 +166,18 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
 
                     itemObj.transform.position = gameObject.GetComponentInParent<Player>().bulletPos.position;
                     itemObj.transform.rotation = Quaternion.identity;
+
+                    ItemController.ItemType droppedItemType = DragSlot.instance.dragSlot.item.type;
+                    DragSlot.instance.dragSlot.ClearSlot();
+
+                    if (droppedItemType == ItemController.ItemType.Magazine) {
+                        UIManager.Instance.UpdateTotalBulletCount(inventory.CalculateTotalItems(ItemController.ItemType.Magazine));
+                    }
+
+                    inventory.UpdateTotalGrenadeCountFromUI(2);
+                    inventory.UpdateTotalGrenadeCountFromUI(3);
                 }
 
-                if (item.type == ItemController.ItemType.Magazine) {
-                    UIManager.Instance.UpdateTotalBulletCount(inventory.CalculateTotalBullets());
-                }
-
-                DragSlot.instance.dragSlot.ClearSlot();
 
                 Slot[] slots = inventory.go_MauntingSlotsParent.GetComponentsInChildren<Slot>();
                 foreach (Slot slot in slots) {
@@ -205,6 +216,8 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
             if (slot.item == null) {
                 if (slot.slotID - 1 < UIManager.Instance.weaponItem.Length) {
                     UIManager.Instance.weaponItem[slot.slotID - 1].color = new Color(1, 1, 1, 0.2f);
+                    inventory.UpdateTotalGrenadeCountFromUI(2);
+                    inventory.UpdateTotalGrenadeCountFromUI(3);
                     Player PlayerHand = GetComponentInParent<Player>();
                     if (PlayerHand.equipWeapon != null) {
                         PlayerHand.equipWeapon.SetActive(false);
@@ -224,10 +237,15 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
 
             if (DragSlot.instance.dragSlot.item.itemID == slotID && slotID != 0) {
                 UIManager.Instance.weaponItem[slotID - 1].color = new Color(1, 1, 1, 1);
+                inventory.UpdateTotalGrenadeCountFromUI(2);
+                inventory.UpdateTotalGrenadeCountFromUI(3);
             }
 
-            if (_tempItem != null)
+            if (_tempItem != null) {
                 DragSlot.instance.dragSlot.AddItem(_tempItem, _tempItemCount, true);
+                inventory.UpdateTotalGrenadeCountFromUI(2);
+                inventory.UpdateTotalGrenadeCountFromUI(3);
+            }
             else
                 DragSlot.instance.dragSlot.ClearSlot();
         }

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+using static ItemController;
 using static UnityEditor.Progress;
 
 public class Inventory : MonoBehaviour {
@@ -34,9 +36,13 @@ public class Inventory : MonoBehaviour {
                 slot.SetSlotCount(-1);
             }
         }
+
         if (itemType == ItemController.ItemType.Magazine) {
-            UIManager.Instance.UpdateTotalBulletCount(CalculateTotalBullets());
+            UIManager.Instance.UpdateTotalBulletCount(CalculateTotalItems(ItemController.ItemType.Magazine));
         }
+
+        UpdateTotalGrenadeCountFromUI(2);
+        UpdateTotalGrenadeCountFromUI(3);
     }
 
     // 아이템이 있는지 
@@ -60,15 +66,15 @@ public class Inventory : MonoBehaviour {
             ItemController.ItemType.Sword2 != _item.type) {                 // 총과 칼은 합쳐지지 않는 무기기 때문에 if문으로 조건 처리
 
             if (_item.type == ItemController.ItemType.Magazine) {
-                UIManager.Instance.UpdateTotalBulletCount(CalculateTotalBullets());
+                UIManager.Instance.UpdateTotalBulletCount(CalculateTotalItems(ItemController.ItemType.Magazine));
             }
 
             for (int i = 0; i < slots.Count; i++) {
-                if (slots[i].item != null && slots[i].slotID == 0)          // null 이라면 slots[i].item.itemName 할 때 런타임 에러 나서
+                if (slots[i].item != null)          // null 이라면 slots[i].item.itemName 할 때 런타임 에러 나서
                 {
                     if (slots[i].item.itemName == _item.itemName) {
                         if (!_item.isPickUp) {
-                            if (ItemController.ItemType.Magazine == _item.type) 
+                            if (ItemController.ItemType.Magazine == _item.type)
                                 _count = _item.itemCount;                   // 총알 30발 
                             else
                                 _count = _item.itemCount;                   // 수류탄 1개 
@@ -80,6 +86,9 @@ public class Inventory : MonoBehaviour {
                                 _count = _item.totalCount;                  // 수류탄 1개
                         }
                         slots[i].SetSlotCount(_count);                      // 아이템 개수 슬롯 업데이트
+
+                        UpdateTotalGrenadeCountFromUI(2);
+                        UpdateTotalGrenadeCountFromUI(3);
                         return;
                     }
                 }
@@ -128,14 +137,30 @@ public class Inventory : MonoBehaviour {
         return null;
     }
 
-    public int CalculateTotalBullets()
+    public int CalculateTotalItems(ItemController.ItemType ItemType)
     {
-        int totalBullets = 0;
+        int totalItemCount = 0;
         foreach (Slot slot in slots) {
-            if (slot.item != null && slot.item.type == ItemController.ItemType.Magazine) {
-                totalBullets += slot.itemCount;  // 각 슬롯의 아이템 개수를 합산
+            if (slot.item != null && slot.item.type == ItemType) {
+                totalItemCount += slot.itemCount;  // 각 슬롯의 아이템 개수를 합산
             }
         }
-        return totalBullets;
+        return totalItemCount;
+    }
+
+    public void UpdateTotalGrenadeCountFromUI(int index)
+    {
+        Transform slotTransform = go_MauntingSlotsParent.transform.GetChild(index);
+        Text slotText = slotTransform.GetComponentInChildren<Text>();
+
+        if (slotText != null) {
+            int grenadeCount = int.Parse(slotText.text);
+            if (index == 2)         UIManager.Instance.UpdateTotalGrenadeCount(grenadeCount);
+            else if(index == 3)     UIManager.Instance.UpdateTotalHealCount(grenadeCount);
+        }
+        else {
+            if (index == 2)         UIManager.Instance.UpdateTotalGrenadeCount(0);
+            else if (index == 3)    UIManager.Instance.UpdateTotalHealCount(0);        
+        }
     }
 }

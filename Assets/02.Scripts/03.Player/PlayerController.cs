@@ -116,6 +116,9 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     public GameObject inventory;        // 인벤토리 UI
     public Inventory theInventory;
 
+    [Header("에임=======")]
+    public Image aiming;
+
     public abstract void PlayerMove(bool type);
     public abstract void PlayerJump();
     public abstract void PlayerInteraction();

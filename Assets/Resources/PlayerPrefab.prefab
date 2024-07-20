@@ -2763,6 +2763,8 @@ MonoBehaviour:
   equipWeapon: {fileID: 0}
   beforeWeapon: 0
   bulletCount: 1e0000000f000000
+  isBulletZero: 0
+  isGun: 0
   bulletPos: {fileID: 710290969}
   grenadePos: {fileID: 909635662}
   attackMaxDelay: 0.1
@@ -2785,6 +2787,7 @@ MonoBehaviour:
   capsuleCollider: {fileID: 0}
   inventory: {fileID: 5069456818882851356}
   theInventory: {fileID: 119739485}
+  aiming: {fileID: 1822679039}
   playerCamera: {fileID: 3889226454062301499}
   cursorLocked: 1
 --- !u!114 &1555921595
@@ -3009,6 +3012,7 @@ GameObject:
   m_Component:
   - component: {fileID: 143683055648694645}
   - component: {fileID: 3889226454062301499}
+  - component: {fileID: 7739046618608163703}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -3074,6 +3078,14 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!81 &7739046618608163703
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4317645518257237817}
+  m_Enabled: 1
 --- !u!1 &5069456818882851356
 GameObject:
   m_ObjectHideFlags: 0

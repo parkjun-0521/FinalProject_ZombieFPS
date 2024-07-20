@@ -242,9 +242,11 @@ public class Player : PlayerController
                 z = 1f;
             }
 
-            if(isMove) 
+            if (isMove) {
                 animator.SetFloat("speedBlend", type ? 1.0f : 0.5f);
-            else 
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Walk);
+            }
+            else
                 animator.SetFloat("speedBlend", 0);
 
             Vector3 moveDirection = (transform.forward * z + transform.right * x).normalized;
@@ -301,7 +303,7 @@ public class Player : PlayerController
                     {
                         ItemPickUp(hit.collider.gameObject);
                         if(hit.collider.GetComponent<ItemPickUp>().item.type == ItemController.ItemType.Magazine) {
-                            UIManager.Instance.UpdateTotalBulletCount(theInventory.CalculateTotalBullets());
+                            UIManager.Instance.UpdateTotalBulletCount(theInventory.CalculateTotalItems(ItemController.ItemType.Magazine));
                         }
                     }
                 }
@@ -408,7 +410,6 @@ public class Player : PlayerController
                 // ID가 4인 슬롯이 null이거나 비어 있는 경우의 조건문   
                 StartCoroutine(HealItemUse(6.0f, 40.0f, slotWithID)); ; //힐 시간, 힐량
                 // 아이템을 다 쓰고 난 후 손에 있는 무기 비활성화
-
                 break;
         }
         return true;
@@ -513,7 +514,7 @@ public class Player : PlayerController
         Debug.Log("2초간 장전중");
         // 여기에 뭔가 애니메이션이나 사운드 넣어줘야 할듯 
 
-        int availableBullets = theInventory.CalculateTotalBullets(); // 이 메소드는 인벤토리에서 사용 가능한 모든 총알의 수를 반환해야 함
+        int availableBullets = theInventory.CalculateTotalItems(ItemController.ItemType.Magazine); // 이 메소드는 인벤토리에서 사용 가능한 모든 총알의 수를 반환해야 함
 
         if (availableBullets > 0) {
             bulletCount[0] = Mathf.Min(availableBullets, 30); // 남은 총알이 30개 이상이면 30개를, 그렇지 않으면 남은 총알만큼 장전

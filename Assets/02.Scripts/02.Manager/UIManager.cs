@@ -22,6 +22,8 @@ public class UIManager : MonoBehaviourPun
     public Text totalGranedeCount;
     public Text totalHealCount;
 
+    public Button[] aimingImage;
+
     void Awake()
     {
         if (Instance == null)
@@ -39,6 +41,8 @@ public class UIManager : MonoBehaviourPun
         }
         UIManager.Instance.CurBulletCount.text = "0";
         UIManager.Instance.totalBulletCount.text = "0";
+        UIManager.Instance.totalGranedeCount.text = "0";
+        UIManager.Instance.totalHealCount.text = "0";
     }
 
     void Update(){
@@ -85,5 +89,25 @@ public class UIManager : MonoBehaviourPun
     public void UpdateTotalBulletCount(int newBulletCount)
     {
         totalBulletCount.text = newBulletCount.ToString();
+    }
+
+    public void UpdateTotalGrenadeCount(int newGrenadeCount)
+    {
+        totalGranedeCount.text = newGrenadeCount.ToString();
+    }
+
+    public void UpdateTotalHealCount(int newHealCount)
+    {
+        totalHealCount.text = newHealCount.ToString();
+    }
+
+    public void AimingChange(Button buttonId)
+    {
+        Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        Image[] images = buttonId.GetComponentsInChildren<Image>();
+
+        if (images.Length > 1 && player.aiming != null) {
+            player.aiming.sprite = images[1].sprite; // 첫 번째 자식의 이미지를 사용
+        }
     }
 }
