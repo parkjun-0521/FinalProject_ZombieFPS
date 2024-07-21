@@ -91,10 +91,8 @@ public class NormalEnemy : EnemyController
     }
 
     void ResetEnemy() {
-
-        Vector3 dest = new Vector3();
-        transform.LookAt(dest);
-        if (Vector3.Distance(transform.position, Vector3.zero) < 0.1f && shouldEvaluate) {
+        transform.LookAt(enemySpawn);
+        if (Vector3.Distance(transform.position, enemySpawn.position) < 0.1f && shouldEvaluate) {
             rigid.velocity = Vector3.zero;
             rigid.angularVelocity = Vector3.zero;
             InvokeRepeating("EnemyMove", 0.5f, 3.0f);
@@ -120,16 +118,15 @@ public class NormalEnemy : EnemyController
         float dirZ = Random.Range(-40, 40);
         Vector3 dest = new Vector3(dirX, 0, dirZ);
         transform.LookAt(dest);
-        Vector3 toOrigin = origin - transform.position;
+        Vector3 toOrigin = enemySpawn.position - transform.position;
         //일정 범위를 나가면
         if (toOrigin.magnitude > rangeOut)
         {
             CancelInvoke("EnemyMove");
             rigid.velocity = Vector3.zero;
             rigid.angularVelocity = Vector3.zero;
-            Debug.Log("reset:ING");
             //다시돌아오는
-            Vector3 direction = (Vector3.zero - transform.position).normalized;
+            Vector3 direction = (enemySpawn.position - transform.position).normalized;
             rigid.AddForce(direction * resetSpeed , ForceMode.VelocityChange);
             isRangeOut = true;
             isNow = false;
@@ -137,10 +134,8 @@ public class NormalEnemy : EnemyController
         //아니면 속행
         else
         {
-            Debug.Log("Move");
-
             isNow = true;
-            rigid.AddForce(dest * speed * Time.deltaTime, ForceMode.VelocityChange);
+            rigid.AddForce(speed * Time.deltaTime * dest, ForceMode.VelocityChange);
         }
 
         rigid.velocity = Vector3.zero;
@@ -166,7 +161,6 @@ public class NormalEnemy : EnemyController
         {
             GameObject attackCollider = Instantiate(attackColliderPrefab, attackPoint.position, attackPoint.rotation);
             Destroy(attackCollider, 0.1f);
-            Debug.Log("ATtak");
             nextAttack = 0;
         }
       
