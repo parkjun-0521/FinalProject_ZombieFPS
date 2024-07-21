@@ -16,7 +16,7 @@ interface IPlayer {
     void PlayerDead();                  // 플레이어 사망 
 }
 
-public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservable
+public abstract class PlayerController : MonoBehaviourPunCallbacks, IPlayer, IPunObservable
 {
     [Header("이동=======")]
     // 플레이어 이동속도 
@@ -41,6 +41,7 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     [SerializeField]
     protected float interactionRange = 2.0f;    //상호작용최대거리
 
+    protected float maxHp = 100.0f;
     protected float hp = 100.0f;                //플레이어hp
     protected float faintTime = 30.0f;         //플레이어 기절 시간 기절시간 지날시 사망
 
@@ -58,6 +59,7 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
         set {
             if (hp == 0) return;
             ChangeHp(value);                    //hp를 value만큼 더함 즉 피해량을 양수로하면 힐이됨 음수로 해야함 여기서 화면 시뻘겋게 and 연두색도함
+            photonView.RPC("UpdateHealthOnUI", RpcTarget.OthersBuffered, photonView.ViewID, (hp / 100) * 100);
             PlayerFaint();                      //만약 hp를 수정했을때 체력이 0보다 작으면 기절
             Debug.Log("플레이어 hp 변경" + hp);
         }
@@ -132,5 +134,4 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     public abstract void ChangeHp( float value );        
     // 포톤 동기화 메소드
     public abstract void OnPhotonSerializeView( PhotonStream stream, PhotonMessageInfo info );
-
 }

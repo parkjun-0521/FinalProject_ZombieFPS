@@ -48,7 +48,6 @@ public class EliteMeleeEnemy : EnemyController {
             OnEnemyDead += EnemyDead;
 
             hp = maxHp;
-            ani.applyRootMotion = false;
             ani.SetBool("isDead", false);
             bloodParticle.Stop();
             // 초기에 데미지 지정 
@@ -72,7 +71,6 @@ public class EliteMeleeEnemy : EnemyController {
         if (PV.IsMine) {
             playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
             InvokeRepeating("EnemyMove", 0.5f, 3.0f);
-            ani.applyRootMotion = false;
             bloodParticle.Stop();
             // 초기에 데미지 지정 
             // damage = 20f;

@@ -7,9 +7,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static ItemController;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
-using static UnityEditor.PlayerSettings;
-using static UnityEditor.Progress;
 
 public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler {
     public int slotID;          // ÀåÂø °¡´ÉÇÑ ½½·Ô ID

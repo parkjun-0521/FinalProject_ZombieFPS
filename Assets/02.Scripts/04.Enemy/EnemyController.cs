@@ -74,6 +74,7 @@ public class EnemyController : MonoBehaviourPun, IEnemy {
         }
     }
 
+    public float baseDamage = 10;
     public float damage;
 
     public bool isRangeOut = false;

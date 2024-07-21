@@ -4,8 +4,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static ItemController;
-using static UnityEditor.Progress;
-
 public class Inventory : MonoBehaviour {
 
     [SerializeField]

@@ -12,8 +12,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static InputKeyManager;
-using static UnityEditor.PlayerSettings;
-using static UnityEditor.Progress;
 
 public class Player : PlayerController 
 {
@@ -119,6 +117,7 @@ public class Player : PlayerController
 
             // 장전
             if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.BulletLoad)) && isGun) {
+                isBulletZero = true;
                 StartCoroutine(BulletLoad());
             }
 
@@ -244,7 +243,7 @@ public class Player : PlayerController
 
             if (isMove) {
                 animator.SetFloat("speedBlend", type ? 1.0f : 0.5f);
-                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Walk);
+                //AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Walk);
             }
             else
                 animator.SetFloat("speedBlend", 0);
@@ -678,15 +677,20 @@ public class Player : PlayerController
     }
 
     // 체력 변화 
+    [PunRPC]
     public override void ChangeHp( float value ) {
-        hp += value;
-        if (hp > 100)
-            hp = 100;
-        if (value > 0) {
-            StartCoroutine(ShowHealScreen());   //힐 화면 출력
-        }
-        else if (value < 0) {
-            StartCoroutine(ShowBloodScreen());  //피격화면 출력 
+        if (PV.IsMine) {
+            hp += value;
+            if (hp > 100)
+                hp = 100;
+            if (value > 0) {
+                StartCoroutine(ShowHealScreen());   //힐 화면 출력
+            }
+            else if (value < 0) {
+                StartCoroutine(ShowBloodScreen());  //피격화면 출력 
+                hp = Mathf.Clamp(hp, 0, maxHp);
+                UIManager.Instance.hpBar.value = (hp / maxHp) * 100;
+            }
         }
     }
 
@@ -873,6 +877,12 @@ public class Player : PlayerController
 
     // 플레이어 동기화
     public override void OnPhotonSerializeView( PhotonStream stream, PhotonMessageInfo info ) {
+        if (stream.IsWriting) {
+            stream.SendNext(hp);
+        }
+        else {
+            hp = (float)stream.ReceiveNext();
+        }
         /*if (stream.IsWriting) {
             // 데이터 전송 ( 동기화 ) 
             stream.SendNext(rigid.position);    // 위치 
@@ -886,6 +896,14 @@ public class Player : PlayerController
             rigid.velocity = (Vector3)stream.ReceiveNext();
         }*/
     }
+
+    [PunRPC]
+    public void UpdateHealthOnUI(int viewID, float health)
+    {
+        int playerID = PhotonNetwork.GetPhotonView(viewID).OwnerActorNr;
+        UIManager.Instance.UpdatePlayerHealthBar(playerID - 1, health);
+    }
+
 
     [ContextMenu("프로퍼티--")]                      //TEST용 추후삭제
     void test()

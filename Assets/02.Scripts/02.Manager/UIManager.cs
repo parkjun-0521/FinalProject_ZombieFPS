@@ -22,8 +22,14 @@ public class UIManager : MonoBehaviourPun
     public Text totalGranedeCount;
     public Text totalHealCount;
 
+    // 에이밍 버튼 
     public Button[] aimingImage;
 
+    // 체력바 
+    public Slider hpBar; 
+    public Slider hpBar1; 
+    public Slider hpBar2; 
+    public Slider hpBar3; 
     void Awake()
     {
         if (Instance == null)
@@ -108,6 +114,24 @@ public class UIManager : MonoBehaviourPun
 
         if (images.Length > 1 && player.aiming != null) {
             player.aiming.sprite = images[1].sprite; // 첫 번째 자식의 이미지를 사용
+        }
+    }
+
+    public void UpdatePlayerHealthBar(int playerID, float healthPercent)
+    {
+        switch (playerID) {
+            case 0:
+                hpBar.value = healthPercent;
+                break;
+            case 1:
+                hpBar1.value = healthPercent;
+                break;
+            case 2:
+                hpBar2.value = healthPercent;
+                break;
+            case 3:
+                hpBar3.value = healthPercent;
+                break;
         }
     }
 }
