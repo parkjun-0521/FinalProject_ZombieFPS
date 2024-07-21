@@ -32,6 +32,9 @@ public class Player : PlayerController
     Ray ray;
     bool isRayPlayer = false;
 
+    //dot damage 코루틴
+    Coroutine dotCoroutine;
+
     void Awake()
     {
         // 레퍼런스 초기화 
@@ -157,6 +160,21 @@ public class Player : PlayerController
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if(PV.IsMine)
+        {
+            if(other.CompareTag("DotArea"))
+            {
+                if(dotCoroutine == null)
+                {
+                    EliteRangeEnemyDotArea EREP = other.GetComponent<EliteRangeEnemyDotArea>();
+                    dotCoroutine = StartCoroutine(DotDamage(EREP));
+                }
+            }
+        }
+    }
+
     void OnTriggerEnter( Collider other )                       //좀비 트리거콜라이더에 enter했을때
     {
         if (PV.IsMine) {
@@ -164,6 +182,11 @@ public class Player : PlayerController
             if (other.CompareTag("Enemy"))
             {
                 Hp = -(other.GetComponentInParent<EnemyController>().damage);  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
+            }
+            else if(other.CompareTag("EnemyProjectile"))
+            {
+                Hp = -(other.GetComponent<EliteRangeEnemyProjectile>().damage);
+                other.gameObject.SetActive(false);
             }
         }
     }
@@ -786,6 +809,13 @@ public class Player : PlayerController
         animator.SetBool(animString, false);
         if(handAnim != null)
         handAnim.SetBool(animString, false);
+    }
+
+    IEnumerator DotDamage(EliteRangeEnemyDotArea _EREP)
+    {
+        Hp = -_EREP.dotDamage;
+        yield return new WaitForSeconds(_EREP.dotDelay);
+        dotCoroutine = null;
     }
 
     // 플레이어 동기화
