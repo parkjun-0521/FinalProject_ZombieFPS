@@ -20,6 +20,7 @@ public class BossPhobos : EnemyController
             {
                 ChangeHp(value);                   //hp를 value만큼 더함 즉 피해량을 양수로하면 힐이됨 음수로 해야함 여기서 화면 시뻘겋게 and 연두색도함             
                 Debug.Log(hp);
+    
             }
         }
     }
@@ -47,6 +48,7 @@ public class BossPhobos : EnemyController
         //    nav.enabled = false;
         //}
     }
+    
     private void Start()
     {
         players = GameObject.FindGameObjectsWithTag("Player");
@@ -59,6 +61,8 @@ public class BossPhobos : EnemyController
         Physics.IgnoreCollision(players[0].GetComponent<Collider>(), transform.GetComponent<Collider>(), true);
     }
 
+   
+    
     IEnumerator Trace()
     {
         while(state != State.dead)             //안죽었으면 0.5초마다 가까이있는 플레이어 추격
@@ -98,15 +102,30 @@ public class BossPhobos : EnemyController
             StartCoroutine(AnimationFalse("isSwing"));
             yield return new WaitForSeconds(2.5f);
         }
-        else
+        else if(randomNum < 90)
         {
             ani.SetBool("isShockWave", true);
             StartCoroutine(AnimationFalse("isShockWave"));
             yield return new WaitForSeconds(3.75f);
         }
+        else if (randomNum < 100)
+        {
+            StartCoroutine(DashPattern());
+            yield break;
+        }
+        //else if(randomNum < 100)
+        //{
+        //    ani.SetBool("isThunder", true);
+        //    StartCoroutine(AnimationFalse("isThunder"));
+        //    yield return new WaitForSeconds(2.0f);
+        //    foreach (GameObject player in players)
+        //    {
+        //         player.transform.position + Random.insideUnitSphere......
+        //    }
+        //}
 
-        
-        
+
+
         StartCoroutine(Trace());
     }
 
@@ -150,6 +169,9 @@ public class BossPhobos : EnemyController
         else if (other.CompareTag("Grenade"))
         {
             Hp = -(other.GetComponentInParent<ItemGrenade>().itemData.damage);
+        }else if(other.CompareTag("Player"))
+        {
+            other.GetComponent<PlayerController>().rigid.AddForce((other.transform.position - transform.position).normalized * 3.0f, ForceMode.Impulse);
         }
     }
 
