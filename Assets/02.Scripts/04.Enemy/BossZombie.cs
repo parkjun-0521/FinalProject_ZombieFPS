@@ -221,13 +221,13 @@ public class BossZombie : EnemyController {
 
             float versusDist = Vector3.Distance(transform.position, playerTr.position);
 
-            nav.isStopped = (versusDist < 3f) ? true : false;
+            nav.isStopped = (versusDist < 18f) ? true : false;
 
             AttackCooltime += Time.deltaTime;
 
-            if (AttackCooltime > 5f) {
-                if ((playerTr.position - transform.position).magnitude > 10f) {
-                    randPattern = Random.Range(3,5);
+            if (AttackCooltime > 3f) {
+                if ((playerTr.position - transform.position).magnitude > 25f) {
+                    randPattern = 4;
                     nav.isStopped = true;
                     OnEnemyRun -= EnemyRun;
                 }
@@ -241,8 +241,10 @@ public class BossZombie : EnemyController {
             nextAttack += Time.deltaTime;
             if (nextAttack > meleeDelay) {
                 nav.isStopped = true;
+                Debug.Log("공격");
                 if (randPattern < 3) {
-                    randPattern = Random.Range(0, 3);   // 기본 공격 패턴 선택
+                    //randPattern = Random.Range(0, 3);   // 기본 공격 패턴 선택
+                    randPattern = 3;
                 }
                 switch (randPattern) {
                     case 0:
@@ -298,8 +300,35 @@ public class BossZombie : EnemyController {
         nav.isStopped = false;
     }
 
+
+    IEnumerator BossPattern4()                  // 토사물 뱉기 
+    {
+        OnEnemyAttack -= EnemyMeleeAttack;
+        ani.SetBool("isAttack5", true);
+
+        for (int i = 0; i < 30; i++) {
+            LaunchProjectile(playerTr.position); // 플레이어의 현재 위치를 향해 발사
+            yield return new WaitForSeconds(0.1f); // 각 투사체 발사 간의 간격
+        }
+
+        yield return new WaitForSeconds(0.4f);
+        AttackCooltime = 0;
+        OnEnemyAttack += EnemyMeleeAttack;
+        OnEnemyRun += EnemyRun;
+        ani.SetBool("isAttack5", false);
+        nav.isStopped = false;
+        randPattern = 0;
+    }
+    void LaunchProjectile( Vector3 target ) {
+        GameObject projectile = Instantiate(projectilePrefab, bulletPos.position, Quaternion.identity);
+        Rigidbody rb = projectile.GetComponent<Rigidbody>();
+        Vector3 firingDirection = (target - bulletPos.position).normalized;
+        rb.velocity = firingDirection * 30f; // 속도 설정
+    }
+
+
     // 일정 거리 이상 멀어지면 특수 패턴 4,5
-    IEnumerator BossPattern4()                  // 날아오기 
+    IEnumerator BossPattern5()                  // 날아오기 
     {
         OnEnemyAttack -= EnemyMeleeAttack;
         ani.SetBool("isAttack4", true);
@@ -323,32 +352,6 @@ public class BossZombie : EnemyController {
         ani.SetBool("isAttack4", false);  // 애니메이션 종료
         nav.isStopped = false;            // 네비게이션 이동 재개
         randPattern = 0;                  // 패턴 초기화
-    }
-
-    IEnumerator BossPattern5()                  // 토사물 뱉기 
-    {
-        OnEnemyAttack -= EnemyMeleeAttack;
-        ani.SetBool("isAttack5", true);
-
-        for (int i = 0; i < 30; i++) {
-            LaunchProjectile(playerTr.position); // 플레이어의 현재 위치를 향해 발사
-            yield return new WaitForSeconds(0.1f); // 각 투사체 발사 간의 간격
-        }
-
-        yield return new WaitForSeconds(0.4f);
-        AttackCooltime = 0;
-        OnEnemyAttack += EnemyMeleeAttack;
-        OnEnemyRun += EnemyRun;
-        ani.SetBool("isAttack5", false);
-        nav.isStopped = false;
-        randPattern = 0;
-    }
-    void LaunchProjectile(Vector3 target)
-    {
-        GameObject projectile = Instantiate(projectilePrefab, bulletPos.position, Quaternion.identity);
-        Rigidbody rb = projectile.GetComponent<Rigidbody>();
-        Vector3 firingDirection = (target - bulletPos.position).normalized;
-        rb.velocity = firingDirection * 10f; // 속도 설정
     }
 
     public override void EnemyDead()
