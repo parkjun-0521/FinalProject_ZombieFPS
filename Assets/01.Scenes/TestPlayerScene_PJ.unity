@@ -236,6 +236,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Mycolor: {r: 0.008547783, g: 0, b: 1, a: 1}
   Myraduis: 100
+--- !u!1 &182403757
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 182403758}
+  m_Layer: 0
+  m_Name: Pos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &182403758
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 182403757}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -59.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &257110864
 GameObject:
   m_ObjectHideFlags: 0
@@ -760,7 +791,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1630550487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -773,12 +804,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f912191e0160ff499e29e74090243cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
-  runSpeed: 15
-  meleeDelay: 1
-  nextAttack: 2
+  speed: 1
+  runSpeed: 1
+  meleeDelay: 5
+  nextAttack: 5
   rangeOut: 100
   resetSpeed: 5
+  enemySpawn: {fileID: 182403758}
   rad: 20
   distance: 10
   layermask:
@@ -798,7 +830,7 @@ MonoBehaviour:
   splitZombies: []
   bloodParticle: {fileID: 198000011254678926, guid: abb9f519b142e304d9c45b56afa768bc, type: 3}
   targetChangeInterval: 10
-  projectilePrefab: {fileID: 7353337062190722360, guid: 6668ee07ce9b4ae48928bdedc137133b, type: 3}
+  projectilePrefab: {fileID: 3102988656494671107, guid: 72ce0ed0184286241b3cc455f2e2d116, type: 3}
   bulletPos: {fileID: 1992142692}
 --- !u!114 &1630550488
 MonoBehaviour:
@@ -900,7 +932,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1630550486}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 4
   m_Height: 15
   m_Direction: 2
@@ -913,7 +945,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1630550486}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: -10.150002}
+  m_LocalPosition: {x: 0, y: 3, z: -38.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1009,6 +1041,8 @@ MonoBehaviour:
   - {fileID: 1154866981055428311, guid: a108f6ef665f5ad428bdc9b50ce24b16, type: 3}
   - {fileID: 1906925458537638691, guid: 288a8b07f24ecdf45a82f048319023f1, type: 3}
   - {fileID: 1000012909287652, guid: abb9f519b142e304d9c45b56afa768bc, type: 3}
+  - {fileID: 3102988656494671107, guid: 72ce0ed0184286241b3cc455f2e2d116, type: 3}
+  - {fileID: 4889826314365492729, guid: 713818370a4968e4f89b0e74c026ef2f, type: 3}
 --- !u!4 &1787278799
 Transform:
   m_ObjectHideFlags: 0

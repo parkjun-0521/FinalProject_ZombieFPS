@@ -16,7 +16,7 @@ interface IPlayer {
     void PlayerDead();                  // 플레이어 사망 
 }
 
-public abstract class PlayerController : MonoBehaviourPunCallbacks, IPlayer, IPunObservable
+public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservable
 {
     [Header("이동=======")]
     // 플레이어 이동속도 

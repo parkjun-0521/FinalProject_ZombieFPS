@@ -7,7 +7,7 @@ using UnityEngine.AI;
 
 public class BossZombie : EnemyController {
     public delegate void EnemymoveHandle();
-    public static event EnemymoveHandle OnEnemyReset, OnEnemyMove, OnEnemyTracking, OnEnemyRun, OnEnemyAttack, OnEnemyDead;
+    public static event EnemymoveHandle OnEnemyReset, OnEnemyMove, OnEnemyTracking, OnEnemyRun, OnEnemyAttack, OnEnemyDead, OnChangeTarget;
 
     //공격
     public GameObject attackColliderPrefab;
@@ -39,6 +39,7 @@ public class BossZombie : EnemyController {
     float AttackCooltime;
     public GameObject projectilePrefab;
     public Transform bulletPos;
+    bool isAppear = false;
 
     void Awake()
     {
@@ -58,11 +59,12 @@ public class BossZombie : EnemyController {
             OnEnemyRun += EnemyRun;
             OnEnemyAttack += EnemyMeleeAttack;
             OnEnemyDead += EnemyDead;
-
+            OnChangeTarget += ChangeTarget;
             hp = maxHp;
             bloodParticle.Stop();
             // 초기에 데미지 지정 
             // damage = 20f;
+            ani.SetBool("isAppear", true);
         }
     }
 
@@ -75,6 +77,7 @@ public class BossZombie : EnemyController {
             OnEnemyRun -= EnemyRun;
             OnEnemyAttack -= EnemyMeleeAttack;
             OnEnemyDead -= EnemyDead;
+            OnChangeTarget -= ChangeTarget;
         }
     }
 
@@ -97,7 +100,7 @@ public class BossZombie : EnemyController {
             // 어그로 전환 
             targetChangeTimer -= Time.deltaTime;
             if (targetChangeTimer <= 0) {
-                ChangeTarget();
+                OnChangeTarget?.Invoke();
                 targetChangeTimer = targetChangeInterval;
             }
 
@@ -135,6 +138,8 @@ public class BossZombie : EnemyController {
     void OnTriggerEnter(Collider other)                       //총알, 근접무기...triggerEnter
     {
         if (PV.IsMine) {
+            if (isAppear) return;
+
             if (other.CompareTag("Bullet"))             // 총알과 trigger
             {
                 Hp = -(other.GetComponent<Bullet>().itemData.damage);  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
@@ -179,12 +184,26 @@ public class BossZombie : EnemyController {
     void RandomMove()
     {
         if (PV.IsMine) {
+            if (ani.GetBool("isAppear")) {
+                OnEnemyReset -= ResetEnemy;
+                OnEnemyMove -= RandomMove;
+                OnEnemyTracking -= EnemyTracking;
+                OnEnemyRun -= EnemyRun;
+                OnEnemyAttack -= EnemyMeleeAttack;
+                OnEnemyDead -= EnemyDead;
+                OnChangeTarget -= ChangeTarget;
+                StartCoroutine(AppearEnemy());
+                return;
+            }
+            isAppear = true;
+
             isWalk = true;
             float dirX = Random.Range(-40, 40);
             float dirZ = Random.Range(-40, 40);
             Vector3 dest = new Vector3(dirX, 0, dirZ);
             transform.LookAt(dest);
             Vector3 toOrigin = enemySpawn.position - transform.position;
+            ani.SetBool("isWalk", true);
 
             //일정 범위를 나가면
             if (toOrigin.magnitude > rangeOut) {
@@ -208,10 +227,23 @@ public class BossZombie : EnemyController {
         }
     }
 
+    IEnumerator AppearEnemy() {
+        yield return new WaitForSeconds(12f);
+        ani.SetBool("isAppear", false);
+        OnEnemyReset += ResetEnemy;
+        OnEnemyMove += RandomMove;
+        OnEnemyTracking += EnemyTracking;
+        OnEnemyRun += EnemyRun;
+        OnEnemyAttack += EnemyMeleeAttack;
+        OnEnemyDead += EnemyDead;
+        OnChangeTarget += ChangeTarget;
+    }
+
     public override void EnemyRun()
     {
         if (PV.IsMine) {
             OnEnemyMove -= RandomMove;
+            transform.LookAt(playerTr);
             isRun = true;
             nav.speed = runSpeed;
             ani.SetBool("isRun", true);
@@ -221,12 +253,13 @@ public class BossZombie : EnemyController {
 
             float versusDist = Vector3.Distance(transform.position, playerTr.position);
 
-            nav.isStopped = (versusDist < 18f) ? true : false;
+            nav.isStopped = (versusDist < 17f) ? true : false;
 
             AttackCooltime += Time.deltaTime;
 
             if (AttackCooltime > 3f) {
                 if ((playerTr.position - transform.position).magnitude > 25f) {
+                    meleeDelay = 1;
                     randPattern = 4;
                     nav.isStopped = true;
                     OnEnemyRun -= EnemyRun;
@@ -243,8 +276,7 @@ public class BossZombie : EnemyController {
                 nav.isStopped = true;
                 Debug.Log("공격");
                 if (randPattern < 3) {
-                    //randPattern = Random.Range(0, 3);   // 기본 공격 패턴 선택
-                    randPattern = 3;
+                    randPattern = Random.Range(0, 4);   // 기본 공격 패턴 선택
                 }
                 switch (randPattern) {
                     case 0:
@@ -273,28 +305,39 @@ public class BossZombie : EnemyController {
     IEnumerator BossPattern1()
     {
         OnEnemyAttack -= EnemyMeleeAttack;
+        isWalk = false;
         ani.SetBool("isAttack1", true);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(3f);
+        meleeDelay = 2;
         OnEnemyAttack += EnemyMeleeAttack;
+        isWalk = true;
         ani.SetBool("isAttack1", false);
         nav.isStopped = false;
     }
     IEnumerator BossPattern2()
     {
         OnEnemyAttack -= EnemyMeleeAttack;
+        isWalk = false;
         ani.SetBool("isAttack2", true);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(15f);
+        meleeDelay = 4;
         OnEnemyAttack += EnemyMeleeAttack;
+        isWalk = true;
         ani.SetBool("isAttack2", false);
         nav.isStopped = false;
     }
     IEnumerator BossPattern3()
     {
         OnEnemyAttack -= EnemyMeleeAttack;
+        isWalk = false;
         ani.SetBool("isAttack3", true);
         damage = 30f;                               // 증가 데미지
-        yield return new WaitForSeconds(0.5f);
+        ani.applyRootMotion = true;
+        yield return new WaitForSeconds(4f);
+        meleeDelay = 2;
+        ani.applyRootMotion = false;
         OnEnemyAttack += EnemyMeleeAttack;
+        isWalk = true;
         damage = baseDamage;                        // 원래 데미지
         ani.SetBool("isAttack3", false);
         nav.isStopped = false;
@@ -304,23 +347,27 @@ public class BossZombie : EnemyController {
     IEnumerator BossPattern4()                  // 토사물 뱉기 
     {
         OnEnemyAttack -= EnemyMeleeAttack;
-        ani.SetBool("isAttack5", true);
-
-        for (int i = 0; i < 30; i++) {
+        isWalk = false;
+        ani.SetBool("isAttack4", true);
+        for (int i = 0; i < 60; i++) {
             LaunchProjectile(playerTr.position); // 플레이어의 현재 위치를 향해 발사
-            yield return new WaitForSeconds(0.1f); // 각 투사체 발사 간의 간격
+            yield return new WaitForSeconds(0.1f); // 각 투사체 발사 간의 간격   
         }
-
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(1f);
+        meleeDelay = 6;
         AttackCooltime = 0;
         OnEnemyAttack += EnemyMeleeAttack;
-        OnEnemyRun += EnemyRun;
-        ani.SetBool("isAttack5", false);
+        OnEnemyMove += RandomMove;
+        isWalk = true;
+        ani.SetBool("isAttack4", false);
         nav.isStopped = false;
         randPattern = 0;
     }
     void LaunchProjectile( Vector3 target ) {
-        GameObject projectile = Instantiate(projectilePrefab, bulletPos.position, Quaternion.identity);
+        GameObject projectile = Pooling.instance.GetObject("EliteRangeZombieProjectile");
+        projectile.transform.position = bulletPos.transform.position;
+        projectile.transform.rotation = Quaternion.identity;
+
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
         Vector3 firingDirection = (target - bulletPos.position).normalized;
         rb.velocity = firingDirection * 30f; // 속도 설정
@@ -331,7 +378,7 @@ public class BossZombie : EnemyController {
     IEnumerator BossPattern5()                  // 날아오기 
     {
         OnEnemyAttack -= EnemyMeleeAttack;
-        ani.SetBool("isAttack4", true);
+        ani.SetBool("isAttack5", true);
         Vector3 startPosition = transform.position;
         Vector3 endPosition = playerTr.position;
         float duration = 0.5f; 
@@ -344,12 +391,12 @@ public class BossZombie : EnemyController {
         }
         transform.position = endPosition;   // 최종 위치에 정확히 배치
         rigid.velocity = Vector3.zero;      // 속도 초기화
-
+        meleeDelay = 4f;
         yield return new WaitForSeconds(0.5f);
         AttackCooltime = 0;
         OnEnemyAttack += EnemyMeleeAttack; // 공격 가능 상태로 복귀
         OnEnemyRun += EnemyRun;
-        ani.SetBool("isAttack4", false);  // 애니메이션 종료
+        ani.SetBool("isAttack5", false);  // 애니메이션 종료
         nav.isStopped = false;            // 네비게이션 이동 재개
         randPattern = 0;                  // 패턴 초기화
     }
@@ -358,6 +405,14 @@ public class BossZombie : EnemyController {
     {
         if (hp <= 0 && PV.IsMine) {
             ani.SetBool("isDeath", true);
+            OnEnemyReset -= ResetEnemy;
+            OnEnemyMove -= RandomMove;
+            OnEnemyTracking -= EnemyTracking;
+            OnEnemyRun -= EnemyRun;
+            OnEnemyAttack -= EnemyMeleeAttack;
+            OnEnemyDead -= EnemyDead;
+            OnChangeTarget -= ChangeTarget;
+            isWalk = false;
         }
     }
 

@@ -62,20 +62,22 @@ public class UIManager : MonoBehaviourPun
     {
         if (photonView.IsMine) {
             Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
-            if (player.inventory.activeSelf && Input.GetKeyDown(InputKeyManager.instance.GetKeyCode(KeyCodeTypes.Setting))){
-                return;
-            }
-            else if (!isCountSetting && Input.GetKeyDown(InputKeyManager.instance.GetKeyCode(KeyCodeTypes.Setting))) {
-                SettingUI.SetActive(true);
-                isCountSetting = true;
-                player.cursorLocked = true;
-                player.ToggleCursor();
-            }
-            else if (isCountSetting && Input.GetKeyDown(InputKeyManager.instance.GetKeyCode(KeyCodeTypes.Setting))) {
-                SettingUI.SetActive(false);
-                isCountSetting = false;
-                player.cursorLocked = false;
-                player.ToggleCursor();
+            if (player != null) {
+                if (player.inventory.activeSelf && Input.GetKeyDown(InputKeyManager.instance.GetKeyCode(KeyCodeTypes.Setting))) {
+                    return;
+                }
+                else if (!isCountSetting && Input.GetKeyDown(InputKeyManager.instance.GetKeyCode(KeyCodeTypes.Setting))) {
+                    SettingUI.SetActive(true);
+                    isCountSetting = true;
+                    player.cursorLocked = true;
+                    player.ToggleCursor();
+                }
+                else if (isCountSetting && Input.GetKeyDown(InputKeyManager.instance.GetKeyCode(KeyCodeTypes.Setting))) {
+                    SettingUI.SetActive(false);
+                    isCountSetting = false;
+                    player.cursorLocked = false;
+                    player.ToggleCursor();
+                }
             }
         }
     }

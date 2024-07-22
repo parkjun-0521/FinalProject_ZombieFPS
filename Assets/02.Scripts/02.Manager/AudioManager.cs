@@ -19,7 +19,35 @@ public class AudioManager : MonoBehaviour
     int channelIndex;               //  채널 인텍스 
 
     // Sfx 클립에 사운드 넣고 그 사운드 순서대로 enum 작성 
-    public enum Sfx { Dead, Hit, Walk, Run, Jump, Shot, Melee, Granede, Heal }
+    public enum Sfx { 
+        MediKit,                // 힐팩 사용
+        Player_Death,           // 플레이어 죽음 
+        Player_death_BGM,       // 죽은 이후 BGM 
+        Player_door,            // 문여는 소리 
+        Player_explosion,       // 수류탄 폭발 
+        Player_granede,         // 수류탄 던지는 소리 
+        Player_gun2,            // 총 소리     
+        Player_help,            // 기절 소리 
+        Player_hurt,            // 피격 소리 
+        Player_item,            // 아이템 습득 소리 
+        Player_jump,            // 점프 소리 
+        Player_knife = 12,      // 11,12 칼 소리 ( 랜덤 ) 
+        Player_run2,            // 달리기 
+        Player_walk3,           // 걷기 
+        UI_Button,              // UI 버튼 
+        Zombie_attack,          // 좀비 공격 0
+        Zombie_attack1,         // 좀비 공격 1
+        Zombie_attack2,         // 좀비 공격 2
+        Zombie_attack3,         // 좀비 공격 3
+        Zombie_attack4,         // 좀비 공격 4
+        Zombie_attack5,         // 좀비 공격 5
+        Zombie_attack6,         // 좀비 공격 6
+        Zombie_dead1,           // 좀비 죽는 소리 
+        Zombie_explosion = 25,  // 24, 25 좀비 터지는 소리 랜덤 
+        Zombie_hurt = 27,       // 26, 27 좀비 피격 소리 랜덤 
+        Zombie_run,             // 좀비 달리기 
+        Zombie_walk             // 좀비 걷기 
+    }
 
     void Awake()
     {
@@ -78,7 +106,7 @@ public class AudioManager : MonoBehaviour
                 continue;
 
             int randIndex = 0;
-            if(sfx == Sfx.Hit || sfx == Sfx.Melee) {
+            if (sfx == Sfx.Player_knife || sfx == Sfx.Zombie_explosion || sfx == Sfx.Zombie_hurt) {
                 randIndex = Random.Range(0, 2);
             }
 

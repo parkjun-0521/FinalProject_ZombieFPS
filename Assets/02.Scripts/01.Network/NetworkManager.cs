@@ -139,7 +139,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
     private Vector3 GetRandomSpawnPosition() {
         // 임의의 스폰 위치를 반환 (예시로 10x10 범위 내에서 무작위 위치를 선택)
         float x = Random.Range(-5f, 5f);
-        float y = 0f; // 평면 상에 위치시키기 위해 y 좌표는 0으로 설정
+        float y = 1f; // 평면 상에 위치시키기 위해 y 좌표는 0으로 설정
         float z = Random.Range(-5f, 5f);
         return new Vector3(x, y, z);
     }

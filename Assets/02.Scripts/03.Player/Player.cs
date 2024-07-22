@@ -113,10 +113,7 @@ public class Player : PlayerController
             }
 
             // 공격 이후 애니메이션 
-            if (Input.GetKeyUp(keyManager.GetKeyCode(KeyCodeTypes.Attack))
-                
-                
-                )
+            if (Input.GetKeyUp(keyManager.GetKeyCode(KeyCodeTypes.Attack)))
             {
                 animator.SetBool("isRifleMoveShot", false);
             }
@@ -211,10 +208,12 @@ public class Player : PlayerController
             if (other.CompareTag("Enemy"))
             {
                 Hp = -(other.GetComponentInParent<EnemyController>().damage);  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_hurt);
             }
             else if(other.CompareTag("EnemyProjectile"))
             {
                 Hp = -(other.GetComponent<EliteRangeEnemyProjectile>().damage);
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_hurt);
                 other.gameObject.SetActive(false);
             }
         }
@@ -269,7 +268,10 @@ public class Player : PlayerController
 
             if (isMove) {
                 animator.SetFloat("speedBlend", type ? 1.0f : 0.5f);
-                //AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Walk);
+                if(type)
+                    AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_run2);
+                else
+                    AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_walk3);
             }
             else
                 animator.SetFloat("speedBlend", 0);
@@ -293,6 +295,7 @@ public class Player : PlayerController
         // 땅에 붙어있을 때 점프
         if (PV.IsMine) {
             rigid.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_jump);
             isJump = false; 
         }
     }
@@ -300,6 +303,7 @@ public class Player : PlayerController
     // 인벤토리 활성화
     public void PlayerInventory() {
         if (PV.IsMine) {
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.UI_Button);
             cursorLocked = true;
             ToggleCursor();
             inventory.SetActive(true);
@@ -308,6 +312,7 @@ public class Player : PlayerController
     // 인벤토리 비활성화
     public void InventoryClose() {
         if (PV.IsMine) {
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.UI_Button);
             cursorLocked = false;
             ToggleCursor();
             inventory.SetActive(false);
@@ -327,7 +332,8 @@ public class Player : PlayerController
                     if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
                     {
                         ItemPickUp(hit.collider.gameObject);
-                        if(hit.collider.GetComponent<ItemPickUp>().item.type == ItemController.ItemType.Magazine) {
+                        AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_item);
+                        if (hit.collider.GetComponent<ItemPickUp>().item.type == ItemController.ItemType.Magazine) {
                             UIManager.Instance.UpdateTotalBulletCount(theInventory.CalculateTotalItems(ItemController.ItemType.Magazine));
                         }
                     }
@@ -453,6 +459,7 @@ public class Player : PlayerController
                 return;
 
             Debug.Log("칼 공격");
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_knife);
             animator.SetBool("isMeleeWeaponSwing", true);          //외부에서 보여질때 애니메이션
             handAnimator.SetBool("isMeleeWeaponSwing", true);   //플레이어 1인칭 애니메이션
             StartCoroutine(AnimReset("isMeleeWeaponSwing", handAnimator));
@@ -507,6 +514,7 @@ public class Player : PlayerController
             GameObject bullet = Pooling.instance.GetObject("Bullet");   // 총알 생성 
             bullet.transform.position = bulletPos.position;             // bullet 위치 초기화
             bullet.transform.rotation = Quaternion.identity;            // bullet 회전값 초기화
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_gun2);
 
             TrailRenderer trail = bullet.GetComponent<TrailRenderer>();
             if (trail != null) {
@@ -538,7 +546,7 @@ public class Player : PlayerController
         yield return new WaitForSeconds(2f);
         Debug.Log("2초간 장전중");
         // 여기에 뭔가 애니메이션이나 사운드 넣어줘야 할듯 
-
+        // AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_run2);   // 장전 사운드 
         int availableBullets = theInventory.CalculateTotalItems(ItemController.ItemType.Magazine); // 이 메소드는 인벤토리에서 사용 가능한 모든 총알의 수를 반환해야 함
 
         if (availableBullets > 0) {
@@ -567,9 +575,9 @@ public class Player : PlayerController
                 return;
    
             Debug.Log("힐팩");
-
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.MediKit);
             //힐 하는시간 변수로 빼고 대충 중앙에 ui띄우고 힐 하는시간 지나면 Hp = (+30) 코루틴사용이 좋겠지 중간에 키입력시 return 애니메이션추가;
-            
+
         }
     }
 
@@ -594,7 +602,7 @@ public class Player : PlayerController
 
             GameObject grenade = Pooling.instance.GetObject("GrenadeObject");   // 수류탄 생성 
             Rigidbody grenadeRigid = grenade.GetComponent<Rigidbody>();
-
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_granede);
             // 초기 위치 설정
             grenadeRigid.velocity = Vector3.zero;               // 생성 시 가속도 초기화
             grenade.transform.position = grenadePos.position;   // bullet 위치 초기화                   
@@ -724,6 +732,7 @@ public class Player : PlayerController
     public override void PlayerFaint() {
         if (hp <= 0)                            //만약 플레이어 체력이 0보다 작아지면
         {
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_help);
             hp = 0;                             //여기서 hp를 0 으로 강제로 해줘야 부활, ui에서 편할거같음
             isFaint = true;                     //기절상태 true
             OnPlayerMove -= PlayerMove;
@@ -762,6 +771,7 @@ public class Player : PlayerController
     {
         if (hp <= 0 && isFaint)                            //만약 플레이어 체력이 0보다 작고 기절상태
         {
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_Death);
             hp = 0;                                 //여기서 hp를 0   //anim.setbool("isFaint", true);    //기절 애니메이션 출력 나중에 플레이어 완성되면 추가
             animator.SetBool("isDead", true);          //죽었을때 애니메이션 출력
             StartCoroutine(AnimReset("isDead"));
@@ -900,11 +910,13 @@ public class Player : PlayerController
         animator.SetBool(animString, false);
         if(handAnim != null)
         handAnim.SetBool(animString, false);
+        AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_death_BGM);
     }
 
     IEnumerator DotDamage(EliteRangeEnemyDotArea _EREP)
     {
         Hp = -_EREP.dotDamage;
+        AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_hurt);
         yield return new WaitForSeconds(_EREP.dotDelay);
         dotCoroutine = null;
     }
