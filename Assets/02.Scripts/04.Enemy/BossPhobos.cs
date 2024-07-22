@@ -18,7 +18,7 @@ public class BossPhobos : EnemyController
             if (state == State.dead) return;
             if (hp > 0)
             {
-                ChangeHp(value);                   //hp를 value만큼 더함 즉 피해량을 양수로하면 힐이됨 음수로 해야함 여기서 화면 시뻘겋게 and 연두색도함             
+                ChangeHp(value);                   
                 Debug.Log(hp);
     
             }
@@ -146,7 +146,13 @@ public class BossPhobos : EnemyController
         StartCoroutine(Trace());
     }
 
-
+    IEnumerator ThunderPattern()
+    {
+        StopCoroutine(Trace());
+        ani.SetBool("isThunder", true);
+        StartCoroutine(AnimationFalse("isThunder"));
+        yield return new WaitForSeconds(7.0f);
+    }
 
 
 
