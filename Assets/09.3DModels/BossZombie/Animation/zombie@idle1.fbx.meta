@@ -1,0 +1,2409 @@
+fileFormatVersion: 2
+guid: 405cc66023949b342b7d10a3232b2fb7
+ModelImporter:
+  serializedVersion: 21202
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: group
+  - first:
+      1: 100002
+    second: group1
+  - first:
+      1: 100004
+    second: group2
+  - first:
+      1: 100006
+    second: sborka_pod_uv_sdelannaya_Group13926
+  - first:
+      1: 100008
+    second: sborka_pod_uv_sdelannaya_Group15900
+  - first:
+      1: 100010
+    second: sborka_pod_uv_sdelannaya_Group29814
+  - first:
+      1: 100012
+    second: sborka_pod_uv_sdelannaya_Group31792
+  - first:
+      1: 100014
+    second: sborka_pod_uv_sdelannaya_Group45701
+  - first:
+      1: 100016
+    second: sborka_pod_uv_sdelannaya_Group47683
+  - first:
+      1: 100018
+    second: sborka_pod_uv_sdelannaya_Group63573
+  - first:
+      1: 100020
+    second: //RootNode
+  - first:
+      1: 100022
+    second: Zombie_Ctrl_ChestEndEffector
+  - first:
+      1: 100024
+    second: Zombie_Ctrl_ChestOriginEffector
+  - first:
+      1: 100026
+    second: Zombie_Ctrl_Head
+  - first:
+      1: 100028
+    second: Zombie_Ctrl_HeadEffector
+  - first:
+      1: 100030
+    second: Zombie_Ctrl_Hips
+  - first:
+      1: 100032
+    second: Zombie_Ctrl_HipsEffector
+  - first:
+      1: 100034
+    second: Zombie_Ctrl_LeftAnkleEffector
+  - first:
+      1: 100036
+    second: Zombie_Ctrl_LeftArm
+  - first:
+      1: 100038
+    second: Zombie_Ctrl_LeftElbowEffector
+  - first:
+      1: 100040
+    second: Zombie_Ctrl_LeftFoot
+  - first:
+      1: 100042
+    second: Zombie_Ctrl_LeftFootEffector
+  - first:
+      1: 100044
+    second: Zombie_Ctrl_LeftForeArm
+  - first:
+      1: 100046
+    second: Zombie_Ctrl_LeftHand
+  - first:
+      1: 100048
+    second: Zombie_Ctrl_LeftHandIndex1
+  - first:
+      1: 100050
+    second: Zombie_Ctrl_LeftHandIndex2
+  - first:
+      1: 100052
+    second: Zombie_Ctrl_LeftHandIndex3
+  - first:
+      1: 100054
+    second: Zombie_Ctrl_LeftHandIndex4
+  - first:
+      1: 100056
+    second: Zombie_Ctrl_LeftHandIndexEffector
+  - first:
+      1: 100058
+    second: Zombie_Ctrl_LeftHandMiddle1
+  - first:
+      1: 100060
+    second: Zombie_Ctrl_LeftHandMiddle2
+  - first:
+      1: 100062
+    second: Zombie_Ctrl_LeftHandMiddle3
+  - first:
+      1: 100064
+    second: Zombie_Ctrl_LeftHandMiddle4
+  - first:
+      1: 100066
+    second: Zombie_Ctrl_LeftHandMiddleEffector
+  - first:
+      1: 100068
+    second: Zombie_Ctrl_LeftHandPinky1
+  - first:
+      1: 100070
+    second: Zombie_Ctrl_LeftHandPinky2
+  - first:
+      1: 100072
+    second: Zombie_Ctrl_LeftHandPinky3
+  - first:
+      1: 100074
+    second: Zombie_Ctrl_LeftHandPinky4
+  - first:
+      1: 100076
+    second: Zombie_Ctrl_LeftHandPinkyEffector
+  - first:
+      1: 100078
+    second: Zombie_Ctrl_LeftHandRing1
+  - first:
+      1: 100080
+    second: Zombie_Ctrl_LeftHandRing2
+  - first:
+      1: 100082
+    second: Zombie_Ctrl_LeftHandRing3
+  - first:
+      1: 100084
+    second: Zombie_Ctrl_LeftHandRing4
+  - first:
+      1: 100086
+    second: Zombie_Ctrl_LeftHandRingEffector
+  - first:
+      1: 100088
+    second: Zombie_Ctrl_LeftHandThumb1
+  - first:
+      1: 100090
+    second: Zombie_Ctrl_LeftHandThumb2
+  - first:
+      1: 100092
+    second: Zombie_Ctrl_LeftHandThumb3
+  - first:
+      1: 100094
+    second: Zombie_Ctrl_LeftHandThumb4
+  - first:
+      1: 100096
+    second: Zombie_Ctrl_LeftHandThumbEffector
+  - first:
+      1: 100098
+    second: Zombie_Ctrl_LeftHipEffector
+  - first:
+      1: 100100
+    second: Zombie_Ctrl_LeftKneeEffector
+  - first:
+      1: 100102
+    second: Zombie_Ctrl_LeftLeg
+  - first:
+      1: 100104
+    second: Zombie_Ctrl_LeftShoulder
+  - first:
+      1: 100106
+    second: Zombie_Ctrl_LeftShoulderEffector
+  - first:
+      1: 100108
+    second: Zombie_Ctrl_LeftToeBase
+  - first:
+      1: 100110
+    second: Zombie_Ctrl_LeftUpLeg
+  - first:
+      1: 100112
+    second: Zombie_Ctrl_LeftWristEffector
+  - first:
+      1: 100114
+    second: Zombie_Ctrl_Neck
+  - first:
+      1: 100116
+    second: Zombie_Ctrl_Reference
+  - first:
+      1: 100118
+    second: Zombie_Ctrl_RightAnkleEffector
+  - first:
+      1: 100120
+    second: Zombie_Ctrl_RightArm
+  - first:
+      1: 100122
+    second: Zombie_Ctrl_RightElbowEffector
+  - first:
+      1: 100124
+    second: Zombie_Ctrl_RightFoot
+  - first:
+      1: 100126
+    second: Zombie_Ctrl_RightFootEffector
+  - first:
+      1: 100128
+    second: Zombie_Ctrl_RightForeArm
+  - first:
+      1: 100130
+    second: Zombie_Ctrl_RightHand
+  - first:
+      1: 100132
+    second: Zombie_Ctrl_RightHandIndex1
+  - first:
+      1: 100134
+    second: Zombie_Ctrl_RightHandIndex2
+  - first:
+      1: 100136
+    second: Zombie_Ctrl_RightHandIndex3
+  - first:
+      1: 100138
+    second: Zombie_Ctrl_RightHandIndex4
+  - first:
+      1: 100140
+    second: Zombie_Ctrl_RightHandIndexEffector
+  - first:
+      1: 100142
+    second: Zombie_Ctrl_RightHandMiddle1
+  - first:
+      1: 100144
+    second: Zombie_Ctrl_RightHandMiddle2
+  - first:
+      1: 100146
+    second: Zombie_Ctrl_RightHandMiddle3
+  - first:
+      1: 100148
+    second: Zombie_Ctrl_RightHandMiddle4
+  - first:
+      1: 100150
+    second: Zombie_Ctrl_RightHandMiddleEffector
+  - first:
+      1: 100152
+    second: Zombie_Ctrl_RightHandPinky1
+  - first:
+      1: 100154
+    second: Zombie_Ctrl_RightHandPinky2
+  - first:
+      1: 100156
+    second: Zombie_Ctrl_RightHandPinky3
+  - first:
+      1: 100158
+    second: Zombie_Ctrl_RightHandPinky4
+  - first:
+      1: 100160
+    second: Zombie_Ctrl_RightHandPinkyEffector
+  - first:
+      1: 100162
+    second: Zombie_Ctrl_RightHandRing1
+  - first:
+      1: 100164
+    second: Zombie_Ctrl_RightHandRing2
+  - first:
+      1: 100166
+    second: Zombie_Ctrl_RightHandRing3
+  - first:
+      1: 100168
+    second: Zombie_Ctrl_RightHandRing4
+  - first:
+      1: 100170
+    second: Zombie_Ctrl_RightHandRingEffector
+  - first:
+      1: 100172
+    second: Zombie_Ctrl_RightHandThumb1
+  - first:
+      1: 100174
+    second: Zombie_Ctrl_RightHandThumb2
+  - first:
+      1: 100176
+    second: Zombie_Ctrl_RightHandThumb3
+  - first:
+      1: 100178
+    second: Zombie_Ctrl_RightHandThumb4
+  - first:
+      1: 100180
+    second: Zombie_Ctrl_RightHandThumbEffector
+  - first:
+      1: 100182
+    second: Zombie_Ctrl_RightHipEffector
+  - first:
+      1: 100184
+    second: Zombie_Ctrl_RightKneeEffector
+  - first:
+      1: 100186
+    second: Zombie_Ctrl_RightLeg
+  - first:
+      1: 100188
+    second: Zombie_Ctrl_RightShoulder
+  - first:
+      1: 100190
+    second: Zombie_Ctrl_RightShoulderEffector
+  - first:
+      1: 100192
+    second: Zombie_Ctrl_RightToeBase
+  - first:
+      1: 100194
+    second: Zombie_Ctrl_RightUpLeg
+  - first:
+      1: 100196
+    second: Zombie_Ctrl_RightWristEffector
+  - first:
+      1: 100198
+    second: Zombie_Ctrl_Spine
+  - first:
+      1: 100200
+    second: Zombie_Ctrl_Spine1
+  - first:
+      1: 100202
+    second: Zombie_Ctrl_Spine2
+  - first:
+      1: 100204
+    second: Zombie_Head
+  - first:
+      1: 100206
+    second: Zombie_Hips
+  - first:
+      1: 100208
+    second: Zombie_LeftArm
+  - first:
+      1: 100210
+    second: Zombie_LeftFoot
+  - first:
+      1: 100212
+    second: Zombie_LeftForeArm
+  - first:
+      1: 100214
+    second: Zombie_LeftHand
+  - first:
+      1: 100216
+    second: Zombie_LeftHandIndex1
+  - first:
+      1: 100218
+    second: Zombie_LeftHandIndex2
+  - first:
+      1: 100220
+    second: Zombie_LeftHandIndex3
+  - first:
+      1: 100222
+    second: Zombie_LeftHandIndex4
+  - first:
+      1: 100224
+    second: Zombie_LeftHandMiddle1
+  - first:
+      1: 100226
+    second: Zombie_LeftHandMiddle2
+  - first:
+      1: 100228
+    second: Zombie_LeftHandMiddle3
+  - first:
+      1: 100230
+    second: Zombie_LeftHandMiddle4
+  - first:
+      1: 100232
+    second: Zombie_LeftHandPinky1
+  - first:
+      1: 100234
+    second: Zombie_LeftHandPinky2
+  - first:
+      1: 100236
+    second: Zombie_LeftHandPinky3
+  - first:
+      1: 100238
+    second: Zombie_LeftHandPinky4
+  - first:
+      1: 100240
+    second: Zombie_LeftHandRing1
+  - first:
+      1: 100242
+    second: Zombie_LeftHandRing2
+  - first:
+      1: 100244
+    second: Zombie_LeftHandRing3
+  - first:
+      1: 100246
+    second: Zombie_LeftHandRing4
+  - first:
+      1: 100248
+    second: Zombie_LeftHandThumb1
+  - first:
+      1: 100250
+    second: Zombie_LeftHandThumb2
+  - first:
+      1: 100252
+    second: Zombie_LeftHandThumb3
+  - first:
+      1: 100254
+    second: Zombie_LeftHandThumb4
+  - first:
+      1: 100256
+    second: Zombie_LeftLeg
+  - first:
+      1: 100258
+    second: Zombie_LeftShoulder
+  - first:
+      1: 100260
+    second: Zombie_LeftToeBase
+  - first:
+      1: 100262
+    second: Zombie_LeftUpLeg
+  - first:
+      1: 100264
+    second: Zombie_low_jaw1
+  - first:
+      1: 100266
+    second: Zombie_low_jaw2
+  - first:
+      1: 100268
+    second: Zombie_low_jaw3
+  - first:
+      1: 100270
+    second: Zombie_Neck
+  - first:
+      1: 100272
+    second: Zombie_Reference
+  - first:
+      1: 100274
+    second: Zombie_RightArm
+  - first:
+      1: 100276
+    second: Zombie_RightFoot
+  - first:
+      1: 100278
+    second: Zombie_RightForeArm
+  - first:
+      1: 100280
+    second: Zombie_RightHand
+  - first:
+      1: 100282
+    second: Zombie_RightHandIndex1
+  - first:
+      1: 100284
+    second: Zombie_RightHandIndex2
+  - first:
+      1: 100286
+    second: Zombie_RightHandIndex3
+  - first:
+      1: 100288
+    second: Zombie_RightHandIndex4
+  - first:
+      1: 100290
+    second: Zombie_RightHandMiddle1
+  - first:
+      1: 100292
+    second: Zombie_RightHandMiddle2
+  - first:
+      1: 100294
+    second: Zombie_RightHandMiddle3
+  - first:
+      1: 100296
+    second: Zombie_RightHandMiddle4
+  - first:
+      1: 100298
+    second: Zombie_RightHandPinky1
+  - first:
+      1: 100300
+    second: Zombie_RightHandPinky2
+  - first:
+      1: 100302
+    second: Zombie_RightHandPinky3
+  - first:
+      1: 100304
+    second: Zombie_RightHandPinky4
+  - first:
+      1: 100306
+    second: Zombie_RightHandRing1
+  - first:
+      1: 100308
+    second: Zombie_RightHandRing2
+  - first:
+      1: 100310
+    second: Zombie_RightHandRing3
+  - first:
+      1: 100312
+    second: Zombie_RightHandRing4
+  - first:
+      1: 100314
+    second: Zombie_RightHandThumb1
+  - first:
+      1: 100316
+    second: Zombie_RightHandThumb2
+  - first:
+      1: 100318
+    second: Zombie_RightHandThumb3
+  - first:
+      1: 100320
+    second: Zombie_RightHandThumb4
+  - first:
+      1: 100322
+    second: Zombie_RightLeg
+  - first:
+      1: 100324
+    second: Zombie_RightShoulder
+  - first:
+      1: 100326
+    second: Zombie_RightToeBase
+  - first:
+      1: 100328
+    second: Zombie_RightUpLeg
+  - first:
+      1: 100330
+    second: Zombie_Spine
+  - first:
+      1: 100332
+    second: Zombie_Spine1
+  - first:
+      1: 100334
+    second: Zombie_Spine2
+  - first:
+      4: 400000
+    second: group
+  - first:
+      4: 400002
+    second: group1
+  - first:
+      4: 400004
+    second: group2
+  - first:
+      4: 400006
+    second: sborka_pod_uv_sdelannaya_Group13926
+  - first:
+      4: 400008
+    second: sborka_pod_uv_sdelannaya_Group15900
+  - first:
+      4: 400010
+    second: sborka_pod_uv_sdelannaya_Group29814
+  - first:
+      4: 400012
+    second: sborka_pod_uv_sdelannaya_Group31792
+  - first:
+      4: 400014
+    second: sborka_pod_uv_sdelannaya_Group45701
+  - first:
+      4: 400016
+    second: sborka_pod_uv_sdelannaya_Group47683
+  - first:
+      4: 400018
+    second: sborka_pod_uv_sdelannaya_Group63573
+  - first:
+      4: 400020
+    second: //RootNode
+  - first:
+      4: 400022
+    second: Zombie_Ctrl_ChestEndEffector
+  - first:
+      4: 400024
+    second: Zombie_Ctrl_ChestOriginEffector
+  - first:
+      4: 400026
+    second: Zombie_Ctrl_Head
+  - first:
+      4: 400028
+    second: Zombie_Ctrl_HeadEffector
+  - first:
+      4: 400030
+    second: Zombie_Ctrl_Hips
+  - first:
+      4: 400032
+    second: Zombie_Ctrl_HipsEffector
+  - first:
+      4: 400034
+    second: Zombie_Ctrl_LeftAnkleEffector
+  - first:
+      4: 400036
+    second: Zombie_Ctrl_LeftArm
+  - first:
+      4: 400038
+    second: Zombie_Ctrl_LeftElbowEffector
+  - first:
+      4: 400040
+    second: Zombie_Ctrl_LeftFoot
+  - first:
+      4: 400042
+    second: Zombie_Ctrl_LeftFootEffector
+  - first:
+      4: 400044
+    second: Zombie_Ctrl_LeftForeArm
+  - first:
+      4: 400046
+    second: Zombie_Ctrl_LeftHand
+  - first:
+      4: 400048
+    second: Zombie_Ctrl_LeftHandIndex1
+  - first:
+      4: 400050
+    second: Zombie_Ctrl_LeftHandIndex2
+  - first:
+      4: 400052
+    second: Zombie_Ctrl_LeftHandIndex3
+  - first:
+      4: 400054
+    second: Zombie_Ctrl_LeftHandIndex4
+  - first:
+      4: 400056
+    second: Zombie_Ctrl_LeftHandIndexEffector
+  - first:
+      4: 400058
+    second: Zombie_Ctrl_LeftHandMiddle1
+  - first:
+      4: 400060
+    second: Zombie_Ctrl_LeftHandMiddle2
+  - first:
+      4: 400062
+    second: Zombie_Ctrl_LeftHandMiddle3
+  - first:
+      4: 400064
+    second: Zombie_Ctrl_LeftHandMiddle4
+  - first:
+      4: 400066
+    second: Zombie_Ctrl_LeftHandMiddleEffector
+  - first:
+      4: 400068
+    second: Zombie_Ctrl_LeftHandPinky1
+  - first:
+      4: 400070
+    second: Zombie_Ctrl_LeftHandPinky2
+  - first:
+      4: 400072
+    second: Zombie_Ctrl_LeftHandPinky3
+  - first:
+      4: 400074
+    second: Zombie_Ctrl_LeftHandPinky4
+  - first:
+      4: 400076
+    second: Zombie_Ctrl_LeftHandPinkyEffector
+  - first:
+      4: 400078
+    second: Zombie_Ctrl_LeftHandRing1
+  - first:
+      4: 400080
+    second: Zombie_Ctrl_LeftHandRing2
+  - first:
+      4: 400082
+    second: Zombie_Ctrl_LeftHandRing3
+  - first:
+      4: 400084
+    second: Zombie_Ctrl_LeftHandRing4
+  - first:
+      4: 400086
+    second: Zombie_Ctrl_LeftHandRingEffector
+  - first:
+      4: 400088
+    second: Zombie_Ctrl_LeftHandThumb1
+  - first:
+      4: 400090
+    second: Zombie_Ctrl_LeftHandThumb2
+  - first:
+      4: 400092
+    second: Zombie_Ctrl_LeftHandThumb3
+  - first:
+      4: 400094
+    second: Zombie_Ctrl_LeftHandThumb4
+  - first:
+      4: 400096
+    second: Zombie_Ctrl_LeftHandThumbEffector
+  - first:
+      4: 400098
+    second: Zombie_Ctrl_LeftHipEffector
+  - first:
+      4: 400100
+    second: Zombie_Ctrl_LeftKneeEffector
+  - first:
+      4: 400102
+    second: Zombie_Ctrl_LeftLeg
+  - first:
+      4: 400104
+    second: Zombie_Ctrl_LeftShoulder
+  - first:
+      4: 400106
+    second: Zombie_Ctrl_LeftShoulderEffector
+  - first:
+      4: 400108
+    second: Zombie_Ctrl_LeftToeBase
+  - first:
+      4: 400110
+    second: Zombie_Ctrl_LeftUpLeg
+  - first:
+      4: 400112
+    second: Zombie_Ctrl_LeftWristEffector
+  - first:
+      4: 400114
+    second: Zombie_Ctrl_Neck
+  - first:
+      4: 400116
+    second: Zombie_Ctrl_Reference
+  - first:
+      4: 400118
+    second: Zombie_Ctrl_RightAnkleEffector
+  - first:
+      4: 400120
+    second: Zombie_Ctrl_RightArm
+  - first:
+      4: 400122
+    second: Zombie_Ctrl_RightElbowEffector
+  - first:
+      4: 400124
+    second: Zombie_Ctrl_RightFoot
+  - first:
+      4: 400126
+    second: Zombie_Ctrl_RightFootEffector
+  - first:
+      4: 400128
+    second: Zombie_Ctrl_RightForeArm
+  - first:
+      4: 400130
+    second: Zombie_Ctrl_RightHand
+  - first:
+      4: 400132
+    second: Zombie_Ctrl_RightHandIndex1
+  - first:
+      4: 400134
+    second: Zombie_Ctrl_RightHandIndex2
+  - first:
+      4: 400136
+    second: Zombie_Ctrl_RightHandIndex3
+  - first:
+      4: 400138
+    second: Zombie_Ctrl_RightHandIndex4
+  - first:
+      4: 400140
+    second: Zombie_Ctrl_RightHandIndexEffector
+  - first:
+      4: 400142
+    second: Zombie_Ctrl_RightHandMiddle1
+  - first:
+      4: 400144
+    second: Zombie_Ctrl_RightHandMiddle2
+  - first:
+      4: 400146
+    second: Zombie_Ctrl_RightHandMiddle3
+  - first:
+      4: 400148
+    second: Zombie_Ctrl_RightHandMiddle4
+  - first:
+      4: 400150
+    second: Zombie_Ctrl_RightHandMiddleEffector
+  - first:
+      4: 400152
+    second: Zombie_Ctrl_RightHandPinky1
+  - first:
+      4: 400154
+    second: Zombie_Ctrl_RightHandPinky2
+  - first:
+      4: 400156
+    second: Zombie_Ctrl_RightHandPinky3
+  - first:
+      4: 400158
+    second: Zombie_Ctrl_RightHandPinky4
+  - first:
+      4: 400160
+    second: Zombie_Ctrl_RightHandPinkyEffector
+  - first:
+      4: 400162
+    second: Zombie_Ctrl_RightHandRing1
+  - first:
+      4: 400164
+    second: Zombie_Ctrl_RightHandRing2
+  - first:
+      4: 400166
+    second: Zombie_Ctrl_RightHandRing3
+  - first:
+      4: 400168
+    second: Zombie_Ctrl_RightHandRing4
+  - first:
+      4: 400170
+    second: Zombie_Ctrl_RightHandRingEffector
+  - first:
+      4: 400172
+    second: Zombie_Ctrl_RightHandThumb1
+  - first:
+      4: 400174
+    second: Zombie_Ctrl_RightHandThumb2
+  - first:
+      4: 400176
+    second: Zombie_Ctrl_RightHandThumb3
+  - first:
+      4: 400178
+    second: Zombie_Ctrl_RightHandThumb4
+  - first:
+      4: 400180
+    second: Zombie_Ctrl_RightHandThumbEffector
+  - first:
+      4: 400182
+    second: Zombie_Ctrl_RightHipEffector
+  - first:
+      4: 400184
+    second: Zombie_Ctrl_RightKneeEffector
+  - first:
+      4: 400186
+    second: Zombie_Ctrl_RightLeg
+  - first:
+      4: 400188
+    second: Zombie_Ctrl_RightShoulder
+  - first:
+      4: 400190
+    second: Zombie_Ctrl_RightShoulderEffector
+  - first:
+      4: 400192
+    second: Zombie_Ctrl_RightToeBase
+  - first:
+      4: 400194
+    second: Zombie_Ctrl_RightUpLeg
+  - first:
+      4: 400196
+    second: Zombie_Ctrl_RightWristEffector
+  - first:
+      4: 400198
+    second: Zombie_Ctrl_Spine
+  - first:
+      4: 400200
+    second: Zombie_Ctrl_Spine1
+  - first:
+      4: 400202
+    second: Zombie_Ctrl_Spine2
+  - first:
+      4: 400204
+    second: Zombie_Head
+  - first:
+      4: 400206
+    second: Zombie_Hips
+  - first:
+      4: 400208
+    second: Zombie_LeftArm
+  - first:
+      4: 400210
+    second: Zombie_LeftFoot
+  - first:
+      4: 400212
+    second: Zombie_LeftForeArm
+  - first:
+      4: 400214
+    second: Zombie_LeftHand
+  - first:
+      4: 400216
+    second: Zombie_LeftHandIndex1
+  - first:
+      4: 400218
+    second: Zombie_LeftHandIndex2
+  - first:
+      4: 400220
+    second: Zombie_LeftHandIndex3
+  - first:
+      4: 400222
+    second: Zombie_LeftHandIndex4
+  - first:
+      4: 400224
+    second: Zombie_LeftHandMiddle1
+  - first:
+      4: 400226
+    second: Zombie_LeftHandMiddle2
+  - first:
+      4: 400228
+    second: Zombie_LeftHandMiddle3
+  - first:
+      4: 400230
+    second: Zombie_LeftHandMiddle4
+  - first:
+      4: 400232
+    second: Zombie_LeftHandPinky1
+  - first:
+      4: 400234
+    second: Zombie_LeftHandPinky2
+  - first:
+      4: 400236
+    second: Zombie_LeftHandPinky3
+  - first:
+      4: 400238
+    second: Zombie_LeftHandPinky4
+  - first:
+      4: 400240
+    second: Zombie_LeftHandRing1
+  - first:
+      4: 400242
+    second: Zombie_LeftHandRing2
+  - first:
+      4: 400244
+    second: Zombie_LeftHandRing3
+  - first:
+      4: 400246
+    second: Zombie_LeftHandRing4
+  - first:
+      4: 400248
+    second: Zombie_LeftHandThumb1
+  - first:
+      4: 400250
+    second: Zombie_LeftHandThumb2
+  - first:
+      4: 400252
+    second: Zombie_LeftHandThumb3
+  - first:
+      4: 400254
+    second: Zombie_LeftHandThumb4
+  - first:
+      4: 400256
+    second: Zombie_LeftLeg
+  - first:
+      4: 400258
+    second: Zombie_LeftShoulder
+  - first:
+      4: 400260
+    second: Zombie_LeftToeBase
+  - first:
+      4: 400262
+    second: Zombie_LeftUpLeg
+  - first:
+      4: 400264
+    second: Zombie_low_jaw1
+  - first:
+      4: 400266
+    second: Zombie_low_jaw2
+  - first:
+      4: 400268
+    second: Zombie_low_jaw3
+  - first:
+      4: 400270
+    second: Zombie_Neck
+  - first:
+      4: 400272
+    second: Zombie_Reference
+  - first:
+      4: 400274
+    second: Zombie_RightArm
+  - first:
+      4: 400276
+    second: Zombie_RightFoot
+  - first:
+      4: 400278
+    second: Zombie_RightForeArm
+  - first:
+      4: 400280
+    second: Zombie_RightHand
+  - first:
+      4: 400282
+    second: Zombie_RightHandIndex1
+  - first:
+      4: 400284
+    second: Zombie_RightHandIndex2
+  - first:
+      4: 400286
+    second: Zombie_RightHandIndex3
+  - first:
+      4: 400288
+    second: Zombie_RightHandIndex4
+  - first:
+      4: 400290
+    second: Zombie_RightHandMiddle1
+  - first:
+      4: 400292
+    second: Zombie_RightHandMiddle2
+  - first:
+      4: 400294
+    second: Zombie_RightHandMiddle3
+  - first:
+      4: 400296
+    second: Zombie_RightHandMiddle4
+  - first:
+      4: 400298
+    second: Zombie_RightHandPinky1
+  - first:
+      4: 400300
+    second: Zombie_RightHandPinky2
+  - first:
+      4: 400302
+    second: Zombie_RightHandPinky3
+  - first:
+      4: 400304
+    second: Zombie_RightHandPinky4
+  - first:
+      4: 400306
+    second: Zombie_RightHandRing1
+  - first:
+      4: 400308
+    second: Zombie_RightHandRing2
+  - first:
+      4: 400310
+    second: Zombie_RightHandRing3
+  - first:
+      4: 400312
+    second: Zombie_RightHandRing4
+  - first:
+      4: 400314
+    second: Zombie_RightHandThumb1
+  - first:
+      4: 400316
+    second: Zombie_RightHandThumb2
+  - first:
+      4: 400318
+    second: Zombie_RightHandThumb3
+  - first:
+      4: 400320
+    second: Zombie_RightHandThumb4
+  - first:
+      4: 400322
+    second: Zombie_RightLeg
+  - first:
+      4: 400324
+    second: Zombie_RightShoulder
+  - first:
+      4: 400326
+    second: Zombie_RightToeBase
+  - first:
+      4: 400328
+    second: Zombie_RightUpLeg
+  - first:
+      4: 400330
+    second: Zombie_Spine
+  - first:
+      4: 400332
+    second: Zombie_Spine1
+  - first:
+      4: 400334
+    second: Zombie_Spine2
+  - first:
+      43: 4300000
+    second: sborka_pod_uv_sdelannaya_Group29814
+  - first:
+      43: 4300002
+    second: sborka_pod_uv_sdelannaya_Group13926
+  - first:
+      43: 4300004
+    second: sborka_pod_uv_sdelannaya_Group63573
+  - first:
+      43: 4300006
+    second: sborka_pod_uv_sdelannaya_Group47683
+  - first:
+      43: 4300008
+    second: sborka_pod_uv_sdelannaya_Group31792
+  - first:
+      43: 4300010
+    second: sborka_pod_uv_sdelannaya_Group15900
+  - first:
+      43: 4300012
+    second: sborka_pod_uv_sdelannaya_Group45701
+  - first:
+      74: 7400000
+    second: Take 001
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: sborka_pod_uv_sdelannaya_Group13926
+  - first:
+      137: 13700002
+    second: sborka_pod_uv_sdelannaya_Group15900
+  - first:
+      137: 13700004
+    second: sborka_pod_uv_sdelannaya_Group29814
+  - first:
+      137: 13700006
+    second: sborka_pod_uv_sdelannaya_Group31792
+  - first:
+      137: 13700008
+    second: sborka_pod_uv_sdelannaya_Group45701
+  - first:
+      137: 13700010
+    second: sborka_pod_uv_sdelannaya_Group47683
+  - first:
+      137: 13700012
+    second: sborka_pod_uv_sdelannaya_Group63573
+  externalObjects: {}
+  materials:
+    materialImportMode: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 2
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    nodeNameCollisionStrategy: 0
+    fileIdsGeneration: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human:
+    - boneName: Zombie_Hips
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_LeftUpLeg
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_RightUpLeg
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_LeftLeg
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_RightLeg
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_LeftFoot
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_RightFoot
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_Spine
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_Spine1
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_Neck
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_Head
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_LeftShoulder
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_RightShoulder
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_LeftArm
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_RightArm
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_LeftForeArm
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_RightForeArm
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_LeftHand
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_RightHand
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_low_jaw1
+      humanName: Jaw
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_LeftHandThumb1
+      humanName: Left Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_LeftHandThumb2
+      humanName: Left Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_LeftHandThumb3
+      humanName: Left Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_LeftHandIndex1
+      humanName: Left Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_LeftHandIndex2
+      humanName: Left Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_LeftHandIndex3
+      humanName: Left Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_LeftHandMiddle1
+      humanName: Left Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_LeftHandMiddle2
+      humanName: Left Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_LeftHandMiddle3
+      humanName: Left Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_LeftHandRing1
+      humanName: Left Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_LeftHandRing2
+      humanName: Left Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_LeftHandRing3
+      humanName: Left Ring Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_LeftHandPinky1
+      humanName: Left Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_LeftHandPinky2
+      humanName: Left Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_LeftHandPinky3
+      humanName: Left Little Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_RightHandThumb1
+      humanName: Right Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_RightHandThumb2
+      humanName: Right Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_RightHandThumb3
+      humanName: Right Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_RightHandIndex1
+      humanName: Right Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_RightHandIndex2
+      humanName: Right Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_RightHandIndex3
+      humanName: Right Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_RightHandMiddle1
+      humanName: Right Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_RightHandMiddle2
+      humanName: Right Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_RightHandMiddle3
+      humanName: Right Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_RightHandRing1
+      humanName: Right Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_RightHandRing2
+      humanName: Right Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_RightHandRing3
+      humanName: Right Ring Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_RightHandPinky1
+      humanName: Right Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_RightHandPinky2
+      humanName: Right Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_RightHandPinky3
+      humanName: Right Little Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Zombie_Spine2
+      humanName: UpperChest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: zombie@idle1(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: group
+      parentName: zombie@idle1(Clone)
+      position: {x: -0.000019892883, y: 0.018233534, z: -0.00019809646}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: group1
+      parentName: group
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: sborka_pod_uv_sdelannaya_Group29814
+      parentName: group1
+      position: {x: 0.000019892883, y: -0.018233534, z: 0.00019809646}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: sborka_pod_uv_sdelannaya_Group13926
+      parentName: group1
+      position: {x: 0.000019892883, y: -0.018233534, z: 0.00019809646}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: sborka_pod_uv_sdelannaya_Group63573
+      parentName: group1
+      position: {x: 0.000019892883, y: -0.018233534, z: 0.00019809646}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: sborka_pod_uv_sdelannaya_Group47683
+      parentName: group1
+      position: {x: 0.000019892883, y: -0.018233534, z: 0.00019809646}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: sborka_pod_uv_sdelannaya_Group31792
+      parentName: group1
+      position: {x: 0.000019892883, y: -0.018233534, z: 0.00019809646}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: sborka_pod_uv_sdelannaya_Group15900
+      parentName: group1
+      position: {x: 0.000019892883, y: -0.018233534, z: 0.00019809646}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: group2
+      parentName: group1
+      position: {x: 0.000019892883, y: -0.018233534, z: 0.00019809646}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: sborka_pod_uv_sdelannaya_Group45701
+      parentName: group2
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Reference
+      parentName: zombie@idle1(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Hips
+      parentName: Zombie_Reference
+      position: {x: 0.000000030173194, y: 0.019660536, z: -0.00046754308}
+      rotation: {x: 0.000000002910383, y: -5.551115e-15, z: 1.6155871e-23, w: 1}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
+    - name: Zombie_LeftUpLeg
+      parentName: Zombie_Hips
+      position: {x: -0.0017819997, y: -0.001254001, z: -0.0000000013140666}
+      rotation: {x: 0.00000084692135, y: -0.0000000029103773, z: 7.275983e-10, w: 1}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1}
+    - name: Zombie_LeftLeg
+      parentName: Zombie_LeftUpLeg
+      position: {x: -0.0010290904, y: -0.0073280525, z: 0.000017278777}
+      rotation: {x: -0.0000012980307, y: 0.0000000029103833, z: -6.3664757e-10, w: 1}
+      scale: {x: 1.0000002, y: 1.0000001, z: 1.0000001}
+    - name: Zombie_LeftFoot
+      parentName: Zombie_LeftLeg
+      position: {x: -0.0009645317, y: -0.010195618, z: -0.0020202855}
+      rotation: {x: -0.000000003285777, y: -0, z: -9.0949415e-11, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_LeftToeBase
+      parentName: Zombie_LeftFoot
+      position: {x: -0.0009692966, y: -0.0009918202, z: 0.003530361}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_RightUpLeg
+      parentName: Zombie_Hips
+      position: {x: 0.0017819998, y: -0.0012539999, z: 0.0000000012470491}
+      rotation: {x: -0.000000002910383, y: -0.000000001455186, z: -0.0000000014551915, w: 1}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000001}
+    - name: Zombie_RightLeg
+      parentName: Zombie_RightUpLeg
+      position: {x: 0.0010290866, y: -0.007328066, z: 0.00001730036}
+      rotation: {x: 0.000000011641532, y: -0, z: -0.000000002910383, w: 1}
+      scale: {x: 1, y: 0.9999999, z: 0.9999999}
+    - name: Zombie_RightFoot
+      parentName: Zombie_RightLeg
+      position: {x: 0.0009645334, y: -0.010195625, z: -0.0020202848}
+      rotation: {x: -0.000000011641544, y: 0.0000000014551915, z: 0.0000000043655737, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_RightToeBase
+      parentName: Zombie_RightFoot
+      position: {x: 0.00096929685, y: -0.00099182, z: 0.003530361}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Spine
+      parentName: Zombie_Hips
+      position: {x: -9.928212e-11, y: 0.0013999994, z: 9.165547e-10}
+      rotation: {x: -0.000000008731149, y: 5.551115e-15, z: -1.6653345e-14, w: 1}
+      scale: {x: 1.0000004, y: 1.0000004, z: 1.0000004}
+    - name: Zombie_Spine1
+      parentName: Zombie_Spine
+      position: {x: 1.4781917e-10, y: 0.003427495, z: -0.0007396341}
+      rotation: {x: 0.000000017462296, y: 5.551115e-15, z: 2.220446e-14, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Spine2
+      parentName: Zombie_Spine1
+      position: {x: 3.2927583e-10, y: 0.0034274952, z: 2.0406946e-10}
+      rotation: {x: 0.000000011641534, y: 1.110223e-14, z: -2.7755578e-15, w: 1}
+      scale: {x: 1.0000002, y: 1.0000001, z: 1.0000001}
+    - name: Zombie_LeftShoulder
+      parentName: Zombie_Spine2
+      position: {x: -0.002214693, y: 0.0014974934, z: -0.0010364938}
+      rotation: {x: 0.000000022546013, y: -0.01096086, z: -0.082310125, w: 0.9965465}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000002}
+    - name: Zombie_LeftArm
+      parentName: Zombie_LeftShoulder
+      position: {x: -0.0022262072, y: -0.0011802531, z: 0.00015716742}
+      rotation: {x: -0.013200749, y: 0.05264014, z: -0.20055915, w: 0.97817725}
+      scale: {x: 1, y: 1, z: 1.0000002}
+    - name: Zombie_LeftForeArm
+      parentName: Zombie_LeftArm
+      position: {x: -0.0041501033, y: -0.0030315125, z: -0.000522547}
+      rotation: {x: 0.13448587, y: -0.21057259, z: 0.003925436, w: 0.9682755}
+      scale: {x: 1.0000001, y: 1.0000004, z: 1.0000002}
+    - name: Zombie_LeftHand
+      parentName: Zombie_LeftForeArm
+      position: {x: -0.0036170732, y: -0.0022689064, z: 0.002210074}
+      rotation: {x: -0.025376543, y: -0.016959175, z: -0.058942735, w: 0.9977947}
+      scale: {x: 1, y: 1.0000001, z: 0.99999994}
+    - name: Zombie_LeftHandThumb1
+      parentName: Zombie_LeftHand
+      position: {x: 0.00008142254, y: -0.00042861322, z: 0.0012154018}
+      rotation: {x: 0.10203867, y: -0.08708236, z: -0.012779112, w: 0.9908791}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_LeftHandThumb2
+      parentName: Zombie_LeftHandThumb1
+      position: {x: 0.000043318814, y: -0.00004154481, z: 0.0006290154}
+      rotation: {x: -0.12990373, y: 0.017692922, z: 0.010114827, w: 0.99131715}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: Zombie_LeftHandThumb3
+      parentName: Zombie_LeftHandThumb2
+      position: {x: 0.000025412859, y: -0.0005121003, z: 0.0012221583}
+      rotation: {x: -0.38756716, y: 0.13121502, z: 0.06304009, w: 0.9102748}
+      scale: {x: 1, y: 1, z: 0.9999997}
+    - name: Zombie_LeftHandThumb4
+      parentName: Zombie_LeftHandThumb3
+      position: {x: -0.00029926607, y: -0.0010474804, z: 0.00034040952}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: Zombie_LeftHandIndex1
+      parentName: Zombie_LeftHand
+      position: {x: -0.001277687, y: -0.0015192566, z: 0.0012403544}
+      rotation: {x: 0.07244126, y: -0.064198256, z: -0.007136887, w: 0.99527884}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_LeftHandIndex2
+      parentName: Zombie_LeftHandIndex1
+      position: {x: -0.0005647433, y: -0.0007245853, z: 0.0007855891}
+      rotation: {x: -0.08872803, y: -0.041718945, z: -0.10225254, w: 0.9899149}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    - name: Zombie_LeftHandIndex3
+      parentName: Zombie_LeftHandIndex2
+      position: {x: -0.00014617345, y: -0.000539686, z: 0.00034698128}
+      rotation: {x: -0.017118, y: -0.0039144177, z: -0.013358493, w: 0.99975663}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: Zombie_LeftHandIndex4
+      parentName: Zombie_LeftHandIndex3
+      position: {x: -0.0001708892, y: -0.001027047, z: 0.0005227673}
+      rotation: {x: 0, y: -0.000047849193, z: -0, w: 1}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    - name: Zombie_LeftHandMiddle1
+      parentName: Zombie_LeftHand
+      position: {x: -0.0013906765, y: -0.0016591224, z: 0.00080853974}
+      rotation: {x: -0, y: -0, z: -1.9602375e-16, w: 1}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: Zombie_LeftHandMiddle2
+      parentName: Zombie_LeftHandMiddle1
+      position: {x: -0.00051063264, y: -0.0007859325, z: 0.0003187343}
+      rotation: {x: -0.026024573, y: -0.013884205, z: -0.075928554, w: 0.9966769}
+      scale: {x: 1.0000001, y: 1.0000001, z: 0.99999994}
+    - name: Zombie_LeftHandMiddle3
+      parentName: Zombie_LeftHandMiddle2
+      position: {x: -0.00029227094, y: -0.000847669, z: 0.0002551799}
+      rotation: {x: 0.0051275683, y: -0.0046449015, z: -0.009556968, w: 0.9999304}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
+    - name: Zombie_LeftHandMiddle4
+      parentName: Zombie_LeftHandMiddle3
+      position: {x: -0.00030997416, y: -0.0012778853, z: 0.0004547795}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000002}
+    - name: Zombie_LeftHandRing1
+      parentName: Zombie_LeftHand
+      position: {x: -0.0013995831, y: -0.0018028906, z: 0.00015674811}
+      rotation: {x: -0.06784998, y: 0.02986062, z: -0.055427123, w: 0.99570715}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Zombie_LeftHandRing2
+      parentName: Zombie_LeftHandRing1
+      position: {x: -0.0004036021, y: -0.000774784, z: 0.00007665609}
+      rotation: {x: 0.0063620945, y: -0.007669513, z: -0.04402078, w: 0.998981}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Zombie_LeftHandRing3
+      parentName: Zombie_LeftHandRing2
+      position: {x: -0.0002397036, y: -0.00073941745, z: 0.00009418086}
+      rotation: {x: 0.004829093, y: -0.00376723, z: -0.017285671, w: 0.9998319}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000002}
+    - name: Zombie_LeftHandRing4
+      parentName: Zombie_LeftHandRing3
+      position: {x: -0.00025064757, y: -0.0012362559, z: 0.00019940578}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 1.0000001}
+    - name: Zombie_LeftHandPinky1
+      parentName: Zombie_LeftHand
+      position: {x: -0.0011987366, y: -0.0019014312, z: -0.00048514688}
+      rotation: {x: -0.22053877, y: 0.13968392, z: -0.09269245, w: 0.96086377}
+      scale: {x: 1, y: 1.0000001, z: 0.99999994}
+    - name: Zombie_LeftHandPinky2
+      parentName: Zombie_LeftHandPinky1
+      position: {x: -0.00039172283, y: -0.0008027414, z: -0.00027769158}
+      rotation: {x: 0.13776262, y: -0.038384456, z: -0.08337294, w: 0.9862034}
+      scale: {x: 1, y: 1, z: 0.9999998}
+    - name: Zombie_LeftHandPinky3
+      parentName: Zombie_LeftHandPinky2
+      position: {x: -0.00014467398, y: -0.00057348167, z: 0.000024975345}
+      rotation: {x: 0.10410715, y: -0.028948292, z: -0.06165224, w: 0.9922312}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_LeftHandPinky4
+      parentName: Zombie_LeftHandPinky3
+      position: {x: -0.00009022691, y: -0.0011008597, z: 0.00036454338}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_RightShoulder
+      parentName: Zombie_Spine2
+      position: {x: 0.0022146946, y: 0.0014974928, z: -0.001036492}
+      rotation: {x: -0.00000006895142, y: 0.010960806, z: 0.082310386, w: 0.9965465}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000002}
+    - name: Zombie_RightArm
+      parentName: Zombie_RightShoulder
+      position: {x: 0.0022262083, y: -0.0011802538, z: 0.00015716889}
+      rotation: {x: -0.013200956, y: -0.05263991, z: 0.20055808, w: 0.97817755}
+      scale: {x: 1.0000002, y: 1.0000004, z: 1.0000002}
+    - name: Zombie_RightForeArm
+      parentName: Zombie_RightArm
+      position: {x: 0.0041501103, y: -0.0030315083, z: -0.00052254106}
+      rotation: {x: 0.13448511, y: 0.21057199, z: -0.0039247056, w: 0.9682757}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+    - name: Zombie_RightHand
+      parentName: Zombie_RightForeArm
+      position: {x: 0.0036170743, y: -0.0022689071, z: 0.0022100736}
+      rotation: {x: -0.025376638, y: 0.016959155, z: 0.058942802, w: 0.9977947}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: Zombie_RightHandThumb1
+      parentName: Zombie_RightHand
+      position: {x: -0.00008142304, y: -0.00042861188, z: 0.001215401}
+      rotation: {x: 0.10204033, y: 0.08708224, z: 0.01277893, w: 0.990879}
+      scale: {x: 1, y: 0.9999997, z: 1}
+    - name: Zombie_RightHandThumb2
+      parentName: Zombie_RightHandThumb1
+      position: {x: -0.00004331981, y: -0.000041544456, z: 0.00062901515}
+      rotation: {x: -0.12990506, y: -0.017693529, z: -0.010114959, w: 0.99131703}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: Zombie_RightHandThumb3
+      parentName: Zombie_RightHandThumb2
+      position: {x: -0.000025412179, y: -0.00051210105, z: 0.001222159}
+      rotation: {x: -0.38756692, y: -0.13121478, z: -0.06303928, w: 0.91027504}
+      scale: {x: 1, y: 0.9999997, z: 1}
+    - name: Zombie_RightHandThumb4
+      parentName: Zombie_RightHandThumb3
+      position: {x: 0.0002992653, y: -0.0010474804, z: 0.00034040908}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: Zombie_RightHandIndex1
+      parentName: Zombie_RightHand
+      position: {x: 0.001277686, y: -0.0015192585, z: 0.001240354}
+      rotation: {x: 0.07244138, y: 0.06419793, z: 0.0071361884, w: 0.9952789}
+      scale: {x: 1, y: 0.9999997, z: 1}
+    - name: Zombie_RightHandIndex2
+      parentName: Zombie_RightHandIndex1
+      position: {x: 0.0005647428, y: -0.00072458637, z: 0.00078558945}
+      rotation: {x: -0.08872666, y: 0.041698914, z: 0.10225598, w: 0.9899155}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+    - name: Zombie_RightHandIndex3
+      parentName: Zombie_RightHandIndex2
+      position: {x: 0.00014618812, y: -0.0005396853, z: 0.0003469748}
+      rotation: {x: -0.017119454, y: 0.0039893114, z: 0.013359106, w: 0.9997563}
+      scale: {x: 0.9999998, y: 0.9999997, z: 0.9999997}
+    - name: Zombie_RightHandIndex4
+      parentName: Zombie_RightHandIndex3
+      position: {x: 0.0001708327, y: -0.0010270481, z: 0.0005227854}
+      rotation: {x: 0, y: -0.00004785074, z: -0, w: 1}
+      scale: {x: 0.99999994, y: 0.9999999, z: 0.9999999}
+    - name: Zombie_RightHandMiddle1
+      parentName: Zombie_RightHand
+      position: {x: 0.0013906743, y: -0.0016591245, z: 0.0008085395}
+      rotation: {x: -0, y: 0.0000000029108378, z: -0.000000016007117, w: 1}
+      scale: {x: 1, y: 0.9999997, z: 1}
+    - name: Zombie_RightHandMiddle2
+      parentName: Zombie_RightHandMiddle1
+      position: {x: 0.00051063206, y: -0.00078593194, z: 0.00031873363}
+      rotation: {x: -0.026023066, y: 0.013873655, z: 0.0759278, w: 0.99667716}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+    - name: Zombie_RightHandMiddle3
+      parentName: Zombie_RightHandMiddle2
+      position: {x: 0.0002922758, y: -0.000847671, z: 0.00025517485}
+      rotation: {x: 0.005127454, y: 0.0046822364, z: 0.009557273, w: 0.99993026}
+      scale: {x: 0.9999998, y: 0.9999997, z: 0.9999997}
+    - name: Zombie_RightHandMiddle4
+      parentName: Zombie_RightHandMiddle3
+      position: {x: 0.00030994826, y: -0.0012778845, z: 0.00045479622}
+      rotation: {x: 0, y: -0.00004785074, z: -0, w: 1}
+      scale: {x: 0.99999994, y: 0.9999999, z: 0.9999999}
+    - name: Zombie_RightHandRing1
+      parentName: Zombie_RightHand
+      position: {x: 0.0013995817, y: -0.0018028913, z: 0.00015674772}
+      rotation: {x: -0.06784946, y: -0.029860374, z: 0.055426482, w: 0.99570715}
+      scale: {x: 1, y: 0.9999997, z: 1}
+    - name: Zombie_RightHandRing2
+      parentName: Zombie_RightHandRing1
+      position: {x: 0.00040360133, y: -0.00077478494, z: 0.000076656586}
+      rotation: {x: 0.0063620335, y: 0.0076585123, z: 0.044019647, w: 0.99898106}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+    - name: Zombie_RightHandRing3
+      parentName: Zombie_RightHandRing2
+      position: {x: 0.00023970484, y: -0.000739418, z: 0.00009417514}
+      rotation: {x: 0.004828767, y: 0.003803967, z: 0.017282771, w: 0.99983174}
+      scale: {x: 0.9999998, y: 0.9999997, z: 0.9999997}
+    - name: Zombie_RightHandRing4
+      parentName: Zombie_RightHandRing3
+      position: {x: 0.000250636, y: -0.001236256, z: 0.0001994194}
+      rotation: {x: 0, y: -0.00004785074, z: -0, w: 1}
+      scale: {x: 0.99999994, y: 0.9999999, z: 0.9999999}
+    - name: Zombie_RightHandPinky1
+      parentName: Zombie_RightHand
+      position: {x: 0.0011987351, y: -0.0019014314, z: -0.0004851476}
+      rotation: {x: -0.22053799, y: -0.13968328, z: 0.09269169, w: 0.96086407}
+      scale: {x: 1, y: 0.9999997, z: 1}
+    - name: Zombie_RightHandPinky2
+      parentName: Zombie_RightHandPinky1
+      position: {x: 0.00039172135, y: -0.0008027417, z: -0.00027769158}
+      rotation: {x: 0.13776347, y: 0.03837354, z: 0.0833724, w: 0.98620373}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+    - name: Zombie_RightHandPinky3
+      parentName: Zombie_RightHandPinky2
+      position: {x: 0.00014467351, y: -0.00057348196, z: 0.000024972218}
+      rotation: {x: 0.10410599, y: 0.028985266, z: 0.0616545, w: 0.9922301}
+      scale: {x: 0.9999998, y: 0.9999997, z: 0.9999997}
+    - name: Zombie_RightHandPinky4
+      parentName: Zombie_RightHandPinky3
+      position: {x: 0.000090207235, y: -0.0011008604, z: 0.00036454792}
+      rotation: {x: 0, y: -0.00004785074, z: -0, w: 1}
+      scale: {x: 0.99999994, y: 0.9999999, z: 0.9999999}
+    - name: Zombie_Neck
+      parentName: Zombie_Spine2
+      position: {x: 6.7810424e-10, y: 0.003427498, z: -0.000020669002}
+      rotation: {x: -0.000000023283064, y: -2.7755576e-14, z: 4.0562872e-22, w: 1}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000002}
+    - name: Zombie_Head
+      parentName: Zombie_Neck
+      position: {x: 7.8111767e-10, y: 0.004000026, z: 0.0009429609}
+      rotation: {x: -0.000000002910383, y: -0, z: -1.179612e-14, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_low_jaw1
+      parentName: Zombie_Head
+      position: {x: 0.000009518692, y: -0.0028031482, z: 0.000045621924}
+      rotation: {x: 0.43245405, y: 0.6121664, z: 0.38195908, w: 0.54068756}
+      scale: {x: 1.0000006, y: 1, z: 1.0000002}
+    - name: Zombie_low_jaw2
+      parentName: Zombie_low_jaw1
+      position: {x: -0.00079370243, y: 1.7763568e-19, z: -2.7755574e-20}
+      rotation: {x: -0.0057952404, y: -0.0034585893, z: -0.19605243, w: 0.9805702}
+      scale: {x: 1, y: 1, z: 1.0000006}
+    - name: Zombie_low_jaw3
+      parentName: Zombie_low_jaw2
+      position: {x: -0.0006881138, y: 2.3092637e-18, z: -2.5535128e-19}
+      rotation: {x: -0.3022225, y: -0.6809723, z: -0.2705865, w: 0.6096896}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_Reference
+      parentName: zombie@idle1(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_HipsEffector
+      parentName: Zombie_Ctrl_Reference
+      position: {x: 0.000000032043456, y: 0.018412245, z: -0.0005870884}
+      rotation: {x: 0.04771992, y: -0.00000004085454, z: 0.000000744617, w: 0.9988608}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftAnkleEffector
+      parentName: Zombie_Ctrl_Reference
+      position: {x: -0.0037457037, y: 0.0014802245, z: -0.0019230979}
+      rotation: {x: 0.0000000013003715, y: 1.110223e-16, z: -6.938894e-18, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightAnkleEffector
+      parentName: Zombie_Ctrl_Reference
+      position: {x: 0.004869332, y: 0.0014814421, z: -0.002750065}
+      rotation: {x: -0.0000000022106317, y: -3.2915637e-10, z: -5.851669e-10, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftWristEffector
+      parentName: Zombie_Ctrl_Reference
+      position: {x: -0.008542645, y: 0.020128453, z: -0.0022125577}
+      rotation: {x: 0.2833474, y: 0.03318361, z: 0.24899977, w: 0.9255335}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightWristEffector
+      parentName: Zombie_Ctrl_Reference
+      position: {x: 0.008808446, y: 0.020054322, z: -0.0010346008}
+      rotation: {x: 0.16980565, y: 0.011205794, z: -0.23713008, w: 0.9564569}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftKneeEffector
+      parentName: Zombie_Ctrl_Reference
+      position: {x: -0.0027262345, y: 0.011336045, z: 0.0013611201}
+      rotation: {x: 0.06337872, y: 0.0047693043, z: -0.001472633, w: 0.9979771}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightKneeEffector
+      parentName: Zombie_Ctrl_Reference
+      position: {x: 0.0031557619, y: 0.011231901, z: 0.00055975706}
+      rotation: {x: 0.06542261, y: -0.007095276, z: 0.035551995, w: 0.9971989}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftElbowEffector
+      parentName: Zombie_Ctrl_Reference
+      position: {x: -0.006832786, y: 0.024609527, z: -0.0025471544}
+      rotation: {x: 0.28334743, y: 0.033184614, z: 0.24900049, w: 0.92553324}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightElbowEffector
+      parentName: Zombie_Ctrl_Reference
+      position: {x: 0.006767504, y: 0.024293823, z: -0.0020229123}
+      rotation: {x: 0.16980578, y: 0.0112050865, z: -0.23713008, w: 0.9564569}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_ChestOriginEffector
+      parentName: Zombie_Ctrl_Reference
+      position: {x: 0.00000002770372, y: 0.021054162, z: -0.00033407923}
+      rotation: {x: 0.070610486, y: -9.439681e-10, z: -0.0000000034941752, w: 0.99750394}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_ChestEndEffector
+      parentName: Zombie_Ctrl_Reference
+      position: {x: 0.000000032424925, y: 0.029617907, z: 0.00028125814}
+      rotation: {x: 0.24403284, y: -0.0000000021953597, z: -0.000000006084613, w: 0.969767}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftFootEffector
+      parentName: Zombie_Ctrl_Reference
+      position: {x: -0.0047150003, y: 0.0004884038, z: 0.0016072628}
+      rotation: {x: 4.5269248e-32, y: -0.0000000013003716, z: -1.2246467e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightFootEffector
+      parentName: Zombie_Ctrl_Reference
+      position: {x: 0.0058386284, y: 0.00048962276, z: 0.00078029593}
+      rotation: {x: 1.3078503e-18, y: -0.0000000022350026, z: -5.851673e-10, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftShoulderEffector
+      parentName: Zombie_Ctrl_Reference
+      position: {x: -0.004440868, y: 0.02850384, z: -0.00013891944}
+      rotation: {x: 0.28334343, y: 0.03318692, z: 0.24900094, w: 0.92553425}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightShoulderEffector
+      parentName: Zombie_Ctrl_Reference
+      position: {x: 0.004440931, y: 0.028503835, z: -0.00013891901}
+      rotation: {x: 0.16980109, y: 0.011201482, z: -0.23712967, w: 0.95645785}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_HeadEffector
+      parentName: Zombie_Ctrl_Reference
+      position: {x: 0.000000035526416, y: 0.03442967, z: 0.0040855207}
+      rotation: {x: 0.029094385, y: -8.3111334e-10, z: -0.0000000064149224, w: 0.9995767}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftHipEffector
+      parentName: Zombie_Ctrl_Reference
+      position: {x: -0.0017819706, y: 0.01841224, z: -0.00058708974}
+      rotation: {x: -0.13011038, y: 0.020243486, z: 0.003075169, w: 0.99128807}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightHipEffector
+      parentName: Zombie_Ctrl_Reference
+      position: {x: 0.0017820348, y: 0.01841225, z: -0.000587087}
+      rotation: {x: -0.07460936, y: -0.018045124, z: 0.025125237, w: 0.99673295}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftHandThumbEffector
+      parentName: Zombie_Ctrl_Reference
+      position: {x: -0.0070855445, y: 0.016874146, z: -0.00047015454}
+      rotation: {x: 0.2833473, y: 0.03318361, z: 0.24899982, w: 0.92553353}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftHandIndexEffector
+      parentName: Zombie_Ctrl_Reference
+      position: {x: -0.008158414, y: 0.014895396, z: -0.0020218764}
+      rotation: {x: 0.28334734, y: 0.033183627, z: 0.24899983, w: 0.9255335}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftHandMiddleEffector
+      parentName: Zombie_Ctrl_Reference
+      position: {x: -0.008337423, y: 0.014724251, z: -0.0033466613}
+      rotation: {x: 0.28334725, y: 0.033183575, z: 0.24899979, w: 0.92553353}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftHandRingEffector
+      parentName: Zombie_Ctrl_Reference
+      position: {x: -0.008426908, y: 0.015502913, z: -0.0044175577}
+      rotation: {x: 0.2833474, y: 0.0331836, z: 0.2489999, w: 0.9255335}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftHandPinkyEffector
+      parentName: Zombie_Ctrl_Reference
+      position: {x: -0.008277457, y: 0.016309919, z: -0.005039428}
+      rotation: {x: 0.28334737, y: 0.03318358, z: 0.2489998, w: 0.9255335}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightHandThumbEffector
+      parentName: Zombie_Ctrl_Reference
+      position: {x: 0.0078109764, y: 0.017178057, z: 0.0015113279}
+      rotation: {x: 0.16980565, y: 0.011205806, z: -0.23713008, w: 0.9564569}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightHandIndexEffector
+      parentName: Zombie_Ctrl_Reference
+      position: {x: 0.008810376, y: 0.0149647165, z: 0.00025566743}
+      rotation: {x: 0.16980565, y: 0.011205783, z: -0.23713009, w: 0.9564569}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightHandMiddleEffector
+      parentName: Zombie_Ctrl_Reference
+      position: {x: 0.008830574, y: 0.014528657, z: -0.0010194145}
+      rotation: {x: 0.16980565, y: 0.011205787, z: -0.23713009, w: 0.9564569}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightHandRingEffector
+      parentName: Zombie_Ctrl_Reference
+      position: {x: 0.008729556, y: 0.01507001, z: -0.0022268386}
+      rotation: {x: 0.16980565, y: 0.01120579, z: -0.23713008, w: 0.9564569}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightHandPinkyEffector
+      parentName: Zombie_Ctrl_Reference
+      position: {x: 0.008447326, y: 0.015722914, z: -0.0029714045}
+      rotation: {x: 0.16980565, y: 0.0112057915, z: -0.23713009, w: 0.9564569}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_Hips
+      parentName: Zombie_Ctrl_Reference
+      position: {x: 0.000000029791721, y: 0.019660536, z: -0.0004675429}
+      rotation: {x: 0.047719922, y: -0.0000003374725, z: 0.0000007304463, w: 0.9988608}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftUpLeg
+      parentName: Zombie_Ctrl_Hips
+      position: {x: -0.0017820001, y: -0.0012540008, z: 0}
+      rotation: {x: -0.17726633, y: 0.0203676, z: 0.0021049678, w: 0.9839499}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftLeg
+      parentName: Zombie_Ctrl_LeftUpLeg
+      position: {x: -0.0010290858, y: -0.007328053, z: 0.000017307768}
+      rotation: {x: 0.19271822, y: -0.015478075, z: -0.002625209, w: 0.9811286}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftFoot
+      parentName: Zombie_Ctrl_LeftLeg
+      position: {x: -0.0009645299, y: -0.010195618, z: -0.002020283}
+      rotation: {x: -0.06337865, y: -0.0047693057, z: 0.0014726338, w: 0.9979771}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftToeBase
+      parentName: Zombie_Ctrl_LeftFoot
+      position: {x: -0.0009692966, y: -0.0009918202, z: 0.003530361}
+      rotation: {x: 2.2365468e-32, y: -0, z: -1.2246467e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightUpLeg
+      parentName: Zombie_Ctrl_Hips
+      position: {x: 0.0017820001, y: -0.0012540008, z: 0}
+      rotation: {x: -0.122088395, y: -0.016825203, z: 0.025957026, w: 0.9920371}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightLeg
+      parentName: Zombie_Ctrl_RightUpLeg
+      position: {x: 0.0010290858, y: -0.007328053, z: 0.000017307768}
+      rotation: {x: 0.14007251, y: 0.00662621, z: 0.008671052, w: 0.99008113}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightFoot
+      parentName: Zombie_Ctrl_RightLeg
+      position: {x: 0.0009645299, y: -0.010195618, z: -0.002020283}
+      rotation: {x: -0.06542274, y: 0.0070952605, z: -0.035552025, w: 0.9971989}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightToeBase
+      parentName: Zombie_Ctrl_RightFoot
+      position: {x: 0.0009692966, y: -0.0009918202, z: 0.003530361}
+      rotation: {x: 2.2365468e-32, y: -0, z: -1.2246467e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_Spine
+      parentName: Zombie_Ctrl_Hips
+      position: {x: -0, y: 0.0014, z: 0}
+      rotation: {x: 0.022929227, y: 0.00000022147562, z: -0.0000009498446, w: 0.9997371}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_Spine1
+      parentName: Zombie_Ctrl_Spine
+      position: {x: -0, y: 0.0034274962, z: -0.00073963444}
+      rotation: {x: 0.087813176, y: -0.000000031035466, z: -0.00000007900436, w: 0.99613696}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_Spine2
+      parentName: Zombie_Ctrl_Spine1
+      position: {x: -0, y: 0.0034274962, z: 0}
+      rotation: {x: 0.0878133, y: -0.000000018081925, z: -0.00000008067056, w: 0.99613696}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftShoulder
+      parentName: Zombie_Ctrl_Spine2
+      position: {x: -0.002214693, y: 0.0014974944, z: -0.0010364936}
+      rotation: {x: 0.000000039379106, y: 1.342676e-15, z: -4.5970225e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftArm
+      parentName: Zombie_Ctrl_LeftShoulder
+      position: {x: -0.0022262053, y: -0.0011802551, z: 0.00015716953}
+      rotation: {x: 0.048916325, y: 0.0929482, z: 0.23337446, w: 0.9666976}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftForeArm
+      parentName: Zombie_Ctrl_LeftArm
+      position: {x: -0.0041501084, y: -0.0030315076, z: -0.0005225435}
+      rotation: {x: 0.000003450442, y: -0.0000031953437, z: 0.00000064991326, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftHand
+      parentName: Zombie_Ctrl_LeftForeArm
+      position: {x: -0.0036170734, y: -0.0022689071, z: 0.002210074}
+      rotation: {x: -0.0000003784513, y: -0.0000011449135, z: -0.00000046801824, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftHandThumb1
+      parentName: Zombie_Ctrl_LeftHand
+      position: {x: 0.00008142318, y: -0.00042861328, z: 0.0012154008}
+      rotation: {x: 2.2581152e-16, y: 0.000000011144126, z: -0.00000002275343, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftHandThumb2
+      parentName: Zombie_Ctrl_LeftHandThumb1
+      position: {x: 0.000043318938, y: -0.000041545103, z: 0.0006290151}
+      rotation: {x: -0.00000004305904, y: -1.7074859e-15, z: 0.00000007445754, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftHandThumb3
+      parentName: Zombie_Ctrl_LeftHandThumb2
+      position: {x: 0.00002541275, y: -0.0005121017, z: 0.0012221583}
+      rotation: {x: 5.551115e-17, y: 1.110223e-16, z: 2.220446e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftHandThumb4
+      parentName: Zombie_Ctrl_LeftHandThumb3
+      position: {x: -0.0002992653, y: -0.0010474807, z: 0.0003404085}
+      rotation: {x: 8.326673e-17, y: -8.326673e-17, z: 1.3877789e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftHandIndex1
+      parentName: Zombie_Ctrl_LeftHand
+      position: {x: -0.0012776854, y: -0.001519258, z: 0.0012403526}
+      rotation: {x: -0.00000003400516, y: 0.000000031862832, z: 0.000000043142517, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftHandIndex2
+      parentName: Zombie_Ctrl_LeftHandIndex1
+      position: {x: -0.000564743, y: -0.0007245865, z: 0.0007855888}
+      rotation: {x: -5.551115e-17, y: -1.3877788e-17, z: 1.9428903e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftHandIndex3
+      parentName: Zombie_Ctrl_LeftHandIndex2
+      position: {x: -0.00014618071, y: -0.00053968653, z: 0.00034697796}
+      rotation: {x: 2.7755576e-17, y: -1.179612e-16, z: 5.89806e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftHandIndex4
+      parentName: Zombie_Ctrl_LeftHandIndex3
+      position: {x: -0.00017086028, y: -0.0010270476, z: 0.00052277546}
+      rotation: {x: 2.7755576e-17, y: 1.110223e-16, z: 6.9388946e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftHandMiddle1
+      parentName: Zombie_Ctrl_LeftHand
+      position: {x: -0.0013906753, y: -0.0016591247, z: 0.00080853846}
+      rotation: {x: -0.000000024951282, y: 6.732937e-16, z: -0.000000014191839, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftHandMiddle2
+      parentName: Zombie_Ctrl_LeftHandMiddle1
+      position: {x: -0.0005106323, y: -0.0007859329, z: 0.00031873348}
+      rotation: {x: -0.00000006273315, y: -2.8214142e-15, z: 0.000000033913885, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftHandMiddle3
+      parentName: Zombie_Ctrl_LeftHandMiddle2
+      position: {x: -0.0002922699, y: -0.00084766996, z: 0.00025518017}
+      rotation: {x: 5.551115e-17, y: -1.0408341e-16, z: 0.000000010660689, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftHandMiddle4
+      parentName: Zombie_Ctrl_LeftHandMiddle3
+      position: {x: -0.00030997314, y: -0.0012778854, z: 0.00045477934}
+      rotation: {x: -8.326673e-17, y: -2.6367797e-16, z: 0.00000001670706, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftHandRing1
+      parentName: Zombie_Ctrl_LeftHand
+      position: {x: -0.0013995819, y: -0.0018028915, z: 0.00015674693}
+      rotation: {x: 5.5511148e-17, y: 1.0061396e-16, z: 0.000000025852055, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftHandRing2
+      parentName: Zombie_Ctrl_LeftHandRing1
+      position: {x: -0.00040360107, y: -0.0007747848, z: 0.00007665608}
+      rotation: {x: -0.000000012071841, y: -3.0019226e-16, z: 0.000000032914347, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftHandRing3
+      parentName: Zombie_Ctrl_LeftHandRing2
+      position: {x: -0.00023970335, y: -0.000739418, z: 0.00009417991}
+      rotation: {x: 0.00000005832736, y: 0.00000003028379, z: 0.00000007190959, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftHandRing4
+      parentName: Zombie_Ctrl_LeftHandRing3
+      position: {x: -0.00025064696, y: -0.0012362563, z: 0.0001994055}
+      rotation: {x: -0.00000005832736, y: -0.000000030283786, z: -0.00000007190958, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftHandPinky1
+      parentName: Zombie_Ctrl_LeftHand
+      position: {x: -0.001198735, y: -0.0019014312, z: -0.00048514848}
+      rotation: {x: 2.8888951e-34, y: -6.938894e-18, z: 4.1633363e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftHandPinky2
+      parentName: Zombie_Ctrl_LeftHandPinky1
+      position: {x: -0.00039172207, y: -0.000802742, z: -0.00027769158}
+      rotation: {x: -0.0000000150898, y: -8.317238e-16, z: 0.00000004810572, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftHandPinky3
+      parentName: Zombie_Ctrl_LeftHandPinky2
+      position: {x: -0.00014467315, y: -0.0005734817, z: 0.00002497487}
+      rotation: {x: -2.7755576e-17, y: -1.0581813e-16, z: -1.8995222e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_LeftHandPinky4
+      parentName: Zombie_Ctrl_LeftHandPinky3
+      position: {x: -0.00009022674, y: -0.0011008605, z: 0.0003645426}
+      rotation: {x: -6.0579525e-32, y: -1.4224733e-16, z: -4.2587461e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightShoulder
+      parentName: Zombie_Ctrl_Spine2
+      position: {x: 0.002214693, y: 0.0014974944, z: -0.0010364936}
+      rotation: {x: 0.000000039379106, y: 4.128642e-16, z: 6.9280506e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightArm
+      parentName: Zombie_Ctrl_RightShoulder
+      position: {x: 0.0022262053, y: -0.0011802551, z: 0.00015716953}
+      rotation: {x: -0.068739735, y: -0.047004446, z: -0.23269376, w: 0.9689784}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightForeArm
+      parentName: Zombie_Ctrl_RightArm
+      position: {x: 0.0041501084, y: -0.0030315076, z: -0.0005225435}
+      rotation: {x: 0.0000037956472, y: 0.000004510604, z: -0.0000011652602, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightHand
+      parentName: Zombie_Ctrl_RightForeArm
+      position: {x: 0.0036170734, y: -0.0022689071, z: 0.002210074}
+      rotation: {x: -0.00000028704318, y: 0.00000064157547, z: -0.00000013455448, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightHandThumb1
+      parentName: Zombie_Ctrl_RightHand
+      position: {x: -0.00008142318, y: -0.00042861328, z: 0.0012154008}
+      rotation: {x: 4.1633363e-17, y: 1.2842375e-16, z: -1.1540248e-15, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightHandThumb2
+      parentName: Zombie_Ctrl_RightHandThumb1
+      position: {x: -0.000043318938, y: -0.000041545103, z: 0.0006290151}
+      rotation: {x: 4.1633363e-16, y: -1.02782366e-16, z: -7.849624e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightHandThumb3
+      parentName: Zombie_Ctrl_RightHandThumb2
+      position: {x: -0.00002541275, y: -0.0005121017, z: 0.0012221583}
+      rotation: {x: 8.326673e-17, y: 8.326673e-17, z: -1.3877789e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightHandThumb4
+      parentName: Zombie_Ctrl_RightHandThumb3
+      position: {x: 0.0002992653, y: -0.0010474807, z: 0.0003404085}
+      rotation: {x: -2.4980015e-16, y: 1.9428903e-16, z: -1.3877789e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightHandIndex1
+      parentName: Zombie_Ctrl_RightHand
+      position: {x: 0.0012776854, y: -0.001519258, z: 0.0012403526}
+      rotation: {x: -1.5407441e-32, y: 5.551115e-17, z: 2.7755578e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightHandIndex2
+      parentName: Zombie_Ctrl_RightHandIndex1
+      position: {x: 0.000564743, y: -0.0007245865, z: 0.0007855888}
+      rotation: {x: 2.7755576e-17, y: -9.020562e-17, z: 2.9837244e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightHandIndex3
+      parentName: Zombie_Ctrl_RightHandIndex2
+      position: {x: 0.00014618071, y: -0.00053968653, z: 0.00034697796}
+      rotation: {x: -5.551115e-17, y: -2.7755576e-17, z: 1.0408341e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightHandIndex4
+      parentName: Zombie_Ctrl_RightHandIndex3
+      position: {x: 0.00017086028, y: -0.0010270476, z: 0.00052277546}
+      rotation: {x: 0, y: 3.4694473e-17, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightHandMiddle1
+      parentName: Zombie_Ctrl_RightHand
+      position: {x: 0.0013906753, y: -0.0016591247, z: 0.00080853846}
+      rotation: {x: 9.62965e-35, y: 1.3877788e-17, z: -6.938894e-18, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightHandMiddle2
+      parentName: Zombie_Ctrl_RightHandMiddle1
+      position: {x: 0.0005106323, y: -0.0007859329, z: 0.00031873348}
+      rotation: {x: 1.3877788e-17, y: -6.938894e-18, z: -1.0928758e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightHandMiddle3
+      parentName: Zombie_Ctrl_RightHandMiddle2
+      position: {x: 0.0002922699, y: -0.00084766996, z: 0.00025518017}
+      rotation: {x: 8.326673e-17, y: -2.0816682e-17, z: -8.84709e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightHandMiddle4
+      parentName: Zombie_Ctrl_RightHandMiddle3
+      position: {x: 0.00030997314, y: -0.0012778854, z: 0.00045477934}
+      rotation: {x: 2.7755576e-17, y: -6.938894e-18, z: -1.1969592e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightHandRing1
+      parentName: Zombie_Ctrl_RightHand
+      position: {x: 0.0013995819, y: -0.0018028915, z: 0.00015674693}
+      rotation: {x: -8.802102e-34, y: -6.938894e-18, z: -1.2685165e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightHandRing2
+      parentName: Zombie_Ctrl_RightHandRing1
+      position: {x: 0.00040360107, y: -0.0007747848, z: 0.00007665608}
+      rotation: {x: -1.3877788e-17, y: 1.3877788e-17, z: 2.1684043e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightHandRing3
+      parentName: Zombie_Ctrl_RightHandRing2
+      position: {x: 0.00023970335, y: -0.000739418, z: 0.00009417991}
+      rotation: {x: 1.3877788e-17, y: -1.7347235e-18, z: 2.8536199e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightHandRing4
+      parentName: Zombie_Ctrl_RightHandRing3
+      position: {x: 0.00025064696, y: -0.0012362563, z: 0.0001994055}
+      rotation: {x: -2.7755576e-17, y: -1.3877788e-17, z: 4.8572257e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightHandPinky1
+      parentName: Zombie_Ctrl_RightHand
+      position: {x: 0.001198735, y: -0.0019014312, z: -0.00048514848}
+      rotation: {x: 5.551115e-17, y: 4.1633363e-17, z: -2.5673907e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightHandPinky2
+      parentName: Zombie_Ctrl_RightHandPinky1
+      position: {x: 0.00039172207, y: -0.000802742, z: -0.00027769158}
+      rotation: {x: 3.469447e-18, y: -3.469447e-18, z: -1.6485294e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightHandPinky3
+      parentName: Zombie_Ctrl_RightHandPinky2
+      position: {x: 0.00014467315, y: -0.0005734817, z: 0.00002497487}
+      rotation: {x: 2.7755576e-17, y: 2.94903e-17, z: 1.6219665e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_RightHandPinky4
+      parentName: Zombie_Ctrl_RightHandPinky3
+      position: {x: 0.00009022674, y: -0.0011008605, z: 0.0003645426}
+      rotation: {x: 1.5888922e-33, y: -6.938894e-18, z: 2.289835e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_Neck
+      parentName: Zombie_Ctrl_Spine2
+      position: {x: -0, y: 0.0034274962, z: -0.000020668602}
+      rotation: {x: -0.10850076, y: 6.790009e-17, z: 6.1846363e-18, w: 0.9940964}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Zombie_Ctrl_Head
+      parentName: Zombie_Ctrl_Neck
+      position: {x: -0, y: 0.0039999997, z: 0.00094295293}
+      rotation: {x: -0.10849502, y: 4.886775e-17, z: 8.9910125e-17, w: 0.994097}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 0.02
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 3
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

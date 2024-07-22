@@ -20,7 +20,9 @@ public class InputKeyManager : MonoBehaviour {
         Weapon1,
         Weapon2,
         Weapon3,
-        Weapon4
+        Weapon4,
+        Setting,
+        BulletLoad
     }
 
     // 딕셔너리로 키 관리 
@@ -52,6 +54,8 @@ public class InputKeyManager : MonoBehaviour {
         keyMappings[KeyCodeTypes.Weapon2] = KeyCode.Alpha2;     // 근거리 무기
         keyMappings[KeyCodeTypes.Weapon3] = KeyCode.Alpha3;     // 투척 무기 
         keyMappings[KeyCodeTypes.Weapon4] = KeyCode.Alpha4;     // 힐팩 
+        keyMappings[KeyCodeTypes.Setting] = KeyCode.Escape;     // 설정
+        keyMappings[KeyCodeTypes.BulletLoad] = KeyCode.R;       // 장전 
     }
 
     public KeyCode GetKeyCode( KeyCodeTypes action ) {

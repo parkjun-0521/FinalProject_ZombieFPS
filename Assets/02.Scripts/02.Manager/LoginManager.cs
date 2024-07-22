@@ -18,10 +18,15 @@ public class LoginManager : MonoBehaviour
 
     public Text StatusText;
 
-    //string LoginURL = "http://localhost/Zombie_Login.php";
-    //string CreateUserURL = "http://localhost/Zombie_NewCreateUser.php";
-    string LoginURL = "http://223.131.75.181:1356//Zombie_Login.php";
-    string CreateUserURL = "http://223.131.75.181:1356/Zombie_NewCreateUser.php";
+    //string LoginURL = URLs.LoginUR;
+    //string CreateUserURL = URLs.CreateUserURL;
+    string LoginURL = URLs.LoginURL;
+    string CreateUserURL = URLs.CreateUserURL;
+
+    public GameObject CreateUserUI;
+    public GameObject failLoginText;
+    public GameObject CreateUserFail;
+    public GameObject CreateUserSuccess;
 
     void Start() {
         NetworkManager.Instance.NickNameInput = idInput;
@@ -39,6 +44,7 @@ public class LoginManager : MonoBehaviour
             Debug.Log("아이디 또는 패스워드를 입력해주세요!");
         }
     }
+
     IEnumerator LoginToDB(string username, string password)
     {
         WWWForm form = new WWWForm();
@@ -59,7 +65,10 @@ public class LoginManager : MonoBehaviour
                 }
                 else // 로그인 실패
                 {
-                    Debug.Log("아이디 또는 비밀번호가 틀렸습니다");
+                    Debug.Log("Server Response: " + www.downloadHandler.text);
+                    failLoginText.GetComponent<Animator>().SetBool("isFail", true);
+                    yield return new WaitForSeconds(0.1f);
+                    failLoginText.GetComponent<Animator>().SetBool("isFail", false);
                 }
             }
         }
@@ -75,22 +84,39 @@ public class LoginManager : MonoBehaviour
             Debug.Log("아이디 또는 패스워드를 입력해주세요!");
         }
     }
-    IEnumerator NewCreateUser(string  username, string password)
+
+    IEnumerator NewCreateUser(string username, string password)
     {
         WWWForm form = new WWWForm();
         form.AddField("UserID", username);
         form.AddField("UserPassword", password);
+
         using (UnityWebRequest www = UnityWebRequest.Post(CreateUserURL, form)) {
             yield return www.SendWebRequest();
 
-            if(www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError) {
-                Debug.Log("회원이 만들어지지 않음");
+            if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError) {
+                Debug.Log("회원이 만들어지지 않음: " + www.error);
             }
             else {
-                createUserIDInput.text = "";
-                createUserPWInput.text = "";
-                Debug.Log("회원가입 완료");
+                // 응답 텍스트를 통해 회원가입 결과 확인
+                string response = www.downloadHandler.text;
+                if (response == "This username is already taken.") {
+                    CreateUserFail.GetComponent<Animator>().SetBool("isFail", true);
+                    yield return new WaitForSeconds(0.1f);
+                    CreateUserFail.GetComponent<Animator>().SetBool("isFail", false);
+                }
+                else if (response == "1") {
+                    createUserIDInput.text = "";
+                    createUserPWInput.text = "";
+                    CreateUserSuccess.GetComponent<Animator>().SetBool("isFail", true);
+                    yield return new WaitForSeconds(0.1f);
+                    CreateUserUI.SetActive(false);
+                    CreateUserSuccess.GetComponent<Animator>().SetBool("isFail", false);
+                }
+                else {
+                    Debug.Log("회원가입 실패: " + response);
+                }
             }
-        } 
+        }
     }
 }
