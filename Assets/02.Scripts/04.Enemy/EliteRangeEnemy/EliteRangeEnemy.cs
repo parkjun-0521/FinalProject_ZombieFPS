@@ -137,7 +137,7 @@ public class EliteRangeEnemy : EnemyController
         {
             Vector3 dest = new Vector3();
             transform.LookAt(dest);
-            if (Vector3.Distance(transform.position, Vector3.zero) < 0.1f && shouldEvaluate)
+            if (Vector3.Distance(transform.position, enemySpawn.position) < 0.1f && shouldEvaluate)
             {
                 rigid.velocity = Vector3.zero;
                 rigid.angularVelocity = Vector3.zero;
@@ -159,7 +159,7 @@ public class EliteRangeEnemy : EnemyController
             float dirZ = Random.Range(-40, 40);
             Vector3 dest = new Vector3(dirX, 0, dirZ);
             transform.LookAt(dest);
-            Vector3 toOrigin = origin - transform.position;
+            Vector3 toOrigin = enemySpawn.position - transform.position;
 
             //일정 범위를 나가면
             if (toOrigin.magnitude > rangeOut)
@@ -168,7 +168,7 @@ public class EliteRangeEnemy : EnemyController
                 rigid.velocity = Vector3.zero;
                 rigid.angularVelocity = Vector3.zero;
                 //다시돌아오는
-                Vector3 direction = (Vector3.zero - transform.position).normalized;
+                Vector3 direction = (enemySpawn.position - transform.position).normalized;
                 rigid.AddForce(direction * resetSpeed, ForceMode.VelocityChange);
                 isRangeOut = true;
                 OnEnemyTracking -= EnemyTracking;

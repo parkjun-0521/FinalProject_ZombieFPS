@@ -34,6 +34,8 @@ public class EnemyController : MonoBehaviourPun, IEnemy {
     public float rangeOut = 10f;
     //리셋 속도 5고정
     public float resetSpeed = 5f;
+    //스폰 지점 지정
+    public Transform enemySpawn;
 
     //추적거리
     public float rad = 3f;
@@ -48,7 +50,6 @@ public class EnemyController : MonoBehaviourPun, IEnemy {
     protected NavMeshAgent nav;
     protected Animator ani;
 
-    protected Vector3 origin = new Vector3(0, 0, 0);
 
     //좀비 최대 체력
     [SerializeField]
