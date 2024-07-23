@@ -122,7 +122,8 @@ public class Player : PlayerController
             }
 
             // 장전
-            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.BulletLoad)) && isGun) {
+            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.BulletLoad)) && isGun && !isLoad) {
+                isLoad = true;
                 isBulletZero = true;
                 StartCoroutine(BulletLoad());
             }
@@ -532,9 +533,20 @@ public class Player : PlayerController
             
         }
     }
-
+    
+    IEnumerator BulletLoadImage()
+    {
+        UIManager.Instance.reloadImage.fillAmount = 0;
+        while (UIManager.Instance.reloadImage.fillAmount <= 0.99f)
+        {
+            yield return null;
+            UIManager.Instance.reloadImage.fillAmount += Time.deltaTime / 2;
+        }
+        UIManager.Instance.reloadImage.fillAmount = 0;
+    }
     IEnumerator BulletLoad()
     {
+        StartCoroutine(BulletLoadImage());      //장전이미지
         yield return new WaitForSeconds(2f);
         Debug.Log("2초간 장전중");
         // 여기에 뭔가 애니메이션이나 사운드 넣어줘야 할듯 
@@ -551,6 +563,8 @@ public class Player : PlayerController
             UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
             isBulletZero = false; // 총알이 다 떨어짐
         }
+
+        isLoad = false;
     }
 
     // 근거리 아이템 힐팩 
@@ -713,7 +727,7 @@ public class Player : PlayerController
                 StartCoroutine(ShowHealScreen());   //힐 화면 출력
             }
             else if (value < 0) {
-                StartCoroutine(ShowBloodScreen());  //피격화면 출력 
+                StartCoroutine(ShowBloodScreen(value));  //피격화면 출력 
                 hp = Mathf.Clamp(hp, 0, maxHp);
                 UIManager.Instance.hpBar.value = (hp / maxHp) * 100;
             }
@@ -832,9 +846,21 @@ public class Player : PlayerController
         playerReviveUI.SetActive(false);
     }
     // 피격시 셰이더 변경 
-    IEnumerator ShowBloodScreen()                  //화면 붉게
+    IEnumerator ShowBloodScreen(float value)                  //화면 붉게
     {
-        bloodScreen.color = new Color(1, 0, 0, UnityEngine.Random.Range(0.1f, 0.15f));  //시뻘겋게 변경
+        if(value > -5)
+        {
+            bloodScreen.color = new Color(1, 0, 0, UnityEngine.Random.Range(0.1f, 0.15f));  //시뻘겋게 변경
+        }
+        else if(value > -20)
+        {
+            bloodScreen.color = new Color(1, 0, 0, UnityEngine.Random.Range(0.3f, 0.4f));  //시뻘겋게 변경
+        }
+        else
+        {
+            bloodScreen.color = new Color(1, 0, 0, UnityEngine.Random.Range(0.5f, 0.6f));  //시뻘겋게 변경
+        }
+
         yield return new WaitForSeconds(0.5f);                                          //0.5f초 후에   - 이거 변수로 뺄까?
         bloodScreen.color = Color.clear;                                                //화면 정상적으로 변경!
     }
@@ -869,7 +895,7 @@ public class Player : PlayerController
             yield return null;
             _time += Time.deltaTime;
             fillImage.fillAmount = _time / time;
-            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
+            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Interaction)) || isFaint)
             {
                 OnPlayerInteraction += PlayerInteraction;
 

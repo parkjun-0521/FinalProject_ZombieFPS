@@ -139,6 +139,7 @@ MonoBehaviour:
   nextAttack: 4
   rangeOut: 10
   resetSpeed: 5
+  enemySpawn: {fileID: 0}
   rad: 3
   distance: 5
   layermask:
@@ -148,7 +149,8 @@ MonoBehaviour:
   playerTr: {fileID: 0}
   maxHp: 40
   hp: 40
-  damage: 10
+  baseDamage: 10
+  damage: 40
   isRangeOut: 0
   shouldEvaluate: 0
   isNow: 0
@@ -156,6 +158,9 @@ MonoBehaviour:
   swingAtkDistance: 200
   dashAtkDistance: 600
   dashPower: 40
+  knockBackPower: 3
+  traceTime: 0
+  traceChacgeTime: 15
 --- !u!195 &7551461160908133071
 NavMeshAgent:
   m_ObjectHideFlags: 0

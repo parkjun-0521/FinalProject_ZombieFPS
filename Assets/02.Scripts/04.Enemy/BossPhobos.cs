@@ -197,6 +197,12 @@ public class BossPhobos : EnemyController
         traceTime += Time.deltaTime;
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, 14.1f);
+        Gizmos.DrawWireSphere(transform.position, 24.5f);
+    }
 
     public override void ChangeHp(float value)
     {
