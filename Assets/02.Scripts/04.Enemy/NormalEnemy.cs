@@ -43,6 +43,7 @@ public class NormalEnemy : EnemyController
         OnEnemyDead += EnemyDead;
 
         hp = maxHp;
+        rigid.velocity = Vector3.zero;
         //델리게이트 사망에서 뻈으니 다 넣기
     }
 
@@ -76,15 +77,18 @@ public class NormalEnemy : EnemyController
         {
             Hp = -(other.GetComponent<Bullet>().itemData.damage);  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
             other.gameObject.SetActive(false);
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
         }
         else if (other.CompareTag("Weapon"))        // 근접무기와 trigger
         {
             Hp = -(other.GetComponent<ItemSword>().itemData.damage);
             BloodEffect(transform.position);
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
         }
         else if(other.CompareTag("Grenade"))
         {
             Hp = -(other.GetComponentInParent<ItemGrenade>().itemData.damage);
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
         }
        
         return;
@@ -142,11 +146,19 @@ public class NormalEnemy : EnemyController
             rigid.AddForce(dest * speed * Time.deltaTime, ForceMode.VelocityChange);
         }
 
+        if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_walk)) {
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_walk);
+        }
+
         rigid.velocity = Vector3.zero;
         rigid.angularVelocity = Vector3.zero;
     }
     public override void EnemyRun() {
         isRun = true;
+
+        if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_run)) {
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_run);
+        }
 
         nav.speed = runSpeed;
         nav.destination = playerTr.position;
@@ -163,8 +175,9 @@ public class NormalEnemy : EnemyController
         nextAttack += Time.deltaTime;
         if (nextAttack > meleeDelay)
         {
-            GameObject attackCollider = Instantiate(attackColliderPrefab, attackPoint.position, attackPoint.rotation);
-            Destroy(attackCollider, 0.1f);
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack)) {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_attack);
+            }
             Debug.Log("ATtak");
             nextAttack = 0;
         }
@@ -177,6 +190,7 @@ public class NormalEnemy : EnemyController
         if (hp <= 0)
         {
             ani.SetTrigger("isDead");
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_dead1);
             //델리게이트 다른거 다 빼기
             //?초후에
             //gameObject.SetActive(false); 

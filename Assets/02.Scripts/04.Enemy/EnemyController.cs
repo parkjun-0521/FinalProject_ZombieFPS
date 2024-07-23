@@ -104,6 +104,9 @@ public class EnemyController : MonoBehaviourPun, IEnemy {
                 rigid.angularVelocity = Vector3.zero;
                 transform.LookAt(hit.transform);
                 isTracking = true;
+                if(hp <= 0) {
+                    isWalk = false;
+                }
             }
         }
     }

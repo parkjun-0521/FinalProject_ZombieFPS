@@ -26,6 +26,10 @@ public class UIManager : MonoBehaviourPun
     public Button[] aimingImage;
 
     // 체력바 
+    public Text nickName1;
+    public Text nickName2;
+    public Text nickName3;
+    public Text nickName4;
     public Slider hpBar; 
     public Slider hpBar1; 
     public Slider hpBar2; 
@@ -119,21 +123,37 @@ public class UIManager : MonoBehaviourPun
         }
     }
 
-    public void UpdatePlayerHealthBar(int playerID, float healthPercent)
+    public void UpdatePlayerHealthBar(string nickName ,int viewID, float healthPercent)
     {
-        switch (playerID) {
-            case 0:
-                hpBar.value = healthPercent;
-                break;
-            case 1:
-                hpBar1.value = healthPercent;
-                break;
-            case 2:
-                hpBar2.value = healthPercent;
-                break;
-            case 3:
-                hpBar3.value = healthPercent;
-                break;
+        if (PhotonNetwork.LocalPlayer.NickName == nickName) {
+            // 내 체력바 업데이트
+            nickName1.text = nickName;
+            hpBar.value = healthPercent;
+        }
+        else {
+            // 다른 플레이어의 체력바 업데이트
+            var otherPlayers = PhotonNetwork.PlayerListOthers;
+
+            for (int i = 0; i < otherPlayers.Length; i++) {
+                if (otherPlayers[i].NickName == nickName) {
+                    switch (i) {
+                        case 0:
+                            nickName2.text = nickName;
+                            hpBar1.value = healthPercent;
+                            break;
+                        case 1:
+                            nickName3.text = nickName;
+                            hpBar2.value = healthPercent;
+                            break;
+                        case 2:
+                            nickName4.text = nickName;
+                            hpBar3.value = healthPercent;
+                            break;
+                    }
+                    break;
+                }
+            }
         }
     }
+
 }

@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using Unity.VisualScripting;
 using UnityEditor;
@@ -81,6 +82,7 @@ public class Player : PlayerController
             keyManager = InputKeyManager.instance.GetComponent<InputKeyManager>();
             playerCamera.gameObject.SetActive(true);
             ItemController[] items = FindObjectsOfType<ItemController>(true); // true를 사용하여 비활성화된 오브젝트도 포함
+            photonView.RPC("UpdateHealthBar", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName, photonView.ViewID, (hp / maxHp) * 100);
         }
         else {
             playerCamera.gameObject.SetActive(false);
@@ -119,7 +121,8 @@ public class Player : PlayerController
             }
 
             // 장전
-            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.BulletLoad)) && isGun) {
+            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.BulletLoad)) && isGun && !isLoad) {
+                isLoad = true;
                 isBulletZero = true;
                 StartCoroutine(BulletLoad());
             }
@@ -268,10 +271,12 @@ public class Player : PlayerController
 
             if (isMove) {
                 animator.SetFloat("speedBlend", type ? 1.0f : 0.5f);
-                if(type)
+                if (type && !AudioManager.Instance.IsPlaying(AudioManager.Sfx.Player_run2)) {
                     AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_run2);
-                else
+                }
+                else if (!type && !AudioManager.Instance.IsPlaying(AudioManager.Sfx.Player_walk3)) {
                     AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_walk3);
+                }
             }
             else
                 animator.SetFloat("speedBlend", 0);
@@ -486,7 +491,8 @@ public class Player : PlayerController
                 return; 
             }
 
-            if (bulletCount[0] == 0 && isGun) {
+            if (bulletCount[0] == 0 && isGun && !isLoad) {
+                isLoad = true;
                 StartCoroutine(BulletLoad());
                 isBulletZero = true;
             }
@@ -543,22 +549,18 @@ public class Player : PlayerController
 
     IEnumerator BulletLoad()
     {
+        AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_reload3);
         yield return new WaitForSeconds(2f);
         Debug.Log("2초간 장전중");
         // 여기에 뭔가 애니메이션이나 사운드 넣어줘야 할듯 
         // AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_run2);   // 장전 사운드 
         int availableBullets = theInventory.CalculateTotalItems(ItemController.ItemType.Magazine); // 이 메소드는 인벤토리에서 사용 가능한 모든 총알의 수를 반환해야 함
 
-        if (availableBullets > 0) {
-            bulletCount[0] = Mathf.Min(availableBullets, 30); // 남은 총알이 30개 이상이면 30개를, 그렇지 않으면 남은 총알만큼 장전
-            UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
-            isBulletZero = false; // 총알이 남아있음
-        }
-        else {
-            bulletCount[0] = 0;
-            UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
-            isBulletZero = false; // 총알이 다 떨어짐
-        }
+        bulletCount[0] = (availableBullets > 0) ? Mathf.Min(availableBullets, 30) : 0;
+        UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
+        isBulletZero = false;
+
+        isLoad = false;
     }
 
     // 근거리 아이템 힐팩 
@@ -599,10 +601,10 @@ public class Player : PlayerController
             animator.SetBool("isGrenadeThrow", true);
             StartCoroutine(AnimReset("isGrenadeThrow"));
             float throwForce = 15f;    // 던지는 힘
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_granede);
 
             GameObject grenade = Pooling.instance.GetObject("GrenadeObject");   // 수류탄 생성 
             Rigidbody grenadeRigid = grenade.GetComponent<Rigidbody>();
-            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_granede);
             // 초기 위치 설정
             grenadeRigid.velocity = Vector3.zero;               // 생성 시 가속도 초기화
             grenade.transform.position = grenadePos.position;   // bullet 위치 초기화                   
@@ -726,6 +728,7 @@ public class Player : PlayerController
                 UIManager.Instance.hpBar.value = (hp / maxHp) * 100;
             }
         }
+        photonView.RPC("UpdateHealthBar", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName, photonView.ViewID, (hp / maxHp) * 100);
     }
 
     // 플레이어 기절 
@@ -764,6 +767,8 @@ public class Player : PlayerController
         animator.SetBool("isRevive", true);     //기절 애니메이션 출력 나중에 플레이어 완성되면 추가
         StartCoroutine(AnimReset("isRevive"));
         Hp = 50;                             //부활시 반피로 변경! maxHp = 100; 을 따로 선언해서 maxHp / 2해도 되는데 풀피는 100하겠지 뭐
+
+        photonView.RPC("UpdateHealthBar", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName, photonView.ViewID, (hp / maxHp) * 100);
     }
 
     // 플레이어 사망
@@ -775,6 +780,7 @@ public class Player : PlayerController
             hp = 0;                                 //여기서 hp를 0   //anim.setbool("isFaint", true);    //기절 애니메이션 출력 나중에 플레이어 완성되면 추가
             animator.SetBool("isDead", true);          //죽었을때 애니메이션 출력
             StartCoroutine(AnimReset("isDead"));
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_death_BGM);
         }
     }
    
@@ -910,7 +916,7 @@ public class Player : PlayerController
         animator.SetBool(animString, false);
         if(handAnim != null)
         handAnim.SetBool(animString, false);
-        AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_death_BGM);
+
     }
 
     IEnumerator DotDamage(EliteRangeEnemyDotArea _EREP)
@@ -944,10 +950,10 @@ public class Player : PlayerController
     }
 
     [PunRPC]
-    public void UpdateHealthOnUI(int viewID, float health)
-    {
-        int playerID = PhotonNetwork.GetPhotonView(viewID).OwnerActorNr;
-        UIManager.Instance.UpdatePlayerHealthBar(playerID - 1, health);
+    public void UpdateHealthBar( string nickName, int viewID, float healthPercent ) {
+        if (photonView.ViewID == viewID) {
+            UIManager.Instance.UpdatePlayerHealthBar(nickName, viewID, healthPercent);
+        }
     }
 
 

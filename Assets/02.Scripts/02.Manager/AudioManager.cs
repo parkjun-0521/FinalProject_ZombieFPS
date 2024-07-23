@@ -46,7 +46,8 @@ public class AudioManager : MonoBehaviour
         Zombie_explosion = 25,  // 24, 25 좀비 터지는 소리 랜덤 
         Zombie_hurt = 27,       // 26, 27 좀비 피격 소리 랜덤 
         Zombie_run,             // 좀비 달리기 
-        Zombie_walk             // 좀비 걷기 
+        Zombie_walk,            // 좀비 걷기 
+        Player_reload3          // 플레이어 장전
     }
 
     void Awake()
@@ -117,5 +118,14 @@ public class AudioManager : MonoBehaviour
 
             break;
         }
+    }
+
+    public bool IsPlaying( Sfx sfx ) {
+        foreach (var player in sfxPlayers) {
+            if (player.isPlaying && player.clip == sfxClips[(int)sfx]) {
+                return true;
+            }
+        }
+        return false;
     }
 }
