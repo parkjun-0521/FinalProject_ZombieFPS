@@ -18,7 +18,9 @@ public class BossPhobos : EnemyController
             if (state == State.dead) return;
             if (hp > 0)
             {
-                ChangeHp(value);                   
+
+                PV.RPC("ChangeHp", RpcTarget.AllBuffered, value);
+                //ChangeHp(value);                   
                 Debug.Log(hp);
     
             }
@@ -204,6 +206,7 @@ public class BossPhobos : EnemyController
         Gizmos.DrawWireSphere(transform.position, 24.5f);
     }
 
+    [PunRPC]
     public override void ChangeHp(float value)
     {
         hp += value;
