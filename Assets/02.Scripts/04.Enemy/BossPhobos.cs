@@ -18,7 +18,9 @@ public class BossPhobos : EnemyController
             if (state == State.dead) return;
             if (hp > 0)
             {
-                ChangeHp(value);                   
+
+                PV.RPC("ChangeHp", RpcTarget.AllBuffered, value);
+                //ChangeHp(value);                   
                 Debug.Log(hp);
     
             }
@@ -32,10 +34,15 @@ public class BossPhobos : EnemyController
     }
     State state = State.move;
     [Header("보스용 인스펙터")]
-    public GameObject[] players;
-    public float swingAtkDistance = 200;
-    public float dashAtkDistance = 600;
-    public float dashPower = 30;
+    [SerializeField] private GameObject[] players;
+    [SerializeField] private float swingAtkDistance = 200;
+    [SerializeField] private float dashAtkDistance = 600;
+    [SerializeField] private float dashPower = 30;
+    [SerializeField] private float knockBackPower = 3.0f;
+
+    private float defalutKnockBackPower = 3.0f;
+    [SerializeField]private float traceTime = 0;
+    [SerializeField] private float traceChacgeTime = 15.0f;
 
     private void Awake()
     {
@@ -82,9 +89,10 @@ public class BossPhobos : EnemyController
                 StartCoroutine(AtkPattern());
                 yield break;
             }
-            else if((closestPlayer.position - transform.position).sqrMagnitude > dashAtkDistance)
+            else if((closestPlayer.position - transform.position).sqrMagnitude > dashAtkDistance || traceTime > traceChacgeTime)
             {
                 StartCoroutine(DashPattern());
+                traceTime = 0;
                 yield break;
             }
             yield return new WaitForSeconds(0.5f);
@@ -98,15 +106,19 @@ public class BossPhobos : EnemyController
         int randomNum = Random.Range(0, 100);
         if(randomNum < 70)
         {
+            knockBackPower = 5.0f;
             ani.SetBool("isSwing", true);
             StartCoroutine(AnimationFalse("isSwing"));
             yield return new WaitForSeconds(2.5f);
+            knockBackPower = defalutKnockBackPower;
         }
         else if(randomNum < 90)
         {
+            knockBackPower = 5.0f;
             ani.SetBool("isShockWave", true);
             StartCoroutine(AnimationFalse("isShockWave"));
             yield return new WaitForSeconds(3.75f);
+            knockBackPower = defalutKnockBackPower;
         }
         else if (randomNum < 100)
         {
@@ -131,6 +143,7 @@ public class BossPhobos : EnemyController
 
     IEnumerator DashPattern()
     {
+        knockBackPower = 10.0f;
         StopCoroutine(Trace());
         ani.SetBool("isDash", true);
         StartCoroutine(AnimationFalse("isDash"));
@@ -142,7 +155,7 @@ public class BossPhobos : EnemyController
         yield return new WaitForSeconds(1.5f);
         nav.velocity = Vector3.zero;
         yield return new WaitForSeconds(0.625f);
-
+        knockBackPower = defalutKnockBackPower;
         StartCoroutine(Trace());
     }
 
@@ -177,16 +190,23 @@ public class BossPhobos : EnemyController
             Hp = -(other.GetComponentInParent<ItemGrenade>().itemData.damage);
         }else if(other.CompareTag("Player"))
         {
-            other.GetComponent<PlayerController>().rigid.AddForce((other.transform.position - transform.position).normalized * 3.0f, ForceMode.Impulse);
+            other.GetComponent<PlayerController>().rigid.AddForce((other.transform.position - transform.position).normalized * knockBackPower, ForceMode.Impulse);
         }
     }
 
     private void Update()
     {
-        
+        traceTime += Time.deltaTime;
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, 14.1f);
+        Gizmos.DrawWireSphere(transform.position, 24.5f);
+    }
 
+    [PunRPC]
     public override void ChangeHp(float value)
     {
         hp += value;

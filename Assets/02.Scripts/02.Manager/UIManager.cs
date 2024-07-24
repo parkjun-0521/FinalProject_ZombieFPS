@@ -34,7 +34,10 @@ public class UIManager : MonoBehaviourPunCallbacks
     public Slider hpBar; 
     public Slider hpBar1; 
     public Slider hpBar2; 
-    public Slider hpBar3; 
+    public Slider hpBar3;
+
+    //장전 이미지
+    public Image reloadImage;
     void Awake()
     {
         if (Instance == null)

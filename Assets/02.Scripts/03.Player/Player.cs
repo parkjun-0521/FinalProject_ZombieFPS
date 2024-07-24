@@ -546,19 +546,45 @@ public class Player : PlayerController
             
         }
     }
-
+    
+    IEnumerator BulletLoadImage()
+    {
+        UIManager.Instance.reloadImage.fillAmount = 0;
+        while (UIManager.Instance.reloadImage.fillAmount <= 0.99f)
+        {
+            yield return null;
+            UIManager.Instance.reloadImage.fillAmount += Time.deltaTime / 2;
+        }
+        UIManager.Instance.reloadImage.fillAmount = 0;
+    }
     IEnumerator BulletLoad()
     {
+
         AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_reload3);
+        StartCoroutine(BulletLoadImage());      //장전이미지
+
         yield return new WaitForSeconds(2f);
         Debug.Log("2초간 장전중");
         // 여기에 뭔가 애니메이션이나 사운드 넣어줘야 할듯 
         // AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_run2);   // 장전 사운드 
         int availableBullets = theInventory.CalculateTotalItems(ItemController.ItemType.Magazine); // 이 메소드는 인벤토리에서 사용 가능한 모든 총알의 수를 반환해야 함
 
+
         bulletCount[0] = (availableBullets > 0) ? Mathf.Min(availableBullets, 30) : 0;
         UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
         isBulletZero = false;
+
+        if (availableBullets > 0) {
+            bulletCount[0] = Mathf.Min(availableBullets, 30); // 남은 총알이 30개 이상이면 30개를, 그렇지 않으면 남은 총알만큼 장전
+            UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
+            isBulletZero = false; // 총알이 남아있음
+        }
+        else {
+            bulletCount[0] = 0;
+            UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
+            isBulletZero = false; // 총알이 다 떨어짐
+        }
+
 
         isLoad = false;
     }
@@ -723,7 +749,7 @@ public class Player : PlayerController
                 StartCoroutine(ShowHealScreen());   //힐 화면 출력
             }
             else if (value < 0) {
-                StartCoroutine(ShowBloodScreen());  //피격화면 출력 
+                StartCoroutine(ShowBloodScreen(value));  //피격화면 출력 
                 hp = Mathf.Clamp(hp, 0, maxHp);
                 UIManager.Instance.hpBar.value = (hp / maxHp) * 100;
             }
@@ -848,9 +874,21 @@ public class Player : PlayerController
         playerReviveUI.SetActive(false);
     }
     // 피격시 셰이더 변경 
-    IEnumerator ShowBloodScreen()                  //화면 붉게
+    IEnumerator ShowBloodScreen(float value)                  //화면 붉게
     {
-        bloodScreen.color = new Color(1, 0, 0, UnityEngine.Random.Range(0.1f, 0.15f));  //시뻘겋게 변경
+        if(value > -5)
+        {
+            bloodScreen.color = new Color(1, 0, 0, UnityEngine.Random.Range(0.1f, 0.15f));  //시뻘겋게 변경
+        }
+        else if(value > -20)
+        {
+            bloodScreen.color = new Color(1, 0, 0, UnityEngine.Random.Range(0.3f, 0.4f));  //시뻘겋게 변경
+        }
+        else
+        {
+            bloodScreen.color = new Color(1, 0, 0, UnityEngine.Random.Range(0.5f, 0.6f));  //시뻘겋게 변경
+        }
+
         yield return new WaitForSeconds(0.5f);                                          //0.5f초 후에   - 이거 변수로 뺄까?
         bloodScreen.color = Color.clear;                                                //화면 정상적으로 변경!
     }
@@ -885,7 +923,7 @@ public class Player : PlayerController
             yield return null;
             _time += Time.deltaTime;
             fillImage.fillAmount = _time / time;
-            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
+            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Interaction)) || isFaint)
             {
                 OnPlayerInteraction += PlayerInteraction;
 
