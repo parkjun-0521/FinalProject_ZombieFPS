@@ -38,6 +38,8 @@ public class UIManager : MonoBehaviourPun
 
     //장전 이미지
     public Image reloadImage;
+
+    Player player;
     void Awake()
     {
         if (Instance == null)
@@ -59,6 +61,7 @@ public class UIManager : MonoBehaviourPun
             UIManager.Instance.totalGranedeCount.text = "0";
             UIManager.Instance.totalHealCount.text = "0";
         }
+        player = GameObject.FindWithTag("Player").GetComponent<Player>();
     }
 
     void Update(){
@@ -67,21 +70,17 @@ public class UIManager : MonoBehaviourPun
 
     // 설정창 활성화/비활성화
     public void Setting() {
-        Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
-        Debug.Log("설정창 " + player.PV.ViewID);
         if (player != null) {
             if (player.inventory.activeSelf && Input.GetKeyDown(InputKeyManager.instance.GetKeyCode(KeyCodeTypes.Setting))) {
                 return;
             }
             else if (!isCountSetting && Input.GetKeyDown(InputKeyManager.instance.GetKeyCode(KeyCodeTypes.Setting))) {
-                Debug.Log("설정창1 " + player.PV.ViewID);
                 SettingUI.SetActive(true);
                 isCountSetting = true;
                 player.cursorLocked = true;
                 player.ToggleCursor();
             }
             else if (isCountSetting && Input.GetKeyDown(InputKeyManager.instance.GetKeyCode(KeyCodeTypes.Setting))) {
-                Debug.Log("설정창2 " + player.PV.ViewID);
                 SettingUI.SetActive(false);
                 isCountSetting = false;
                 player.cursorLocked = false;
