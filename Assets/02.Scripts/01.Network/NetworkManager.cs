@@ -94,7 +94,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
 
     // 방 떠나기 
     public void LeaveRoom() {
+        string playerName = PhotonNetwork.NickName;
+
+        PV.RPC("HPBarDelete", RpcTarget.Others, playerName);
+
         PhotonNetwork.LeaveRoom();
+    }
+    // 체력바 제거
+    [PunRPC]
+    void HPBarDelete(string playerName) {
+
     }
 
     // 방이 생성되었을 때 동작할 부분 

@@ -71,7 +71,7 @@ public class Pooling : MonoBehaviourPun {
             if (PhotonNetwork.IsConnected && PhotonNetwork.InRoom) {
                 select = PhotonNetwork.Instantiate(prefab.name, Vector3.zero, Quaternion.identity);
             }
-            else {
+            else {  // 테스트용
                 select = Instantiate(prefab, Vector3.zero, Quaternion.identity);
             }
             // 풀에 아이템 추가 

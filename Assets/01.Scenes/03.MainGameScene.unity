@@ -882,9 +882,13 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2366360589327585618, guid: ae885c42bb4b6d8478d19faa35f2ea63, type: 3}
+      propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2756584091563622315, guid: ae885c42bb4b6d8478d19faa35f2ea63, type: 3}
       propertyPath: m_Text
-      value: Test3
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2756584091563622315, guid: ae885c42bb4b6d8478d19faa35f2ea63, type: 3}
       propertyPath: m_FontData.m_FontSize
@@ -1125,9 +1129,13 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2366360589327585618, guid: ae885c42bb4b6d8478d19faa35f2ea63, type: 3}
+      propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2756584091563622315, guid: ae885c42bb4b6d8478d19faa35f2ea63, type: 3}
       propertyPath: m_Text
-      value: Test2
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2756584091563622315, guid: ae885c42bb4b6d8478d19faa35f2ea63, type: 3}
       propertyPath: m_FontData.m_FontSize
@@ -1839,11 +1847,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2366360589327585618, guid: ae885c42bb4b6d8478d19faa35f2ea63, type: 3}
       propertyPath: m_Value
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2756584091563622315, guid: ae885c42bb4b6d8478d19faa35f2ea63, type: 3}
       propertyPath: m_Text
-      value: Test1
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2756584091563622315, guid: ae885c42bb4b6d8478d19faa35f2ea63, type: 3}
       propertyPath: m_FontData.m_FontSize
@@ -9981,6 +9989,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1465705006}
     m_Modifications:
+    - target: {fileID: 2756584091563622315, guid: ae885c42bb4b6d8478d19faa35f2ea63, type: 3}
+      propertyPath: m_Text
+      value: Nick
+      objectReference: {fileID: 0}
     - target: {fileID: 3800270683660892393, guid: ae885c42bb4b6d8478d19faa35f2ea63, type: 3}
       propertyPath: m_Name
       value: PlayerHp

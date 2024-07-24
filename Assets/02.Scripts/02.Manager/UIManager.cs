@@ -5,7 +5,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using static InputKeyManager;
-public class UIManager : MonoBehaviourPun
+
+public class UIManager : MonoBehaviourPunCallbacks 
 {
     public static UIManager Instance;
 
@@ -123,7 +124,7 @@ public class UIManager : MonoBehaviourPun
         }
     }
 
-    public void UpdatePlayerHealthBar(string nickName ,int viewID, float healthPercent)
+    public void UpdatePlayerHealthBar(string nickName, float healthPercent)
     {
         if (PhotonNetwork.LocalPlayer.NickName == nickName) {
             // 내 체력바 업데이트
@@ -155,5 +156,4 @@ public class UIManager : MonoBehaviourPun
             }
         }
     }
-
 }
