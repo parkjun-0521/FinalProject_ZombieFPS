@@ -50,56 +50,55 @@ public class UIManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        for(int i = 0; i < weaponItem.Length; i++) {
-            weaponItem[i].color = new Color(1, 1, 1, 0.2f);
+        if (photonView.IsMine) {
+            for (int i = 0; i < weaponItem.Length; i++) {
+                weaponItem[i].color = new Color(1, 1, 1, 0.2f);
+            }
+            UIManager.Instance.CurBulletCount.text = "0";
+            UIManager.Instance.totalBulletCount.text = "0";
+            UIManager.Instance.totalGranedeCount.text = "0";
+            UIManager.Instance.totalHealCount.text = "0";
         }
-        UIManager.Instance.CurBulletCount.text = "0";
-        UIManager.Instance.totalBulletCount.text = "0";
-        UIManager.Instance.totalGranedeCount.text = "0";
-        UIManager.Instance.totalHealCount.text = "0";
     }
 
     void Update(){
-        if (photonView.IsMine) {
-            Setting();          // 설정 UI 활성화 비활성화 
-        }
+        Setting();          // 설정 UI 활성화 비활성화 
     }
 
     // 설정창 활성화/비활성화
-    public void Setting()
-    {
-        if (photonView.IsMine) {
-            Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
-            if (player != null) {
-                if (player.inventory.activeSelf && Input.GetKeyDown(InputKeyManager.instance.GetKeyCode(KeyCodeTypes.Setting))) {
-                    return;
-                }
-                else if (!isCountSetting && Input.GetKeyDown(InputKeyManager.instance.GetKeyCode(KeyCodeTypes.Setting))) {
-                    SettingUI.SetActive(true);
-                    isCountSetting = true;
-                    player.cursorLocked = true;
-                    player.ToggleCursor();
-                }
-                else if (isCountSetting && Input.GetKeyDown(InputKeyManager.instance.GetKeyCode(KeyCodeTypes.Setting))) {
-                    SettingUI.SetActive(false);
-                    isCountSetting = false;
-                    player.cursorLocked = false;
-                    player.ToggleCursor();
-                }
+    public void Setting() {
+        Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        Debug.Log("설정창 " + player.PV.ViewID);
+        if (player != null) {
+            if (player.inventory.activeSelf && Input.GetKeyDown(InputKeyManager.instance.GetKeyCode(KeyCodeTypes.Setting))) {
+                return;
+            }
+            else if (!isCountSetting && Input.GetKeyDown(InputKeyManager.instance.GetKeyCode(KeyCodeTypes.Setting))) {
+                Debug.Log("설정창1 " + player.PV.ViewID);
+                SettingUI.SetActive(true);
+                isCountSetting = true;
+                player.cursorLocked = true;
+                player.ToggleCursor();
+            }
+            else if (isCountSetting && Input.GetKeyDown(InputKeyManager.instance.GetKeyCode(KeyCodeTypes.Setting))) {
+                Debug.Log("설정창2 " + player.PV.ViewID);
+                SettingUI.SetActive(false);
+                isCountSetting = false;
+                player.cursorLocked = false;
+                player.ToggleCursor();
             }
         }
+
     }
 
     // 설정창 나가기 버튼
-    public void SettingExit()
-    {
-        if (photonView.IsMine) {
-            Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
-            SettingUI.SetActive(false);
-            isCountSetting = false;
-            player.cursorLocked = false;
-            player.ToggleCursor();
-        }
+    public void SettingExit() {
+        Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        SettingUI.SetActive(false);
+        isCountSetting = false;
+        player.cursorLocked = false;
+        player.ToggleCursor();
+
     }
 
     public void UpdateTotalBulletCount(int newBulletCount)
