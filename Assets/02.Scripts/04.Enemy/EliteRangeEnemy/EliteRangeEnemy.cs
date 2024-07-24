@@ -191,8 +191,17 @@ public class EliteRangeEnemy : EnemyController
         {
             OnEnemyMove -= RandomMove;
             isRun = true;
-            ani.SetBool("isAttack", false);
+            //ani.SetBool("isAttack", false);
             ani.SetBool("isRun", true);
+            if((playerTr.position - transform.position).magnitude < attackRangeDistance)
+            {
+                ani.SetBool("isRun", false);
+                ani.SetBool("isIdle", true);
+            }
+            else
+            {
+                ani.SetBool("isIdle", false);
+            }
             nav.speed = runSpeed;
             nav.destination = playerTr.position;
             if (rigid.velocity.magnitude > maxTracingSpeed)
@@ -210,9 +219,11 @@ public class EliteRangeEnemy : EnemyController
             nextAttack += Time.deltaTime;
             if (nextAttack > meleeDelay)
             {
+                //ani.SetBool("isIdle", false);
                 ani.SetBool("isAttack", true);
                 photonView.RPC("RPCEnemyRangeAttack", RpcTarget.AllBuffered);
                 nextAttack = 0;
+                StartCoroutine(AnimReset("isAttack"));
             }
         }
     }
@@ -220,6 +231,9 @@ public class EliteRangeEnemy : EnemyController
     void RPCEnemyRangeAttack()
     {
         Vector3 attackDir = (playerTr.position - transform.position).normalized;
+        //GameObject zombieRangeAtkPrefab = Pooling.instance.GetObject("EliteRangeZombieProjectile");
+        //zombieRangeAtkPrefab.transform.position = attackPos.position;
+        //zombieRangeAtkPrefab.transform.rotation = Quaternion.identity;
         GameObject zombieRangeAtkPrefab = Instantiate(rangeProjectile, attackPos.position, Quaternion.identity);
         zombieRangeAtkPrefab.GetComponent<Rigidbody>().AddForce(attackDir * attackPrefabSpeed, ForceMode.Impulse);
 
@@ -261,5 +275,11 @@ public class EliteRangeEnemy : EnemyController
             //공격맞은거
             //ani.setTrigger("피격모션");
         }
+    }
+
+    IEnumerator AnimReset(string animString = null)
+    {
+        yield return new WaitForSeconds(0.5f);
+        ani.SetBool(animString, false);
     }
 }
