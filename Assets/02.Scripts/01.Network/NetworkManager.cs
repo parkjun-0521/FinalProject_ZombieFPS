@@ -143,14 +143,23 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
         }
     }
     public void CreatePlayer() {
-            GameObject player = PhotonNetwork.Instantiate("PlayerPrefab", GetRandomSpawnPosition(), Quaternion.identity);
-    }
-    private Vector3 GetRandomSpawnPosition() {
-        // 임의의 스폰 위치를 반환 (예시로 10x10 범위 내에서 무작위 위치를 선택)
-        float x = Random.Range(-5f, 5f);
-        float y = 1f; // 평면 상에 위치시키기 위해 y 좌표는 0으로 설정
-        float z = Random.Range(-5f, 5f);
-        return new Vector3(x, y, z);
+        GameObject player = PhotonNetwork.Instantiate("PlayerPrefab", transform.position, Quaternion.identity);
+        GameObject[] playerSpawnPoint = GameObject.FindGameObjectsWithTag("PlayerSpawnPoint");
+        int index = player.GetComponent<PhotonView>().ViewID / 1000;
+        switch (index) {
+            case 1:
+                player.transform.position = playerSpawnPoint[0].transform.position;
+                break;
+            case 2:
+                player.transform.position = playerSpawnPoint[1].transform.position;
+                break;
+            case 3:
+                player.transform.position = playerSpawnPoint[2].transform.position;
+                break;
+            case 4:
+                player.transform.position = playerSpawnPoint[3].transform.position;
+                break;
+        }
     }
 
     [ContextMenu("정보")]
