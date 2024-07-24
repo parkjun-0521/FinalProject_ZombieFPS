@@ -96,15 +96,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
     public void LeaveRoom() {
         string playerName = PhotonNetwork.NickName;
 
-        //PV.RPC("HPBarDelete", RpcTarget.Others, playerName);
+        PV.RPC("HPBarDelete", RpcTarget.Others, playerName);
 
         PhotonNetwork.LeaveRoom();
     }
     // 체력바 제거
-/*    [PunRPC]
+    [PunRPC]
     void HPBarDelete(string playerName) {
 
-    }*/
+    }
 
     // 방이 생성되었을 때 동작할 부분 
     public override void OnCreatedRoom() {
@@ -145,31 +145,31 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
     public void CreatePlayer() {
         GameObject player = PhotonNetwork.Instantiate("PlayerPrefab", transform.position, Quaternion.identity);
         GameObject[] playerSpawnPoint = GameObject.FindGameObjectsWithTag("PlayerSpawnPoint");
-        int index = player.GetComponent<PhotonView>().ViewID / 1000;
+        int index = (player.GetComponent<PhotonView>().ViewID / 1000) % 4;
         switch (index) {
-            case 1:
+            case 0:
                 player.transform.position = playerSpawnPoint[0].transform.position;
                 break;
-            case 2:
+            case 1:
                 player.transform.position = playerSpawnPoint[1].transform.position;
                 break;
-            case 3:
+            case 2:
                 player.transform.position = playerSpawnPoint[2].transform.position;
                 break;
-            case 4:
+            case 3:
                 player.transform.position = playerSpawnPoint[3].transform.position;
                 break;
         }
     }
 
-    /*public Vector3 Pos() {
+    public Vector3 Pos() {
 
         float x = 0;
         float y = 5;
         float z = 0;
 
         return new Vector3(x, y, z);
-    }*/
+    }
 
     [ContextMenu("정보")]
     void Info() {

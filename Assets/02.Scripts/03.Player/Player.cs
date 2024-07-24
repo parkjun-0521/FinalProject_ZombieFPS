@@ -990,7 +990,7 @@ public class Player : PlayerController
     [PunRPC]
     public void UpdateHealthBar( string nickName, int viewID, float healthPercent ) {
         if (photonView.ViewID == viewID) {
-            UIManager.Instance.UpdatePlayerHealthBar(nickName, healthPercent);
+            UIManager.Instance.UpdatePlayerHealthBar(nickName, viewID, healthPercent);
         }
     }
 
