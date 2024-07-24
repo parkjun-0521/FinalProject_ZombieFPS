@@ -162,6 +162,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
         }
     }
 
+    /*public Vector3 Pos() {
+
+        float x = 0;
+        float y = 5;
+        float z = 0;
+
+        return new Vector3(x, y, z);
+    }*/
+
     [ContextMenu("Á¤º¸")]
     void Info() {
         if (PhotonNetwork.InRoom) {
