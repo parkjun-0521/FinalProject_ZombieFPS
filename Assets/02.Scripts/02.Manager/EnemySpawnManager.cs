@@ -19,7 +19,8 @@ public class EnemySpawnManager : MonoBehaviourPun
             for (int i = 0; i < spawnCount; i++) {
                 int randomIndex = Random.Range(0, enemyName.Length - 2);
                 GameObject enemyObj = Pooling.instance.GetObject(enemyName[randomIndex], spawnPoint.position);
-                enemyObj.transform.position = new Vector3(Random.Range(-1f, 1f), transform.position.y, Random.Range(-1f, 1f));
+                //enemyObj.transform.position = new Vector3(Random.Range(-0.5f, 0.5f), spawnPoint.position.y, Random.Range(-0.5f, 0.5f));
+                Debug.Log(enemyObj.transform.position);
                 enemyObj.transform.rotation = transform.rotation;
                 EnemyController enemyLogin = enemyObj.GetComponent<EnemyController>();
                 enemyLogin.enemySpawn = spawnPoint;

@@ -81,13 +81,10 @@ public class EliteRangeEnemy : EnemyController
 
     void Start()
     {
-        if (PV.IsMine)
-        {
-            playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
-            InvokeRepeating("EnemyMove", 0.5f, 3.0f);
+        playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
+        InvokeRepeating("EnemyMove", 0.5f, 3.0f);    
             // 초기에 데미지 지정 
             // damage = 20f;
-        }
     }
 
     void Update()

@@ -69,15 +69,13 @@ public class EliteMeleeEnemy : EnemyController {
 
 
     void Start() {
-        if (PV.IsMine) {
-            playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
-            InvokeRepeating("EnemyMove", 0.5f, 3.0f);
-            bloodParticle.Stop();
-            capsuleCollider.enabled = true;
-            rigid.isKinematic = false;
-            // 초기에 데미지 지정 
-            // damage = 20f;
-        }
+        playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
+        InvokeRepeating("EnemyMove", 0.5f, 3.0f);
+        bloodParticle.Stop();
+        capsuleCollider.enabled = true;
+        rigid.isKinematic = false;
+        // 초기에 데미지 지정 
+        // damage = 20f;
     }
 
     void Update() {

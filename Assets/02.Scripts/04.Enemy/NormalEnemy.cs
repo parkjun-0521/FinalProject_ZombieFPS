@@ -69,10 +69,10 @@ public class NormalEnemy : EnemyController
     {
         if (PV.IsMine) {
             if (isRangeOut == true) OnEnemyReset?.Invoke();         // 범위 나갔을 때 초기화 
-            if (isWalk) OnEnemyTracking?.Invoke();      // 플레이어 추격 
-            if (isTracking) OnEnemyRun?.Invoke();           // 추격 시 달리기 
+            if (isWalk) OnEnemyTracking?.Invoke();                  // 플레이어 추격 
+            if (isTracking) OnEnemyRun?.Invoke();                   // 추격 시 달리기 
             if (nav.enabled == true)
-                if (nav.isStopped == true) OnEnemyAttack?.Invoke();        // 몬스터 공격 
+                if (nav.isStopped == true) OnEnemyAttack?.Invoke(); // 몬스터 공격 
         }
     }
 
@@ -169,7 +169,6 @@ public class NormalEnemy : EnemyController
             if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_run)) {
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_run);
             }
-
             nav.speed = runSpeed;
             nav.destination = playerTr.position;
             if (rigid.velocity.magnitude > maxTracingSpeed)
@@ -204,6 +203,7 @@ public class NormalEnemy : EnemyController
     [PunRPC]
     public void HandleEnemyDeath() {
         ani.SetBool("isDead", true);
+        StartCoroutine(AnimationFalse("isDead"));
         capsuleCollider.enabled = false;
         rigid.isKinematic = true;
         nav.enabled = false;
@@ -230,6 +230,10 @@ public class NormalEnemy : EnemyController
             //공격맞은거
             //ani.setTrigger("피격모션");
         }
-    }   
+    }
+    IEnumerator AnimationFalse( string str ) {
+        yield return new WaitForSeconds(0.1f);
+        ani.SetBool(str, false);
+    }
 }
 

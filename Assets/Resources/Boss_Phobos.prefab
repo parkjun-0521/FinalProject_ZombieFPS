@@ -137,7 +137,7 @@ MonoBehaviour:
   runSpeed: 0
   meleeDelay: 4
   nextAttack: 4
-  rangeOut: 10
+  rangeOut: 100
   resetSpeed: 5
   enemySpawn: {fileID: 0}
   rad: 3
@@ -147,6 +147,7 @@ MonoBehaviour:
     m_Bits: 0
   maxTracingSpeed: 0
   playerTr: {fileID: 0}
+  capsuleCollider: {fileID: 0}
   maxHp: 40
   hp: 40
   baseDamage: 10
