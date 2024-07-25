@@ -120,6 +120,7 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
 
     [Header("ø°¿”=======")]
     public Image aiming;
+    public GameObject aimingObj;
 
     public abstract void PlayerMove(bool type);
     public abstract void PlayerJump();

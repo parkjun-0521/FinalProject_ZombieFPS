@@ -444,7 +444,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &308220295
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2790,6 +2790,7 @@ MonoBehaviour:
   inventory: {fileID: 5069456818882851356}
   theInventory: {fileID: 119739485}
   aiming: {fileID: 1822679039}
+  aimingObj: {fileID: 308220294}
   playerCamera: {fileID: 3889226454062301499}
   cursorLocked: 1
 --- !u!114 &1555921595

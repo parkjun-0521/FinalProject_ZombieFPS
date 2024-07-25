@@ -83,9 +83,11 @@ public class Player : PlayerController
             playerCamera.gameObject.SetActive(true);
             ItemController[] items = FindObjectsOfType<ItemController>(true); // true를 사용하여 비활성화된 오브젝트도 포함
             photonView.RPC("UpdateHealthBar", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName, photonView.ViewID, (hp / maxHp) * 100);
+            aimingObj.SetActive(true);
         }
         else {
             playerCamera.gameObject.SetActive(false);
+            aimingObj.SetActive(false);
         }
     }
 

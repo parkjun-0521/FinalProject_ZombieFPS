@@ -96,7 +96,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
     public void LeaveRoom() {
         string playerName = PhotonNetwork.NickName;
 
-        PV.RPC("HPBarDelete", RpcTarget.Others, playerName);
+        PV.RPC("HPBarDelete", RpcTarget.OthersBuffered, playerName);
 
         PhotonNetwork.LeaveRoom();
     }
@@ -170,15 +170,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
                 player.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
                 break;
         }
-    }
-
-    public Vector3 Pos() {
-
-        float x = 0;
-        float y = 5;
-        float z = 0;
-
-        return new Vector3(x, y, z);
     }
 
     [ContextMenu("Á¤º¸")]

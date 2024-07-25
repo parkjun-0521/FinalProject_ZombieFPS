@@ -12,13 +12,12 @@ public class AudioManager : MonoBehaviour
     AudioSource bgmPlayer;          // 
 
     [Header("SFX")]
-    public AudioClip[] sfxClips;     // 효과음 클립 
+    public AudioClip[] sfxClips;    // 효과음 클립 
     public float sfxVolume;         // 효과음 볼륨 
     public int channels;            // 채널 수 
     AudioSource[] sfxPlayers;
     int channelIndex;               //  채널 인텍스 
 
-    // Sfx 클립에 사운드 넣고 그 사운드 순서대로 enum 작성 
     public enum Sfx { 
         MediKit,                // 힐팩 사용
         Player_Death,           // 플레이어 죽음 
