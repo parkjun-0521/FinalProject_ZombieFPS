@@ -161,6 +161,7 @@ public class Player : PlayerController
         Cursor.visible = !cursorLocked;
         Cursor.lockState = cursorLocked ? CursorLockMode.Locked : CursorLockMode.None;
         if(cursorLocked) {
+            if (isFaint || isDead) return;
             OnPlayerMove += PlayerMove;                 // 플레이어 이동 
             OnPlayerRotation += PlayerRotation;         // 플레이어 회전
             OnPlayerJump += PlayerJump;                 // 플레이어 점프 
@@ -517,9 +518,9 @@ public class Player : PlayerController
             }         
 
             // 총알 생성 (오브젝트 풀링 사용)
-            GameObject bullet = Pooling.instance.GetObject("Bullet");   // 총알 생성 
-            bullet.transform.position = bulletPos.position;             // bullet 위치 초기화
-            bullet.transform.rotation = Quaternion.identity;            // bullet 회전값 초기화
+            GameObject bullet = Pooling.instance.GetObject("Bullet", Vector3.zero);   // 총알 생성 
+            bullet.transform.position = bulletPos.position;                           // bullet 위치 초기화
+            bullet.transform.rotation = Quaternion.identity;                          // bullet 회전값 초기화
             AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_gun2);
 
             TrailRenderer trail = bullet.GetComponent<TrailRenderer>();
@@ -629,7 +630,7 @@ public class Player : PlayerController
             float throwForce = 15f;    // 던지는 힘
             AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_granede);
 
-            GameObject grenade = Pooling.instance.GetObject("GrenadeObject");   // 수류탄 생성 
+            GameObject grenade = Pooling.instance.GetObject("GrenadeObject", Vector3.zero);   // 수류탄 생성 
             Rigidbody grenadeRigid = grenade.GetComponent<Rigidbody>();
             // 초기 위치 설정
             grenadeRigid.velocity = Vector3.zero;               // 생성 시 가속도 초기화
@@ -751,7 +752,7 @@ public class Player : PlayerController
             else if (value < 0) {
                 StartCoroutine(ShowBloodScreen(value));  //피격화면 출력 
                 hp = Mathf.Clamp(hp, 0, maxHp);
-                UIManager.Instance.hpBar.value = (hp / maxHp) * 100;
+                UIManager.Instance.hpBar[0].value = (hp / maxHp) * 100;
             }
         }
         photonView.RPC("UpdateHealthBar", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName, photonView.ViewID, (hp / maxHp) * 100);

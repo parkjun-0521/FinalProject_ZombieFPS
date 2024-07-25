@@ -91,7 +91,7 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     public bool stanceWeaponType;       // 원거리 ( false : 원거리, true : 투척 ), 근거리 ( false : 근접, true :  힐팩 ) 각각 구분 
     public bool countZero;
     public bool isFaint = false;        // 기절했는지 true false
-    protected bool isJump;              // 점프 상태
+    public bool isJump;              // 점프 상태
     protected bool isInteraction;       // 상호작용 상태 
     protected bool isAttack;            // 공격 상태 
     protected bool isThrow;             // 아이템 버리는 상태 

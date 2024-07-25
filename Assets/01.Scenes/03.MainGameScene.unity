@@ -1301,7 +1301,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 151489759}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 81.415855, y: -9.414389, z: 46.91302}
+  m_LocalPosition: {x: 81.415855, y: -9.5, z: 46.91302}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1648,6 +1648,100 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5013857301840705346, guid: f279ec12d59008449a22b09cdc062f44, type: 3}
   m_PrefabInstance: {fileID: 1679051181}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &222983381
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 222983382}
+  - component: {fileID: 222983383}
+  m_Layer: 0
+  m_Name: Point Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &222983382
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 222983381}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.7500057, y: 5, z: 0.00000031851232}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 909740553386367667}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!108 &222983383
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 222983381}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 2
+  m_Shape: 0
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_Range: 30
+  m_SpotAngle: 30
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!1001 &229096296
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1801,8 +1895,9 @@ GameObject:
   m_Component:
   - component: {fileID: 292010710}
   - component: {fileID: 292010711}
+  - component: {fileID: 292010712}
   m_Layer: 0
-  m_Name: Spawn8
+  m_Name: Spawn7
   m_TagString: SpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1837,6 +1932,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 10, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &292010712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292010709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c1a045b89299094ba8016b42affd3e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 1921640659}
+  isSpawn: 0
+  spawnCount: 2
 --- !u!1001 &319452461
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2121,7 +2231,7 @@ GameObject:
   m_Component:
   - component: {fileID: 399873218}
   m_Layer: 0
-  m_Name: 1
+  m_Name: 5
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -3020,7 +3130,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 546134057}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 79.415855, y: -9.414389, z: 46.91302}
+  m_LocalPosition: {x: 79.415855, y: -9.5, z: 46.91302}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4441,7 +4551,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 775012949}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 77.415855, y: -9.414389, z: 46.91302}
+  m_LocalPosition: {x: 77.415855, y: -9.5, z: 46.91302}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4534,7 +4644,7 @@ GameObject:
   m_Component:
   - component: {fileID: 797063684}
   m_Layer: 0
-  m_Name: 1
+  m_Name: 3
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -5278,7 +5388,7 @@ GameObject:
   m_Component:
   - component: {fileID: 917805195}
   m_Layer: 0
-  m_Name: 1
+  m_Name: 2
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -5657,7 +5767,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1025978635}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 83.415855, y: -9.414389, z: 46.91302}
+  m_LocalPosition: {x: 83.415855, y: -9.5, z: 46.91302}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5742,6 +5852,100 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1041680890}
   m_CullTransparentMesh: 1
+--- !u!1 &1052268674
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1052268675}
+  - component: {fileID: 1052268676}
+  m_Layer: 0
+  m_Name: Point Light (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1052268675
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1052268674}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.7499976, y: 5, z: -0.00000012852252}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 909740553386367667}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!108 &1052268676
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1052268674}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 2
+  m_Shape: 0
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_Range: 30
+  m_SpotAngle: 30
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!1 &1053125636
 GameObject:
   m_ObjectHideFlags: 0
@@ -6052,7 +6256,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1091890618}
   m_Layer: 0
-  m_Name: 1
+  m_Name: 6
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -6097,7 +6301,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1095813032}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 11.25}
+  m_LocalPosition: {x: 75, y: 5.5, z: 19.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7701,6 +7905,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1306365262}
   - component: {fileID: 1306365263}
+  - component: {fileID: 1306365264}
   m_Layer: 0
   m_Name: Spawn2
   m_TagString: SpawnPoint
@@ -7737,6 +7942,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 10, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1306365264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1306365261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c1a045b89299094ba8016b42affd3e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 917805195}
+  isSpawn: 0
+  spawnCount: 2
 --- !u!1 &1314205472
 GameObject:
   m_ObjectHideFlags: 0
@@ -7747,6 +7967,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1314205473}
   - component: {fileID: 1314205474}
+  - component: {fileID: 1314205475}
   m_Layer: 0
   m_Name: Spawn3
   m_TagString: SpawnPoint
@@ -7783,6 +8004,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 15, y: 10, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1314205475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1314205472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c1a045b89299094ba8016b42affd3e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 797063684}
+  isSpawn: 0
+  spawnCount: 2
 --- !u!1 &1320758995
 GameObject:
   m_ObjectHideFlags: 0
@@ -8069,14 +8305,16 @@ MonoBehaviour:
   - {fileID: 1260440718}
   - {fileID: 1686204122}
   - {fileID: 1231338947}
-  nickName1: {fileID: 1677259907}
-  nickName2: {fileID: 334681222}
-  nickName3: {fileID: 141726345}
-  nickName4: {fileID: 134582899}
-  hpBar: {fileID: 1677259906}
-  hpBar1: {fileID: 334681221}
-  hpBar2: {fileID: 141726344}
-  hpBar3: {fileID: 134582898}
+  nickName:
+  - {fileID: 1677259907}
+  - {fileID: 334681222}
+  - {fileID: 141726345}
+  - {fileID: 134582899}
+  hpBar:
+  - {fileID: 1677259906}
+  - {fileID: 334681221}
+  - {fileID: 141726344}
+  - {fileID: 134582898}
   reloadImage: {fileID: 0}
 --- !u!114 &1376134471
 MonoBehaviour:
@@ -9333,7 +9571,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1595355195}
   m_Layer: 0
-  m_Name: 1
+  m_Name: 4
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -12053,7 +12291,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1921640659}
   m_Layer: 0
-  m_Name: 1
+  m_Name: 7
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -12089,8 +12327,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1927080831}
   - component: {fileID: 1927080832}
+  - component: {fileID: 1927080833}
   m_Layer: 0
-  m_Name: Spawn6
+  m_Name: Spawn5
   m_TagString: SpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12125,6 +12364,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 10, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1927080833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927080830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c1a045b89299094ba8016b42affd3e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 399873218}
+  isSpawn: 0
+  spawnCount: 2
 --- !u!1 &1936753318
 GameObject:
   m_ObjectHideFlags: 0
@@ -12353,6 +12607,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1956070800}
   - component: {fileID: 1956070801}
+  - component: {fileID: 1956070802}
   m_Layer: 0
   m_Name: Spawn1
   m_TagString: SpawnPoint
@@ -12389,6 +12644,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 10, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1956070802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956070799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c1a045b89299094ba8016b42affd3e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 2096647952}
+  isSpawn: 0
+  spawnCount: 2
 --- !u!1 &1983387206
 GameObject:
   m_ObjectHideFlags: 0
@@ -12496,8 +12766,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1989538057}
   - component: {fileID: 1989538058}
+  - component: {fileID: 1989538059}
   m_Layer: 0
-  m_Name: Spawn7
+  m_Name: Spawn6
   m_TagString: SpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12532,6 +12803,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 10, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1989538059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1989538056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c1a045b89299094ba8016b42affd3e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 1091890618}
+  isSpawn: 0
+  spawnCount: 2
 --- !u!1 &1999221680
 GameObject:
   m_ObjectHideFlags: 0
@@ -12673,6 +12959,100 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61415f15a33940543b68f628aa9b17c0, type: 3}
+--- !u!1 &2076319166
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2076319167}
+  - component: {fileID: 2076319168}
+  m_Layer: 0
+  m_Name: Point Light (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2076319167
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076319166}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 909740553386367667}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!108 &2076319168
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076319166}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 2
+  m_Shape: 0
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_Range: 30
+  m_SpotAngle: 30
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!224 &2092083996 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5898227430914240866, guid: ae885c42bb4b6d8478d19faa35f2ea63, type: 3}
@@ -12701,8 +13081,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2096647951}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.53999996, y: -2.07, z: -24.05}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.5400009, y: -2.0699997, z: -24.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12799,8 +13179,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2131501351}
   - component: {fileID: 2131501352}
+  - component: {fileID: 2131501353}
   m_Layer: 0
-  m_Name: Spawn5
+  m_Name: Spawn4
   m_TagString: SpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12835,6 +13216,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 20, y: 10, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2131501353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131501350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c1a045b89299094ba8016b42affd3e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 1595355195}
+  isSpawn: 0
+  spawnCount: 2
 --- !u!65 &885191388829724503
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13585,6 +13981,9 @@ Transform:
   - {fileID: 909740551857848175}
   - {fileID: 909740556558557921}
   - {fileID: 909740551442434301}
+  - {fileID: 222983382}
+  - {fileID: 1052268675}
+  - {fileID: 2076319167}
   m_Father: {fileID: 8220565820574539180}
   m_RootOrder: 323
   m_LocalEulerAnglesHint: {x: 0, y: -181.24, z: 0}
@@ -13962,7 +14361,7 @@ GameObject:
   - component: {fileID: 909740556614796825}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -13980,7 +14379,7 @@ GameObject:
   - component: {fileID: 936625232442165981}
   m_Layer: 0
   m_Name: Hangar_v2_6_gate1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13996,7 +14395,7 @@ GameObject:
   - component: {fileID: 909740553251711718}
   m_Layer: 0
   m_Name: Cargo_container_v1_LD2open (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14012,7 +14411,7 @@ GameObject:
   - component: {fileID: 909740556457857037}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -14031,7 +14430,7 @@ GameObject:
   - component: {fileID: 886477265110809742}
   m_Layer: 0
   m_Name: Cargo_container_v1_LD2through (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14050,7 +14449,7 @@ GameObject:
   - component: {fileID: 886477265109652744}
   m_Layer: 0
   m_Name: Cargo_container_v1_LD2through (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14069,7 +14468,7 @@ GameObject:
   - component: {fileID: 885191389956193833}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -14087,7 +14486,7 @@ GameObject:
   - component: {fileID: 936625232052376328}
   m_Layer: 0
   m_Name: Hangar_v2_6_gate1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14106,7 +14505,7 @@ GameObject:
   - component: {fileID: 885191389569441278}
   m_Layer: 0
   m_Name: Cargo_container_v1_LD2doorR
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14125,7 +14524,7 @@ GameObject:
   - component: {fileID: 885191391800071739}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -14141,7 +14540,7 @@ GameObject:
   - component: {fileID: 909740553996769359}
   m_Layer: 0
   m_Name: Cargo_container_v1_LD2open
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14159,7 +14558,7 @@ GameObject:
   - component: {fileID: 936625199386046049}
   m_Layer: 0
   m_Name: Hangar_v2_6_inside
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14178,7 +14577,7 @@ GameObject:
   - component: {fileID: 886477264608556799}
   m_Layer: 0
   m_Name: Cargo_container_v1_LD2through (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14197,7 +14596,7 @@ GameObject:
   - component: {fileID: 885191388829724503}
   m_Layer: 0
   m_Name: Cargo_container_v1_LD2doorR
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14215,7 +14614,7 @@ GameObject:
   - component: {fileID: 936625203462777099}
   m_Layer: 0
   m_Name: Hangar_v2_6_gate2
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14234,7 +14633,7 @@ GameObject:
   - component: {fileID: 886477264636298984}
   m_Layer: 0
   m_Name: Cargo_container_v1_LD2through
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14250,7 +14649,7 @@ GameObject:
   - component: {fileID: 909740556761236430}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -14269,7 +14668,7 @@ GameObject:
   - component: {fileID: 885191390944179900}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -14288,7 +14687,7 @@ GameObject:
   - component: {fileID: 885191393382833017}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -14306,7 +14705,7 @@ GameObject:
   - component: {fileID: 936625201149967696}
   m_Layer: 0
   m_Name: Hangar_v2_6_inside
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14325,7 +14724,7 @@ GameObject:
   - component: {fileID: 885191393561300333}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -14343,7 +14742,7 @@ GameObject:
   - component: {fileID: 936625201502681658}
   m_Layer: 0
   m_Name: Hangar_v2_6_gate2
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14361,7 +14760,7 @@ GameObject:
   - component: {fileID: 936625201791804399}
   m_Layer: 0
   m_Name: Hangar_v2_6_gate2
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14379,7 +14778,7 @@ GameObject:
   - component: {fileID: 936625201070515333}
   m_Layer: 0
   m_Name: Hangar_v2_6_inside
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14395,7 +14794,7 @@ GameObject:
   - component: {fileID: 909740556037491547}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -14413,7 +14812,7 @@ GameObject:
   - component: {fileID: 936625233040441401}
   m_Layer: 0
   m_Name: Hangar_v2_6_gate1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14432,7 +14831,7 @@ GameObject:
   - component: {fileID: 885191391718466943}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -14451,7 +14850,7 @@ GameObject:
   - component: {fileID: 886477264908866109}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_L
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14470,7 +14869,7 @@ GameObject:
   - component: {fileID: 885191391594525547}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -14489,7 +14888,7 @@ GameObject:
   - component: {fileID: 885191393262083758}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -14507,7 +14906,7 @@ GameObject:
   - component: {fileID: 936625200404803521}
   m_Layer: 0
   m_Name: Hangar_v2_6_door1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14526,7 +14925,7 @@ GameObject:
   - component: {fileID: 885191391356727444}
   m_Layer: 0
   m_Name: Cargo_container_v1_LD2doorL
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14544,7 +14943,7 @@ GameObject:
   - component: {fileID: 936625203366301129}
   m_Layer: 0
   m_Name: Hangar_v2_6_supports
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14563,7 +14962,7 @@ GameObject:
   - component: {fileID: 885191391421766674}
   m_Layer: 0
   m_Name: Concrete_fence_v1_column
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14582,7 +14981,7 @@ GameObject:
   - component: {fileID: 885191389253299623}
   m_Layer: 0
   m_Name: Concrete_fence_v1_s1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14600,7 +14999,7 @@ GameObject:
   - component: {fileID: 936625203144283164}
   m_Layer: 0
   m_Name: Hangar_v2_6_supports
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14619,7 +15018,7 @@ GameObject:
   - component: {fileID: 885191391498166034}
   m_Layer: 0
   m_Name: Bags_on_pallet_v1_1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14637,7 +15036,7 @@ GameObject:
   - component: {fileID: 936625199796115323}
   m_Layer: 0
   m_Name: Hangar_1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14656,7 +15055,7 @@ GameObject:
   - component: {fileID: 886477265924798705}
   m_Layer: 0
   m_Name: Concrete_fence_v1_c1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14675,7 +15074,7 @@ GameObject:
   - component: {fileID: 885191390766973501}
   m_Layer: 0
   m_Name: Cargo_container_v1_LD2doorL
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14694,7 +15093,7 @@ GameObject:
   - component: {fileID: 886477265943599727}
   m_Layer: 0
   m_Name: Concrete_fence_v2_L
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14712,7 +15111,7 @@ GameObject:
   - component: {fileID: 936625200286568110}
   m_Layer: 0
   m_Name: Hangar_1 (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14730,7 +15129,7 @@ GameObject:
   - component: {fileID: 936625200406977951}
   m_Layer: 0
   m_Name: Hangar_1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14749,7 +15148,7 @@ GameObject:
   - component: {fileID: 886477264479907991}
   m_Layer: 0
   m_Name: Cargo_container_v1_LD2open
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14767,7 +15166,7 @@ GameObject:
   - component: {fileID: 936625199798265125}
   m_Layer: 0
   m_Name: Hangar_v2_6_door1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14786,7 +15185,7 @@ GameObject:
   - component: {fileID: 886477265207263806}
   m_Layer: 0
   m_Name: Cargo_container_v1_LD2open
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14802,7 +15201,7 @@ GameObject:
   - component: {fileID: 909740554677374877}
   m_Layer: 0
   m_Name: Concrete_fence_v2_L
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14820,7 +15219,7 @@ GameObject:
   - component: {fileID: 936625201686939437}
   m_Layer: 0
   m_Name: Hangar_v2_6_supports
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14838,7 +15237,7 @@ GameObject:
   - component: {fileID: 936625200288759024}
   m_Layer: 0
   m_Name: Hangar_v2_6_door1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14857,7 +15256,7 @@ GameObject:
   - component: {fileID: 886477265269594005}
   m_Layer: 0
   m_Name: Road_set_v1_b_floor
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15164,7 +15563,7 @@ GameObject:
   - component: {fileID: 913731321058018432}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -15277,7 +15676,7 @@ GameObject:
   - component: {fileID: 913731321061818761}
   m_Layer: 0
   m_Name: UNIConcrete_wall_v1_W_tile_1 (3)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -15296,7 +15695,7 @@ GameObject:
   - component: {fileID: 913731321068326277}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -15390,13 +15789,29 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.04
       objectReference: {fileID: 0}
+    - target: {fileID: 2005557224740661183, guid: c8be685985e84dc46a9f6b807148f0ba, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 2578395801245780807, guid: c8be685985e84dc46a9f6b807148f0ba, type: 3}
       propertyPath: m_LocalPosition.y
       value: -1.56
       objectReference: {fileID: 0}
+    - target: {fileID: 3654512988217309584, guid: c8be685985e84dc46a9f6b807148f0ba, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 4688472273270667852, guid: c8be685985e84dc46a9f6b807148f0ba, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 4689163315644973770, guid: c8be685985e84dc46a9f6b807148f0ba, type: 3}
       propertyPath: m_Name
       value: HGv3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4689163315644973770, guid: c8be685985e84dc46a9f6b807148f0ba, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 4692461967140663886, guid: c8be685985e84dc46a9f6b807148f0ba, type: 3}
       propertyPath: m_RootOrder
@@ -15498,7 +15913,7 @@ GameObject:
   - component: {fileID: 913731321283330475}
   m_Layer: 0
   m_Name: UNIConcrete_wall_v1_W_tile_1 (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -15675,7 +16090,7 @@ GameObject:
   - component: {fileID: 913731321393236433}
   m_Layer: 0
   m_Name: UNIConcrete_wall_v1_W_tile_1 (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -15773,7 +16188,7 @@ GameObject:
   - component: {fileID: 913731321518065409}
   m_Layer: 0
   m_Name: UNIConcrete_wall_v1_W_tile_1 (5)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -15882,6 +16297,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8220565820574539180}
     m_Modifications:
+    - target: {fileID: 6100051424969424303, guid: 300e6ab2cb8245d42baee941487cbc11, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 6100051425942999754, guid: 300e6ab2cb8245d42baee941487cbc11, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 6760174479642445768, guid: 300e6ab2cb8245d42baee941487cbc11, type: 3}
       propertyPath: m_RootOrder
       value: 339
@@ -15930,6 +16353,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HGv1
       objectReference: {fileID: 0}
+    - target: {fileID: 6763648678909622860, guid: 300e6ab2cb8245d42baee941487cbc11, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 300e6ab2cb8245d42baee941487cbc11, type: 3}
 --- !u!4 &913731322029020907 stripped
@@ -15951,7 +16378,7 @@ GameObject:
   - component: {fileID: 913731322137953923}
   m_Layer: 0
   m_Name: UNIConcrete_wall_v1_W_tile_1 (4)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -16048,7 +16475,7 @@ GameObject:
   - component: {fileID: 913731322226862059}
   m_Layer: 0
   m_Name: Hangar_v2_6_gate1 (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16229,7 +16656,7 @@ GameObject:
   - component: {fileID: 913731322274510429}
   m_Layer: 0
   m_Name: Concrete_fence_v2_Gate (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -16377,7 +16804,7 @@ GameObject:
   - component: {fileID: 913731322435057919}
   m_Layer: 0
   m_Name: Concrete_fence_v2_Gate_lattice (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -16489,7 +16916,7 @@ GameObject:
   - component: {fileID: 913731322575782848}
   m_Layer: 0
   m_Name: Concrete_fence_v2_Gate (2)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -18688,7 +19115,7 @@ GameObject:
   - component: {fileID: 1718161079373828202}
   m_Layer: 0
   m_Name: Concrete_fence_v1_s2
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37820,7 +38247,7 @@ GameObject:
   - component: {fileID: 8220565820496343161}
   m_Layer: 0
   m_Name: Road_set_v1_road_up_2m_HD_f (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -37901,7 +38328,7 @@ GameObject:
   - component: {fileID: 8220565820574539180}
   m_Layer: 0
   m_Name: Static
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -38551,7 +38978,7 @@ GameObject:
   - component: {fileID: 8283824658330021733}
   m_Layer: 0
   m_Name: UNIConcrete_wall_v1_S_R_2
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -38665,7 +39092,7 @@ GameObject:
   - component: {fileID: 8283171007452899573}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S_half
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -38684,7 +39111,7 @@ GameObject:
   - component: {fileID: 8283824665755248783}
   m_Layer: 0
   m_Name: Concrete_fence_v2_L
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -38963,7 +39390,7 @@ GameObject:
   - component: {fileID: 8283824658042582012}
   m_Layer: 0
   m_Name: UNIConcrete_wall_v1_S_R_2
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -39090,7 +39517,7 @@ GameObject:
   - component: {fileID: 8283824664284763512}
   m_Layer: 0
   m_Name: Road_set_v1_road_up_2m_HD
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -39595,7 +40022,7 @@ GameObject:
   - component: {fileID: 8283824666379783595}
   m_Layer: 0
   m_Name: Object089
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -39870,7 +40297,7 @@ GameObject:
   - component: {fileID: 8283824659507383637}
   m_Layer: 0
   m_Name: Road_set_v1_s_bend_1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -40073,7 +40500,7 @@ GameObject:
   - component: {fileID: 8283824659644885418}
   m_Layer: 0
   m_Name: Road_set_v1_s_bend_1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -40259,7 +40686,7 @@ GameObject:
   - component: {fileID: 8283171008519664540}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S_half
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -40484,7 +40911,7 @@ GameObject:
   - component: {fileID: 8283824665227902662}
   m_Layer: 0
   m_Name: Object084
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -40945,7 +41372,7 @@ GameObject:
   - component: {fileID: 8283824665351068077}
   m_Layer: 0
   m_Name: Concrete_fence_v2_L
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -40964,7 +41391,7 @@ GameObject:
   - component: {fileID: 8283824665792042578}
   m_Layer: 0
   m_Name: UNIConcrete_wall_v1_S_R_2f
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -41040,7 +41467,7 @@ GameObject:
   - component: {fileID: 8283171008084227067}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S_half
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -41343,7 +41770,7 @@ GameObject:
   - component: {fileID: 8283824665545755339}
   m_Layer: 0
   m_Name: UNIConcrete_wall_v1_S_R_2f
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -41514,7 +41941,7 @@ GameObject:
   - component: {fileID: 8283824658436628949}
   m_Layer: 0
   m_Name: Road_set_v1_s_bend_1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -41796,7 +42223,7 @@ GameObject:
   - component: {fileID: 8283824664840415558}
   m_Layer: 0
   m_Name: Concrete_fence_v2_L
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -41831,7 +42258,7 @@ GameObject:
   - component: {fileID: 8283824664842670949}
   m_Layer: 0
   m_Name: Concrete_fence_v2_L
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -41888,7 +42315,7 @@ GameObject:
   - component: {fileID: 8283824661017440217}
   m_Layer: 0
   m_Name: Object086
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -41907,7 +42334,7 @@ GameObject:
   - component: {fileID: 8283171009119572190}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -41983,7 +42410,7 @@ GameObject:
   - component: {fileID: 8283171009150527823}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -42021,7 +42448,7 @@ GameObject:
   - component: {fileID: 8283824658036249062}
   m_Layer: 0
   m_Name: Road_set_v1_road_up_2m_HD_f
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -42059,7 +42486,7 @@ GameObject:
   - component: {fileID: 8283824658223034236}
   m_Layer: 0
   m_Name: Concrete_fence_v2_Gate_lattice
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -42078,7 +42505,7 @@ GameObject:
   - component: {fileID: 8283171007319733190}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -42116,7 +42543,7 @@ GameObject:
   - component: {fileID: 8283171009112734119}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -42154,7 +42581,7 @@ GameObject:
   - component: {fileID: 8283171009110280451}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -42211,7 +42638,7 @@ GameObject:
   - component: {fileID: 8283824665480081701}
   m_Layer: 0
   m_Name: Road_set_v1_s_bend_1f
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -42287,7 +42714,7 @@ GameObject:
   - component: {fileID: 8283171002533638383}
   m_Layer: 0
   m_Name: Road_set_v1_s_floor
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -42382,7 +42809,7 @@ GameObject:
   - component: {fileID: 8283171007493896585}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -42401,7 +42828,7 @@ GameObject:
   - component: {fileID: 8283824658368058380}
   m_Layer: 0
   m_Name: Concrete_fence_v2_Gate_lattice
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -42490,7 +42917,7 @@ GameObject:
   - component: {fileID: 8283171007662673349}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -42525,7 +42952,7 @@ GameObject:
   - component: {fileID: 8283171009423047599}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -42563,7 +42990,7 @@ GameObject:
   - component: {fileID: 8283171009333959346}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -42582,7 +43009,7 @@ GameObject:
   - component: {fileID: 8283824665875754578}
   m_Layer: 0
   m_Name: Concrete_fence_v2_Gate
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -42601,7 +43028,7 @@ GameObject:
   - component: {fileID: 8283171009332309193}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -42674,7 +43101,7 @@ GameObject:
   - component: {fileID: 8283171002754320870}
   m_Layer: 0
   m_Name: Road_set_v1_s_floor
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -42693,7 +43120,7 @@ GameObject:
   - component: {fileID: 8283171009277731343}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -42712,7 +43139,7 @@ GameObject:
   - component: {fileID: 8283171007810294100}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -42731,7 +43158,7 @@ GameObject:
   - component: {fileID: 8283171007786272753}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -42782,7 +43209,7 @@ GameObject:
   - component: {fileID: 8283171008504192671}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S_half
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -42820,7 +43247,7 @@ GameObject:
   - component: {fileID: 8283824665747756322}
   m_Layer: 0
   m_Name: Concrete_fence_v2_Gate
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -42839,7 +43266,7 @@ GameObject:
   - component: {fileID: 8283171007741160142}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -42896,7 +43323,7 @@ GameObject:
   - component: {fileID: 8283171002865520699}
   m_Layer: 0
   m_Name: Road_set_v1_s_floor
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -42915,7 +43342,7 @@ GameObject:
   - component: {fileID: 8283171009663681244}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -43058,7 +43485,7 @@ GameObject:
   - component: {fileID: 8283824666318197247}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_L
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -43077,7 +43504,7 @@ GameObject:
   - component: {fileID: 8283171009594423622}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -43096,7 +43523,7 @@ GameObject:
   - component: {fileID: 8283171006818322973}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -43153,7 +43580,7 @@ GameObject:
   - component: {fileID: 8283171009616605155}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -43229,7 +43656,7 @@ GameObject:
   - component: {fileID: 8283171007028703904}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -43248,7 +43675,7 @@ GameObject:
   - component: {fileID: 8283171007032214747}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -43375,7 +43802,7 @@ GameObject:
   - component: {fileID: 8283171006908060605}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -43432,7 +43859,7 @@ GameObject:
   - component: {fileID: 8283171009505584599}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -43508,7 +43935,7 @@ GameObject:
   - component: {fileID: 8283824665411885291}
   m_Layer: 0
   m_Name: Object1040
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -43527,7 +43954,7 @@ GameObject:
   - component: {fileID: 8283171009944899995}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -43676,7 +44103,7 @@ GameObject:
   - component: {fileID: 8283171003500821758}
   m_Layer: 0
   m_Name: Road_set_v1_s_floor
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -43695,7 +44122,7 @@ GameObject:
   - component: {fileID: 8283824659412784524}
   m_Layer: 0
   m_Name: Object085
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -43838,7 +44265,7 @@ GameObject:
   - component: {fileID: 8283824666020961079}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_L
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -43857,7 +44284,7 @@ GameObject:
   - component: {fileID: 8283171007252058549}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -43876,7 +44303,7 @@ GameObject:
   - component: {fileID: 8283171007254864145}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -43895,7 +44322,7 @@ GameObject:
   - component: {fileID: 8283824666010968340}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_L
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -43914,7 +44341,7 @@ GameObject:
   - component: {fileID: 8283171009850498004}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -43933,7 +44360,7 @@ GameObject:
   - component: {fileID: 8283171007209568460}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -43971,7 +44398,7 @@ GameObject:
   - component: {fileID: 8283171007180800349}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -44028,7 +44455,7 @@ GameObject:
   - component: {fileID: 8283824664547080538}
   m_Layer: 0
   m_Name: Road_set_v1_s_bend_1f
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -44063,7 +44490,7 @@ GameObject:
   - component: {fileID: 8283171010230094003}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -44119,7 +44546,7 @@ GameObject:
   - component: {fileID: 8283171003748170164}
   m_Layer: 0
   m_Name: Road_set_v1_s_floor
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -44176,7 +44603,7 @@ GameObject:
   - component: {fileID: 8283171010065154225}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -44233,7 +44660,7 @@ GameObject:
   - component: {fileID: 8283824664409316773}
   m_Layer: 0
   m_Name: Road_set_v1_s_bend_1f
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -44271,7 +44698,7 @@ GameObject:
   - component: {fileID: 8283171008597332654}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -44306,7 +44733,7 @@ GameObject:
   - component: {fileID: 8283824664575779037}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_L
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -44325,7 +44752,7 @@ GameObject:
   - component: {fileID: 8283171009994561183}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -44344,7 +44771,7 @@ GameObject:
   - component: {fileID: 8283171008753115888}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -44363,7 +44790,7 @@ GameObject:
   - component: {fileID: 8283171010476827370}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -44439,7 +44866,7 @@ GameObject:
   - component: {fileID: 8283171010390038496}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -44474,7 +44901,7 @@ GameObject:
   - component: {fileID: 8283171010330963535}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -44528,7 +44955,7 @@ GameObject:
   - component: {fileID: 8283171010369851371}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -44547,7 +44974,7 @@ GameObject:
   - component: {fileID: 8283171010361218191}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -44617,7 +45044,7 @@ GameObject:
   - component: {fileID: 8283171008831871976}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -44636,7 +45063,7 @@ GameObject:
   - component: {fileID: 8283171007403869686}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S_half
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -44854,7 +45281,7 @@ GameObject:
   - component: {fileID: 8283171010754409466}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -44946,7 +45373,7 @@ GameObject:
   - component: {fileID: 8283171007879939677}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -45003,7 +45430,7 @@ GameObject:
   - component: {fileID: 8283171007847234717}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -45022,7 +45449,7 @@ GameObject:
   - component: {fileID: 8283171007838038009}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -45148,7 +45575,7 @@ GameObject:
   - component: {fileID: 8283171008088915954}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -45186,7 +45613,7 @@ GameObject:
   - component: {fileID: 8283171008033082104}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -45205,7 +45632,7 @@ GameObject:
   - component: {fileID: 8283171010528905954}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -45294,7 +45721,7 @@ GameObject:
   - component: {fileID: 8283824664905828596}
   m_Layer: 0
   m_Name: Concrete_fence_v2_Gate
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -45332,7 +45759,7 @@ GameObject:
   - component: {fileID: 8283171008213597837}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -45462,7 +45889,7 @@ GameObject:
   - component: {fileID: 8283171008145778851}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -45518,7 +45945,7 @@ GameObject:
   - component: {fileID: 8283171010986556092}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -45569,7 +45996,7 @@ GameObject:
   - component: {fileID: 8283171006765532561}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S_half
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -45731,7 +46158,7 @@ GameObject:
   - component: {fileID: 8283824659673188826}
   m_Layer: 0
   m_Name: Concrete_fence_v2_Gate_lattice
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -45750,7 +46177,7 @@ GameObject:
   - component: {fileID: 8283171008248848545}
   m_Layer: 0
   m_Name: Concrete_fence_v2_lattice_S
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -45863,7 +46290,7 @@ GameObject:
   - component: {fileID: 8283824659828539044}
   m_Layer: 0
   m_Name: UNIConcrete_wall_v1_W_tile_1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -46087,7 +46514,7 @@ GameObject:
   - component: {fileID: 8283824658593568555}
   m_Layer: 0
   m_Name: UNIConcrete_wall_v1_W_tile_1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -46106,7 +46533,7 @@ GameObject:
   - component: {fileID: 8283824658549444342}
   m_Layer: 0
   m_Name: UNIConcrete_wall_v1_W_tile_1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -46201,7 +46628,7 @@ GameObject:
   - component: {fileID: 8283824658799638527}
   m_Layer: 0
   m_Name: UNIConcrete_wall_v1_W_tile_1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -46220,7 +46647,7 @@ GameObject:
   - component: {fileID: 8283824657970346990}
   m_Layer: 0
   m_Name: UNIConcrete_wall_v1_W_tile_1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295

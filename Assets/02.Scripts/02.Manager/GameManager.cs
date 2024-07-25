@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviourPunCallbacks {
         
         //Pooling.instance.GetObject("EliteMeleeZombie");
         //Pooling.instance.GetObject("EliteRangeZombie");
-        Pooling.instance.GetObject("Boss_Phobos");
+        //Pooling.instance.GetObject("Boss_Phobos");
 
     }
 }

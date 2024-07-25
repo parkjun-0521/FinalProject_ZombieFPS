@@ -44,7 +44,6 @@ public class BossZombie : EnemyController {
 
     public GameObject projectilePrefab;
     public Transform bulletPos;
-    public CapsuleCollider capsuleCollider;
 
     void Awake()
     {
@@ -68,6 +67,7 @@ public class BossZombie : EnemyController {
             OnChangeTarget += ChangeTarget;
             hp = maxHp;
             bloodParticle.Stop();
+            capsuleCollider.enabled = true;
             // 초기에 데미지 지정 
             // damage = 20f;
             ani.SetBool("isAppear", true);
@@ -95,6 +95,7 @@ public class BossZombie : EnemyController {
             InvokeRepeating("EnemyMove", 0.5f, 3.0f);
             targetChangeTimer = targetChangeInterval;
             capsuleCollider.enabled = true;
+            rigid.isKinematic = false;
             bloodParticle.Stop();
             hp = maxHp;
             // 초기에 데미지 지정 
@@ -150,7 +151,7 @@ public class BossZombie : EnemyController {
             if (!isAppear) return;
 
             if (other.CompareTag("Bullet"))             // 총알과 trigger
-           {
+            {
                 Hp = -(other.GetComponent<Bullet>().itemData.damage);  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
                 other.gameObject.SetActive(false);
             }
@@ -424,7 +425,7 @@ public class BossZombie : EnemyController {
         nav.isStopped = false;
     }
     void LaunchProjectile( Vector3 target ) {
-        GameObject projectile = Pooling.instance.GetObject("EliteRangeZombieProjectile");
+        GameObject projectile = Pooling.instance.GetObject("EliteRangeZombieProjectile", Vector3.zero);
         projectile.transform.position = bulletPos.transform.position;
         projectile.transform.rotation = Quaternion.identity;
 
@@ -463,20 +464,24 @@ public class BossZombie : EnemyController {
         randPattern = 0;                  // 패턴 초기화
     }
 
-    public override void EnemyDead()
-    {
+    public override void EnemyDead() {
         if (hp <= 0 && PV.IsMine) {
-            ani.SetBool("isDeath", true);
-            OnEnemyReset -= ResetEnemy;
-            OnEnemyMove -= RandomMove;
-            OnEnemyTracking -= EnemyTracking;
-            OnEnemyRun -= EnemyRun;
-            OnEnemyAttack -= EnemyMeleeAttack;
-            OnChangeTarget -= ChangeTarget;
-            isWalk = false;
-            isTracking = false;
-            capsuleCollider.enabled = false;
+            photonView.RPC("HandleEnemyDeath", RpcTarget.AllBuffered);
         }
+    }
+    [PunRPC]
+    public void HandleEnemyDeath() {
+        ani.SetBool("isDeath", true);
+        OnEnemyReset -= ResetEnemy;
+        OnEnemyMove -= RandomMove;
+        OnEnemyTracking -= EnemyTracking;
+        OnEnemyRun -= EnemyRun;
+        OnEnemyAttack -= EnemyMeleeAttack;
+        OnChangeTarget -= ChangeTarget;
+        isWalk = false;
+        isTracking = false;
+        capsuleCollider.enabled = false;
+        rigid.isKinematic = true;
     }
 
     public override void ChangeHp(float value)

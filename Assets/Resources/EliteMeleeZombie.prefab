@@ -165,6 +165,7 @@ MonoBehaviour:
   nextAttack: 2
   rangeOut: 20
   resetSpeed: 5
+  enemySpawn: {fileID: 0}
   rad: 10
   distance: 10
   layermask:
@@ -172,6 +173,7 @@ MonoBehaviour:
     m_Bits: 64
   maxTracingSpeed: 5
   playerTr: {fileID: 0}
+  capsuleCollider: {fileID: 0}
   maxHp: 120
   hp: 0
   baseDamage: 10

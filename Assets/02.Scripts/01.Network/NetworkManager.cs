@@ -100,10 +100,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
 
         PhotonNetwork.LeaveRoom();
     }
+
     // 체력바 제거
     [PunRPC]
-    void HPBarDelete(string playerName) {
-
+    public void HPBarDelete(string playerName) {
+        for (int i = 0; i < UIManager.Instance.nickName.Length; i++) {
+            if (playerName == UIManager.Instance.nickName[i].text) {
+                UIManager.Instance.nickName[i].text = "";
+                UIManager.Instance.hpBar[i].value = 0;
+            }
+        }
     }
 
     // 방이 생성되었을 때 동작할 부분 
@@ -149,15 +155,19 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
         switch (index) {
             case 0:
                 player.transform.position = playerSpawnPoint[0].transform.position;
+                player.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
                 break;
             case 1:
                 player.transform.position = playerSpawnPoint[1].transform.position;
+                player.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
                 break;
             case 2:
                 player.transform.position = playerSpawnPoint[2].transform.position;
+                player.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
                 break;
             case 3:
                 player.transform.position = playerSpawnPoint[3].transform.position;
+                player.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
                 break;
         }
     }

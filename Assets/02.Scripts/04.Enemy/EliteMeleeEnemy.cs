@@ -36,6 +36,7 @@ public class EliteMeleeEnemy : EnemyController {
         rigid = GetComponent<Rigidbody>();
         nav = GetComponent<NavMeshAgent>();
         ani = GetComponentInChildren<Animator>();
+        capsuleCollider = GetComponent<CapsuleCollider>();
     }
 
     private void OnEnable() {
@@ -72,6 +73,8 @@ public class EliteMeleeEnemy : EnemyController {
             playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
             InvokeRepeating("EnemyMove", 0.5f, 3.0f);
             bloodParticle.Stop();
+            capsuleCollider.enabled = true;
+            rigid.isKinematic = false;
             // 초기에 데미지 지정 
             // damage = 20f;
         }
@@ -215,10 +218,11 @@ public class EliteMeleeEnemy : EnemyController {
         OnEnemyRun -= EnemyRun;
         OnEnemyAttack -= EnemyMeleeAttack;
         isWalk = false;
+        capsuleCollider.enabled = false;
+        rigid.isKinematic = true;
 
         for (int i = 0; i < 4; i++) {
-            // 임시로 좀비 생성 ( 풀링에 넣고 생성할 예정 )
-            GameObject splitEnemy = Pooling.instance.GetObject("Zombie1");
+            GameObject splitEnemy = Pooling.instance.GetObject("Zombie1", transform.position);
             splitEnemy.transform.position = transform.position + new Vector3(Random.Range(0, 2), 0, Random.Range(0, 2));
             splitEnemy.GetComponent<NormalEnemy>().maxHp = this.maxHp * 0.8f;           // 분열좀비 능력치 ( 추후 난이도 조절 )
             splitEnemy.GetComponent<NormalEnemy>().hp = this.maxHp * 0.8f;              // 분열좀비 능력치

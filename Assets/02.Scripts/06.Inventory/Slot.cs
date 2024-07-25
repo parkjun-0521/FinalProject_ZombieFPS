@@ -158,7 +158,7 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
                 if (DragSlot.instance.dragSlot != null && DragSlot.instance.dragSlot.item != null) {
                     string itemName = item.type.ToString();
                     // 아이템 프리팹 생성
-                    GameObject itemObj = Pooling.instance.GetObject(itemName);
+                    GameObject itemObj = Pooling.instance.GetObject(itemName, Vector3.zero);
                     photonView.RPC("SetItemProperties", RpcTarget.AllBuffered, itemObj.GetComponent<PhotonView>().ViewID, itemCount);
 
                     itemObj.transform.position = gameObject.GetComponentInParent<Player>().bulletPos.position;

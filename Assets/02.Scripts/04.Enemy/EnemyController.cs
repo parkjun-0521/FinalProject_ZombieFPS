@@ -50,6 +50,8 @@ public class EnemyController : MonoBehaviourPun, IEnemy {
     protected NavMeshAgent nav;
     protected Animator ani;
 
+    public CapsuleCollider capsuleCollider;
+
 
     //좀비 최대 체력
     [SerializeField]
@@ -64,7 +66,7 @@ public class EnemyController : MonoBehaviourPun, IEnemy {
         }
         set
         {
-            if(hp > 0)
+            if (hp > 0)
             {
                 ChangeHp(value);                   //hp를 value만큼 더함 즉 피해량을 양수로하면 힐이됨 음수로 해야함 여기서 화면 시뻘겋게 and 연두색도함             
                 Debug.Log(hp);
@@ -92,7 +94,9 @@ public class EnemyController : MonoBehaviourPun, IEnemy {
     public virtual void EnemyMeleeAttack() { }
     public virtual void EnemyDead() { }
     public virtual void EnemyTracking() {
-        // 여기 에러 발생 
+        if (this == null || transform == null) {
+            return; // 객체가 파괴되었으면 함수 종료
+        }
         Vector3 skyLay = new Vector3(transform.position.x, 10, transform.position.z);
         RaycastHit hit;
         bool isHit = Physics.SphereCast(skyLay, rad, Vector3.down, out hit, distance, layermask);
@@ -112,7 +116,7 @@ public class EnemyController : MonoBehaviourPun, IEnemy {
     }
     public virtual void ChangeHp( float value ) { }
     public virtual void BloodEffect( Vector3 pos, Collider other = null ) {
-        Pooling.instance.GetObject("BloodSprayEffect").transform.position = pos;
+        Pooling.instance.GetObject("BloodSprayEffect", Vector3.zero).transform.position = pos;
     }
     public virtual void EnemyTakeDamage(float damage)
     {

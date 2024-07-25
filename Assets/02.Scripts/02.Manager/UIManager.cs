@@ -27,14 +27,8 @@ public class UIManager : MonoBehaviourPun
     public Button[] aimingImage;
 
     // 체력바 
-    public Text nickName1;
-    public Text nickName2;
-    public Text nickName3;
-    public Text nickName4;
-    public Slider hpBar; 
-    public Slider hpBar1; 
-    public Slider hpBar2; 
-    public Slider hpBar3;
+    public Text[] nickName;
+    public Slider[] hpBar; 
 
     //장전 이미지
     public Image reloadImage;
@@ -129,8 +123,8 @@ public class UIManager : MonoBehaviourPun
     {
         if (PhotonNetwork.LocalPlayer.NickName == nickName) {
             // 내 체력바 업데이트
-            nickName1.text = nickName;
-            hpBar.value = healthPercent;
+            this.nickName[0].text = nickName;
+            hpBar[0].value = healthPercent;
         }
         else {
             // 다른 플레이어의 체력바 업데이트
@@ -140,16 +134,16 @@ public class UIManager : MonoBehaviourPun
                 if (otherPlayers[i].NickName == nickName) {
                     switch (i) {
                         case 0:
-                            nickName2.text = nickName;
-                            hpBar1.value = healthPercent;
+                            this.nickName[1].text = nickName;
+                            hpBar[1].value = healthPercent;
                             break;
                         case 1:
-                            nickName3.text = nickName;
-                            hpBar2.value = healthPercent;
+                            this.nickName[2].text = nickName;
+                            hpBar[2].value = healthPercent;
                             break;
                         case 2:
-                            nickName4.text = nickName;
-                            hpBar3.value = healthPercent;
+                            this.nickName[3].text = nickName;
+                            hpBar[3].value = healthPercent;
                             break;
                     }
                     break;

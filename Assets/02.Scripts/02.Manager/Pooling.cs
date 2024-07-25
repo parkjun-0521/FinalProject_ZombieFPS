@@ -27,7 +27,7 @@ public class Pooling : MonoBehaviourPun {
         }
     }
 
-    public GameObject GetObject(string key)
+    public GameObject GetObject(string key, Vector3 pos)
     {
         // 딕셔너리에 key가 있는지 확인 없으면 return;
         if (!pools.ContainsKey(key)) {
@@ -69,7 +69,7 @@ public class Pooling : MonoBehaviourPun {
 
             // 새로운 아이템 프리팹 생성 
             if (PhotonNetwork.IsConnected && PhotonNetwork.InRoom) {
-                select = PhotonNetwork.Instantiate(prefab.name, Vector3.zero, Quaternion.identity);
+                select = PhotonNetwork.Instantiate(prefab.name, pos, Quaternion.identity);
             }
             else {  // 테스트용
                 select = Instantiate(prefab, Vector3.zero, Quaternion.identity);
