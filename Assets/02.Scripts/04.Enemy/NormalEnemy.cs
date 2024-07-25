@@ -204,6 +204,7 @@ public class NormalEnemy : EnemyController
     [PunRPC]
     public void HandleEnemyDeath() {
         ani.SetBool("isDead", true);
+        StartCoroutine(AnimationFalse("isDead"));
         capsuleCollider.enabled = false;
         rigid.isKinematic = true;
         nav.enabled = false;
@@ -230,6 +231,12 @@ public class NormalEnemy : EnemyController
             //공격맞은거
             //ani.setTrigger("피격모션");
         }
-    }   
+    }
+
+    IEnumerator AnimationFalse(string str)
+    {
+        yield return new WaitForSeconds(0.1f);
+        ani.SetBool(str, false);
+    }
 }
 

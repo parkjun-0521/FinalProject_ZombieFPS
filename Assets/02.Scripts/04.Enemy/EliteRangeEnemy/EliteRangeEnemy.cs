@@ -97,7 +97,8 @@ public class EliteRangeEnemy : EnemyController
             if (isRangeOut == true) OnEnemyReset?.Invoke();         // 범위 나갔을 때 초기화 
             if (isWalk) OnEnemyTracking?.Invoke();      // 플레이어 추격 
             if (isTracking) OnEnemyRun?.Invoke();           // 추격 시 달리기 
-            if (nav.isStopped == true) OnEnemyAttack?.Invoke();        // 몬스터 공격 
+            if(nav.enabled)
+                if (nav.isStopped == true) OnEnemyAttack?.Invoke();        // 몬스터 공격 
         }
     }
 
@@ -250,15 +251,28 @@ public class EliteRangeEnemy : EnemyController
     [PunRPC]
     public void HandleEnemyDeath()
     {
+        //OnEnemyReset -= ResetEnemy;
+        //OnEnemyMove -= RandomMove;
+        //OnEnemyTracking -= EnemyTracking;
+        //OnEnemyRun -= EnemyRun;
+        //OnEnemyAttack -= EnemyRangeAttack;
+        //isWalk = false;
+
+        //ani.SetBool("isDead", true);
+        //OnEnemyDead -= EnemyDead;
+        ani.SetBool("isDead", true);
+        StartCoroutine(AnimReset("isDead"));
+        capsuleCollider.enabled = false;
+        rigid.isKinematic = true;
+        nav.enabled = false;
         OnEnemyReset -= ResetEnemy;
         OnEnemyMove -= RandomMove;
         OnEnemyTracking -= EnemyTracking;
         OnEnemyRun -= EnemyRun;
         OnEnemyAttack -= EnemyRangeAttack;
-        isWalk = false;
 
-        ani.SetBool("isDead", true);
-        OnEnemyDead -= EnemyDead;
+        isWalk = false;
+        isTracking = false;
     }
 
 
