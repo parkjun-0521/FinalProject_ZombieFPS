@@ -780,7 +780,7 @@ public class Player : PlayerController
             inventory.SetActive(false);                 //이거 안할시 인벤토리 키고 사망시 인벤토리 끌때 버그남 
             StartCoroutine(AnimReset("isFaint"));
             StartCoroutine(PlayerFaintUI(faintTime));
-            capsuleCollider.direction = 2;
+            //capsuleCollider.direction = 2;
         }
   
             
@@ -790,25 +790,13 @@ public class Player : PlayerController
     {
         this.isFaint = isFaint;
     }
-
-    // 플레이어 부활
     [PunRPC]
-    public override void PlayerRevive()             //플레이어 부활 - 다른플레이어가 부활할때 얘의 player에 접근해서 호출 내부에선 안쓸꺼임 제세동기를만들지않는이상...
-    {                                               //PlayerFaint 함수와 반대로 하면 됨
-                              
-        OnPlayerMove += PlayerMove;                 // 플레이어 이동 
-        OnPlayerRotation += PlayerRotation;         // 플레이어 회전
-        OnPlayerJump += PlayerJump;                 // 플레이어 점프 
-        OnPlayerAttack += PlayerAttack;             // 플레이어 공격
-        OnPlayerSwap += WeaponSwap;                 // 무기 교체
-        OnPlayerInteraction += PlayerInteraction;   // 플레이어 상호작용
-        OnPlayerInventory += PlayerInventory;
-        animator.SetBool("isRevive", true);     //기절 애니메이션 출력 나중에 플레이어 완성되면 추가
-        StartCoroutine(AnimReset("isRevive")); 
-        Hp = 50;                             //부활시 반피로 변경! maxHp = 100; 을 따로 선언해서 maxHp / 2해도 되는데 풀피는 100하겠지 뭐
-        photonView.RPC("IsFaintRPC", RpcTarget.AllBuffered, false); 
-        photonView.RPC("UpdateHealthBar", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName, photonView.ViewID, (hp / maxHp) * 100);
+    public void IsDeadRPC(bool isDead)
+    {
+        this.isDead = isDead;
     }
+
+
     //public override void PlayerRevive()             //플레이어 부활 - 백업본
     //{                                               //PlayerFaint 함수와 반대로 하면 됨
     //                              //기절상태 false
@@ -836,6 +824,8 @@ public class Player : PlayerController
             animator.SetBool("isDead", true);          //죽었을때 애니메이션 출력
             StartCoroutine(AnimReset("isDead"));
             AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_death_BGM);
+            photonView.RPC("IsFaintRPC", RpcTarget.AllBuffered, false);
+            photonView.RPC("IsDeadRPC", RpcTarget.AllBuffered, true);
         }
     }
    
@@ -881,6 +871,7 @@ public class Player : PlayerController
             images[3].color = defaultColor;
             images[4].color = defaultColor;
         }
+        PlayerDead();
     }
     //플레이어 부활 코루틴 + ui
     IEnumerator CorPlayerReviveUI(float time, Player otherPlayer)
@@ -898,9 +889,35 @@ public class Player : PlayerController
                 yield break;
             }
         }
-        otherPlayer.PlayerRevive();
+        otherPlayer.PlayerReviveRPC();
         fillImage.fillAmount = 0;
         playerReviveUI.SetActive(false);
+    }
+    void PlayerReviveRPC()
+    {
+        photonView.RPC("PlayerRevive", RpcTarget.AllBuffered);
+    }
+    // 플레이어 부활
+    [PunRPC]
+    public override void PlayerRevive()             //플레이어 부활 - 다른플레이어가 부활할때 얘의 player에 접근해서 호출 내부에선 안쓸꺼임 제세동기를만들지않는이상...
+    {                                               //PlayerFaint 함수와 반대로 하면 됨
+        if(PV.IsMine)
+        {
+            OnPlayerMove += PlayerMove;                 // 플레이어 이동 
+            OnPlayerRotation += PlayerRotation;         // 플레이어 회전
+            OnPlayerJump += PlayerJump;                 // 플레이어 점프 
+            OnPlayerAttack += PlayerAttack;             // 플레이어 공격
+            OnPlayerSwap += WeaponSwap;                 // 무기 교체
+            OnPlayerInteraction += PlayerInteraction;   // 플레이어 상호작용
+            OnPlayerInventory += PlayerInventory;
+            animator.SetBool("isRevive", true);     //기절 애니메이션 출력 나중에 플레이어 완성되면 추가
+            StartCoroutine(AnimReset("isRevive"));
+            Hp = 50;                             //부활시 반피로 변경! maxHp = 100; 을 따로 선언해서 maxHp / 2해도 되는데 풀피는 100하겠지 뭐
+            photonView.RPC("IsFaintRPC", RpcTarget.AllBuffered, false);
+            photonView.RPC("UpdateHealthBar", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName, photonView.ViewID, (hp / maxHp) * 100);
+            playerFaintUI.SetActive(false);      //기절화면 끄기
+        }
+        
     }
     // 피격시 셰이더 변경 
     IEnumerator ShowBloodScreen(float value)                  //화면 붉게
@@ -1022,6 +1039,23 @@ public class Player : PlayerController
         if (photonView.ViewID == viewID) {
             UIManager.Instance.UpdatePlayerHealthBar(nickName, viewID, healthPercent);
         }
+    }
+
+
+    public override void FaintChangeHp(float value)
+    {
+        if (PV.IsMine)
+        {
+            hp = 0;
+            hp += value;
+            if (hp > 100)
+                hp = 100;
+            if (value > 0)
+            {
+                StartCoroutine(ShowHealScreen());   //힐 화면 출력
+            }
+        }
+        photonView.RPC("UpdateHealthBar", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName, photonView.ViewID, (hp / maxHp) * 100);
     }
 
 

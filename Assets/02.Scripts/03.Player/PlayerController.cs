@@ -57,6 +57,11 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
             return hp;                          //그냥 반환
         }
         set {
+            if(isFaint)
+            {
+                FaintChangeHp(value);
+                return;
+            }
             if (hp == 0) return;
             ChangeHp(value);                    //hp를 value만큼 더함 즉 피해량을 양수로하면 힐이됨 음수로 해야함 여기서 화면 시뻘겋게 and 연두색도함
             
@@ -133,7 +138,8 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
 
     public abstract void PlayerDead();
     // 플레이어 체력 변화 이벤트 
-    public abstract void ChangeHp( float value );        
+    public abstract void ChangeHp( float value );
     // 포톤 동기화 메소드
+    public abstract void FaintChangeHp(float value);
     public abstract void OnPhotonSerializeView( PhotonStream stream, PhotonMessageInfo info );
 }

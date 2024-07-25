@@ -17,21 +17,16 @@ public class EnemySpawnManager : MonoBehaviourPun
         if (other.gameObject.CompareTag("Player") && !isSpawn)
         {
             isSpawn = true;
-            photonView.RPC("SpawnEnemies", RpcTarget.AllBuffered, spawnCount, isSpawn);
+            for (int i = 0; i < spawnCount; i++)
+            {
+                int randomIndex = Random.Range(0, enemyName.Length - 2);
+                GameObject enemyObj = Pooling.instance.GetObject(enemyName[randomIndex], spawnPoint.position);
+                enemyObj.transform.rotation = transform.rotation;
+                EnemyController enemyLogin = enemyObj.GetComponent<EnemyController>();
+                enemyLogin.enemySpawn = spawnPoint;
+            }
         }
     }
 
-    [PunRPC]
-    void SpawnEnemies(int count, bool isSpawn)
-    {
-        this.isSpawn = isSpawn;
-        for (int i = 0; i < count; i++)
-        {
-            int randomIndex = Random.Range(0, enemyName.Length - 2);
-            GameObject enemyObj = Pooling.instance.GetObject(enemyName[randomIndex], spawnPoint.position);
-            enemyObj.transform.rotation = transform.rotation;
-            EnemyController enemyLogin = enemyObj.GetComponent<EnemyController>();
-            enemyLogin.enemySpawn = spawnPoint;
-        }
-    }
+ 
 }
