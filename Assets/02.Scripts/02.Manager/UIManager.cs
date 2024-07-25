@@ -46,7 +46,8 @@ public class UIManager : MonoBehaviourPun
 
     void Start()
     {
-        if (photonView.IsMine) {
+        player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        if (player.PV.IsMine) {
             for (int i = 0; i < weaponItem.Length; i++) {
                 weaponItem[i].color = new Color(1, 1, 1, 0.2f);
             }
@@ -55,7 +56,6 @@ public class UIManager : MonoBehaviourPun
             UIManager.Instance.totalGranedeCount.text = "0";
             UIManager.Instance.totalHealCount.text = "0";
         }
-        player = GameObject.FindWithTag("Player").GetComponent<Player>();
     }
 
     void Update(){

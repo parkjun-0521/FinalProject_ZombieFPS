@@ -1,9 +1,10 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemySpawnManager : MonoBehaviour
+public class EnemySpawnManager : MonoBehaviourPun
 {
     public Transform spawnPoint;
     public bool isSpawn;
@@ -14,7 +15,8 @@ public class EnemySpawnManager : MonoBehaviour
     private void OnTriggerEnter( Collider other ) {
         if (other.gameObject.CompareTag("Player") && !isSpawn) {
             isSpawn = true;
-            for(int i = 0; i < spawnCount; i++) {
+            photonView.RPC("SpawnEnemies", RpcTarget.AllBuffered, isSpawn);
+            for (int i = 0; i < spawnCount; i++) {
                 int randomIndex = Random.Range(0, enemyName.Length - 2);
                 GameObject enemyObj = Pooling.instance.GetObject(enemyName[randomIndex], spawnPoint.position);
                 enemyObj.transform.rotation = transform.rotation;
@@ -22,5 +24,10 @@ public class EnemySpawnManager : MonoBehaviour
                 enemyLogin.enemySpawn = spawnPoint;
             }
         }
+    }
+
+    [PunRPC]
+    void SpawnEnemies(bool isSpawn) {
+        this.isSpawn = isSpawn;     
     }
 }

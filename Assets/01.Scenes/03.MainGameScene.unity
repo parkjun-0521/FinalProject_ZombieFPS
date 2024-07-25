@@ -1972,6 +1972,7 @@ GameObject:
   - component: {fileID: 292010710}
   - component: {fileID: 292010711}
   - component: {fileID: 292010712}
+  - component: {fileID: 292010713}
   m_Layer: 0
   m_Name: Spawn7
   m_TagString: SpawnPoint
@@ -2023,6 +2024,28 @@ MonoBehaviour:
   spawnPoint: {fileID: 1921640659}
   isSpawn: 0
   spawnCount: 2
+--- !u!114 &292010713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292010709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 106
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &319452461
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7983,6 +8006,7 @@ GameObject:
   - component: {fileID: 1306365262}
   - component: {fileID: 1306365263}
   - component: {fileID: 1306365264}
+  - component: {fileID: 1306365265}
   m_Layer: 0
   m_Name: Spawn2
   m_TagString: SpawnPoint
@@ -8034,6 +8058,28 @@ MonoBehaviour:
   spawnPoint: {fileID: 917805195}
   isSpawn: 0
   spawnCount: 2
+--- !u!114 &1306365265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1306365261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 101
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1314205472
 GameObject:
   m_ObjectHideFlags: 0
@@ -8045,6 +8091,7 @@ GameObject:
   - component: {fileID: 1314205473}
   - component: {fileID: 1314205474}
   - component: {fileID: 1314205475}
+  - component: {fileID: 1314205476}
   m_Layer: 0
   m_Name: Spawn3
   m_TagString: SpawnPoint
@@ -8096,6 +8143,28 @@ MonoBehaviour:
   spawnPoint: {fileID: 797063684}
   isSpawn: 0
   spawnCount: 2
+--- !u!114 &1314205476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1314205472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 102
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1320758995
 GameObject:
   m_ObjectHideFlags: 0
@@ -12405,6 +12474,7 @@ GameObject:
   - component: {fileID: 1927080831}
   - component: {fileID: 1927080832}
   - component: {fileID: 1927080833}
+  - component: {fileID: 1927080834}
   m_Layer: 0
   m_Name: Spawn5
   m_TagString: SpawnPoint
@@ -12456,6 +12526,28 @@ MonoBehaviour:
   spawnPoint: {fileID: 399873218}
   isSpawn: 0
   spawnCount: 2
+--- !u!114 &1927080834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1927080830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 104
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1936753318
 GameObject:
   m_ObjectHideFlags: 0
@@ -12685,6 +12777,7 @@ GameObject:
   - component: {fileID: 1956070800}
   - component: {fileID: 1956070801}
   - component: {fileID: 1956070802}
+  - component: {fileID: 1956070803}
   m_Layer: 0
   m_Name: Spawn1
   m_TagString: SpawnPoint
@@ -12736,6 +12829,28 @@ MonoBehaviour:
   spawnPoint: {fileID: 2096647952}
   isSpawn: 0
   spawnCount: 2
+--- !u!114 &1956070803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956070799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 100
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1983387206
 GameObject:
   m_ObjectHideFlags: 0
@@ -12844,6 +12959,7 @@ GameObject:
   - component: {fileID: 1989538057}
   - component: {fileID: 1989538058}
   - component: {fileID: 1989538059}
+  - component: {fileID: 1989538060}
   m_Layer: 0
   m_Name: Spawn6
   m_TagString: SpawnPoint
@@ -12895,6 +13011,28 @@ MonoBehaviour:
   spawnPoint: {fileID: 1091890618}
   isSpawn: 0
   spawnCount: 2
+--- !u!114 &1989538060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1989538056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 105
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1999221680
 GameObject:
   m_ObjectHideFlags: 0
@@ -13257,6 +13395,7 @@ GameObject:
   - component: {fileID: 2131501351}
   - component: {fileID: 2131501352}
   - component: {fileID: 2131501353}
+  - component: {fileID: 2131501354}
   m_Layer: 0
   m_Name: Spawn4
   m_TagString: SpawnPoint
@@ -13308,6 +13447,28 @@ MonoBehaviour:
   spawnPoint: {fileID: 1595355195}
   isSpawn: 0
   spawnCount: 2
+--- !u!114 &2131501354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131501350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 103
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!65 &885191388829724503
 BoxCollider:
   m_ObjectHideFlags: 0
