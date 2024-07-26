@@ -57,7 +57,7 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
             return hp;                          //그냥 반환
         }
         set {
-            if(isFaint)
+            if(isFaint || isDead)
             {
                 FaintChangeHp(value);
                 return;
@@ -98,7 +98,7 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     protected bool isInteraction;       // 상호작용 상태 
     protected bool isAttack;            // 공격 상태 
     protected bool isThrow;             // 아이템 버리는 상태 
-    protected bool isDead;              // 사망 상태 
+    [SerializeField]protected bool isDead;              // 사망 상태 
     public bool isLoad;
 
 

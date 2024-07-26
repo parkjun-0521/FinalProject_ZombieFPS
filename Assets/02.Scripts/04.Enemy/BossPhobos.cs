@@ -39,10 +39,12 @@ public class BossPhobos : EnemyController
     [SerializeField] private float dashAtkDistance = 600;
     [SerializeField] private float dashPower = 30;
     [SerializeField] private float knockBackPower = 3.0f;
-
+    private Collider[] playerCollider;
     private float defalutKnockBackPower = 3.0f;
-    [SerializeField]private float traceTime = 0;
+    private bool isLook;
+    [SerializeField] private float traceTime = 0;
     [SerializeField] private float traceChacgeTime = 15.0f;
+    [SerializeField] [Header("인식범위")] private float lookRadius = 10;
 
     private void Awake()
     {
@@ -63,13 +65,25 @@ public class BossPhobos : EnemyController
         //{
         //    StartCoroutine(Trace());
         //}
-        StartCoroutine(Trace());
+        //StartCoroutine(Trace());
         //포톤 추가시 밑에 인원수만큼foreach
         Physics.IgnoreCollision(players[0].GetComponent<Collider>(), transform.GetComponent<Collider>(), true);
     }
 
-   
-    
+
+    private void Update()
+    {
+        traceTime += Time.deltaTime;
+        playerCollider = Physics.OverlapSphere(transform.position, lookRadius, LayerMask.GetMask("LocalPlayer"));
+        if(playerCollider.Length > 0 && !isLook)
+        {
+            StartCoroutine(Trace());
+            ani.SetBool("isDash", true);
+            isLook = true;
+        }
+    }
+
+
     IEnumerator Trace()
     {
         while(state != State.dead)             //안죽었으면 0.5초마다 가까이있는 플레이어 추격
@@ -194,10 +208,6 @@ public class BossPhobos : EnemyController
         }
     }
 
-    private void Update()
-    {
-        traceTime += Time.deltaTime;
-    }
 
     private void OnDrawGizmos()
     {

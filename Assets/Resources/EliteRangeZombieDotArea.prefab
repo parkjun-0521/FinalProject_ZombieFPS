@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 5332224689117099072}
   - component: {fileID: 482596469}
   - component: {fileID: 482596468}
-  - component: {fileID: 3557476541740809190}
   m_Layer: 0
   m_Name: Quad
   m_TagString: DotArea
@@ -113,19 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dotDelay: 1
   dotDamage: 1
---- !u!114 &3557476541740809190
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4440266231611059553}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7caed084b7971e4eb95c5344bb4354d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 8
+  liveTime: 5
 --- !u!1 &4889826314365492729
 GameObject:
   m_ObjectHideFlags: 0
