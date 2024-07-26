@@ -128,6 +128,7 @@ public class Player : PlayerController
 
                 isLoad = true;
                 isBulletZero = true;
+                handAnimator.SetTrigger("isReload");
                 StartCoroutine(BulletLoad());
             }
 
@@ -674,10 +675,12 @@ public class Player : PlayerController
                     beforeWeapon = 1;
                 }
                 isGun = true;
+                handAnimator.SetTrigger("isTakeOut");
             }
             else if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Weapon2))) {   // 근접 무기
                 if (WeaponSwapStatus(1, true, false, true, "isDrawMelee", 1, beforeWeapon)) {
                     countZero = false;
+                    handAnimator.SetTrigger("isDrawMelee");
                     beforeWeapon = 2;
                 }
                 isGun = false;

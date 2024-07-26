@@ -261,4 +261,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
     public void ChangeScene( string sceneName ) {
         PhotonNetwork.LoadLevel(sceneName);
     }
+
+    void OnApplicationQuit()
+    {
+        Debug.Log("애플리케이션이 종료됩니다.");
+
+        // 여기에서 필요한 정리 작업을 수행합니다.
+        LeaveRoom();
+    }
 }
