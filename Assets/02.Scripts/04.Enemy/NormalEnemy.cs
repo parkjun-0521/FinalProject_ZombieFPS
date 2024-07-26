@@ -228,6 +228,7 @@ public class NormalEnemy : EnemyController
             //ani.setTrigger("피격모션");
         }
     }
+
     IEnumerator AnimationFalse( string str ) {
         yield return new WaitForSeconds(0.1f);
         ani.SetBool(str, false);

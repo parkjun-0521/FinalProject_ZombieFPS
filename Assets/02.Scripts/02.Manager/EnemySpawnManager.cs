@@ -12,11 +12,14 @@ public class EnemySpawnManager : MonoBehaviourPun
 
     string[] enemyName = { "Zombie1", "EliteMeleeZombie", "EliteRangeZombie", "BossZombie", "Boss_Phobos" };
 
-    private void OnTriggerEnter( Collider other ) {
-        if (other.gameObject.CompareTag("Player") && !isSpawn) {
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player") && !isSpawn)
+        {
             isSpawn = true;
             photonView.RPC("SpawnEnemies", RpcTarget.AllBuffered, isSpawn);
-            for (int i = 0; i < spawnCount; i++) {
+            for (int i = 0; i < spawnCount; i++)
+            {
                 int randomIndex = Random.Range(0, enemyName.Length - 2);
                 GameObject enemyObj = Pooling.instance.GetObject(enemyName[randomIndex], spawnPoint.position);
                 //enemyObj.transform.position = new Vector3(Random.Range(-0.5f, 0.5f), spawnPoint.position.y, Random.Range(-0.5f, 0.5f));
@@ -28,8 +31,13 @@ public class EnemySpawnManager : MonoBehaviourPun
         }
     }
 
+
     [PunRPC]
     void SpawnEnemies(bool isSpawn) {
         this.isSpawn = isSpawn;     
     }
 }
+
+ 
+
+

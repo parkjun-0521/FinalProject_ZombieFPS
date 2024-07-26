@@ -30,7 +30,7 @@ public class Player : PlayerController
     public bool cursorLocked = true;
 
     // 상호작용 Ray  
-    RaycastHit hit;
+
     Ray ray;
     bool isRayPlayer = false;
 
@@ -332,6 +332,7 @@ public class Player : PlayerController
     // 플레이어 상호작용 
     public override void PlayerInteraction() {
         if (PV.IsMine) {
+            RaycastHit hit;
             int layerMask = LayerMask.GetMask("LocalPlayer", "Item");
             if (Physics.Raycast(bulletPos.position, ray.direction, out hit, interactionRange, layerMask))   
             {
@@ -360,6 +361,11 @@ public class Player : PlayerController
                         {
                             StartCoroutine(CorPlayerReviveUI(8.0f, otherPlayer));
                         }
+                    }
+                    else
+                    {
+                        playerReviveUI.SetActive(false);
+                        isRayPlayer = false;
                     }
                 }
             }
@@ -747,8 +753,12 @@ public class Player : PlayerController
 
     // 체력 변화 
     [PunRPC]
-    public override void ChangeHp( float value ) {
-        if (PV.IsMine) {
+    public override void ChangeHp( float value )
+    {
+        if (hp == 0) return;
+        if(isDead) return;
+        if (PV.IsMine)
+        {
             hp += value;
             if (hp > 100)
                 hp = 100;
@@ -765,12 +775,14 @@ public class Player : PlayerController
     }
 
     // 플레이어 기절 
-    public override void PlayerFaint() {
-        if (hp <= 0)                            //만약 플레이어 체력이 0보다 작아지면
+  
+    public override void PlayerFaint()
+    {
+        if (hp <= 0 && PV.IsMine)                            //만약 플레이어 체력이 0보다 작아지면
         {
             AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_help);
             hp = 0;                             //여기서 hp를 0 으로 강제로 해줘야 부활, ui에서 편할거같음
-            isFaint = true;                     //기절상태 true
+            photonView.RPC("IsFaintRPC", RpcTarget.AllBuffered, true);                    //기절상태 true
             OnPlayerMove -= PlayerMove;
             OnPlayerRotation -= PlayerRotation;
             OnPlayerJump -= PlayerJump;
@@ -782,27 +794,52 @@ public class Player : PlayerController
             inventory.SetActive(false);                 //이거 안할시 인벤토리 키고 사망시 인벤토리 끌때 버그남 
             StartCoroutine(AnimReset("isFaint"));
             StartCoroutine(PlayerFaintUI(faintTime));
+            //capsuleCollider.direction = 2;
+        }
+  
+            
+    }
+    [PunRPC]
+    public void IsFaintRPC(bool isFaint)
+    {
+        this.isFaint = isFaint;
+        if(isFaint)
+        {
+            capsuleCollider = GetComponent<CapsuleCollider>();
             capsuleCollider.direction = 2;
         }
+        else
+        {
+            capsuleCollider = GetComponent<CapsuleCollider>();
+            capsuleCollider.direction = 1;
+        }
+        
+    }
+    [PunRPC]
+    public void IsDeadRPC(bool isDead)
+    {
+        this.isDead = isDead;
+        capsuleCollider = GetComponent<CapsuleCollider>();
+        capsuleCollider.direction = 2;
     }
 
-    // 플레이어 부활
-    public override void PlayerRevive()             //플레이어 부활 - 다른플레이어가 부활할때 얘의 player에 접근해서 호출 내부에선 안쓸꺼임 제세동기를만들지않는이상...
-    {                                               //PlayerFaint 함수와 반대로 하면 됨
-        isFaint = false;                            //기절상태 false
-        OnPlayerMove += PlayerMove;                 // 플레이어 이동 
-        OnPlayerRotation += PlayerRotation;         // 플레이어 회전
-        OnPlayerJump += PlayerJump;                 // 플레이어 점프 
-        OnPlayerAttack += PlayerAttack;             // 플레이어 공격
-        OnPlayerSwap += WeaponSwap;                 // 무기 교체
-        OnPlayerInteraction += PlayerInteraction;   // 플레이어 상호작용
-        OnPlayerInventory += PlayerInventory;
-        animator.SetBool("isRevive", true);     //기절 애니메이션 출력 나중에 플레이어 완성되면 추가
-        StartCoroutine(AnimReset("isRevive"));
-        Hp = 50;                             //부활시 반피로 변경! maxHp = 100; 을 따로 선언해서 maxHp / 2해도 되는데 풀피는 100하겠지 뭐
 
-        photonView.RPC("UpdateHealthBar", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName, photonView.ViewID, (hp / maxHp) * 100);
-    }
+    //public override void PlayerRevive()             //플레이어 부활 - 백업본
+    //{                                               //PlayerFaint 함수와 반대로 하면 됨
+    //                              //기절상태 false
+    //    OnPlayerMove += PlayerMove;                 // 플레이어 이동 
+    //    OnPlayerRotation += PlayerRotation;         // 플레이어 회전
+    //    OnPlayerJump += PlayerJump;                 // 플레이어 점프 
+    //    OnPlayerAttack += PlayerAttack;             // 플레이어 공격
+    //    OnPlayerSwap += WeaponSwap;                 // 무기 교체
+    //    OnPlayerInteraction += PlayerInteraction;   // 플레이어 상호작용
+    //    OnPlayerInventory += PlayerInventory;
+    //    animator.SetBool("isRevive", true);     //기절 애니메이션 출력 나중에 플레이어 완성되면 추가
+    //    StartCoroutine(AnimReset("isRevive"));
+    //    Hp = 50;                             //부활시 반피로 변경! maxHp = 100; 을 따로 선언해서 maxHp / 2해도 되는데 풀피는 100하겠지 뭐
+    //    photonView.RPC("IsFaintRPC", RpcTarget.AllBuffered, false);
+    //    photonView.RPC("UpdateHealthBar", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName, photonView.ViewID, (hp / maxHp) * 100);
+    //}
 
     // 플레이어 사망
     public override void PlayerDead()
@@ -814,6 +851,8 @@ public class Player : PlayerController
             animator.SetBool("isDead", true);          //죽었을때 애니메이션 출력
             StartCoroutine(AnimReset("isDead"));
             AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_death_BGM);
+            photonView.RPC("IsFaintRPC", RpcTarget.AllBuffered, false);
+            photonView.RPC("IsDeadRPC", RpcTarget.AllBuffered, true);
         }
     }
    
@@ -842,7 +881,7 @@ public class Player : PlayerController
     //    }
     //}
 
-    //플레이어 기절상태시 체력줄어드는 UI
+    //플레이어 기절상태시 체력줄어드는 UI, ui다달면 죽음 실행
     IEnumerator PlayerFaintUI(float faintTime)
     {
         Slider faintSlider = playerFaintUI.GetComponentInChildren<Slider>();
@@ -859,6 +898,7 @@ public class Player : PlayerController
             images[3].color = defaultColor;
             images[4].color = defaultColor;
         }
+        PlayerDead();
     }
     //플레이어 부활 코루틴 + ui
     IEnumerator CorPlayerReviveUI(float time, Player otherPlayer)
@@ -876,9 +916,36 @@ public class Player : PlayerController
                 yield break;
             }
         }
-        otherPlayer.PlayerRevive();
+        otherPlayer.PlayerReviveRPC();
         fillImage.fillAmount = 0;
         playerReviveUI.SetActive(false);
+        playerReviveUI.GetComponentInChildren<Text>().text = "";
+    }
+    void PlayerReviveRPC()
+    {
+        photonView.RPC("PlayerRevive", RpcTarget.AllBuffered);
+    }
+    // 플레이어 부활
+    [PunRPC]
+    public override void PlayerRevive()             //플레이어 부활 - 다른플레이어가 부활할때 얘의 player에 접근해서 호출 내부에선 안쓸꺼임 제세동기를만들지않는이상...
+    {                                               //PlayerFaint 함수와 반대로 하면 됨
+        if(PV.IsMine)
+        {
+            OnPlayerMove += PlayerMove;                 // 플레이어 이동 
+            OnPlayerRotation += PlayerRotation;         // 플레이어 회전
+            OnPlayerJump += PlayerJump;                 // 플레이어 점프 
+            OnPlayerAttack += PlayerAttack;             // 플레이어 공격
+            OnPlayerSwap += WeaponSwap;                 // 무기 교체
+            OnPlayerInteraction += PlayerInteraction;   // 플레이어 상호작용
+            OnPlayerInventory += PlayerInventory;
+            animator.SetBool("isRevive", true);     //기절 애니메이션 출력 나중에 플레이어 완성되면 추가
+            StartCoroutine(AnimReset("isRevive"));
+            Hp = 50;                             //부활시 반피로 변경 maxHp = 100; 을 따로 선언해서 maxHp / 2해도 되는데 풀피는 100하겠지 뭐
+            photonView.RPC("IsFaintRPC", RpcTarget.AllBuffered, false);
+            photonView.RPC("UpdateHealthBar", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName, photonView.ViewID, (hp / maxHp) * 100);
+            playerFaintUI.SetActive(false);      //기절화면 끄기
+        }
+        
     }
     // 피격시 셰이더 변경 
     IEnumerator ShowBloodScreen(float value)                  //화면 붉게
@@ -920,6 +987,7 @@ public class Player : PlayerController
     //힐팩 코루틴
     IEnumerator HealItemUse(float time, float healAmount, Slot slot)                                                     
     {
+        if (Hp == 100) yield break;
         OnPlayerInteraction -= PlayerInteraction;
 
         Image fillImage = playerHealPackUI.GetComponent<Image>();
@@ -999,6 +1067,23 @@ public class Player : PlayerController
         if (photonView.ViewID == viewID) {
             UIManager.Instance.UpdatePlayerHealthBar(nickName, viewID, healthPercent);
         }
+    }
+
+
+    public override void FaintChangeHp(float value)
+    {
+        if (PV.IsMine)
+        {
+            hp = 0;
+            hp += value;
+            if (hp > 100)
+                hp = 100;
+            if (value > 0)
+            {
+                StartCoroutine(ShowHealScreen());   //힐 화면 출력
+            }
+        }
+        photonView.RPC("UpdateHealthBar", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName, photonView.ViewID, (hp / maxHp) * 100);
     }
 
 
