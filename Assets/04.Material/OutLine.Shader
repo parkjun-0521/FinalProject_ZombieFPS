@@ -1,4 +1,4 @@
-Shader "Mingyu/Outline"
+Shader "PJ/Outline"
 {
 	Properties
 	{
