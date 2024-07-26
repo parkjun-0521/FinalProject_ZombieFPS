@@ -6,7 +6,9 @@ using UnityEngine.AI;
 
 public class EliteMeleeEnemy : EnemyController {
     public delegate void EnemymoveHandle();
-    public static event EnemymoveHandle OnEnemyReset, OnEnemyMove, OnEnemyTracking, OnEnemyRun, OnEnemyAttack, OnEnemyDead;
+    public static event EnemymoveHandle OnEnemyReset, OnEnemyMove, OnEnemyRun, OnEnemyAttack, OnEnemyDead;
+    public delegate void EnemyTraceHandle(Collider other);
+    public static event EnemyTraceHandle OnEnemyTracking;
 
     //공격
     public GameObject attackColliderPrefab;
@@ -81,8 +83,7 @@ public class EliteMeleeEnemy : EnemyController {
     void Update() {
         if (PV.IsMine) {
             if (isRangeOut == true)     OnEnemyReset?.Invoke();         // 범위 나갔을 때 초기화 
-            if (isWalk)                 OnEnemyTracking?.Invoke();      // 플레이어 추격 
-            if (isTracking)             OnEnemyRun?.Invoke();           // 추격 시 달리기 
+             if (isTracking)             OnEnemyRun?.Invoke();           // 추격 시 달리기 
             if (nav.isStopped == true)  OnEnemyAttack?.Invoke();        // 몬스터 공격 
         }
     }
@@ -183,7 +184,7 @@ public class EliteMeleeEnemy : EnemyController {
 
             float versusDist = Vector3.Distance(transform.position, playerTr.position);
 
-            nav.isStopped = (versusDist < 3f) ? true : false;
+            nav.isStopped = (versusDist < attackRange) ? true : false;
         }
     }
 

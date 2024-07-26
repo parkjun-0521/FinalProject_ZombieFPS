@@ -7,7 +7,9 @@ using UnityEngine.AI;
 
 public class BossZombie : EnemyController {
     public delegate void EnemymoveHandle();
-    public static event EnemymoveHandle OnEnemyReset, OnEnemyMove, OnEnemyTracking, OnEnemyRun, OnEnemyAttack, OnEnemyDead, OnChangeTarget;
+    public static event EnemymoveHandle OnEnemyReset, OnEnemyMove,OnEnemyRun, OnEnemyAttack, OnEnemyDead, OnChangeTarget;
+    public delegate void EnemyTraceHandle(Collider other);
+    public static event EnemyTraceHandle OnEnemyTracking;
 
     //공격
     public GameObject attackColliderPrefab;
@@ -115,8 +117,7 @@ public class BossZombie : EnemyController {
 
             if (playerTr != null) {
                 if (isRangeOut == true) OnEnemyReset?.Invoke();
-                if (isWalk) OnEnemyTracking?.Invoke();
-                if (isTracking) OnEnemyRun?.Invoke();
+                 if (isTracking) OnEnemyRun?.Invoke();
                 if (nav.isStopped == true) OnEnemyAttack?.Invoke();
             }
         }
@@ -144,7 +145,7 @@ public class BossZombie : EnemyController {
         }
     }
 
-
+  
     void OnTriggerEnter(Collider other)                       //총알, 근접무기...triggerEnter
     {
         if (PV.IsMine) {
@@ -264,7 +265,7 @@ public class BossZombie : EnemyController {
 
             float versusDist = Vector3.Distance(transform.position, playerTr.position);
 
-            nav.isStopped = (versusDist < 17f) ? true : false;
+            nav.isStopped = (versusDist < attackRange) ? true : false;
 
             AttackCooltime += Time.deltaTime;
 

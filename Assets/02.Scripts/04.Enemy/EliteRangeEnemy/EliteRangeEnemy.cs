@@ -7,14 +7,15 @@ using UnityEngine.AI;
 public class EliteRangeEnemy : EnemyController
 {
     public delegate void EnemymoveHandle();
-    public static event EnemymoveHandle OnEnemyReset, OnEnemyMove, OnEnemyTracking, OnEnemyRun, OnEnemyAttack, OnEnemyDead;
+    public static event EnemymoveHandle OnEnemyReset, OnEnemyMove, OnEnemyRun, OnEnemyAttack, OnEnemyDead;
+    public delegate void EnemyTraceHandle(Collider other);
+    public static event EnemyTraceHandle OnEnemyTracking;
 
     //공격
     public Transform attackPos;
     public float attackPrefabSpeed = 30.0f;
 
     public GameObject rangeProjectile;
-    public float attackRangeDistance = 30.0f;
 
     public GameObject[] player;
     // HP 구현 
@@ -92,8 +93,7 @@ public class EliteRangeEnemy : EnemyController
         if (PV.IsMine)
         {
             if (isRangeOut == true) OnEnemyReset?.Invoke();         // 범위 나갔을 때 초기화 
-            if (isWalk) OnEnemyTracking?.Invoke();      // 플레이어 추격 
-            if (isTracking) OnEnemyRun?.Invoke();           // 추격 시 달리기 
+             if (isTracking) OnEnemyRun?.Invoke();           // 추격 시 달리기 
             if (nav.isStopped == true) OnEnemyAttack?.Invoke();        // 몬스터 공격 
         }
     }
@@ -186,7 +186,7 @@ public class EliteRangeEnemy : EnemyController
             isRun = true;
             //ani.SetBool("isAttack", false);
             ani.SetBool("isRun", true);
-            if((playerTr.position - transform.position).magnitude < attackRangeDistance)
+            if((playerTr.position - transform.position).magnitude < attackRange)
             {
                 ani.SetBool("isRun", false);
                 ani.SetBool("isIdle", true);
@@ -202,7 +202,7 @@ public class EliteRangeEnemy : EnemyController
 
             float versusDist = Vector3.Distance(transform.position, playerTr.position);
 
-            nav.isStopped = (versusDist < attackRangeDistance) ? true : false;
+            nav.isStopped = (versusDist < attackRange) ? true : false;
         }
     }
     public void EnemyRangeAttack()
