@@ -634,7 +634,9 @@ public class Player : PlayerController
             float throwForce = 15f;    // 던지는 힘
             AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_granede);
 
+            //if( 인벤토리 장비 칸에서 이름을 가져옴 == 수류탄)
             GameObject grenade = Pooling.instance.GetObject("GrenadeObject", Vector3.zero);   // 수류탄 생성 
+            //else if( 인벤토리 장비 칸에서 이름을 가져옴 == 화염병 ) 
             Rigidbody grenadeRigid = grenade.GetComponent<Rigidbody>();
             // 초기 위치 설정
             grenadeRigid.velocity = Vector3.zero;               // 생성 시 가속도 초기화

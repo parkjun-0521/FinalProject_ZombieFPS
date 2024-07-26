@@ -89,25 +89,23 @@ public class EliteMeleeEnemy : EnemyController {
 
     void OnTriggerEnter( Collider other )                       //총알, 근접무기...triggerEnter
     {
-        if (PV.IsMine) {
-            if (other.CompareTag("Bullet"))             // 총알과 trigger
+        if (other.CompareTag("Bullet"))             // 총알과 trigger
             {
-                Hp = -(other.GetComponent<Bullet>().itemData.damage);  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
-                other.gameObject.SetActive(false);
-                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
-            }
-            else if (other.CompareTag("Weapon"))        // 근접무기와 trigger
-            {
-                Hp = -(other.GetComponent<ItemSword>().itemData.damage);
-                BloodEffect(transform.position);
-                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
-            }
-            else if (other.CompareTag("Grenade")) {
-                Hp = -(other.GetComponentInParent<ItemGrenade>().itemData.damage);
-                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
-            }
-            return;
+            Hp = -(other.GetComponent<Bullet>().itemData.damage);  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
+            other.gameObject.SetActive(false);
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
         }
+        else if (other.CompareTag("Weapon"))        // 근접무기와 trigger
+        {
+            Hp = -(other.GetComponent<ItemSword>().itemData.damage);
+            BloodEffect(transform.position);
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
+        }
+        else if (other.CompareTag("Grenade")) {
+            Hp = -(other.GetComponentInParent<ItemGrenade>().itemData.damage);
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
+        }
+        return;
     }
 
     //보통 적 NPC의 이동
@@ -206,6 +204,23 @@ public class EliteMeleeEnemy : EnemyController {
     public override void EnemyDead() {
         if (hp <= 0 && PV.IsMine) {
             photonView.RPC("HandleEnemyDeath", RpcTarget.AllBuffered);
+            for (int i = 0; i < 4; i++) {
+                GameObject splitEnemy = Pooling.instance.GetObject("Zombie1", transform.position);
+                splitEnemy.transform.position = transform.position + new Vector3(Random.Range(0, 2), 0, Random.Range(0, 2));
+                splitEnemy.GetComponent<NormalEnemy>().maxHp = this.maxHp * 0.8f;           // 분열좀비 능력치 ( 추후 난이도 조절 )
+                splitEnemy.GetComponent<NormalEnemy>().hp = this.maxHp * 0.8f;              // 분열좀비 능력치
+                splitEnemy.GetComponent<NormalEnemy>().damage = this.damage * 0.2f;         // 분열좀비 능력치
+                                                                                            // 터지는 이펙트 추가
+
+                if (splitEnemy.GetComponent<NormalEnemy>().enemySpawn == null) {
+                    splitEnemy.GetComponent<NormalEnemy>().enemySpawn = this.transform;
+                }
+                bloodParticle.Play();
+                damage = 50f;
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_explosion);
+                // Vector3 direction = (Vector3.zero - transform.position).normalized;
+                // 노말 좀비의 이 부분을 zero가 아니라 transform.position으로 바꿔줘야함 
+            }
         }
     }
     [PunRPC]
@@ -218,24 +233,6 @@ public class EliteMeleeEnemy : EnemyController {
         isWalk = false;
         capsuleCollider.enabled = false;
         rigid.isKinematic = true;
-
-        for (int i = 0; i < 4; i++) {
-            GameObject splitEnemy = Pooling.instance.GetObject("Zombie1", transform.position);
-            splitEnemy.transform.position = transform.position + new Vector3(Random.Range(0, 2), 0, Random.Range(0, 2));
-            splitEnemy.GetComponent<NormalEnemy>().maxHp = this.maxHp * 0.8f;           // 분열좀비 능력치 ( 추후 난이도 조절 )
-            splitEnemy.GetComponent<NormalEnemy>().hp = this.maxHp * 0.8f;              // 분열좀비 능력치
-            splitEnemy.GetComponent<NormalEnemy>().damage = this.damage * 0.2f;         // 분열좀비 능력치
-                                                                                        // 터지는 이펙트 추가
-
-            if (splitEnemy.GetComponent<NormalEnemy>().enemySpawn == null) {
-                splitEnemy.GetComponent<NormalEnemy>().enemySpawn = this.transform;
-            }
-            bloodParticle.Play();
-            damage = 50f;
-            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_explosion);
-            // Vector3 direction = (Vector3.zero - transform.position).normalized;
-            // 노말 좀비의 이 부분을 zero가 아니라 transform.position으로 바꿔줘야함 
-        }
 
         ani.SetBool("isDead", true);
         AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_dead1);

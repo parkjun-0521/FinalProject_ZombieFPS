@@ -100,23 +100,19 @@ public class EliteRangeEnemy : EnemyController
 
     void OnTriggerEnter(Collider other)                       //총알, 근접무기...triggerEnter
     {
-        if (PV.IsMine)
-        {
-            if (other.CompareTag("Bullet"))             // 총알과 trigger
+        if (other.CompareTag("Bullet"))             // 총알과 trigger
             {
-                Hp = -(other.GetComponent<Bullet>().itemData.damage);  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
-                other.gameObject.SetActive(false);
-            }
-            else if (other.CompareTag("Weapon"))        // 근접무기와 trigger
-            {
-                Hp = -(other.GetComponent<ItemSword>().itemData.damage);
-            }
-            else if (other.CompareTag("Grenade"))
-            {
-                Hp = -(other.GetComponentInParent<ItemGrenade>().itemData.damage);
-            }
-            return;
+            Hp = -(other.GetComponent<Bullet>().itemData.damage);  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
+            other.gameObject.SetActive(false);
         }
+        else if (other.CompareTag("Weapon"))        // 근접무기와 trigger
+        {
+            Hp = -(other.GetComponent<ItemSword>().itemData.damage);
+        }
+        else if (other.CompareTag("Grenade")) {
+            Hp = -(other.GetComponentInParent<ItemGrenade>().itemData.damage);
+        }
+        return;
     }
 
     //보통 적 NPC의 이동
