@@ -96,7 +96,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
     public void LeaveRoom() {
         string playerName = PhotonNetwork.NickName;
 
-        PV.RPC("HPBarDelete", RpcTarget.OthersBuffered, playerName);
+        PV.RPC("HPBarDelete", RpcTarget.AllBuffered, playerName);
 
         PhotonNetwork.LeaveRoom();
     }
@@ -111,6 +111,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
             }
         }
     }
+
 
     // 방이 생성되었을 때 동작할 부분 
     public override void OnCreatedRoom() {
@@ -260,5 +261,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
 
     public void ChangeScene( string sceneName ) {
         PhotonNetwork.LoadLevel(sceneName);
+    }
+
+    void OnApplicationQuit() {
+        Debug.Log("애플리케이션이 종료됩니다.");
+
+        // 여기에서 필요한 정리 작업을 수행합니다.
+        LeaveRoom();
     }
 }

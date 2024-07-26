@@ -121,32 +121,27 @@ public class UIManager : MonoBehaviourPun
 
     public void UpdatePlayerHealthBar(string nickName, int viewID ,float healthPercent)
     {
-        if (PhotonNetwork.LocalPlayer.NickName == nickName) {
-            // 내 체력바 업데이트
-            this.nickName[0].text = nickName;
-            hpBar[0].value = healthPercent;
+        Photon.Realtime.Player[] players = PhotonNetwork.PlayerList;
+        foreach (var player in players) {
+            Debug.Log(player.NickName);
         }
-        else {
-            // 다른 플레이어의 체력바 업데이트
-            var otherPlayers = PhotonNetwork.PlayerListOthers;
 
-            for (int i = 0; i < otherPlayers.Length; i++) {
-                if (otherPlayers[i].NickName == nickName) {
-                    switch (i) {
-                        case 0:
-                            this.nickName[1].text = nickName;
-                            hpBar[1].value = healthPercent;
-                            break;
-                        case 1:
-                            this.nickName[2].text = nickName;
-                            hpBar[2].value = healthPercent;
-                            break;
-                        case 2:
-                            this.nickName[3].text = nickName;
-                            hpBar[3].value = healthPercent;
-                            break;
-                    }
-                    break;
+        for (int i = 0; i < players.Length; i++) {
+            if (players[i].NickName == PhotonNetwork.LocalPlayer.NickName) {
+                this.nickName[0].text = players[i].NickName;
+                hpBar[0].value = (this.player.Hp / this.player.maxHp) * 100;
+                break;
+            }
+        }
+
+        int otherIndex = 1;
+        for (int i = 0; i < players.Length; i++) {
+            if (players[i].NickName != PhotonNetwork.LocalPlayer.NickName) {
+                if (otherIndex < 4) // 최대 3명의 플레이어까지만 처리 (1, 2, 3번째 칸)
+                {
+                    this.nickName[otherIndex].text = players[i].NickName;
+                    hpBar[otherIndex].value =players[i].NickName ==  nickName ? healthPercent : hpBar[otherIndex].value;
+                    otherIndex++;
                 }
             }
         }

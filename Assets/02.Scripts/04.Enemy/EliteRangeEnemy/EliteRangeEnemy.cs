@@ -235,7 +235,7 @@ public class EliteRangeEnemy : EnemyController
 
     public override void EnemyDead()
     {
-        if (hp <= 0 && photonView.IsMine)
+        if (hp <= 0)
         {
             photonView.RPC("HandleEnemyDeath", RpcTarget.AllBuffered);
         }

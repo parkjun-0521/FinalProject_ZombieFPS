@@ -136,7 +136,6 @@ public class NormalEnemy : EnemyController
         if (PV.IsMine)
         {
             isWalk = true;
-            ani.SetBool("isAttack", false);
             float dirX = Random.Range(-40, 40);
             float dirZ = Random.Range(-40, 40);
             Vector3 dest = new Vector3(dirX, 0, dirZ);
@@ -179,7 +178,6 @@ public class NormalEnemy : EnemyController
         if (PV.IsMine)
         {
             isRun = true;
-            ani.SetBool("isAttack", false);
             if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_run))
             {
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_run);
@@ -191,7 +189,7 @@ public class NormalEnemy : EnemyController
 
             float versusDist = Vector3.Distance(transform.position, playerTr.position);
 
-            nav.isStopped = (versusDist < 1f) ? true : false;
+            nav.isStopped = (versusDist < 2f) ? true : false;
         }
     }
 
@@ -200,22 +198,28 @@ public class NormalEnemy : EnemyController
         if (PV.IsMine)
         {
             nextAttack += Time.deltaTime;
-            ani.SetBool("isAttack", true);
             if (nextAttack > meleeDelay)
             {
+                ani.SetBool("isAttack", true);
                 if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack))
                 {
                     AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_attack);
                 }
-                Debug.Log("ATtak");
-                nextAttack = 0;
+                StartCoroutine(AttackExit());
+                
             }
         }
     }
 
+    IEnumerator AttackExit() {
+        yield return new WaitForSeconds(2f);
+        ani.SetBool("isAttack", false);
+        nextAttack = 0;
+    }
+
     public override void EnemyDead()
     {
-        if (hp <= 0 && photonView.IsMine)
+        if (hp <= 0)
         {
             photonView.RPC("HandleEnemyDeath", RpcTarget.AllBuffered);
         }

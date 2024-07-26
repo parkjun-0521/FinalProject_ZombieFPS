@@ -41,7 +41,7 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     [SerializeField]
     protected float interactionRange = 2.0f;    //상호작용최대거리
 
-    protected float maxHp = 100.0f;
+    public float maxHp = 100.0f;
     protected float hp = 100.0f;                //플레이어hp
     protected float faintTime = 30.0f;         //플레이어 기절 시간 기절시간 지날시 사망
 

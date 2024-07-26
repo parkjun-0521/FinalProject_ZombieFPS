@@ -770,8 +770,8 @@ public class Player : PlayerController
                 hp = Mathf.Clamp(hp, 0, maxHp);
                 UIManager.Instance.hpBar[0].value = (hp / maxHp) * 100;
             }
+            photonView.RPC("UpdateHealthBar", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName, photonView.ViewID, (hp / maxHp) * 100);
         }
-        photonView.RPC("UpdateHealthBar", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName, photonView.ViewID, (hp / maxHp) * 100);
     }
 
     // 플레이어 기절 
@@ -1082,8 +1082,8 @@ public class Player : PlayerController
             {
                 StartCoroutine(ShowHealScreen());   //힐 화면 출력
             }
+            photonView.RPC("UpdateHealthBar", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName, photonView.ViewID, (hp / maxHp) * 100);
         }
-        photonView.RPC("UpdateHealthBar", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName, photonView.ViewID, (hp / maxHp) * 100);
     }
 
 

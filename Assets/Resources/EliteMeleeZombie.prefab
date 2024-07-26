@@ -189,6 +189,7 @@ MonoBehaviour:
   - {fileID: 2740344462459586780, guid: e2c0035046bec0348a3d9963bdd47c9b, type: 3}
   - {fileID: 2740344462459586780, guid: e2c0035046bec0348a3d9963bdd47c9b, type: 3}
   bloodParticle: {fileID: 3365126088063631719}
+  isDead: 0
 --- !u!114 &3174076766146402361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,7 +404,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 1.5
+  m_Radius: 2.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &3174076765096859693
 PrefabInstance:

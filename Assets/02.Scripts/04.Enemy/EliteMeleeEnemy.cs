@@ -30,6 +30,8 @@ public class EliteMeleeEnemy : EnemyController {
         }
     }
 
+    public bool isDead;         // RPC 동기화용 Bool 변수 
+
     void Awake() {
         // 레퍼런스 초기화 
         PV = GetComponent<PhotonView>();
@@ -183,7 +185,7 @@ public class EliteMeleeEnemy : EnemyController {
 
             float versusDist = Vector3.Distance(transform.position, playerTr.position);
 
-            nav.isStopped = (versusDist < 3f) ? true : false;
+            nav.isStopped = (versusDist < 5f) ? true : false;
         }
     }
 
@@ -202,8 +204,10 @@ public class EliteMeleeEnemy : EnemyController {
     }
 
     public override void EnemyDead() {
-        if (hp <= 0 && PV.IsMine) {
+        if (hp <= 0 && !isDead) {
             photonView.RPC("HandleEnemyDeath", RpcTarget.AllBuffered);
+            ani.SetBool("isDead", true);
+            
             for (int i = 0; i < 4; i++) {
                 GameObject splitEnemy = Pooling.instance.GetObject("Zombie1", transform.position);
                 splitEnemy.transform.position = transform.position + new Vector3(Random.Range(0, 2), 0, Random.Range(0, 2));
@@ -211,30 +215,28 @@ public class EliteMeleeEnemy : EnemyController {
                 splitEnemy.GetComponent<NormalEnemy>().hp = this.maxHp * 0.8f;              // 분열좀비 능력치
                 splitEnemy.GetComponent<NormalEnemy>().damage = this.damage * 0.2f;         // 분열좀비 능력치
                                                                                             // 터지는 이펙트 추가
-
                 if (splitEnemy.GetComponent<NormalEnemy>().enemySpawn == null) {
                     splitEnemy.GetComponent<NormalEnemy>().enemySpawn = this.transform;
                 }
                 bloodParticle.Play();
                 damage = 50f;
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_explosion);
-                // Vector3 direction = (Vector3.zero - transform.position).normalized;
-                // 노말 좀비의 이 부분을 zero가 아니라 transform.position으로 바꿔줘야함 
+
             }
         }
     }
     [PunRPC]
     public void HandleEnemyDeath() {
+        hp = 0;
         OnEnemyReset -= ResetEnemy;
         OnEnemyMove -= RandomMove;
         OnEnemyTracking -= EnemyTracking;
         OnEnemyRun -= EnemyRun;
         OnEnemyAttack -= EnemyMeleeAttack;
         isWalk = false;
-        capsuleCollider.enabled = false;
+        isDead = true;
         rigid.isKinematic = true;
-
-        ani.SetBool("isDead", true);
+        capsuleCollider.enabled = false;
         AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_dead1);
         OnEnemyDead -= EnemyDead;
     }
