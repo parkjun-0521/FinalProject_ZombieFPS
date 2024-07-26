@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class NormalEnemy : EnemyController
 {
     public delegate void EnemymoveHandle();
-    public static event EnemymoveHandle OnEnemyReset, OnEnemyMove, OnRandomMove ,OnEnemyTracking, OnEnemyRun, OnEnemyAttack, OnEnemyDead;
+    public static event EnemymoveHandle OnEnemyReset, OnEnemyMove, OnRandomMove, OnEnemyTracking, OnEnemyRun, OnEnemyAttack, OnEnemyDead;
 
 
     //공격
@@ -23,10 +23,10 @@ public class NormalEnemy : EnemyController
         ani = GetComponentInChildren<Animator>();
         PV = GetComponent<PhotonView>();
         capsuleCollider = GetComponent<CapsuleCollider>();
-        //if(PV == null)
-        //{
-        //    Debug.LogError("PhotonView component is missing on " + gameObject.name);
-        //}
+        if (PV == null)
+        {
+            Debug.LogError("PhotonView component is missing on " + gameObject.name);
+        }
 
         // 예: 포톤 뷰를 사용하여 특정 초기화를 수행
         //if (PV.IsMine)
@@ -47,7 +47,8 @@ public class NormalEnemy : EnemyController
         //델리게이트 사망에서 뻈으니 다 넣기
     }
 
-    private void OnDisable() {
+    private void OnDisable()
+    {
         OnEnemyReset -= ResetEnemy;
         OnEnemyMove -= RandomMove;
         OnRandomMove -= RandomMove;
@@ -67,18 +68,20 @@ public class NormalEnemy : EnemyController
     }
     void Update()
     {
-        if (PV.IsMine) {
+        if (PV.IsMine)
+        {
             if (isRangeOut == true) OnEnemyReset?.Invoke();         // 범위 나갔을 때 초기화 
             if (isWalk) OnEnemyTracking?.Invoke();                  // 플레이어 추격 
             if (isTracking) OnEnemyRun?.Invoke();                   // 추격 시 달리기 
             if (nav.enabled == true)
                 if (nav.isStopped == true) OnEnemyAttack?.Invoke(); // 몬스터 공격 
         }
+
     }
 
-    
+
     void OnTriggerEnter(Collider other)                       //총알, 근접무기...triggerEnter
-    {
+    { 
         if (other.CompareTag("Bullet"))             // 총알과 trigger
            {
             Hp = -(other.GetComponent<Bullet>().itemData.damage);  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
@@ -98,10 +101,13 @@ public class NormalEnemy : EnemyController
         return;
     }
 
-    void ResetEnemy() {
-        if (PV.IsMine) {
+    void ResetEnemy()
+    {
+        if (PV.IsMine)
+        {
             transform.LookAt(enemySpawn.position);
-            if (Vector3.Distance(transform.position, enemySpawn.position) < 0.1f && shouldEvaluate) {
+            if (Vector3.Distance(transform.position, enemySpawn.position) < 0.1f && shouldEvaluate)
+            {
                 rigid.velocity = Vector3.zero;
                 rigid.angularVelocity = Vector3.zero;
                 InvokeRepeating("EnemyMove", 0.5f, 3.0f);
@@ -111,19 +117,24 @@ public class NormalEnemy : EnemyController
             }
             shouldEvaluate = true;
         }
+
     }
 
 
     //보통 적 NPC의 이동
     public override void EnemyMove()
     {
-        if (PV.IsMine) {
+        if (PV.IsMine)
+        {
             OnRandomMove?.Invoke();
         }
+
+        OnRandomMove?.Invoke();
     }
     void RandomMove()
     {
-        if (PV.IsMine) {
+        if (PV.IsMine)
+        {
             isWalk = true;
             ani.SetBool("isAttack", false);
             float dirX = Random.Range(-40, 40);
@@ -132,7 +143,8 @@ public class NormalEnemy : EnemyController
             transform.LookAt(dest);
             Vector3 toOrigin = enemySpawn.position - transform.position;
             //일정 범위를 나가면
-            if (toOrigin.magnitude > rangeOut) {
+            if (toOrigin.magnitude > rangeOut)
+            {
                 CancelInvoke("EnemyMove");
                 rigid.velocity = Vector3.zero;
                 rigid.angularVelocity = Vector3.zero;
@@ -144,26 +156,32 @@ public class NormalEnemy : EnemyController
                 isNow = false;
             }
             //아니면 속행
-            else {
+            else
+            {
                 Debug.Log("Move");
 
                 isNow = true;
                 rigid.AddForce(dest * speed * Time.deltaTime, ForceMode.VelocityChange);
             }
 
-            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_walk)) {
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_walk))
+            {
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_walk);
             }
 
             rigid.velocity = Vector3.zero;
             rigid.angularVelocity = Vector3.zero;
         }
+
     }
-    public override void EnemyRun() {
-        if (PV.IsMine) {
+    public override void EnemyRun()
+    {
+        if (PV.IsMine)
+        {
             isRun = true;
             ani.SetBool("isAttack", false);
-            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_run)) {
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_run))
+            {
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_run);
             }
             nav.speed = runSpeed;
@@ -179,11 +197,14 @@ public class NormalEnemy : EnemyController
 
     public override void EnemyMeleeAttack()
     {
-        if (PV.IsMine) {
+        if (PV.IsMine)
+        {
             nextAttack += Time.deltaTime;
             ani.SetBool("isAttack", true);
-            if (nextAttack > meleeDelay) {
-                if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack)) {
+            if (nextAttack > meleeDelay)
+            {
+                if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack))
+                {
                     AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_attack);
                 }
                 Debug.Log("ATtak");
@@ -192,13 +213,16 @@ public class NormalEnemy : EnemyController
         }
     }
 
-    public override void EnemyDead() {
-        if (hp <= 0 && photonView.IsMine) {
+    public override void EnemyDead()
+    {
+        if (hp <= 0 && photonView.IsMine)
+        {
             photonView.RPC("HandleEnemyDeath", RpcTarget.AllBuffered);
         }
     }
     [PunRPC]
-    public void HandleEnemyDeath() {
+    public void HandleEnemyDeath()
+    {
         ani.SetBool("isDead", true);
         StartCoroutine(AnimationFalse("isDead"));
         capsuleCollider.enabled = false;
@@ -233,5 +257,6 @@ public class NormalEnemy : EnemyController
         yield return new WaitForSeconds(0.1f);
         ani.SetBool(str, false);
     }
+
 }
 
