@@ -1897,7 +1897,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 482596468, guid: 713818370a4968e4f89b0e74c026ef2f, type: 3}
       propertyPath: dotDamage
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4440266231611059553, guid: 713818370a4968e4f89b0e74c026ef2f, type: 3}
       propertyPath: m_IsActive
@@ -1909,7 +1909,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4889826314365492729, guid: 713818370a4968e4f89b0e74c026ef2f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6063797660296851996, guid: 713818370a4968e4f89b0e74c026ef2f, type: 3}
       propertyPath: m_RootOrder
@@ -10061,6 +10061,79 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1609015234}
   m_CullTransparentMesh: 1
+--- !u!1001 &1611575350
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -5598052347311549105, guid: 713818370a4968e4f89b0e74c026ef2f, type: 3}
+      propertyPath: sceneViewId
+      value: 99
+      objectReference: {fileID: 0}
+    - target: {fileID: 482596468, guid: 713818370a4968e4f89b0e74c026ef2f, type: 3}
+      propertyPath: dotDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4440266231611059553, guid: 713818370a4968e4f89b0e74c026ef2f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4889826314365492729, guid: 713818370a4968e4f89b0e74c026ef2f, type: 3}
+      propertyPath: m_Name
+      value: EliteRangeZombieDotArea (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4889826314365492729, guid: 713818370a4968e4f89b0e74c026ef2f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6063797660296851996, guid: 713818370a4968e4f89b0e74c026ef2f, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6063797660296851996, guid: 713818370a4968e4f89b0e74c026ef2f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 88.59278
+      objectReference: {fileID: 0}
+    - target: {fileID: 6063797660296851996, guid: 713818370a4968e4f89b0e74c026ef2f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.095614
+      objectReference: {fileID: 0}
+    - target: {fileID: 6063797660296851996, guid: 713818370a4968e4f89b0e74c026ef2f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 42.95797
+      objectReference: {fileID: 0}
+    - target: {fileID: 6063797660296851996, guid: 713818370a4968e4f89b0e74c026ef2f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6063797660296851996, guid: 713818370a4968e4f89b0e74c026ef2f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6063797660296851996, guid: 713818370a4968e4f89b0e74c026ef2f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6063797660296851996, guid: 713818370a4968e4f89b0e74c026ef2f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6063797660296851996, guid: 713818370a4968e4f89b0e74c026ef2f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6063797660296851996, guid: 713818370a4968e4f89b0e74c026ef2f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6063797660296851996, guid: 713818370a4968e4f89b0e74c026ef2f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 713818370a4968e4f89b0e74c026ef2f, type: 3}
 --- !u!1001 &1613964681
 PrefabInstance:
   m_ObjectHideFlags: 0

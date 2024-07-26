@@ -30,7 +30,7 @@ public class Player : PlayerController
     public bool cursorLocked = true;
 
     // 상호작용 Ray  
-    RaycastHit hit;
+
     Ray ray;
     bool isRayPlayer = false;
 
@@ -330,6 +330,7 @@ public class Player : PlayerController
     // 플레이어 상호작용 
     public override void PlayerInteraction() {
         if (PV.IsMine) {
+            RaycastHit hit;
             int layerMask = LayerMask.GetMask("LocalPlayer", "Item");
             if (Physics.Raycast(bulletPos.position, ray.direction, out hit, interactionRange, layerMask))   
             {
@@ -358,6 +359,11 @@ public class Player : PlayerController
                         {
                             StartCoroutine(CorPlayerReviveUI(8.0f, otherPlayer));
                         }
+                    }
+                    else
+                    {
+                        playerReviveUI.SetActive(false);
+                        isRayPlayer = false;
                     }
                 }
             }
@@ -743,8 +749,12 @@ public class Player : PlayerController
 
     // 체력 변화 
     [PunRPC]
-    public override void ChangeHp( float value ) {
-        if (PV.IsMine) {
+    public override void ChangeHp( float value )
+    {
+        if (hp == 0) return;
+        if(isDead) return;
+        if (PV.IsMine)
+        {
             hp += value;
             if (hp > 100)
                 hp = 100;
@@ -789,11 +799,24 @@ public class Player : PlayerController
     public void IsFaintRPC(bool isFaint)
     {
         this.isFaint = isFaint;
+        if(isFaint)
+        {
+            capsuleCollider = GetComponent<CapsuleCollider>();
+            capsuleCollider.direction = 2;
+        }
+        else
+        {
+            capsuleCollider = GetComponent<CapsuleCollider>();
+            capsuleCollider.direction = 1;
+        }
+        
     }
     [PunRPC]
     public void IsDeadRPC(bool isDead)
     {
         this.isDead = isDead;
+        capsuleCollider = GetComponent<CapsuleCollider>();
+        capsuleCollider.direction = 2;
     }
 
 
@@ -854,7 +877,7 @@ public class Player : PlayerController
     //    }
     //}
 
-    //플레이어 기절상태시 체력줄어드는 UI
+    //플레이어 기절상태시 체력줄어드는 UI, ui다달면 죽음 실행
     IEnumerator PlayerFaintUI(float faintTime)
     {
         Slider faintSlider = playerFaintUI.GetComponentInChildren<Slider>();
@@ -892,6 +915,7 @@ public class Player : PlayerController
         otherPlayer.PlayerReviveRPC();
         fillImage.fillAmount = 0;
         playerReviveUI.SetActive(false);
+        playerReviveUI.GetComponentInChildren<Text>().text = "";
     }
     void PlayerReviveRPC()
     {
@@ -912,7 +936,7 @@ public class Player : PlayerController
             OnPlayerInventory += PlayerInventory;
             animator.SetBool("isRevive", true);     //기절 애니메이션 출력 나중에 플레이어 완성되면 추가
             StartCoroutine(AnimReset("isRevive"));
-            Hp = 50;                             //부활시 반피로 변경! maxHp = 100; 을 따로 선언해서 maxHp / 2해도 되는데 풀피는 100하겠지 뭐
+            Hp = 50;                             //부활시 반피로 변경 maxHp = 100; 을 따로 선언해서 maxHp / 2해도 되는데 풀피는 100하겠지 뭐
             photonView.RPC("IsFaintRPC", RpcTarget.AllBuffered, false);
             photonView.RPC("UpdateHealthBar", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName, photonView.ViewID, (hp / maxHp) * 100);
             playerFaintUI.SetActive(false);      //기절화면 끄기
