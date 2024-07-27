@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,22 +9,34 @@ public class EnemySpawnManager : MonoBehaviourPun
 {
     public Transform spawnPoint;
     public bool isSpawn;
-    public int spawnCount;
+    public int spawnCount;          // 생성되는 좀비 숫자 
+    GameObject enemyObj;            // 좀비 오브젝트 
 
-    string[] enemyName = { "Zombie1", "EliteMeleeZombie", "EliteRangeZombie", "BossZombie", "Boss_Phobos" };
-
+    // 좀비 이름 
+    public string[] enemyName = { "Zombie1", "EliteMeleeZombie", "EliteRangeZombie", "BossZombie", "Boss_Phobos" };
+    public int[] persent;           // 각 좀비의 등장 확률 
+        
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player") && !isSpawn)
         {
             isSpawn = true;
             photonView.RPC("SpawnEnemies", RpcTarget.AllBuffered, isSpawn);
-            for (int i = 0; i < spawnCount; i++)
-            {
-                int randomIndex = Random.Range(0, enemyName.Length - 2);
-                GameObject enemyObj = Pooling.instance.GetObject(enemyName[randomIndex], spawnPoint.position);
-                //enemyObj.transform.position = new Vector3(Random.Range(-0.5f, 0.5f), spawnPoint.position.y, Random.Range(-0.5f, 0.5f));
-                Debug.Log(enemyObj.transform.position);
+
+            // 개수 만큼 좀비 생성 
+            for (int i = 0; i < spawnCount; i++) {
+                int randomIndex = Random.Range(0, 100);
+                int cumulativePercentage = 0;
+
+                // 좀비 등장확률 
+                for (int j = 0; j < enemyName.Length; j++) {
+                    cumulativePercentage += persent[j];
+                    if (randomIndex < cumulativePercentage) {
+                        enemyObj = Pooling.instance.GetObject(enemyName[j], spawnPoint.position);
+                        break;
+                    }
+                }
+
                 enemyObj.transform.rotation = transform.rotation;
                 EnemyController enemyLogin = enemyObj.GetComponent<EnemyController>();
                 enemyLogin.enemySpawn = spawnPoint;

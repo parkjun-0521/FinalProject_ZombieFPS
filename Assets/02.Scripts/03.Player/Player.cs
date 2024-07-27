@@ -125,7 +125,7 @@ public class Player : PlayerController
             // ¿Â¿¸
             if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.BulletLoad)) && isGun && !isLoad) {
                 if (UIManager.Instance.CurBulletCount.text.Equals("30")) return;
-
+                if (bulletCount[0] < 30) return;
                 isLoad = true;
                 isBulletZero = true;
                 StartCoroutine(BulletLoad());
