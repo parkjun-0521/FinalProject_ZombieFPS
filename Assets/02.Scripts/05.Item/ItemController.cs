@@ -16,7 +16,8 @@ public class ItemController : ScriptableObject {
         Grenade,                        // ¼ö·ùÅº
         FireGrenade,                    // È­¿°º´ 
         SupportFireGrenade,             // Áö¿ø»ç°Ý ¼ö·ùÅº
-        Magazine                        // ÅºÃ¢ 
+        Magazine,                       // ÅºÃ¢ 
+        ShotMagazine                    // ¼¦°Ç ÅºÃ¢ 
     }
     public ItemType type;
 

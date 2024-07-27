@@ -103,7 +103,8 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
                     if (targetSlot.item == null) {
                         targetSlot.AddItem(item, itemCount, true);
                         UIManager.Instance.weaponItem[targetSlot.item.itemID - 1].color = new Color(1, 1, 1, 1);
-
+                        if(targetSlot.item.itemID == 1)
+                            WeaponSwap();
                         ClearSlot();
                     }
                     else {
@@ -114,6 +115,9 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
                         // 현재 슬롯의 아이템을 타겟 슬롯에 추가
                         targetSlot.ClearSlot(); // 타겟 슬롯을 초기화하고 아이템 추가
                         targetSlot.AddItem(item, itemCount, true);
+
+                        if (targetSlot.item.itemID == 1)
+                            WeaponSwap();
 
                         // 이전에 타겟 슬롯에 있던 아이템을 현재 슬롯으로 이동
                         ClearSlot(); // 현재 슬롯 초기화
@@ -161,6 +165,18 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
                     GameObject itemObj = Pooling.instance.GetObject(itemName, Vector3.zero);
                     photonView.RPC("SetItemProperties", RpcTarget.AllBuffered, itemObj.GetComponent<PhotonView>().ViewID, itemCount);
 
+                    if (inventory != null && inventory.go_MauntingSlotsParent != null) {
+                        Transform slotsParent = inventory.go_MauntingSlotsParent.transform;
+                        if (slotsParent.childCount > 1) {
+                            Transform firstChild = slotsParent.GetChild(0);
+                            Transform grandChild = firstChild.GetChild(0);
+                            string imageComponent = grandChild.GetComponent<Image>().sprite.name;
+                            if(imageComponent == null) {
+                                UIManager.Instance.CurBulletCount.text = "0";
+                            }
+                        }
+                    }
+
                     itemObj.transform.position = gameObject.GetComponentInParent<Player>().bulletPos.position;
                     itemObj.transform.rotation = Quaternion.identity;
 
@@ -169,6 +185,9 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
 
                     if (droppedItemType == ItemController.ItemType.Magazine) {
                         UIManager.Instance.UpdateTotalBulletCount(inventory.CalculateTotalItems(ItemController.ItemType.Magazine));
+                    }
+                    else if (droppedItemType == ItemController.ItemType.ShotMagazine) {
+                        UIManager.Instance.UpdateTotalBulletCount(inventory.CalculateTotalItems(ItemController.ItemType.ShotMagazine));
                     }
 
                     inventory.UpdateTotalGrenadeCountFromUI(2);
@@ -188,7 +207,8 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
                             }
                         }
                     }
-                }
+                    WeaponSwap();
+                } 
             }
 
             DragSlot.instance.SetColor(0);
@@ -213,6 +233,7 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
             if (slot.item == null) {
                 if (slot.slotID - 1 < UIManager.Instance.weaponItem.Length) {
                     UIManager.Instance.weaponItem[slot.slotID - 1].color = new Color(1, 1, 1, 0.2f);
+                    WeaponSwap();
                     inventory.UpdateTotalGrenadeCountFromUI(2);
                     inventory.UpdateTotalGrenadeCountFromUI(3);
                     Player PlayerHand = GetComponentInParent<Player>();
@@ -234,6 +255,7 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
 
             if (DragSlot.instance.dragSlot.item.itemID == slotID && slotID != 0) {
                 UIManager.Instance.weaponItem[slotID - 1].color = new Color(1, 1, 1, 1);
+                WeaponSwap();
                 inventory.UpdateTotalGrenadeCountFromUI(2);
                 inventory.UpdateTotalGrenadeCountFromUI(3);
             }
@@ -250,5 +272,38 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
 
     public bool HasItem() {
         return item != null; // item이 null이 아니면 슬롯에 아이템이 있음
+    }
+
+    public void WeaponSwap()
+    {
+        Player player = transform.root.GetComponent<Player>();
+        if (inventory != null && inventory.go_MauntingSlotsParent != null) {
+            if (player.WeaponSwapStatus(0, false, false, true, "isDrawRifle", 0, player.beforeWeapon)) {
+                player.countZero = false;
+                player.beforeWeapon = 1;
+            }
+            Transform slotsParent = inventory.go_MauntingSlotsParent.transform;
+            if (slotsParent.childCount > 1) {
+                Transform firstChild = slotsParent.GetChild(0);
+                Transform grandChild = firstChild.GetChild(0);
+                string imageComponent = grandChild.GetComponent<Image>().sprite.name;
+                if (imageComponent.Equals("Gun")) {
+                    UIManager.Instance.CurBulletCount.text = "0";
+                    UIManager.Instance.UpdateTotalBulletCount(inventory.CalculateTotalItems(ItemController.ItemType.Magazine));
+                    player.bulletCount[0] = 0;
+                    if (imageComponent != null) 
+                        player.weaponIndex = 0;
+                }
+                else if (imageComponent.Equals("ShotGun")) {
+                    UIManager.Instance.CurBulletCount.text = "0";
+                    UIManager.Instance.UpdateTotalBulletCount(inventory.CalculateTotalItems(ItemController.ItemType.ShotMagazine));
+                    player.bulletCount[1] = 0;
+                    if (imageComponent != null)
+                        player.weaponIndex = 4;
+                }
+            }  
+            player.isGun = true;
+        }   
+        
     }
 }

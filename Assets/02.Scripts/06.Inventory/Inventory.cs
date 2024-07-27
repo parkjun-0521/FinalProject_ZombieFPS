@@ -38,6 +38,9 @@ public class Inventory : MonoBehaviour {
         if (itemType == ItemController.ItemType.Magazine) {
             UIManager.Instance.UpdateTotalBulletCount(CalculateTotalItems(ItemController.ItemType.Magazine));
         }
+        else if(itemType == ItemController.ItemType.ShotMagazine) {
+            UIManager.Instance.UpdateTotalBulletCount(CalculateTotalItems(ItemController.ItemType.ShotMagazine));
+        }
 
         UpdateTotalGrenadeCountFromUI(2);
         UpdateTotalGrenadeCountFromUI(3);
@@ -63,9 +66,9 @@ public class Inventory : MonoBehaviour {
             ItemController.ItemType.Sword1 != _item.type  &&
             ItemController.ItemType.Sword2 != _item.type) {                 // 총과 칼은 합쳐지지 않는 무기기 때문에 if문으로 조건 처리
 
-            if (_item.type == ItemController.ItemType.Magazine) {
+            /*if (_item.type == ItemController.ItemType.Magazine) {
                 UIManager.Instance.UpdateTotalBulletCount(CalculateTotalItems(ItemController.ItemType.Magazine));
-            }
+            }*/
 
             for (int i = 0; i < slots.Count; i++) {
                 if (slots[i].item != null)          // null 이라면 slots[i].item.itemName 할 때 런타임 에러 나서

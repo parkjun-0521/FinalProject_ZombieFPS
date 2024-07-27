@@ -100,7 +100,7 @@ public class Player : PlayerController
             // 공격
             if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Attack)) && !EventSystem.current.IsPointerOverGameObject()) {
                 // 총,칼 0.1초, 수류탄,힐팩 1초 딜레이
-                attackMaxDelay = stanceWeaponType ? 1.0f : 0.1f;
+                attackMaxDelay = stanceWeaponType ? 1.0f : weaponIndex == 4 ? 1f : weaponIndex == 1 ? 1f : 0.1f;
 
                 animator.SetBool("isRifleMoveShot", true);  //총쏘는 애니메이션
 
@@ -124,8 +124,25 @@ public class Player : PlayerController
 
             // 장전
             if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.BulletLoad)) && isGun && !isLoad) {
-                if (UIManager.Instance.CurBulletCount.text.Equals("30")) return;
-                if (bulletCount[0] < 30) return;
+
+                if (inventory != null && theInventory.go_MauntingSlotsParent != null) {
+                    Transform slotsParent = theInventory.go_MauntingSlotsParent.transform;
+                    if (slotsParent.childCount > 1) {
+                        Transform firstChild = slotsParent.GetChild(0);
+                        Transform grandChild = firstChild.GetChild(0);
+                        string imageComponent = grandChild.GetComponent<Image>().sprite.name;
+                        if (imageComponent.Equals("Gun")) {
+                            if (UIManager.Instance.CurBulletCount.text.Equals("30")) return;
+                            string totalBullet = UIManager.Instance.totalBulletCount.text;
+                            if (int.Parse(totalBullet) < 30) return;
+                        }
+                        else if (imageComponent.Equals("ShotGun")) {
+                            if (UIManager.Instance.CurBulletCount.text.Equals("15")) return;
+                            string totalBullet = UIManager.Instance.totalBulletCount.text;
+                            if (int.Parse(totalBullet) < 15) return;
+                        }
+                    }
+                }
                 isLoad = true;
                 isBulletZero = true;
                 StartCoroutine(BulletLoad());
@@ -344,8 +361,26 @@ public class Player : PlayerController
                     {
                         ItemPickUp(hit.collider.gameObject);
                         AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_item);
-                        if (hit.collider.GetComponent<ItemPickUp>().item.type == ItemController.ItemType.Magazine) {
-                            UIManager.Instance.UpdateTotalBulletCount(theInventory.CalculateTotalItems(ItemController.ItemType.Magazine));
+
+                        if (theInventory != null && theInventory.go_MauntingSlotsParent != null) {
+                            Transform slotsParent = theInventory.go_MauntingSlotsParent.transform;
+                            if (slotsParent.childCount > 1) {
+                                Transform firstChild = slotsParent.GetChild(0);
+                                Transform grandChild = firstChild.GetChild(0);
+                                Image imageComponent = grandChild.GetComponent<Image>();
+                                if (imageComponent != null && imageComponent.sprite != null) {
+                                    string spriteName = imageComponent.sprite.name;
+                                    if (spriteName.Equals("Gun")) {
+                                        UIManager.Instance.UpdateTotalBulletCount(theInventory.CalculateTotalItems(ItemController.ItemType.Magazine));
+                                    }
+                                    else if (spriteName.Equals("ShotGun")) {
+                                        UIManager.Instance.UpdateTotalBulletCount(theInventory.CalculateTotalItems(ItemController.ItemType.ShotMagazine));
+                                    }
+                                    else {
+                                        Debug.LogWarning("Unexpected sprite name: " + spriteName);
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -475,7 +510,6 @@ public class Player : PlayerController
                 return;
 
             Debug.Log("칼 공격");
-            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_knife);
             animator.SetBool("isMeleeWeaponSwing", true);          //외부에서 보여질때 애니메이션
             handAnimator.SetBool("isMeleeWeaponSwing", true);   //플레이어 1인칭 애니메이션
             StartCoroutine(AnimReset("isMeleeWeaponSwing", handAnimator));
@@ -489,23 +523,83 @@ public class Player : PlayerController
         if (PV.IsMine) {
             // 아이템 미 장착 
             if (!ItemNotEquipped(1)) {
-                bulletCount[0] = 0;
-                UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
+
+                if (inventory != null && theInventory.go_MauntingSlotsParent != null) {
+                    Transform slotsParent = theInventory.go_MauntingSlotsParent.transform;
+                    if (slotsParent.childCount > 1) {
+                        Transform firstChild = slotsParent.GetChild(0);
+                        Transform grandChild = firstChild.GetChild(0);
+                        string imageComponent = grandChild.GetComponent<Image>().sprite.name;
+                        if (imageComponent.Equals("Gun")) {
+                            bulletCount[0] = 0;
+                            UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
+                        }
+                        else if (imageComponent.Equals("ShotGun")) {
+                            bulletCount[1] = 0;
+                            UIManager.Instance.CurBulletCount.text = bulletCount[1].ToString();
+                        }
+                    }
+                }
+
                 return;
             }
 
             // 탄창이 없을 때 사격 X
             if (!theInventory.HasItemUse(ItemController.ItemType.Magazine)) {
-                bulletCount[0] = 0;
-                UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
-                Debug.Log("탄창 없음");
-                return; 
+                if (inventory != null && theInventory.go_MauntingSlotsParent != null) {
+                    Transform slotsParent = theInventory.go_MauntingSlotsParent.transform;
+                    if (slotsParent.childCount > 1) {
+                        Transform firstChild = slotsParent.GetChild(0);
+                        Transform grandChild = firstChild.GetChild(0);
+                        string imageComponent = grandChild.GetComponent<Image>().sprite.name;
+                        if (imageComponent.Equals("Gun")) {
+                            bulletCount[0] = 0;
+                            UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
+                            Debug.Log("탄창 없음");
+                            return;
+                        }
+                    }
+                }  
             }
 
-            if (bulletCount[0] == 0 && isGun && !isLoad) {
-                isLoad = true;
-                StartCoroutine(BulletLoad());
-                isBulletZero = true;
+            if (!theInventory.HasItemUse(ItemController.ItemType.ShotMagazine)) {
+                if (inventory != null && theInventory.go_MauntingSlotsParent != null) {
+                    Transform slotsParent = theInventory.go_MauntingSlotsParent.transform;
+                    if (slotsParent.childCount > 1) {
+                        Transform firstChild = slotsParent.GetChild(0);
+                        Transform grandChild = firstChild.GetChild(0);
+                        string imageComponent = grandChild.GetComponent<Image>().sprite.name;
+                        if (imageComponent.Equals("ShotGun")) {
+                            bulletCount[0] = 0;
+                            UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
+                            Debug.Log("탄창 없음");
+                            return;
+                        }
+                    }
+                }
+            }
+
+            if (inventory != null && theInventory.go_MauntingSlotsParent != null) {
+                Transform slotsParent = theInventory.go_MauntingSlotsParent.transform;
+                if (slotsParent.childCount > 1) {
+                    Transform firstChild = slotsParent.GetChild(0);
+                    Transform grandChild = firstChild.GetChild(0);
+                    string imageComponent = grandChild.GetComponent<Image>().sprite.name;
+                    if (imageComponent.Equals("Gun")) {
+                        if (bulletCount[0] == 0 && isGun && !isLoad) {
+                            isLoad = true;
+                            StartCoroutine(BulletLoad());
+                            isBulletZero = true;
+                        }
+                    }
+                    else if (imageComponent.Equals("ShotGun")) {
+                        if (bulletCount[1] == 0 && isGun && !isLoad) {
+                            isLoad = true;
+                            StartCoroutine(BulletLoad());
+                            isBulletZero = true;
+                        }
+                    }
+                }
             }
 
             // 장전 필요 
@@ -525,36 +619,76 @@ public class Player : PlayerController
             }
             else {
                 targetPoint = ray.origin + ray.direction * 1000f;                           // 레이가 맞지 않았을 때는 먼 지점을 목표로 설정
-            }         
-
-            // 총알 생성 (오브젝트 풀링 사용)
-            GameObject bullet = Pooling.instance.GetObject("Bullet", Vector3.zero);   // 총알 생성 
-            bullet.transform.position = bulletPos.position;                           // bullet 위치 초기화
-            bullet.transform.rotation = Quaternion.identity;                          // bullet 회전값 초기화
-            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_gun2);
-
-            TrailRenderer trail = bullet.GetComponent<TrailRenderer>();
-            if (trail != null) {
-                trail.Clear();
             }
 
-            // 탄창 개수 감소
-            theInventory.DecreaseMagazineCount(ItemController.ItemType.Magazine);
-            bulletCount[0] -= 1;
-            UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
+            // 총알 생성 (오브젝트 풀링 사용)
+            if (weaponIndex == 0) {
+                GameObject bullet = Pooling.instance.GetObject("Bullet", Vector3.zero);   // 총알 생성 
+                bullet.transform.position = bulletPos.position;                           // bullet 위치 초기화
+                bullet.transform.rotation = Quaternion.identity;                          // bullet 회전값 초기화
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_gun2);
 
-            // 총알의 방향 설정
-            Vector3 direction = (targetPoint - bulletPos.position).normalized;
+                TrailRenderer trail = bullet.GetComponent<TrailRenderer>();
+                if (trail != null) {
+                    trail.Clear();
+                }
 
-            // 총알의 초기 속도를 플레이어의 이동 속도로 설정하고 발사 방향 설정
-            Rigidbody rb = bullet.GetComponent<Rigidbody>();
+                // 탄창 개수 감소
+                theInventory.DecreaseMagazineCount(ItemController.ItemType.Magazine);
+                bulletCount[0] -= 1;
+                UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
 
-            // 리지드바디의 속도와 각속도 초기화
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-            // 발사 방향과 속도를 함께 적용
-            rb.AddForce(direction * 50f, ForceMode.VelocityChange);     
-            
+                // 총알의 방향 설정
+                Vector3 direction = (targetPoint - bulletPos.position).normalized;
+
+                // 총알의 초기 속도를 플레이어의 이동 속도로 설정하고 발사 방향 설정
+                Rigidbody rb = bullet.GetComponent<Rigidbody>();
+
+                // 리지드바디의 속도와 각속도 초기화
+                rb.velocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+                // 발사 방향과 속도를 함께 적용
+                rb.AddForce(direction * 10f, ForceMode.VelocityChange);
+            }
+            else if(weaponIndex == 4) {
+                float spreadRadius = 0.1f; // 발사 방향의 분산 범위 반지름 설정 (조정 가능)
+
+                for (int i = 0; i < 5; i++) {
+                    GameObject bullet = Pooling.instance.GetObject("Bullet", Vector3.zero);   // 총알 생성 
+                    bullet.transform.position = bulletPos.position;                           // bullet 위치 초기화
+                    bullet.transform.rotation = Quaternion.identity;                          // bullet 회전값 초기화
+                    TrailRenderer trail = bullet.GetComponent<TrailRenderer>();
+                    if (trail != null) {
+                        trail.Clear();
+                    }
+
+                    // 총알의 초기 속도를 플레이어의 이동 속도로 설정하고 발사 방향 설정
+                    Rigidbody rb = bullet.GetComponent<Rigidbody>();
+
+                    // 카메라 중앙 방향을 기본 방향으로 설정
+                    Vector3 direction = Camera.main.transform.forward;
+
+                    // 방향에 분산을 추가하기 위해 원형 범위 내의 임의의 벡터 추가
+                    Vector3 randomSpread = UnityEngine.Random.insideUnitCircle * spreadRadius;
+
+                    // 카메라의 방향을 기준으로 분산된 방향을 적용
+                    Vector3 spreadDirection = direction + Camera.main.transform.right * randomSpread.x + Camera.main.transform.up * randomSpread.y;
+                    spreadDirection.Normalize();
+
+                    // 리지드바디의 속도와 각속도 초기화
+                    rb.velocity = Vector3.zero;
+                    rb.angularVelocity = Vector3.zero;
+
+                    // 발사 방향과 속도를 함께 적용
+                    rb.AddForce(spreadDirection * 10f, ForceMode.VelocityChange);
+                    theInventory.DecreaseMagazineCount(ItemController.ItemType.ShotMagazine);
+                }
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_gun2);
+
+                // 탄창 개수 감소
+                bulletCount[1] -= 5;
+                UIManager.Instance.CurBulletCount.text = bulletCount[1].ToString();
+            }
         }
     }
     
@@ -570,7 +704,6 @@ public class Player : PlayerController
     }
     IEnumerator BulletLoad()
     {
-
         AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_reload3);
         StartCoroutine(BulletLoadImage());      //장전이미지
 
@@ -578,22 +711,40 @@ public class Player : PlayerController
         Debug.Log("2초간 장전중");
         // 여기에 뭔가 애니메이션이나 사운드 넣어줘야 할듯 
         // AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_run2);   // 장전 사운드 
-        int availableBullets = theInventory.CalculateTotalItems(ItemController.ItemType.Magazine); // 이 메소드는 인벤토리에서 사용 가능한 모든 총알의 수를 반환해야 함
 
-
-        bulletCount[0] = (availableBullets > 0) ? Mathf.Min(availableBullets, 30) : 0;
-        UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
-        isBulletZero = false;
-
-        if (availableBullets > 0) {
-            bulletCount[0] = Mathf.Min(availableBullets, 30); // 남은 총알이 30개 이상이면 30개를, 그렇지 않으면 남은 총알만큼 장전
+        if (weaponIndex == 0) {
+            int availableBullets = theInventory.CalculateTotalItems(ItemController.ItemType.Magazine); // 이 메소드는 인벤토리에서 사용 가능한 모든 총알의 수를 반환해야 함
+            bulletCount[0] = (availableBullets > 0) ? Mathf.Min(availableBullets, 30) : 0;
             UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
-            isBulletZero = false; // 총알이 남아있음
+            isBulletZero = false;
+
+            if (availableBullets > 0) {
+                bulletCount[0] = Mathf.Min(availableBullets, 30); // 남은 총알이 30개 이상이면 30개를, 그렇지 않으면 남은 총알만큼 장전
+                UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
+                isBulletZero = false; // 총알이 남아있음
+            }
+            else {
+                bulletCount[0] = 0;
+                UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
+                isBulletZero = false; // 총알이 다 떨어짐
+            }
         }
-        else {
-            bulletCount[0] = 0;
-            UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
-            isBulletZero = false; // 총알이 다 떨어짐
+        else if(weaponIndex == 4) {
+            int availableBullets = theInventory.CalculateTotalItems(ItemController.ItemType.ShotMagazine); // 이 메소드는 인벤토리에서 사용 가능한 모든 총알의 수를 반환해야 함
+            bulletCount[1] = (availableBullets > 0) ? Mathf.Min(availableBullets, 15) : 0;
+            UIManager.Instance.CurBulletCount.text = bulletCount[1].ToString();
+            isBulletZero = false;
+
+            if (availableBullets > 0) {
+                bulletCount[1] = Mathf.Min(availableBullets, 15); // 남은 총알이 30개 이상이면 30개를, 그렇지 않으면 남은 총알만큼 장전
+                UIManager.Instance.CurBulletCount.text = bulletCount[1].ToString();
+                isBulletZero = false; // 총알이 남아있음
+            }
+            else {
+                bulletCount[1] = 0;
+                UIManager.Instance.CurBulletCount.text = bulletCount[1].ToString();
+                isBulletZero = false; // 총알이 다 떨어짐
+            }
         }
 
 
@@ -673,6 +824,21 @@ public class Player : PlayerController
                     countZero = false;
                     beforeWeapon = 1;
                 }
+                Inventory inventory = theInventory.GetComponent<Inventory>();
+                if (inventory != null && inventory.go_MauntingSlotsParent != null) {
+                    Transform slotsParent = inventory.go_MauntingSlotsParent.transform;
+                    if (slotsParent.childCount > 1) {
+                        Transform firstChild = slotsParent.GetChild(0);
+                        Transform grandChild = firstChild.GetChild(0);
+                        string imageComponent = grandChild.GetComponent<Image>().sprite.name;
+                        if (imageComponent != null) {
+                            if (imageComponent.Equals("Gun"))
+                                weaponIndex = 0;
+                            else if (imageComponent.Equals("ShotGun"))
+                                weaponIndex = 4;
+                        }
+                    }
+                }
                 isGun = true;
             }
             else if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Weapon2))) {   // 근접 무기
@@ -700,6 +866,7 @@ public class Player : PlayerController
             if (equipWeapon != null)
                 equipWeapon.SetActive(false);
             // 무기 선택 
+            
             equipWeapon = weapons[weaponIndex];
 
             // 선택된 무기 활성화 ( 무기를 다 사용했을 시 비활성화 )
@@ -1029,7 +1196,7 @@ public class Player : PlayerController
         animator.SetBool(animString, false);
         if(handAnim != null)
         handAnim.SetBool(animString, false);
-
+        AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_knife);
     }
 
     IEnumerator DotDamage(EliteRangeEnemyDotArea _EREP)
