@@ -206,7 +206,7 @@ public class NormalEnemy : EnemyController
                     AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_attack);
                 }
                 StartCoroutine(AttackExit());
-                
+                nextAttack = 0;
             }
         }
     }
@@ -214,7 +214,7 @@ public class NormalEnemy : EnemyController
     IEnumerator AttackExit() {
         yield return new WaitForSeconds(2f);
         ani.SetBool("isAttack", false);
-        nextAttack = 0;
+        
     }
 
     public override void EnemyDead()

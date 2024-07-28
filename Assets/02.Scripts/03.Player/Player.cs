@@ -351,8 +351,16 @@ public class Player : PlayerController
         if (PV.IsMine) {
             RaycastHit hit;
             int layerMask = LayerMask.GetMask("LocalPlayer", "Item");
+            foreach (SelectedOutline outlineComponent in FindObjectsOfType<SelectedOutline>()) {
+                outlineComponent.DeactivateOutline();
+            }
             if (Physics.Raycast(bulletPos.position, ray.direction, out hit, interactionRange, layerMask))   
             {
+                SelectedOutline outlineComponent = hit.collider.GetComponent<SelectedOutline>();
+                if (outlineComponent != null) {
+                    outlineComponent.ActivateOutline();
+                }
+
                 if (hit.collider.CompareTag("Item"))
                 {
                     playerReviveUI.SetActive(true);
@@ -361,27 +369,7 @@ public class Player : PlayerController
                     {
                         ItemPickUp(hit.collider.gameObject);
                         AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_item);
-
-                        if (theInventory != null && theInventory.go_MauntingSlotsParent != null) {
-                            Transform slotsParent = theInventory.go_MauntingSlotsParent.transform;
-                            if (slotsParent.childCount > 1) {
-                                Transform firstChild = slotsParent.GetChild(0);
-                                Transform grandChild = firstChild.GetChild(0);
-                                Image imageComponent = grandChild.GetComponent<Image>();
-                                if (imageComponent != null && imageComponent.sprite != null) {
-                                    string spriteName = imageComponent.sprite.name;
-                                    if (spriteName.Equals("Gun")) {
-                                        UIManager.Instance.UpdateTotalBulletCount(theInventory.CalculateTotalItems(ItemController.ItemType.Magazine));
-                                    }
-                                    else if (spriteName.Equals("ShotGun")) {
-                                        UIManager.Instance.UpdateTotalBulletCount(theInventory.CalculateTotalItems(ItemController.ItemType.ShotMagazine));
-                                    }
-                                    else {
-                                        Debug.LogWarning("Unexpected sprite name: " + spriteName);
-                                    }
-                                }
-                            }
-                        }
+                        AcquireItems();
                     }
                 }
                 else if (hit.collider.CompareTag("Player"))
@@ -408,6 +396,23 @@ public class Player : PlayerController
             {
                 playerReviveUI.SetActive(false);
                 isRayPlayer = false;
+            }
+        }
+    }
+
+    void AcquireItems()
+    {
+        if (theInventory != null && theInventory.go_MauntingSlotsParent != null) {
+            Transform slotsParent = theInventory.go_MauntingSlotsParent.transform;
+            if (slotsParent.childCount > 1) {
+                Transform firstChild = slotsParent.GetChild(0);
+                Transform grandChild = firstChild.GetChild(0);
+                Image imageComponent = grandChild.GetComponent<Image>();
+                if (imageComponent != null && imageComponent.sprite != null) {
+                    string spriteName = imageComponent.sprite.name;
+                    if (spriteName.Equals("Gun")) UIManager.Instance.UpdateTotalBulletCount(theInventory.CalculateTotalItems(ItemController.ItemType.Magazine));
+                    else if (spriteName.Equals("ShotGun")) UIManager.Instance.UpdateTotalBulletCount(theInventory.CalculateTotalItems(ItemController.ItemType.ShotMagazine));
+                }
             }
         }
     }

@@ -9,6 +9,7 @@ public class ItemSpawnManager : MonoBehaviourPun
     public GameObject[] items;          // ¼ÒÃÑ, ¼¦°Ç, Ä®1, Ä®2, ¼ö·ùÅº, È­¿°º´, Áö¿ø¼ö·ùÅº, ÈúÆÑ, ÅºÃ¢, ¼¦°ÇÅºÃ¢
     public bool isSpawn;
 
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player") && !isSpawn) {
@@ -23,7 +24,6 @@ public class ItemSpawnManager : MonoBehaviourPun
                     }
                 }
             }
-
         }
     }
 

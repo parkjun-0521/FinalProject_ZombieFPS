@@ -8,15 +8,16 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Weapon_Rifle_A
-  m_Shader: {fileID: 4800000, guid: b109fe30baa6ae24593d0da3972e0bb6, type: 3}
-  m_ValidKeywords: []
-  m_InvalidKeywords:
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_ValidKeywords:
   - _EMISSION
+  - _METALLICGLOSSMAP
   - _NORMALMAP
+  m_InvalidKeywords: []
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -27,6 +28,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ColorMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Detail:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -92,15 +97,20 @@ Material:
     - _DstBlend: 0
     - _EmissionFactor: 2
     - _EmissiveFactor: 1
+    - _GlossMapScale: 1
     - _Glossiness: 1
+    - _GlossyReflections: 1
     - _Metallic: 1
     - _MetalnessFactor: 0
     - _Mode: 0
     - _OcclusionStrength: 1
+    - _OutLineWidth: 0.01
     - _Outline: 0
     - _Parallax: 0.02
+    - _SmoothnessTextureChannel: 0
     - _Specular: 1
     - _SpecularColorized: 0.5
+    - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
@@ -114,5 +124,6 @@ Material:
     - _MaskedColorA: {r: 1, g: 1, b: 1, a: 1}
     - _MaskedColorB: {r: 1, g: 1, b: 1, a: 1}
     - _MaskedColorC: {r: 1, g: 0.062068876, b: 0, a: 1}
+    - _OutLineColor: {r: 0, g: 0, b: 0, a: 0}
     - _OutlineColor: {r: 0.44117644, g: 0.8843815, b: 1, a: 0.39215687}
   m_BuildTextureStacks: []
