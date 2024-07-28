@@ -166,10 +166,11 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
                     ItemController draggedItem = DragSlot.instance.dragSlot.item;
                     string itemName = item.type.ToString();
                     int originCount = itemCount;
-
-                    if (Input.GetKey(InputKeyManager.instance.GetKeyCode(KeyCodeTypes.Run))) {
-                        isHalf = true;
-                        itemCount /= 2;
+                    if (itemCount > 1) {
+                        if (Input.GetKey(InputKeyManager.instance.GetKeyCode(KeyCodeTypes.Run))) {
+                            isHalf = true;
+                            itemCount /= 2;
+                        }
                     }
                     // 아이템 프리팹 생성
                     GameObject itemObj = Pooling.instance.GetObject(itemName, Vector3.zero);
@@ -242,8 +243,8 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
     [PunRPC]
     public void SetItemProperties( int itemViewID, int itemCount ) {
         GameObject itemObj = PhotonView.Find(itemViewID).gameObject;
-        itemObj.GetComponent<ItemPickUp>().item.totalCount = itemCount;
-        itemObj.GetComponent<ItemPickUp>().item.isPickUp = true;
+        itemObj.GetComponent<ItemPickUp>().totalCount = itemCount;
+        itemObj.GetComponent<ItemPickUp>().isPickUp = true;
     }
 
     // 해당 슬롯에 무언가가 마우스 드롭 됐을 때 발생하는 이벤트

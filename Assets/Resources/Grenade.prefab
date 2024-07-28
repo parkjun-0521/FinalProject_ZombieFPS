@@ -185,7 +185,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c0ad060e9cb2241a544b65206a9f58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 9de3cdf7065428f488208fb86731cd73, type: 2}
+  type: 5
+  itemPrimaryID: 4
+  itemID: 3
+  itemImage: {fileID: 21300000, guid: 75df3e39d5e5bb94e87bea3c0c983c17, type: 3}
+  itemName: Grenade
+  damage: 100
+  itemCount: 1
+  isPickUp: 0
+  totalCount: 4
 --- !u!114 &-5178449908068271148
 MonoBehaviour:
   m_ObjectHideFlags: 0

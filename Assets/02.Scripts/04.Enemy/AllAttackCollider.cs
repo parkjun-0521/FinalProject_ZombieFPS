@@ -25,7 +25,7 @@ public class AllAttackCollider : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
 
-        float damage = GetComponentInParent<ItemPickUp>().item.damage;
+        float damage = GetComponentInParent<ItemPickUp>().damage;
         if(other.CompareTag("Enemy"))
         {
             other.GetComponent<EnemyController>().Hp = -damage;

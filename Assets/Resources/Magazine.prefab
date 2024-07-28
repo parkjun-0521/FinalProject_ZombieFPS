@@ -185,7 +185,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c0ad060e9cb2241a544b65206a9f58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: e711292e935d4894891c14211f888358, type: 2}
+  type: 8
+  itemPrimaryID: 6
+  itemID: 0
+  itemImage: {fileID: 21300000, guid: 01410d26447fa1d4f8adb2356ea696e3, type: 3}
+  itemName: Magazine
+  damage: 0
+  itemCount: 30
+  isPickUp: 0
+  totalCount: 0
 --- !u!114 &6817687061202633628
 MonoBehaviour:
   m_ObjectHideFlags: 0

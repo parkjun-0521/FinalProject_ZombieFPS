@@ -153,7 +153,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c0ad060e9cb2241a544b65206a9f58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: a2792d80bcc82c748a9bb86ac7596262, type: 2}
+  type: 1
+  itemPrimaryID: 1
+  itemID: 1
+  itemImage: {fileID: 21300000, guid: de046b909979323439aff08a56845aa5, type: 3}
+  itemName: ShotGun
+  damage: 0
+  itemCount: 1
+  isPickUp: 0
+  totalCount: 1
 --- !u!114 &-4272384771102588538
 MonoBehaviour:
   m_ObjectHideFlags: 0

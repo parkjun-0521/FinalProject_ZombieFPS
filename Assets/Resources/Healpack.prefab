@@ -153,7 +153,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13c0ad060e9cb2241a544b65206a9f58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 363b9c3e9097f814aab07c39d042698e, type: 2}
+  type: 4
+  itemPrimaryID: 8
+  itemID: 4
+  itemImage: {fileID: 21300000, guid: 4901f76cd9a384a4fbd61fb2528cab38, type: 3}
+  itemName: Healpack
+  damage: 0
+  itemCount: 1
+  isPickUp: 0
+  totalCount: 0
 --- !u!114 &-7837000708824896961
 MonoBehaviour:
   m_ObjectHideFlags: 0

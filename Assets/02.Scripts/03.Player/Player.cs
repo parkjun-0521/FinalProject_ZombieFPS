@@ -356,7 +356,7 @@ public class Player : PlayerController
                 if (hit.collider.CompareTag("Item"))
                 {
                     playerReviveUI.SetActive(true);
-                    playerReviveUI.GetComponentInChildren<Text>().text = string.Format("'E' {0} 아이템 줍기", hit.collider.GetComponent<ItemPickUp>().item.itemName);
+                    playerReviveUI.GetComponentInChildren<Text>().text = string.Format("'E' {0} 아이템 줍기", hit.collider.GetComponent<ItemPickUp>().itemName);
                     if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
                     {
                         ItemPickUp(hit.collider.gameObject);
@@ -421,13 +421,13 @@ public class Player : PlayerController
             else {
                 if (PhotonNetwork.IsConnected && PhotonNetwork.InRoom) {
                     // 인벤토리에 아이템 넣기 
-                    theInventory.AcquireItem(itemObj.transform.GetComponent<ItemPickUp>().item);
+                    theInventory.AcquireItem(itemObj.transform.GetComponent<ItemPickUp>());
                     // 아이템 제거 동기화
                     PV.RPC("ItemPickUpRPC", RpcTarget.AllBuffered, itemObj.GetComponent<PhotonView>().ViewID);
                 }
                 else {
                     // 룸이 아닐 때 테스트 용 ( 추후 지울 예정 ) ============================================================
-                    theInventory.AcquireItem(itemObj.transform.GetComponent<ItemPickUp>().item);
+                    theInventory.AcquireItem(itemObj.transform.GetComponent<ItemPickUp>());
                     itemObj.SetActive(false);
                     // 룸이 아닐 때 테스트 용 ( 추후 지울 예정 ) ============================================================
                 }

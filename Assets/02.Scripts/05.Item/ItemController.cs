@@ -5,8 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-[CreateAssetMenu(fileName = "New Item", menuName = "New Item/item")]
-public class ItemController : ScriptableObject {
+public class ItemController : MonoBehaviour {
     public enum ItemType {
         Gun,                            // รั 1
         ShotGun,                        // รั 2
