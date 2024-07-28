@@ -42,9 +42,6 @@ public class EnemyController : MonoBehaviourPun, IEnemy
     public Transform enemySpawn;
 
     //추적거리
-    public float rad = 3f;
-    public float distance = 5f;
-    public LayerMask layermask;
     public float maxTracingSpeed;
 
 
@@ -94,6 +91,7 @@ public class EnemyController : MonoBehaviourPun, IEnemy
     protected bool isRun;               // 달리는 상태 
     protected bool isAttack;            // 공격 하는 상태 
     protected bool isTracking;          // 추적 상태
+  
 
     public virtual void EnemyMove() { }
     public virtual void EnemyRun() { }
@@ -105,18 +103,46 @@ public class EnemyController : MonoBehaviourPun, IEnemy
         {
             return; // 객체가 파괴되었으면 함수 종료
         }
+
         CancelInvoke("EnemyMove");
         rigid.velocity = Vector3.zero;
         rigid.angularVelocity = Vector3.zero;
         transform.LookAt(other.transform);
         playerTr = other.transform;
         isTracking = true;
+
         if (hp <= 0)
         {
             isWalk = false;
         }
     }
+    void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            float closestDistance = Mathf.Infinity;
+            Collider closestPlayer = null;
 
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, Mathf.Infinity);
+            foreach (var hitCollider in hitColliders)
+            {
+                if (hitCollider.CompareTag("Player"))
+                {
+                    float distance = Vector3.Distance(transform.position, hitCollider.transform.position);
+                    if (distance < closestDistance)
+                    {
+                        closestDistance = distance;
+                        closestPlayer = hitCollider;
+                    }
+                }
+            }
+
+            if (closestPlayer != null)
+            {
+                EnemyTracking(closestPlayer);
+            }
+        }
+    }
     public virtual void ChangeHp(float value) { }
     public virtual void BloodEffect(Vector3 pos, Collider other = null)
     {
@@ -126,11 +152,5 @@ public class EnemyController : MonoBehaviourPun, IEnemy
     {
         Hp = -damage;
     }
-    public virtual void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            EnemyTracking(other); // 추적 메서드 호출
-        }
-    }
+    
 }
