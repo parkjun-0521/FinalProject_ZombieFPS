@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static InputKeyManager;
 using static ItemController;
 
 public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler {
@@ -153,6 +154,8 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
     public void OnEndDrag( PointerEventData eventData ) {
         if (photonView.IsMine) {
             // 아이템 버리기 
+            bool isHalf = false;
+
             if (DragSlot.instance.transform.localPosition.x < baseRect.xMin
                || DragSlot.instance.transform.localPosition.x > baseRect.xMax
                || DragSlot.instance.transform.localPosition.y < baseRect.yMin
@@ -160,7 +163,14 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
 
                 // 아이템 프리팹 생성해줘야함 
                 if (DragSlot.instance.dragSlot != null && DragSlot.instance.dragSlot.item != null) {
+                    ItemController draggedItem = DragSlot.instance.dragSlot.item;
                     string itemName = item.type.ToString();
+                    int originCount = itemCount;
+
+                    if (Input.GetKey(InputKeyManager.instance.GetKeyCode(KeyCodeTypes.Run))) {
+                        isHalf = true;
+                        itemCount /= 2;
+                    }
                     // 아이템 프리팹 생성
                     GameObject itemObj = Pooling.instance.GetObject(itemName, Vector3.zero);
                     photonView.RPC("SetItemProperties", RpcTarget.AllBuffered, itemObj.GetComponent<PhotonView>().ViewID, itemCount);
@@ -170,9 +180,13 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
                         if (slotsParent.childCount > 1) {
                             Transform firstChild = slotsParent.GetChild(0);
                             Transform grandChild = firstChild.GetChild(0);
-                            string imageComponent = grandChild.GetComponent<Image>().sprite.name;
-                            if(imageComponent == null) {
-                                UIManager.Instance.CurBulletCount.text = "0";
+                            Image grandChildImage = grandChild.GetComponent<Image>();
+
+                            if (grandChildImage != null && grandChildImage.sprite != null) {
+                                string imageComponent = grandChildImage.sprite.name;
+                                if(imageComponent == null) {
+                                    UIManager.Instance.CurBulletCount.text = "0";
+                                }
                             }
                         }
                     }
@@ -182,6 +196,15 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
 
                     ItemController.ItemType droppedItemType = DragSlot.instance.dragSlot.item.type;
                     DragSlot.instance.dragSlot.ClearSlot();
+
+                    if (isHalf) {
+                        if (originCount % 2 == 0) {
+                            AddItem(draggedItem, originCount / 2, true);
+                        }
+                        else {
+                            AddItem(draggedItem, originCount / 2 + 1, true);
+                        }
+                    }
 
                     if (droppedItemType == ItemController.ItemType.Magazine) {
                         UIManager.Instance.UpdateTotalBulletCount(inventory.CalculateTotalItems(ItemController.ItemType.Magazine));
@@ -286,21 +309,26 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
             if (slotsParent.childCount > 1) {
                 Transform firstChild = slotsParent.GetChild(0);
                 Transform grandChild = firstChild.GetChild(0);
-                string imageComponent = grandChild.GetComponent<Image>().sprite.name;
-                if (imageComponent.Equals("Gun")) {
-                    UIManager.Instance.CurBulletCount.text = "0";
-                    UIManager.Instance.UpdateTotalBulletCount(inventory.CalculateTotalItems(ItemController.ItemType.Magazine));
-                    player.bulletCount[0] = 0;
-                    if (imageComponent != null) 
-                        player.weaponIndex = 0;
-                }
-                else if (imageComponent.Equals("ShotGun")) {
-                    UIManager.Instance.CurBulletCount.text = "0";
-                    UIManager.Instance.UpdateTotalBulletCount(inventory.CalculateTotalItems(ItemController.ItemType.ShotMagazine));
-                    player.bulletCount[1] = 0;
-                    if (imageComponent != null)
-                        player.weaponIndex = 4;
-                }
+                Image grandChildImage = grandChild.GetComponent<Image>();
+
+                if (grandChildImage != null && grandChildImage.sprite != null) {
+                    string imageComponent = grandChildImage.sprite.name;
+
+                    if (imageComponent.Equals("Gun")) {
+                        UIManager.Instance.CurBulletCount.text = "0";
+                        UIManager.Instance.UpdateTotalBulletCount(inventory.CalculateTotalItems(ItemController.ItemType.Magazine));
+                        player.bulletCount[0] = 0;
+                        if (imageComponent != null)
+                            player.weaponIndex = 0;
+                    }
+                    else if (imageComponent.Equals("ShotGun")) {
+                        UIManager.Instance.CurBulletCount.text = "0";
+                        UIManager.Instance.UpdateTotalBulletCount(inventory.CalculateTotalItems(ItemController.ItemType.ShotMagazine));
+                        player.bulletCount[1] = 0;
+                        if (imageComponent != null)
+                            player.weaponIndex = 4;
+                    }
+                }            
             }  
             player.isGun = true;
         }   

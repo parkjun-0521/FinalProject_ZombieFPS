@@ -648,7 +648,7 @@ public class Player : PlayerController
                 rb.velocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
                 // 발사 방향과 속도를 함께 적용
-                rb.AddForce(direction * 10f, ForceMode.VelocityChange);
+                rb.AddForce(direction * 50f, ForceMode.VelocityChange);
             }
             else if(weaponIndex == 4) {
                 float spreadRadius = 0.1f; // 발사 방향의 분산 범위 반지름 설정 (조정 가능)
@@ -680,7 +680,7 @@ public class Player : PlayerController
                     rb.angularVelocity = Vector3.zero;
 
                     // 발사 방향과 속도를 함께 적용
-                    rb.AddForce(spreadDirection * 10f, ForceMode.VelocityChange);
+                    rb.AddForce(spreadDirection * 50f, ForceMode.VelocityChange);
                     theInventory.DecreaseMagazineCount(ItemController.ItemType.ShotMagazine);
                 }
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_gun2);

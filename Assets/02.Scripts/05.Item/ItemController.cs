@@ -30,4 +30,5 @@ public class ItemController : ScriptableObject {
     public int itemCount;               // 아이템 개수 
     public bool isPickUp;               // 아이템이 누군가 주운 아이템이지 상태 확인 
     public int totalCount;              // 아이템 전체 개수 
+
 }
