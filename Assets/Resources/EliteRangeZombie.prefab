@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1810938130}
   - component: {fileID: 1810938134}
   - component: {fileID: 1810938135}
+  - component: {fileID: -2862793708303230014}
   m_Layer: 20
   m_Name: EliteRangeZombie
   m_TagString: Enemy
@@ -55,14 +56,10 @@ MonoBehaviour:
   runSpeed: 7
   meleeDelay: 5
   nextAttack: 5
+  attackRange: 0
   rangeOut: 100
   resetSpeed: 5
   enemySpawn: {fileID: 0}
-  rad: 10
-  distance: 10
-  layermask:
-    serializedVersion: 2
-    m_Bits: 64
   maxTracingSpeed: 5
   playerTr: {fileID: 0}
   capsuleCollider: {fileID: 1810938133}
@@ -73,10 +70,10 @@ MonoBehaviour:
   isRangeOut: 0
   shouldEvaluate: 0
   isNow: 0
+  rotationSpeed: 2
   attackPos: {fileID: 7591741114262968317}
   attackPrefabSpeed: 30
   rangeProjectile: {fileID: 3102988656494671107, guid: 72ce0ed0184286241b3cc455f2e2d116, type: 3}
-  attackRangeDistance: 15
   player: []
 --- !u!54 &1810938136
 Rigidbody:
@@ -170,6 +167,19 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!135 &-2862793708303230014
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2605061689691065164}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5975077895979402491
 GameObject:
   m_ObjectHideFlags: 0
