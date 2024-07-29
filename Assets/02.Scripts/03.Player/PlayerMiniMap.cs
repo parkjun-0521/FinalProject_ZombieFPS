@@ -43,15 +43,32 @@ public class PlayerMiniMap : MonoBehaviourPun
     }
     private void Start()
     {
-        player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        //player = GameObject.FindWithTag("Player").GetComponent<Player>();
     }
     private void Update()
     {
         if (photonView.IsMine)
         {
             PlayerCount = PhotonNetwork.CurrentRoom.PlayerCount;
-            minimap.offsetMax = new Vector2((temp.x + player.transform.position.x) * sizeX, (temp.z + player.transform.position.z) * sizeY);
-            minimap.offsetMin = new Vector2((temp.x + player.transform.position.x) * sizeX, (temp.z + player.transform.position.z) * sizeY);
+            if (player != null)
+            {
+                minimap.offsetMax = new Vector2((temp.x + player.transform.position.x) * sizeX, (temp.z + player.transform.position.z) * sizeY);
+                minimap.offsetMin = new Vector2((temp.x + player.transform.position.x) * sizeX, (temp.z + player.transform.position.z) * sizeY);
+            }
+            else
+            {
+                //player = GameObject.FindWithTag("Player").GetComponent<Player>();
+                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+                foreach (GameObject temp in players)
+                {
+                    if (temp.GetComponent<PhotonView>().IsMine == true)
+                    {
+                        player = temp.GetComponent<Player>();
+                        return;
+                    }
+                }
+                return;
+            }
 
 
             if (PhotonNetwork.CurrentRoom.PlayerCount == 1)

@@ -33,6 +33,7 @@ public class UIManager : MonoBehaviourPun
     //장전 이미지
     public Image reloadImage;
 
+    GameObject[] players;
     Player player;
     void Awake()
     {
@@ -46,15 +47,26 @@ public class UIManager : MonoBehaviourPun
 
     void Start()
     {
-        player = GameObject.FindWithTag("Player").GetComponent<Player>();
-        if (player.PV.IsMine) {
-            for (int i = 0; i < weaponItem.Length; i++) {
-                weaponItem[i].color = new Color(1, 1, 1, 0.2f);
+        players = GameObject.FindGameObjectsWithTag("Player");
+        Debug.Log(players.Length);
+        FindLocalPlayer();
+        for (int i = 0; i < weaponItem.Length; i++) {
+            weaponItem[i].color = new Color(1, 1, 1, 0.2f);
+        }
+        UIManager.Instance.CurBulletCount.text = "0";
+        UIManager.Instance.totalBulletCount.text = "0";
+        UIManager.Instance.totalGranedeCount.text = "0";
+        UIManager.Instance.totalHealCount.text = "0";
+    }
+
+    void FindLocalPlayer() {
+        foreach (GameObject obj in players) {
+            PhotonView pv = obj.GetComponent<PhotonView>();
+            if (pv != null && pv.IsMine) {
+                player = obj.GetComponent<Player>();
+                Debug.Log(player.name + pv.ViewID);
+                break;
             }
-            UIManager.Instance.CurBulletCount.text = "0";
-            UIManager.Instance.totalBulletCount.text = "0";
-            UIManager.Instance.totalGranedeCount.text = "0";
-            UIManager.Instance.totalHealCount.text = "0";
         }
     }
 
