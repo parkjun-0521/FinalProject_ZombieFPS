@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 5797437650930388692}
   - component: {fileID: 6817687061202633628}
   - component: {fileID: 7147443930738577010}
-  - component: {fileID: -5217905144991666152}
+  - component: {fileID: 1748728707}
   m_Layer: 10
   m_Name: ShotMagazine
   m_TagString: Item
@@ -113,7 +113,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 53fdf7ed4253d4e508e9bfe1e4f2f859, type: 2}
+  - {fileID: 2100000, guid: c4c14dc2a2cc6d143a946cefee51d602, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -224,7 +224,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-5217905144991666152
+--- !u!114 &1748728707
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

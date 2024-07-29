@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2355909356478120825}
   - component: {fileID: 2355909356478120807}
   - component: {fileID: -4272384771102588538}
-  - component: {fileID: -721278728569248864}
+  - component: {fileID: 605569669}
   m_Layer: 10
   m_Name: ShotGun
   m_TagString: Item
@@ -104,7 +104,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 96
+  m_Constraints: 48
   m_CollisionDetection: 0
 --- !u!135 &1997082440442125927
 SphereCollider:
@@ -179,7 +179,7 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &-721278728569248864
+--- !u!114 &605569669
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

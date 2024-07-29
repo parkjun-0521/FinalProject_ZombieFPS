@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 8897344767725956750}
   - component: {fileID: -5178449908068271148}
   - component: {fileID: 2934860018599453969}
-  - component: {fileID: -2222893165288437982}
+  - component: {fileID: 965175625}
   m_Layer: 10
   m_Name: Grenade
   m_TagString: Item
@@ -76,7 +76,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8897344767725956751}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -224,7 +224,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-2222893165288437982
+--- !u!114 &965175625
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

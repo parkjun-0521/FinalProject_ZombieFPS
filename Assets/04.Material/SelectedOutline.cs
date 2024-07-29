@@ -9,6 +9,13 @@ public class SelectedOutline : MonoBehaviour
     Renderer renderers;
     List<Material> materialList = new List<Material>();
 
+    void Start() {
+        Shader outlineShader = Shader.Find("Draw/OutlineShader");
+
+        outline = new Material(outlineShader);
+        renderers = GetComponent<Renderer>();
+    }
+
     public void ActivateOutline()
     {
         materialList.Clear();
@@ -25,9 +32,5 @@ public class SelectedOutline : MonoBehaviour
         renderers.materials = materialList.ToArray();
     }
 
-    void Start()
-    {
-        outline = new Material(Shader.Find("Draw/OutlineShader"));
-        renderers = GetComponent<Renderer>();
-    }
+
 }
