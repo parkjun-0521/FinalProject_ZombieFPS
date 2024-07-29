@@ -152,7 +152,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
     public void CreatePlayer() {
         GameObject player = PhotonNetwork.Instantiate("PlayerPrefab", transform.position, Quaternion.identity);
         GameObject[] playerSpawnPoint = GameObject.FindGameObjectsWithTag("PlayerSpawnPoint");
-        int index = (player.GetComponent<PhotonView>().ViewID / 1000) % 4;
+        int index = ((int)player.GetComponent<PhotonView>().ViewID / 1000) % 4;
         switch (index) {
             case 0:
                 player.transform.position = playerSpawnPoint[0].transform.position;
