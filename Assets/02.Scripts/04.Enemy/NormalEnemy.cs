@@ -14,7 +14,7 @@ public class NormalEnemy : EnemyController
     public GameObject attackColliderPrefab;
     public Transform attackPoint;
 
-    public float rotationSpeed = 5.0f;
+    public float rotationSpeed = 2.0f;
     private Quaternion targetRotation; // 목표 회전
     private Vector3 moveDirection;
     private bool isMoving = false;
@@ -65,28 +65,31 @@ public class NormalEnemy : EnemyController
 
     void Update()
     {
-        if (isRangeOut) OnEnemyReset?.Invoke();
-        if (isTracking) OnEnemyRun?.Invoke();
-        if (nav.enabled && nav.isStopped) OnEnemyAttack?.Invoke();
-
-        // 회전과 이동 처리
-        if (isMoving)
+        if (PV.IsMine)
         {
-            // 이동 중 회전 업데이트
-            Vector3 moveDirection = (nav.destination - transform.position).normalized;
-            targetRotation = Quaternion.LookRotation(moveDirection);
+            if (isRangeOut) OnEnemyReset?.Invoke();
+            if (isTracking) OnEnemyRun?.Invoke();
+            if (nav.enabled && nav.isStopped) OnEnemyAttack?.Invoke();
+            // 회전과 이동 처리
+            if (isMoving)
+            {
+                // 이동 중 회전 업데이트
+                Vector3 moveDirection = (nav.destination - transform.position).normalized;
+                targetRotation = Quaternion.LookRotation(moveDirection);
 
-            // 회전
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+                // 회전
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
 
-            // 이동
-            Vector3 moveDelta = moveDirection * speed * Time.deltaTime;
-            rigid.MovePosition(transform.position + moveDelta);
+                // 이동
+                Vector3 moveDelta = moveDirection * speed * Time.deltaTime;
+                rigid.MovePosition(transform.position + moveDelta);
 
-            // 이동 중 속도를 초기화
-            rigid.velocity = Vector3.zero;
-            rigid.angularVelocity = Vector3.zero;
+                // 이동 중 속도를 초기화
+                rigid.velocity = Vector3.zero;
+                rigid.angularVelocity = Vector3.zero;
+            }
         }
+            
     }
 
 
@@ -113,74 +116,89 @@ public class NormalEnemy : EnemyController
 
     void ResetEnemy()
     {
-        if (nav.isOnNavMesh)
+        if (PV.IsMine)
         {
-            nav.isStopped = true; // 먼저 멈춤
-            nav.ResetPath(); // 경로 초기화
-            nav.isStopped = false; // 다시 시작
-        }
+            if (nav.isOnNavMesh)
+            {
+                nav.isStopped = true; // 먼저 멈춤
+                nav.ResetPath(); // 경로 초기화
+                nav.isStopped = false; // 다시 시작
+            }
 
-        transform.LookAt(enemySpawn.position);
-        if (Vector3.Distance(transform.position, enemySpawn.position) < 0.1f && shouldEvaluate)
-        {
-            rigid.velocity = Vector3.zero;
-            rigid.angularVelocity = Vector3.zero;
-            InvokeRepeating("EnemyMove", 0.5f, 3.0f);
-            shouldEvaluate = false;
-            isRangeOut = false;
+            transform.LookAt(enemySpawn.position);
+            if (Vector3.Distance(transform.position, enemySpawn.position) < 0.1f && shouldEvaluate)
+            {
+                rigid.velocity = Vector3.zero;
+                rigid.angularVelocity = Vector3.zero;
+                InvokeRepeating("EnemyMove", 0.5f, 3.0f);
+                shouldEvaluate = false;
+                isRangeOut = false;
+            }
+            shouldEvaluate = true;
         }
-        shouldEvaluate = true;
+            
     }
 
     // 보통 적 NPC의 이동
     public override void EnemyMove()
     {
-        OnRandomMove?.Invoke();
+        if (PV.IsMine)
+        {
+            OnRandomMove?.Invoke();
+        }
     }
     void RandomMove()
     {
-        isWalk = true;
-        ani.SetBool("isAttack", false);
-
-        float dirX = Random.Range(-40, 40);
-        float dirZ = Random.Range(-40, 40);
-        Vector3 dest = new Vector3(dirX, 0, dirZ);
-
-        // 목표 회전 설정
-        targetRotation = Quaternion.LookRotation(dest);
-
-        Vector3 toOrigin = enemySpawn.position - transform.position;
-
-        // 일정 범위를 나가면
-        if (toOrigin.magnitude > rangeOut/2)
+        if (PV.IsMine)
         {
-            CancelInvoke();
-            rigid.velocity = Vector3.zero;
-            rigid.angularVelocity = Vector3.zero;
+            isWalk = true;
+            ani.SetBool("isAttack", false);
 
-            // 다시 돌아오는 방향 설정 및 이동
-            Vector3 direction = (enemySpawn.position - transform.position).normalized;
-            StartCoroutine(ReturnToOrigin(direction));
+            float dirX = Random.Range(-40, 40);
+            float dirZ = Random.Range(-40, 40);
+            Vector3 dest = new Vector3(dirX, 0, dirZ);
 
-            isRangeOut = true;
-            isNow = false;
-        }
-        else
-        {
-            isNow = true;
+            // 목표 회전 설정
+            targetRotation = Quaternion.LookRotation(dest);
 
-            // NavMeshAgent를 사용하여 이동
-            Vector3 targetPosition = transform.position + dest;
-            NavMeshHit hit;
-            if (NavMesh.SamplePosition(targetPosition, out hit, 1.0f, NavMesh.AllAreas))
+            Vector3 toOrigin = enemySpawn.position - transform.position;
+
+            // 일정 범위를 나가면
+            if (toOrigin.magnitude > rangeOut / 2)
             {
-                nav.SetDestination(hit.position);
+                CancelInvoke();
+                rigid.velocity = Vector3.zero;
+                rigid.angularVelocity = Vector3.zero;
+
+                // 다시 돌아오는 방향 설정 및 이동
+                Vector3 direction = (enemySpawn.position - transform.position).normalized;
+                StartCoroutine(ReturnToOrigin(direction));
+
+                isRangeOut = true;
+                isNow = false;
             }
             else
             {
-                Debug.LogWarning("Failed to find valid random destination on NavMesh");
+                isNow = true;
+
+                // NavMeshAgent를 사용하여 이동
+                Vector3 targetPosition = transform.position + dest;
+                NavMeshHit hit;
+                if (NavMesh.SamplePosition(targetPosition, out hit, 1.0f, NavMesh.AllAreas))
+                {
+                    nav.SetDestination(hit.position);
+                }
+                else
+                {
+                    Debug.LogWarning("Failed to find valid random destination on NavMesh");
+                }
+            }
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_walk))
+            {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_walk);
             }
         }
+        
     }
 
     IEnumerator ReturnToOrigin(Vector3 direction)
@@ -231,51 +249,77 @@ public class NormalEnemy : EnemyController
 
     public override void EnemyRun()
     {
-        isRun = true;
-        ani.SetBool("isAttack", false);
-
-        // NavMeshAgent 설정
-        nav.speed = runSpeed;
-        nav.destination = playerTr.position;
-
-        // Rigidbody와 NavMeshAgent의 속도를 동기화
-        Vector3 desiredVelocity = nav.desiredVelocity;
-
-        // 이동 방향과 속도를 조절
-        rigid.velocity = Vector3.Lerp(rigid.velocity, desiredVelocity, Time.deltaTime * runSpeed);
-
-        // 속도 제한
-        if (rigid.velocity.magnitude > maxTracingSpeed)
+        if (PV.IsMine)
         {
-            rigid.velocity = rigid.velocity.normalized * maxTracingSpeed;
-        }
+            isRun = true;
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_run))
+            {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_run);
+            }
+            ani.SetBool("isAttack", false);
 
-        // 공격 범위 내에서 멈추기
-        float versusDist = Vector3.Distance(transform.position, playerTr.position);
-        if (versusDist < attackRange)
-        {
-            rigid.velocity = Vector3.zero;
-            nav.isStopped = true;
+            // NavMeshAgent 설정
+            nav.speed = runSpeed;
+            nav.destination = playerTr.position;
+
+            // Rigidbody와 NavMeshAgent의 속도를 동기화
+            Vector3 desiredVelocity = nav.desiredVelocity;
+
+            // 이동 방향과 속도를 조절
+            rigid.velocity = Vector3.Lerp(rigid.velocity, desiredVelocity, Time.deltaTime * runSpeed);
+
+            // 속도 제한
+            if (rigid.velocity.magnitude > maxTracingSpeed)
+            {
+                rigid.velocity = rigid.velocity.normalized * maxTracingSpeed;
+            }
+
+            // 공격 범위 내에서 멈추기
+            float versusDist = Vector3.Distance(transform.position, playerTr.position);
+            if (versusDist < attackRange)
+            {
+                rigid.velocity = Vector3.zero;
+                nav.isStopped = true;
+            }
+            else
+            {
+                nav.isStopped = false;
+            }
         }
-        else
-        {
-            nav.isStopped = false;
-        }
+            
     }
 
 
     public override void EnemyMeleeAttack()
     {
-        nextAttack += Time.deltaTime;
-        ani.SetBool("isAttack", true);
-        if (nextAttack > meleeDelay)
+        if (PV.IsMine)
         {
-            nextAttack = 0;
+            nextAttack += Time.deltaTime;
+            if (nextAttack > meleeDelay)
+            {
+                ani.SetBool("isAttack", true);
+                if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack))
+                {
+                    AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_attack);
+                }
+                StartCoroutine(AttackExit());
+                nextAttack = 0;
+            }
         }
-    }
 
+    }
+    IEnumerator AttackExit()
+    {
+        yield return new WaitForSeconds(2f);
+        ani.SetBool("isAttack", false);
+
+    }
     public override void EnemyDead()
     {
+        if (hp <= 0 && photonView.IsMine)
+        {
+            photonView.RPC("HandleEnemyDeath", RpcTarget.AllBuffered);
+        }
     }
 
     [PunRPC]
