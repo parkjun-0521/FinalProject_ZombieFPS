@@ -652,7 +652,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 420292476}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: 6cae2f82a0a62ff4ab9be3eeeda19688, type: 3}
   m_Controller: {fileID: 9100000, guid: 2943372d628fbdd49a9f1deda5446612, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -2778,6 +2778,7 @@ MonoBehaviour:
   countZero: 0
   isFaint: 0
   isJump: 0
+  isDead: 0
   isLoad: 0
   moveForce: {x: 0, y: 0, z: 0}
   enemyLayer:

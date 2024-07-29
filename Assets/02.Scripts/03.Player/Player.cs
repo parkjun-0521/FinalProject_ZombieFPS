@@ -145,6 +145,7 @@ public class Player : PlayerController
                 }
                 isLoad = true;
                 isBulletZero = true;
+                handAnimator.SetTrigger("isReload");
                 StartCoroutine(BulletLoad());
             }
 
@@ -350,10 +351,11 @@ public class Player : PlayerController
     public override void PlayerInteraction() {
         if (PV.IsMine) {
             RaycastHit hit;
-            int layerMask = LayerMask.GetMask("LocalPlayer", "Item");
+
+            int layerMask = LayerMask.GetMask("LocalPlayer", "Item", "Door");
             foreach (SelectedOutline outlineComponent in FindObjectsOfType<SelectedOutline>()) {
                 outlineComponent.DeactivateOutline();
-            }
+            }      
             if (Physics.Raycast(bulletPos.position, ray.direction, out hit, interactionRange, layerMask))   
             {
                 SelectedOutline outlineComponent = hit.collider.GetComponent<SelectedOutline>();
@@ -390,6 +392,24 @@ public class Player : PlayerController
                         playerReviveUI.SetActive(false);
                         isRayPlayer = false;
                     }
+                }
+                else if (hit.collider.CompareTag("Door"))
+                {
+                    //playerReviveUI.SetActive(true);
+                    //Door door = hit.transform.GetComponent<Door>();
+                    //if(door.isopen)
+                    //{
+                    //    playerReviveUI.GetComponentInChildren<Text>().text = string.Format("'E' 문 닫기");
+                    //}
+                    //else if(!door.isopen)
+                    //{
+                    //    playerReviveUI.GetComponentInChildren<Text>().text = string.Format("'E' 문 열기");
+                    //}
+                    
+                    //if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
+                    //{
+                    //    playerReviveUI.SetActive(false);
+                    //}
                 }
             }
             else
@@ -845,10 +865,12 @@ public class Player : PlayerController
                     }
                 }
                 isGun = true;
+                handAnimator.SetTrigger("isTakeOut");
             }
             else if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Weapon2))) {   // 근접 무기
                 if (WeaponSwapStatus(1, true, false, true, "isDrawMelee", 1, beforeWeapon)) {
                     countZero = false;
+                    handAnimator.SetTrigger("isDrawMelee");
                     beforeWeapon = 2;
                 }
                 isGun = false;
@@ -1053,7 +1075,7 @@ public class Player : PlayerController
     //    }
     //}
 
-    //플레이어 기절상태시 체력줄어드는 UI, ui다달면 죽음 실행
+    //플레이어 기절상태시 체력줄어드는 UI, ui다달면 죽음 실행 기절코루틴
     IEnumerator PlayerFaintUI(float faintTime)
     {
         Slider faintSlider = playerFaintUI.GetComponentInChildren<Slider>();
@@ -1082,9 +1104,10 @@ public class Player : PlayerController
             yield return null;
             _time += Time.deltaTime;
             fillImage.fillAmount = _time / time;
-            if(!isRayPlayer)
+            if(!isRayPlayer || isFaint)
             {
                 fillImage.fillAmount = 0;
+                playerReviveUI.SetActive(false);
                 yield break;
             }
         }
@@ -1246,6 +1269,10 @@ public class Player : PlayerController
     {
         if (PV.IsMine)
         {
+            if(isDead)
+            {
+                return;
+            }
             hp = 0;
             hp += value;
             if (hp > 100)
