@@ -47,6 +47,7 @@ public class EliteMeleeEnemy : EnemyController {
         nav = GetComponent<NavMeshAgent>();
         ani = GetComponentInChildren<Animator>();
         capsuleCollider = GetComponent<CapsuleCollider>();
+        sphereCollider = GetComponent<SphereCollider>();
     }
 
     private void OnEnable() {
@@ -83,6 +84,7 @@ public class EliteMeleeEnemy : EnemyController {
         InvokeRepeating("EnemyMove", 0.5f, 3.0f);
         bloodParticle.Stop();
         capsuleCollider.enabled = true;
+        sphereCollider.enabled = true;
         rigid.isKinematic = false;
         // 초기에 데미지 지정 
         // damage = 20f;
@@ -338,6 +340,7 @@ public class EliteMeleeEnemy : EnemyController {
         isDead = true;
         rigid.isKinematic = true;
         capsuleCollider.enabled = false;
+        sphereCollider.enabled = false;
         AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_dead1);
         OnEnemyDead -= EnemyDead;
     }

@@ -27,6 +27,7 @@ public class NormalEnemy : EnemyController
         ani = GetComponentInChildren<Animator>();
         PV = GetComponent<PhotonView>();
         capsuleCollider = GetComponent<CapsuleCollider>();
+        sphereCollider = GetComponent<SphereCollider>();
     }
 
     private void OnEnable()
@@ -59,6 +60,7 @@ public class NormalEnemy : EnemyController
         playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
         InvokeRepeating("EnemyMove", 0.5f, 3.0f);
         capsuleCollider.enabled = true;
+        sphereCollider.enabled = true;
         rigid.isKinematic = false;
         nav.enabled = true;
     }
@@ -329,6 +331,7 @@ public class NormalEnemy : EnemyController
         ani.SetBool("isDead", true);
         StartCoroutine(AnimationFalse("isDead"));
         capsuleCollider.enabled = false;
+        sphereCollider.enabled = false;
         rigid.isKinematic = true;
         nav.enabled = false;
         OnEnemyReset -= ResetEnemy;

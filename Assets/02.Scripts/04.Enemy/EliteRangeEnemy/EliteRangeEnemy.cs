@@ -51,6 +51,7 @@ public class EliteRangeEnemy : EnemyController
         rigid = GetComponent<Rigidbody>();
         nav = GetComponent<NavMeshAgent>();
         ani = GetComponentInChildren<Animator>();
+        sphereCollider = GetComponent<SphereCollider>();
     }
 
     private void OnEnable()
@@ -93,6 +94,7 @@ public class EliteRangeEnemy : EnemyController
         // damage = 20f;
         rigid.isKinematic = false;
         nav.enabled = true;
+        sphereCollider.enabled = true;
     }
 
     void Update()
@@ -339,7 +341,7 @@ public class EliteRangeEnemy : EnemyController
         OnEnemyRun -= EnemyRun;
         OnEnemyAttack -= EnemyRangeAttack;
         isWalk = false;
-
+        sphereCollider.enabled = false;
         ani.SetBool("isDead", true);
         OnEnemyDead -= EnemyDead;
     }

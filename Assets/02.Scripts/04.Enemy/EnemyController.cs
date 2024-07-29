@@ -53,7 +53,7 @@ public class EnemyController : MonoBehaviourPun, IEnemy
     protected Animator ani;
 
     public CapsuleCollider capsuleCollider;
-
+    public SphereCollider sphereCollider;
 
     //좀비 최대 체력
     [SerializeField]
@@ -113,6 +113,7 @@ public class EnemyController : MonoBehaviourPun, IEnemy
 
         if (hp <= 0)
         {
+            transform.LookAt(Vector3.zero);
             isWalk = false;
         }
     }
