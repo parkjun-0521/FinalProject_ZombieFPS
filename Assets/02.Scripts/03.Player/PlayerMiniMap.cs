@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class PlayerMiniMap : MonoBehaviourPun
+public class PlayerMiniMap : MonoBehaviour
 {
     //public GameObject MiniMap;
     public RectTransform minimap;
@@ -47,47 +47,85 @@ public class PlayerMiniMap : MonoBehaviourPun
     }
     private void Update()
     {
-        if (photonView.IsMine)
+        PlayerCount = PhotonNetwork.CurrentRoom.PlayerCount;
+        if (player != null)
         {
-            PlayerCount = PhotonNetwork.CurrentRoom.PlayerCount;
-            if (player != null)
-            {
-                minimap.offsetMax = new Vector2((temp.x + player.transform.position.x) * sizeX, (temp.z + player.transform.position.z) * sizeY);
-                minimap.offsetMin = new Vector2((temp.x + player.transform.position.x) * sizeX, (temp.z + player.transform.position.z) * sizeY);
-            }
-            else
-            {
-                //player = GameObject.FindWithTag("Player").GetComponent<Player>();
-                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-                foreach (GameObject temp in players)
-                {
-                    if (temp.GetComponent<PhotonView>().IsMine == true)
-                    {
-                        player = temp.GetComponent<Player>();
-                        return;
-                    }
-                }
-                return;
-            }
-
-
-            if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
-            {
-                OtherPlayerIcon(1);
-            }
-            else if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
-            {
-                OtherPlayerIcon(2);
-            }
-            else if(PhotonNetwork.CurrentRoom.PlayerCount == 3)
-            {
-                OtherPlayerIcon(3);
-            }
-            else if (PhotonNetwork.CurrentRoom.PlayerCount == 4)
-            {
-                OtherPlayerIcon(4);
-            }
+            minimap.offsetMax = new Vector2((temp.x + player.transform.position.x) * sizeX, (temp.z + player.transform.position.z) * sizeY);
+            minimap.offsetMin = new Vector2((temp.x + player.transform.position.x) * sizeX, (temp.z + player.transform.position.z) * sizeY);
         }
+        else
+        {
+            //player = GameObject.FindWithTag("Player").GetComponent<Player>();
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+            foreach (GameObject temp in players)
+            {
+                if (temp.GetComponent<PhotonView>().IsMine == true)
+                {
+                    player = temp.GetComponent<Player>();
+                    return;
+                }
+            }
+            return;
+        }
+
+
+
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+        {
+            OtherPlayerIcon(1);
+        }
+        else if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
+        {
+            OtherPlayerIcon(2);
+        }
+        else if (PhotonNetwork.CurrentRoom.PlayerCount == 3)
+        {
+            OtherPlayerIcon(3);
+        }
+        else if (PhotonNetwork.CurrentRoom.PlayerCount == 4)
+        {
+            OtherPlayerIcon(4);
+        }
+        //if (photonView.IsMine)
+        //{
+        //    PlayerCount = PhotonNetwork.CurrentRoom.PlayerCount;
+        //    if (player != null)
+        //    {
+        //        minimap.offsetMax = new Vector2((temp.x + player.transform.position.x) * sizeX, (temp.z + player.transform.position.z) * sizeY);
+        //        minimap.offsetMin = new Vector2((temp.x + player.transform.position.x) * sizeX, (temp.z + player.transform.position.z) * sizeY);
+        //    }
+        //    else
+        //    {
+        //        //player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        //        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        //        foreach(GameObject temp in players)
+        //        {
+        //            if(temp.GetComponent<PhotonView>().IsMine == true)
+        //            {
+        //                player = temp.GetComponent<Player>();
+        //            }
+        //        }
+        //    }
+
+
+
+        //    if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+        //    {
+        //        OtherPlayerIcon(1);
+        //    }
+        //    else if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
+        //    {
+        //        OtherPlayerIcon(2);
+        //    }
+        //    else if(PhotonNetwork.CurrentRoom.PlayerCount == 3)
+        //    {
+        //        OtherPlayerIcon(3);
+        //    }
+        //    else if (PhotonNetwork.CurrentRoom.PlayerCount == 4)
+        //    {
+        //        OtherPlayerIcon(4);
+        //    }
+        //}
     }
 
     void OtherPlayerIcon(float num)
