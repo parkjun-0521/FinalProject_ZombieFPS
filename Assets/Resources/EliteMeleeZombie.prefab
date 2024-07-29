@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 3174076766146402355}
   - component: {fileID: 1458281766}
   - component: {fileID: 1458281767}
+  - component: {fileID: 1198203428366611580}
   m_Layer: 20
   m_Name: EliteMeleeZombie
   m_TagString: Enemy
@@ -163,14 +164,10 @@ MonoBehaviour:
   runSpeed: 7
   meleeDelay: 1
   nextAttack: 2
+  attackRange: 0
   rangeOut: 100
   resetSpeed: 5
   enemySpawn: {fileID: 0}
-  rad: 10
-  distance: 10
-  layermask:
-    serializedVersion: 2
-    m_Bits: 64
   maxTracingSpeed: 5
   playerTr: {fileID: 0}
   capsuleCollider: {fileID: 0}
@@ -181,6 +178,7 @@ MonoBehaviour:
   isRangeOut: 0
   shouldEvaluate: 0
   isNow: 0
+  rotationSpeed: 2
   attackColliderPrefab: {fileID: 0}
   attackPoint: {fileID: 0}
   splitZombies:
@@ -266,6 +264,19 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!135 &1198203428366611580
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3174076766146402362}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &3174076764713127079
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2069514128}
   - component: {fileID: -2825172018209976358}
   - component: {fileID: -7784727233696037214}
+  - component: {fileID: 4290167884464531505}
   m_Layer: 20
   m_Name: Zombie1
   m_TagString: Enemy
@@ -68,14 +69,10 @@ MonoBehaviour:
   runSpeed: 10
   meleeDelay: 4
   nextAttack: 4
+  attackRange: 0
   rangeOut: 100
   resetSpeed: 10
   enemySpawn: {fileID: 0}
-  rad: 10
-  distance: 10
-  layermask:
-    serializedVersion: 2
-    m_Bits: 64
   maxTracingSpeed: 5
   playerTr: {fileID: 0}
   capsuleCollider: {fileID: 0}
@@ -88,6 +85,7 @@ MonoBehaviour:
   isNow: 0
   attackColliderPrefab: {fileID: 0}
   attackPoint: {fileID: 0}
+  rotationSpeed: 5
 --- !u!54 &2740344462459586791
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -166,6 +164,19 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!135 &4290167884464531505
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2740344462459586780}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2740344462615235569
 PrefabInstance:
   m_ObjectHideFlags: 0
