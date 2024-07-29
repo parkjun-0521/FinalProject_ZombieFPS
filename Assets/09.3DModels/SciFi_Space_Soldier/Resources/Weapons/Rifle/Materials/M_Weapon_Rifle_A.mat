@@ -8,12 +8,12 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_Weapon_Rifle_A
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ValidKeywords:
+  m_Shader: {fileID: 4800000, guid: 2bd1ec3a80c550b41a170b505da6a7c0, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords:
   - _EMISSION
   - _METALLICGLOSSMAP
   - _NORMALMAP
-  m_InvalidKeywords: []
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -107,6 +107,7 @@ Material:
     - _OutLineWidth: 0.01
     - _Outline: 0
     - _Parallax: 0.02
+    - _PhantomPower: 1
     - _SmoothnessTextureChannel: 0
     - _Specular: 1
     - _SpecularColorized: 0.5
@@ -126,4 +127,5 @@ Material:
     - _MaskedColorC: {r: 1, g: 0.062068876, b: 0, a: 1}
     - _OutLineColor: {r: 0, g: 0, b: 0, a: 0}
     - _OutlineColor: {r: 0.44117644, g: 0.8843815, b: 1, a: 0.39215687}
+    - _PhantomColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

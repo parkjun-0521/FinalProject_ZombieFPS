@@ -16,7 +16,8 @@ public class ItemController : MonoBehaviour {
         FireGrenade,                    // È­¿°º´ 
         SupportFireGrenade,             // Áö¿ø»ç°Ý ¼ö·ùÅº
         Magazine,                       // ÅºÃ¢ 
-        ShotMagazine                    // ¼¦°Ç ÅºÃ¢ 
+        ShotMagazine,                   // ¼¦°Ç ÅºÃ¢ 
+        QuestItem                       // Äù½ºÆ® ¾ÆÀÌÅÛ
     }
     public ItemType type;
 
