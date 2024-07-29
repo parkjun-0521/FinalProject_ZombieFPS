@@ -554,15 +554,19 @@ public class Player : PlayerController
                     if (slotsParent.childCount > 1) {
                         Transform firstChild = slotsParent.GetChild(0);
                         Transform grandChild = firstChild.GetChild(0);
-                        string imageComponent = grandChild.GetComponent<Image>().sprite.name;
-                        if (imageComponent.Equals("Gun")) {
-                            bulletCount[0] = 0;
-                            UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
+                        Image imageComponent = grandChild.GetComponent<Image>();
+                        if (imageComponent != null && imageComponent.sprite != null) {
+                            string spriteName = imageComponent.sprite.name;
+                            if (imageComponent.Equals("Gun")) {
+                                bulletCount[0] = 0;
+                                UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
+                            }
+                            else if (imageComponent.Equals("ShotGun")) {
+                                bulletCount[1] = 0;
+                                UIManager.Instance.CurBulletCount.text = bulletCount[1].ToString();
+                            }
                         }
-                        else if (imageComponent.Equals("ShotGun")) {
-                            bulletCount[1] = 0;
-                            UIManager.Instance.CurBulletCount.text = bulletCount[1].ToString();
-                        }
+                       
                     }
                 }
 
@@ -576,13 +580,17 @@ public class Player : PlayerController
                     if (slotsParent.childCount > 1) {
                         Transform firstChild = slotsParent.GetChild(0);
                         Transform grandChild = firstChild.GetChild(0);
-                        string imageComponent = grandChild.GetComponent<Image>().sprite.name;
-                        if (imageComponent.Equals("Gun")) {
-                            bulletCount[0] = 0;
-                            UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
-                            Debug.Log("ÅºÃ¢ ¾øÀ½");
-                            return;
+                        Image imageComponent = grandChild.GetComponent<Image>();
+                        if (imageComponent != null && imageComponent.sprite != null) {
+                            string spriteName = imageComponent.sprite.name;
+                            if (imageComponent.Equals("Gun")) {
+                                bulletCount[0] = 0;
+                                UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
+                                Debug.Log("ÅºÃ¢ ¾øÀ½");
+                                return;
+                            }
                         }
+                        
                     }
                 }  
             }
@@ -593,13 +601,16 @@ public class Player : PlayerController
                     if (slotsParent.childCount > 1) {
                         Transform firstChild = slotsParent.GetChild(0);
                         Transform grandChild = firstChild.GetChild(0);
-                        string imageComponent = grandChild.GetComponent<Image>().sprite.name;
-                        if (imageComponent.Equals("ShotGun")) {
-                            bulletCount[0] = 0;
-                            UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
-                            Debug.Log("ÅºÃ¢ ¾øÀ½");
-                            return;
-                        }
+                        Image imageComponent = grandChild.GetComponent<Image>();
+                        if (imageComponent != null && imageComponent.sprite != null) {
+                            string spriteName = imageComponent.sprite.name;
+                            if (imageComponent.Equals("ShotGun")) {
+                                bulletCount[1] = 0;
+                                UIManager.Instance.CurBulletCount.text = bulletCount[1].ToString();
+                                Debug.Log("ÅºÃ¢ ¾øÀ½");
+                                return;
+                            }
+                        }                   
                     }
                 }
             }

@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class NextSceneManager : MonoBehaviour
-{
+public class NextSceneManager : MonoBehaviourPunCallbacks {
     public int stageCount = 0;
 
     private void OnTriggerEnter(Collider other)
