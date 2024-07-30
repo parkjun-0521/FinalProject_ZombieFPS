@@ -126,6 +126,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
 
     public override void OnLeftRoom() {
         Debug.Log("방 떠나기 완료");
+        ScenesManagerment.Instance.playerCount = 0;
         ChangeScene("02.LobbyScene"); // 로비 씬으로 변경
     }
 
@@ -152,7 +153,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
     public void CreatePlayer() {
         GameObject player = PhotonNetwork.Instantiate("PlayerPrefab", transform.position, Quaternion.identity);
         GameObject[] playerSpawnPoint = GameObject.FindGameObjectsWithTag("PlayerSpawnPoint");
-        int index = (player.GetComponent<PhotonView>().ViewID / 1000) % 4;
+        int index = ((int)player.GetComponent<PhotonView>().ViewID / 1000) % 4;
         switch (index) {
             case 0:
                 player.transform.position = playerSpawnPoint[0].transform.position;

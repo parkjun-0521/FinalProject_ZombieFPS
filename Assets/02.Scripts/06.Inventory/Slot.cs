@@ -48,7 +48,7 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
         if (ItemController.ItemType.Gun != _item.type &&
             ItemController.ItemType.ShotGun != _item.type &&
             ItemController.ItemType.Sword1 != _item.type &&
-            ItemController.ItemType.Sword2 != _item.type) {
+            ItemController.ItemType.Sword2 != _item.type ) {                 // 총과 칼은 합쳐지지 않는 무기기 때문에 if문으로 조건 처리
             go_CountImage.SetActive(true);                      // 개수 UI 활성화 
             text_Count.text = itemCount.ToString();             // 개수 UI 변경 
         }

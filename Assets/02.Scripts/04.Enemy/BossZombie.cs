@@ -7,7 +7,7 @@ using UnityEngine.AI;
 
 public class BossZombie : EnemyController {
     public delegate void EnemymoveHandle();
-    public static event EnemymoveHandle OnEnemyReset, OnEnemyMove,OnEnemyRun, OnEnemyAttack, OnEnemyDead, OnChangeTarget;
+    public static event EnemymoveHandle OnEnemyReset, OnEnemyMove, OnEnemyRun, OnEnemyAttack, OnEnemyDead, OnChangeTarget;
     public delegate void EnemyTraceHandle(Collider other);
     public static event EnemyTraceHandle OnEnemyTracking;
 
@@ -42,11 +42,9 @@ public class BossZombie : EnemyController {
     // 랜덤 패턴 
     int randPattern;
     float AttackCooltime;
-    bool isAppear = false;
 
     public float rotationSpeed = 2.0f;
     private Quaternion targetRotation; // 목표 회전
-    private Vector3 moveDirection;
     private bool isMoving = false;
 
     public GameObject projectilePrefab;
@@ -77,7 +75,6 @@ public class BossZombie : EnemyController {
             capsuleCollider.enabled = true;
             // 초기에 데미지 지정 
             // damage = 20f;
-            ani.SetBool("isAppear", true);
         }
     }
 
@@ -122,7 +119,7 @@ public class BossZombie : EnemyController {
 
             if (playerTr != null) {
                 if (isRangeOut == true) OnEnemyReset?.Invoke();
-                 if (isTracking) OnEnemyRun?.Invoke();
+                if (isTracking) OnEnemyRun?.Invoke();
                 if (nav.isStopped == true) OnEnemyAttack?.Invoke();
             }
             // 회전과 이동 처리
@@ -171,24 +168,21 @@ public class BossZombie : EnemyController {
   
     void OnTriggerEnter(Collider other)                       //총알, 근접무기...triggerEnter
     {
-        if (PV.IsMine) {
-            if (!isAppear) return;
 
-            if (other.CompareTag("Bullet"))             // 총알과 trigger
-            {
-                Hp = -(other.GetComponent<Bullet>().itemData.damage);  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
-                other.gameObject.SetActive(false);
-            }
-            else if (other.CompareTag("Weapon"))        // 근접무기와 trigger
-            {
-                Hp = -(other.GetComponent<ItemSword>().itemData.damage);
-                BloodEffect(transform.position);
-            }
-            else if (other.CompareTag("Grenade")) {
-                Hp = -(other.GetComponentInParent<ItemGrenade>().itemData.damage);
-            }
-            return;
+        if (other.CompareTag("Bullet"))             // 총알과 trigger
+        {
+            Hp = -(other.GetComponent<Bullet>().itemData.damage);  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
+            other.gameObject.SetActive(false);
         }
+        else if (other.CompareTag("Weapon"))        // 근접무기와 trigger
+        {
+            Hp = -(other.GetComponent<ItemSword>().itemData.damage);
+            BloodEffect(transform.position);
+        }
+        else if (other.CompareTag("Grenade")) {
+            Hp = -(other.GetComponentInParent<ItemGrenade>().itemData.damage);
+        }
+        return;
     }
 
     //보통 적 NPC의 이동
@@ -196,6 +190,7 @@ public class BossZombie : EnemyController {
     {
         if (PV.IsMine) {
             OnEnemyMove?.Invoke();
+            Debug.Log("이동1");
         }
     }
 
@@ -225,20 +220,10 @@ public class BossZombie : EnemyController {
     void RandomMove()
     {
         if (PV.IsMine) {
-            if (ani.GetBool("isAppear")) {
-                OnEnemyReset -= ResetEnemy;
-                OnEnemyMove -= RandomMove;
-                OnEnemyTracking -= EnemyTracking;
-                OnEnemyRun -= EnemyRun;
-                OnEnemyAttack -= EnemyMeleeAttack;
-                OnEnemyDead -= EnemyDead;
-                OnChangeTarget -= ChangeTarget;
-                StartCoroutine(AppearEnemy());
-                return;
-            }
-
+            Debug.Log("이동2");
             isWalk = true;
             ani.SetBool("isAttack", false);
+            ani.SetBool("isWalk", true);
 
             float dirX = Random.Range(-40, 40);
             float dirZ = Random.Range(-40, 40);
@@ -270,13 +255,8 @@ public class BossZombie : EnemyController {
                 // NavMeshAgent를 사용하여 이동
                 Vector3 targetPosition = transform.position + dest;
                 NavMeshHit hit;
-                if (NavMesh.SamplePosition(targetPosition, out hit, 1.0f, NavMesh.AllAreas))
-                {
+                if (NavMesh.SamplePosition(targetPosition, out hit, 2.0f, NavMesh.AllAreas)) {
                     nav.SetDestination(hit.position);
-                }
-                else
-                {
-                    Debug.LogWarning("Failed to find valid random destination on NavMesh");
                 }
             }
             if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_walk))
@@ -328,19 +308,6 @@ public class BossZombie : EnemyController {
         transform.rotation = targetRotation;
     }
 
-    IEnumerator AppearEnemy() {
-        yield return new WaitForSeconds(12f);
-        ani.SetBool("isAppear", false);
-        OnEnemyReset += ResetEnemy;
-        OnEnemyMove += RandomMove;
-        OnEnemyTracking += EnemyTracking;
-        OnEnemyRun += EnemyRun;
-        OnEnemyAttack += EnemyMeleeAttack;
-        OnEnemyDead += EnemyDead;
-        OnChangeTarget += ChangeTarget;
-        isAppear = true;
-    }
-
     public override void EnemyRun()
     {
         if (PV.IsMine) {
@@ -350,6 +317,7 @@ public class BossZombie : EnemyController {
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_run);
             }
             ani.SetBool("isAttack", false);
+            ani.SetBool("isRun", true);
 
             // NavMeshAgent 설정
             nav.speed = runSpeed;
@@ -402,6 +370,7 @@ public class BossZombie : EnemyController {
                 if (randPattern < 4) {
                     randPattern = Random.Range(0, 4);   // 기본 공격 패턴 선택
                 }
+                Debug.Log(randPattern);
                 switch (randPattern) {
                     case 0:
                         StartCoroutine(BossPattern1());

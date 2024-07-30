@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 2a6c6b5b3d6bbcc40a31486646fb4be2, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -165,7 +165,6 @@ MonoBehaviour:
   nextBtn: {fileID: 0}
   chatText: []
   chatInput: {fileID: 0}
-  playerIcon: {fileID: 1629737100181635881, guid: bd9ab7f2ca4eee0429dcabf50a1972ae, type: 3}
 --- !u!4 &111150978
 Transform:
   m_ObjectHideFlags: 0
@@ -327,6 +326,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 803fa4e1820009d49a2bccef5f960875, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCount: 0
+  stageCount: 0
 --- !u!1 &2081829925
 GameObject:
   m_ObjectHideFlags: 0

@@ -98,6 +98,7 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     protected bool isInteraction;       // 상호작용 상태 
     protected bool isAttack;            // 공격 상태 
     protected bool isThrow;             // 아이템 버리는 상태 
+    public bool isShaderApplied;        // 쉐이더 활성화 
     [SerializeField]protected bool isDead;              // 사망 상태 
     public bool isLoad;
 
