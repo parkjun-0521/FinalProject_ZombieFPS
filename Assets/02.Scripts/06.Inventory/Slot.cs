@@ -192,6 +192,7 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
                         }
                     }
 
+
                     itemObj.transform.position = gameObject.GetComponentInParent<Player>().bulletPos.position;
                     itemObj.transform.rotation = Quaternion.identity;
 
