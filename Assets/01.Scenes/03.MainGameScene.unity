@@ -2110,6 +2110,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8efdb453588767d438bd7fb6b331282c, type: 3}
+--- !u!4 &360497020 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 739025971165590942, guid: 8efdb453588767d438bd7fb6b331282c, type: 3}
+  m_PrefabInstance: {fileID: 360497019}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &392574156
 GameObject:
   m_ObjectHideFlags: 0
@@ -7157,6 +7162,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7551780925888859100, guid: c8be685985e84dc46a9f6b807148f0ba, type: 3}
+      propertyPath: m_RootOrder
+      value: 342
+      objectReference: {fileID: 0}
     - target: {fileID: 7968559185126761105, guid: c8be685985e84dc46a9f6b807148f0ba, type: 3}
       propertyPath: m_RootOrder
       value: 342
@@ -8215,6 +8224,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1526776844}
   m_CullTransparentMesh: 1
+--- !u!1001 &1542720554
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 360497020}
+    m_Modifications:
+    - target: {fileID: 1551386107059371073, guid: 813513b66af41dc44914ea15ce10f729, type: 3}
+      propertyPath: m_Name
+      value: Gun
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551386107059371076, guid: 813513b66af41dc44914ea15ce10f729, type: 3}
+      propertyPath: m_RootOrder
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551386107059371076, guid: 813513b66af41dc44914ea15ce10f729, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6.0926285
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551386107059371076, guid: 813513b66af41dc44914ea15ce10f729, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.421
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551386107059371076, guid: 813513b66af41dc44914ea15ce10f729, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 19.238796
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551386107059371076, guid: 813513b66af41dc44914ea15ce10f729, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551386107059371076, guid: 813513b66af41dc44914ea15ce10f729, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551386107059371076, guid: 813513b66af41dc44914ea15ce10f729, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551386107059371076, guid: 813513b66af41dc44914ea15ce10f729, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551386107059371076, guid: 813513b66af41dc44914ea15ce10f729, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551386107059371076, guid: 813513b66af41dc44914ea15ce10f729, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551386107059371076, guid: 813513b66af41dc44914ea15ce10f729, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1551386107059371078, guid: 813513b66af41dc44914ea15ce10f729, type: 3}
+      propertyPath: sceneViewId
+      value: 245
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 813513b66af41dc44914ea15ce10f729, type: 3}
 --- !u!1 &1558223896
 GameObject:
   m_ObjectHideFlags: 0
@@ -9895,6 +9965,7 @@ MonoBehaviour:
   - {fileID: 2605061689691065164, guid: e67ec40b3ad20884e954ccdda5a7d365, type: 3}
   - {fileID: 2643228227148131504, guid: 81dbe2d59c248604f96da36a48b3a43c, type: 3}
   - {fileID: 7551461160908133067, guid: b1fde0c5f5fa59b42bc1c8b898df8be3, type: 3}
+  - {fileID: 115386, guid: 1d37014fd411c524db3696bba6ff1d21, type: 3}
 --- !u!4 &1725192240
 Transform:
   m_ObjectHideFlags: 0
@@ -17331,6 +17402,22 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 3546432924878277635, guid: b95a227e244636949b4c42bb41f3414e, type: 3}
+      propertyPath: spawnCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3546432924878277635, guid: b95a227e244636949b4c42bb41f3414e, type: 3}
+      propertyPath: persent.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3546432924878277635, guid: b95a227e244636949b4c42bb41f3414e, type: 3}
+      propertyPath: persent.Array.data[1]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3546432924878277635, guid: b95a227e244636949b4c42bb41f3414e, type: 3}
+      propertyPath: persent.Array.data[2]
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 3546432924915409427, guid: b95a227e244636949b4c42bb41f3414e, type: 3}
       propertyPath: sceneViewId
       value: 104
@@ -17479,15 +17566,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7247861760516663461, guid: 041a01888cab2294490e1cb732e40897, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -22.47
+      value: 86.18
       objectReference: {fileID: 0}
     - target: {fileID: 7247861760516663461, guid: 041a01888cab2294490e1cb732e40897, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -11.5
+      value: -9.32
       objectReference: {fileID: 0}
     - target: {fileID: 7247861760516663461, guid: 041a01888cab2294490e1cb732e40897, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -47.75
+      value: 31.82
       objectReference: {fileID: 0}
     - target: {fileID: 7247861760516663461, guid: 041a01888cab2294490e1cb732e40897, type: 3}
       propertyPath: m_LocalRotation.w

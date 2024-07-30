@@ -340,15 +340,27 @@ public class NormalEnemy : EnemyController
         isTracking = false;
     }
 
-    public override void ChangeHp(float value)
+    [PunRPC]
+    void NormalEnemyChangeHpRPC(float value)
     {
         hp += value;
-        if (value > 0)
-        {
-        }
-        else if (value < 0)
-        {
-        }
+        EnemyDead();
+    }
+    public override void ChangeHp(float value)
+    {
+        //hp += value;
+        photonView.RPC("NormalEnemyChangeHpRPC", RpcTarget.AllBuffered, value);
+        //if (value > 0)
+        //{
+        //}
+        //else if (value < 0)
+        //{
+        //}
+
+        //if (hp <= 0)
+        //{
+        //    EnemyDead();
+        //}
     }
 
     IEnumerator AnimationFalse(string str)

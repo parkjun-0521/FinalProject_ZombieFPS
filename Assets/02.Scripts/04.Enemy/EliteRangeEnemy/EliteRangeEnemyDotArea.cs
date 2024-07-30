@@ -7,11 +7,8 @@ public class EliteRangeEnemyDotArea : MonoBehaviour
     public float dotDelay;
     public float dotDamage;
     [SerializeField] float liveTime;
+
     
-    private void Awake()
-    {
-        
-    }
     private void OnEnable()
     {
         StartCoroutine(LiveTime(liveTime));
