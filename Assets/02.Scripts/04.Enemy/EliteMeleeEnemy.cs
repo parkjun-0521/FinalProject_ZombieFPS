@@ -294,16 +294,25 @@ public class EliteMeleeEnemy : EnemyController {
 
     public override void EnemyMeleeAttack() {
         if (PV.IsMine) {
-            nextAttack += Time.deltaTime;
-            if (nextAttack > meleeDelay) {
                 ani.SetBool("isAttack", true);
-                if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack2)) {
+                if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack2))
+                {
                     AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_attack2);
                 }
-                Debug.Log("ATtak");
-                nextAttack = 0;
-            }
+                nextAttack += Time.deltaTime;
+                if (nextAttack > meleeDelay)
+                {
+                    StartCoroutine(AttackExit());
+                    nextAttack = 0;
+                }
+            
         }
+    }
+    IEnumerator AttackExit()
+    {
+        yield return new WaitForSeconds(2f);
+        ani.SetBool("isAttack", false);
+
     }
 
     public override void EnemyDead() {

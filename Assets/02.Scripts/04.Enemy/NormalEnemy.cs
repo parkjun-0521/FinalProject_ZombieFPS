@@ -298,14 +298,15 @@ public class NormalEnemy : EnemyController
     {
         if (PV.IsMine)
         {
+
+            ani.SetBool("isAttack", true);
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack))
+            {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_attack);
+            }
             nextAttack += Time.deltaTime;
             if (nextAttack > meleeDelay)
             {
-                ani.SetBool("isAttack", true);
-                if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack))
-                {
-                    AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_attack);
-                }
                 StartCoroutine(AttackExit());
                 nextAttack = 0;
             }

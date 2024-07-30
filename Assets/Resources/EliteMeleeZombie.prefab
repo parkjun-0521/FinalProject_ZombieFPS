@@ -163,8 +163,8 @@ MonoBehaviour:
   speed: 7
   runSpeed: 7
   meleeDelay: 1
-  nextAttack: 2
-  attackRange: 0
+  nextAttack: 3
+  attackRange: 4
   rangeOut: 100
   resetSpeed: 5
   enemySpawn: {fileID: 0}
@@ -276,7 +276,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 5
+  m_Radius: 7
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &3174076764713127079
 PrefabInstance:

@@ -395,21 +395,23 @@ public class Player : PlayerController
                 }
                 else if (hit.collider.CompareTag("Door"))
                 {
-                    //playerReviveUI.SetActive(true);
-                    //Door door = hit.transform.GetComponent<Door>();
-                    //if(door.isopen)
-                    //{
-                    //    playerReviveUI.GetComponentInChildren<Text>().text = string.Format("'E' 문 닫기");
-                    //}
-                    //else if(!door.isopen)
-                    //{
-                    //    playerReviveUI.GetComponentInChildren<Text>().text = string.Format("'E' 문 열기");
-                    //}
-                    
-                    //if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
-                    //{
-                    //    playerReviveUI.SetActive(false);
-                    //}
+                    playerReviveUI.SetActive(true);
+                    Door door = hit.transform.GetComponentInChildren<Door>();       
+
+                    if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
+                    {
+                        if (door.isOpen)
+                        {
+                            playerReviveUI.GetComponentInChildren<Text>().text = string.Format("'E' 문 열기");
+                            door.CloseDoor();
+                        }
+                        else if (!door.isOpen)
+                        {
+                            playerReviveUI.GetComponentInChildren<Text>().text = string.Format("'E' 문 닫기");
+                            door.OpenDoor();
+                        }
+                        playerReviveUI.SetActive(false);
+                    }
                 }
             }
             else
