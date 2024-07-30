@@ -91,7 +91,7 @@ public class NormalEnemy : EnemyController
                 rigid.angularVelocity = Vector3.zero;
             }
         }
-            
+
     }
 
 
@@ -138,7 +138,7 @@ public class NormalEnemy : EnemyController
             }
             shouldEvaluate = true;
         }
-            
+
     }
 
     // 보통 적 NPC의 이동
@@ -201,7 +201,7 @@ public class NormalEnemy : EnemyController
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_walk);
             }
         }
-        
+
     }
 
     IEnumerator ReturnToOrigin(Vector3 direction)
@@ -290,7 +290,7 @@ public class NormalEnemy : EnemyController
                 nav.isStopped = false;
             }
         }
-            
+
     }
 
 
@@ -311,10 +311,11 @@ public class NormalEnemy : EnemyController
             }
         }
     }
-    IEnumerator AttackExit() {
+    IEnumerator AttackExit()
+    {
         yield return new WaitForSeconds(2f);
         ani.SetBool("isAttack", false);
-        
+
     }
 
     public override void EnemyDead()
