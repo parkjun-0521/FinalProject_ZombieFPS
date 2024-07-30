@@ -143,6 +143,10 @@ public class EnemyController : MonoBehaviourPun, IEnemy
                 EnemyTracking(closestPlayer);
             }
         }
+        else if(other.CompareTag("FireDotArea"))
+        {
+            Hp = -(other.GetComponent<ItemFireGrenadeDotArea>().dotDamage); //안되면 Hp=>hp 해보기 stay라 여러번 호출되니 뎀지 0.1정도 
+        }
     }
     public virtual void ChangeHp(float value) { }
     public virtual void BloodEffect(Vector3 pos, Collider other = null)

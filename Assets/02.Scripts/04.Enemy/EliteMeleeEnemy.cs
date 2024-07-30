@@ -354,16 +354,25 @@ public class EliteMeleeEnemy : EnemyController {
         OnEnemyDead -= EnemyDead;
     }
 
-
-    public override void ChangeHp( float value ) {
+    [PunRPC]
+    void EliteMeleeChangeHpRPC(float value)
+    {
         hp += value;
-        if (value > 0) {
-            //좀비가 체력회복할일은 없겠지만 나중에 보스 or 엘리트 좀비가 주변몹 회복할수도있으니 확장성때매 놔둠
-            //힐 좀비 주변에 +모양 파티클생성
-        }
-        else if (value < 0) {
-            //공격맞은거
-            //ani.setTrigger("피격모션");
-        }
+        EnemyDead();
     }
+    public override void ChangeHp(float value)
+    {
+        photonView.RPC("EliteMeleeChangeHpRPC", RpcTarget.AllBuffered, value);
+    }
+    //public override void ChangeHp( float value ) {
+    //    hp += value;
+    //    if (value > 0) {
+    //        //좀비가 체력회복할일은 없겠지만 나중에 보스 or 엘리트 좀비가 주변몹 회복할수도있으니 확장성때매 놔둠
+    //        //힐 좀비 주변에 +모양 파티클생성
+    //    }
+    //    else if (value < 0) {
+    //        //공격맞은거
+    //        //ani.setTrigger("피격모션");
+    //    }
+    //}
 }

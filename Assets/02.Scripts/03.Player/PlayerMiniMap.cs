@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class PlayerMiniMap : MonoBehaviourPun
+public class PlayerMiniMap : MonoBehaviour
 {
     //public GameObject MiniMap;
     public RectTransform minimap;
@@ -43,33 +43,48 @@ public class PlayerMiniMap : MonoBehaviourPun
     }
     private void Start()
     {
-        player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        //player = GameObject.FindWithTag("Player").GetComponent<Player>();
     }
     private void Update()
     {
-        if (photonView.IsMine)
+        PlayerCount = PhotonNetwork.CurrentRoom.PlayerCount;
+        if (player != null)
         {
-            PlayerCount = PhotonNetwork.CurrentRoom.PlayerCount;
             minimap.offsetMax = new Vector2((temp.x + player.transform.position.x) * sizeX, (temp.z + player.transform.position.z) * sizeY);
             minimap.offsetMin = new Vector2((temp.x + player.transform.position.x) * sizeX, (temp.z + player.transform.position.z) * sizeY);
+        }
+        else
+        {
+            //player = GameObject.FindWithTag("Player").GetComponent<Player>();
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+            foreach (GameObject temp in players)
+            {
+                if (temp.GetComponent<PhotonView>().IsMine == true)
+                {
+                    player = temp.GetComponent<Player>();
+                    return;
+                }
+            }
+            return;
+        }
 
 
-            if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
-            {
-                OtherPlayerIcon(1);
-            }
-            else if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
-            {
-                OtherPlayerIcon(2);
-            }
-            else if(PhotonNetwork.CurrentRoom.PlayerCount == 3)
-            {
-                OtherPlayerIcon(3);
-            }
-            else if (PhotonNetwork.CurrentRoom.PlayerCount == 4)
-            {
-                OtherPlayerIcon(4);
-            }
+
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+        {
+            OtherPlayerIcon(1);
+        }
+        else if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
+        {
+            OtherPlayerIcon(2);
+        }
+        else if (PhotonNetwork.CurrentRoom.PlayerCount == 3)
+        {
+            OtherPlayerIcon(3);
+        }
+        else if (PhotonNetwork.CurrentRoom.PlayerCount == 4)
+        {
+            OtherPlayerIcon(4);
         }
     }
 
@@ -86,41 +101,37 @@ public class PlayerMiniMap : MonoBehaviourPun
         switch (num)
         {
             case 2:
-                //playersIcon[0].SetActive(true);
                 if (players.Length != 2) return;
-                playerIconRect[0].offsetMax = new Vector2((otherTemp.x - players[1].transform.position.x) * otherPlayerSize, (otherTemp.z - players[1].transform.position.z) * otherPlayerSize);
-                playerIconRect[0].offsetMin = new Vector2((otherTemp.x - players[1].transform.position.x) * otherPlayerSize, (otherTemp.z - players[1].transform.position.z) * otherPlayerSize);
+                MiniMapOtherPlayerMove(0, 1);
                 break;
             case 3:
-                //playersIcon[0].SetActive(true);
-                if (players.Length != 3) return;
-                playerIconRect[0].offsetMax = new Vector2((otherTemp.x - players[1].transform.position.x) * otherPlayerSize, (otherTemp.z - players[1].transform.position.z) * otherPlayerSize);
-                playerIconRect[0].offsetMin = new Vector2((otherTemp.x - players[1].transform.position.x) * otherPlayerSize, (otherTemp.z - players[1].transform.position.z) * otherPlayerSize);
-
-                //playersIcon[1].SetActive(true);
-                playerIconRect[1].offsetMax = new Vector2((otherTemp.x - players[2].transform.position.x) * otherPlayerSize, (otherTemp.z - players[2].transform.position.z) * otherPlayerSize);
-                playerIconRect[1].offsetMin = new Vector2((otherTemp.x - players[2].transform.position.x) * otherPlayerSize, (otherTemp.z - players[2].transform.position.z) * otherPlayerSize);
+                MiniMapOtherPlayerMove(0, 1);
+                MiniMapOtherPlayerMove(1, 2);
                 break;
             case 4:
-                //playersIcon[0].SetActive(true);
                 if (players.Length != 4) return;
-                playerIconRect[0].offsetMax = new Vector2((otherTemp.x - players[1].transform.position.x) * otherPlayerSize, (otherTemp.z - players[1].transform.position.z) * otherPlayerSize);
-                playerIconRect[0].offsetMin = new Vector2((otherTemp.x - players[1].transform.position.x) * otherPlayerSize, (otherTemp.z - players[1].transform.position.z) * otherPlayerSize);
-
-                //playersIcon[1].SetActive(true);
-                playerIconRect[1].offsetMax = new Vector2((otherTemp.x - players[2].transform.position.x) * otherPlayerSize, (otherTemp.z - players[2].transform.position.z) * otherPlayerSize);
-                playerIconRect[1].offsetMin = new Vector2((otherTemp.x - players[2].transform.position.x) * otherPlayerSize, (otherTemp.z - players[2].transform.position.z) * otherPlayerSize);
-
-                //playersIcon[2].SetActive(true);
-                playerIconRect[2].offsetMax = new Vector2((otherTemp.x - players[3].transform.position.x) * otherPlayerSize, (otherTemp.z - players[3].transform.position.z) * otherPlayerSize);
-                playerIconRect[2].offsetMin = new Vector2((otherTemp.x - players[3].transform.position.x) * otherPlayerSize, (otherTemp.z - players[3].transform.position.z) * otherPlayerSize);
+                MiniMapOtherPlayerMove(0, 1);
+                MiniMapOtherPlayerMove(1, 2);
+                MiniMapOtherPlayerMove(2, 3);
                 break;
         }
     }
 
+    void MiniMapOtherPlayerMove(int iconNum, int PlayersNum)
+    {
+        playerIconRect[iconNum].offsetMax = new Vector2((otherTemp.x - players[PlayersNum].transform.position.x) * otherPlayerSize, (otherTemp.z - players[PlayersNum].transform.position.z) * otherPlayerSize);
+        playerIconRect[iconNum].offsetMin = new Vector2((otherTemp.x - players[PlayersNum].transform.position.x) * otherPlayerSize, (otherTemp.z - players[PlayersNum].transform.position.z) * otherPlayerSize);
+    }
     IEnumerator Search()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.3f);
         players = GameObject.FindGameObjectsWithTag("Player");
+        ReSearch();
+    }
+
+    void ReSearch()
+    {
+        if (PhotonNetwork.CurrentRoom.PlayerCount != players.Length)
+            StartCoroutine(Search());
     }
 }

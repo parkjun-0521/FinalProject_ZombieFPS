@@ -606,6 +606,7 @@ public class Player : PlayerController
                                 UIManager.Instance.CurBulletCount.text = bulletCount[1].ToString();
                             }
                         }
+
                     }
                 }
 
@@ -632,6 +633,7 @@ public class Player : PlayerController
                                 return;
                             }
                         }
+
                     }
                 }
             }
@@ -647,6 +649,7 @@ public class Player : PlayerController
                         Transform grandChild = firstChild.GetChild(0);
                         Image imageComponent = grandChild.GetComponent<Image>();
                         if (imageComponent != null && imageComponent.sprite != null) {
+
                             string spriteName = imageComponent.sprite.name;
                             if (spriteName.Equals("ShotGun")) {
                                 bulletCount[1] = 0;
