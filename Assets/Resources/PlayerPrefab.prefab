@@ -2778,6 +2778,7 @@ MonoBehaviour:
   countZero: 0
   isFaint: 0
   isJump: 0
+  isShaderApplied: 0
   isDead: 0
   isLoad: 0
   moveForce: {x: 0, y: 0, z: 0}
@@ -11666,15 +11667,15 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 01b8e0f033264ce4093f1f3124b42a38, type: 2}
     - target: {fileID: 13700000, guid: c99537a5ec6872e42af9706f9a279e74, type: 3}
       propertyPath: m_CastShadows
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 13700000, guid: c99537a5ec6872e42af9706f9a279e74, type: 3}
       propertyPath: m_LightProbeUsage
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 13700000, guid: c99537a5ec6872e42af9706f9a279e74, type: 3}
       propertyPath: m_ReflectionProbeUsage
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 13700000, guid: c99537a5ec6872e42af9706f9a279e74, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -11682,15 +11683,15 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 568d24ae65d697a4089c4a486b0cc0bf, type: 2}
     - target: {fileID: 13700002, guid: c99537a5ec6872e42af9706f9a279e74, type: 3}
       propertyPath: m_CastShadows
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 13700002, guid: c99537a5ec6872e42af9706f9a279e74, type: 3}
       propertyPath: m_LightProbeUsage
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 13700002, guid: c99537a5ec6872e42af9706f9a279e74, type: 3}
       propertyPath: m_ReflectionProbeUsage
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 13700002, guid: c99537a5ec6872e42af9706f9a279e74, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -11698,15 +11699,15 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: ceaa229ea18542d4fa2b0e4414c91b67, type: 2}
     - target: {fileID: 13700004, guid: c99537a5ec6872e42af9706f9a279e74, type: 3}
       propertyPath: m_CastShadows
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 13700004, guid: c99537a5ec6872e42af9706f9a279e74, type: 3}
       propertyPath: m_LightProbeUsage
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 13700004, guid: c99537a5ec6872e42af9706f9a279e74, type: 3}
       propertyPath: m_ReflectionProbeUsage
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 13700004, guid: c99537a5ec6872e42af9706f9a279e74, type: 3}
       propertyPath: m_Materials.Array.data[0]

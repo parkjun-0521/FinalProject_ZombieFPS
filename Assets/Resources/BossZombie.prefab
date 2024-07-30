@@ -799,6 +799,7 @@ GameObject:
   - component: {fileID: 2643228227148131519}
   - component: {fileID: 2643228227148131518}
   - component: {fileID: 2643228227148131505}
+  - component: {fileID: 1695959239543759425}
   m_Layer: 20
   m_Name: BossZombie
   m_TagString: Enemy
@@ -909,7 +910,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 6.63
+  m_Height: 7
   m_BaseOffset: 2
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -943,9 +944,9 @@ MonoBehaviour:
   runSpeed: 10
   meleeDelay: 5
   nextAttack: 5
-  attackRange: 0
-  rangeOut: 100
-  resetSpeed: 5
+  attackRange: 10
+  rangeOut: 200
+  resetSpeed: 10
   enemySpawn: {fileID: 0}
   maxTracingSpeed: 5
   playerTr: {fileID: 0}
@@ -965,6 +966,19 @@ MonoBehaviour:
   rotationSpeed: 2
   projectilePrefab: {fileID: 3102988656494671107, guid: 72ce0ed0184286241b3cc455f2e2d116, type: 3}
   bulletPos: {fileID: 2643228226905618946}
+--- !u!135 &1695959239543759425
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2643228227148131504}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 20
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2766229425720196482
 GameObject:
   m_ObjectHideFlags: 0

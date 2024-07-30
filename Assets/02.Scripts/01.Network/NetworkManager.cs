@@ -126,6 +126,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
 
     public override void OnLeftRoom() {
         Debug.Log("방 떠나기 완료");
+        ScenesManagerment.Instance.playerCount = 0;
         ChangeScene("02.LobbyScene"); // 로비 씬으로 변경
     }
 

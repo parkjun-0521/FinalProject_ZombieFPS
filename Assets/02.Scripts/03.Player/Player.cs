@@ -11,6 +11,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static InputKeyManager;
 
@@ -352,7 +353,7 @@ public class Player : PlayerController
         if (PV.IsMine) {
             RaycastHit hit;
 
-            int layerMask = LayerMask.GetMask("LocalPlayer", "Item", "Door");
+            int layerMask = LayerMask.GetMask("LocalPlayer", "Item", "Door", "Npc");
             foreach (SelectedOutline outlineComponent in FindObjectsOfType<SelectedOutline>()) {
                 outlineComponent.DeactivateOutline();
             }      
@@ -363,53 +364,89 @@ public class Player : PlayerController
                     outlineComponent.ActivateOutline();
                 }
 
-                if (hit.collider.CompareTag("Item"))
-                {
+                if (hit.collider.CompareTag("Item")) {
                     playerReviveUI.SetActive(true);
                     playerReviveUI.GetComponentInChildren<Text>().text = string.Format("'E' {0} 아이템 줍기", hit.collider.GetComponent<ItemPickUp>().itemName);
-                    if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
-                    {
+                    if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction))) {
                         ItemPickUp(hit.collider.gameObject);
                         AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_item);
                         AcquireItems();
                     }
                 }
-                else if (hit.collider.CompareTag("Player"))
-                {
+                else if (hit.collider.CompareTag("Player")) {
                     isRayPlayer = true;
                     Player otherPlayer = hit.collider.GetComponent<Player>();
-                    if (otherPlayer.isFaint)
-                    {
+                    if (otherPlayer.isFaint) {
                         playerReviveUI.SetActive(true);
                         playerReviveUI.GetComponentInChildren<Text>().text = "'E' 플레이어 부활";
-                        if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
-                        {
+                        if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction))) {
                             StartCoroutine(CorPlayerReviveUI(8.0f, otherPlayer));
                         }
                     }
-                    else
-                    {
+                    else {
                         playerReviveUI.SetActive(false);
                         isRayPlayer = false;
                     }
                 }
-                else if (hit.collider.CompareTag("Door"))
-                {
+                /*else if (hit.collider.CompareTag("Door")) {
                     //playerReviveUI.SetActive(true);
                     //Door door = hit.transform.GetComponent<Door>();
                     //if(door.isopen)
                     //{
-                    //    playerReviveUI.GetComponentInChildren<Text>().text = string.Format("'E' 문 닫기");
+                    //    playerReviveUI.GetComponentInChildren<Text>().t02ext = string.Format("'E' 문 닫기");
                     //}
                     //else if(!door.isopen)
                     //{
                     //    playerReviveUI.GetComponentInChildren<Text>().text = string.Format("'E' 문 열기");
                     //}
-                    
+
                     //if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
                     //{
                     //    playerReviveUI.SetActive(false);
                     //}
+                }*/
+                else if (hit.collider.CompareTag("Npc")) {
+
+
+                    if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction))) {
+                        Debug.Log("대화");
+
+                        GameObject questItemObject = GameObject.Find("QuestItem");
+                        if (questItemObject != null && !isShaderApplied) {
+                            QuestItemShader questItemShader = questItemObject.GetComponent<QuestItemShader>();
+                            questItemShader.VisibleShader();
+                            questItemShader.visible.SetTexture("_MainTex", Resources.Load<Texture2D>("PlayerDiffuse"));
+                            isShaderApplied = true; 
+                        }
+
+                        if (inventory != null && theInventory.go_SlotsParent != null) {
+                            Transform slotsParent = theInventory.go_SlotsParent.transform;
+                            for (int i = 0; i < slotsParent.childCount; i++) {
+                                Transform firstChild = slotsParent.GetChild(i);
+                                Transform grandChild = firstChild.GetChild(0);
+                                Image imageComponent = grandChild.GetComponent<Image>();
+                                if (imageComponent != null && imageComponent.sprite != null) {
+                                    string spriteName = imageComponent.sprite.name;
+                                    if (spriteName.Equals("QuestItem")) {
+                                        Debug.Log("퀘스트 완료");
+                                        if (ScenesManagerment.Instance.stageCount == 0) {
+                                            NextSceneManager.Instance.isQuest1 = true;
+                                        }
+                                        else if(ScenesManagerment.Instance.stageCount == 1) {
+                                            NextSceneManager.Instance.isQuest2 = true;
+                                        }
+                                        else if(ScenesManagerment.Instance.stageCount == 2) {
+                                            NextSceneManager.Instance.isQuest3 = true;
+                                        }
+                                        theInventory.DecreaseMagazineCount(ItemController.ItemType.QuestItem);
+                                    }
+                                    else {
+                                        Debug.Log("아이템 부족 대화");
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
             else
@@ -557,11 +594,11 @@ public class Player : PlayerController
                         Image imageComponent = grandChild.GetComponent<Image>();
                         if (imageComponent != null && imageComponent.sprite != null) {
                             string spriteName = imageComponent.sprite.name;
-                            if (imageComponent.Equals("Gun")) {
+                            if (spriteName.Equals("Gun")) {
                                 bulletCount[0] = 0;
                                 UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
                             }
-                            else if (imageComponent.Equals("ShotGun")) {
+                            else if (spriteName.Equals("ShotGun")) {
                                 bulletCount[1] = 0;
                                 UIManager.Instance.CurBulletCount.text = bulletCount[1].ToString();
                             }
@@ -583,7 +620,7 @@ public class Player : PlayerController
                         Image imageComponent = grandChild.GetComponent<Image>();
                         if (imageComponent != null && imageComponent.sprite != null) {
                             string spriteName = imageComponent.sprite.name;
-                            if (imageComponent.Equals("Gun")) {
+                            if (spriteName.Equals("Gun")) {
                                 bulletCount[0] = 0;
                                 UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
                                 Debug.Log("탄창 없음");
@@ -604,7 +641,7 @@ public class Player : PlayerController
                         Image imageComponent = grandChild.GetComponent<Image>();
                         if (imageComponent != null && imageComponent.sprite != null) {
                             string spriteName = imageComponent.sprite.name;
-                            if (imageComponent.Equals("ShotGun")) {
+                            if (spriteName.Equals("ShotGun")) {
                                 bulletCount[1] = 0;
                                 UIManager.Instance.CurBulletCount.text = bulletCount[1].ToString();
                                 Debug.Log("탄창 없음");
