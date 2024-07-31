@@ -409,6 +409,7 @@ public class Player : PlayerController
 
                     if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction))) {
                         Debug.Log("대화");
+                        hit.collider.GetComponent<NPC>().QusetTalkRPC();
 
                         GameObject questItemObject = GameObject.Find("QuestItem");
                         if (questItemObject != null && !isShaderApplied) {
@@ -428,6 +429,8 @@ public class Player : PlayerController
                                     string spriteName = imageComponent.sprite.name;
                                     if (spriteName.Equals("QuestItem")) {
                                         Debug.Log("퀘스트 완료");
+                                        hit.collider.GetComponent<NPC>().QusetClearTalkRPC();
+
                                         if (ScenesManagerment.Instance.stageCount == 0) {
                                             NextSceneManager.Instance.isQuest1 = true;
                                         }

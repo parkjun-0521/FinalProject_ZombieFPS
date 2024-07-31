@@ -123,14 +123,27 @@ public class BossPhobos : EnemyController
             knockBackPower = 5.0f;
             ani.SetBool("isSwing", true);
             StartCoroutine(AnimationFalse("isSwing"));
+
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack4))
+            {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_attack4);
+            }
+
             yield return new WaitForSeconds(2.5f);
             knockBackPower = defalutKnockBackPower;
+
         }
         else if(randomNum < 90)
         {
             knockBackPower = 5.0f;
             ani.SetBool("isShockWave", true);
             StartCoroutine(AnimationFalse("isShockWave"));
+
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack5))
+            {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_attack5);
+            }
+
             yield return new WaitForSeconds(3.75f);
             knockBackPower = defalutKnockBackPower;
         }
@@ -165,7 +178,13 @@ public class BossPhobos : EnemyController
         yield return new WaitForSeconds(1.0f);
         //int randomPlayer = random.range(0, ÀÎ¿ø¼ö);
         nav.velocity = (players[0].transform.position - transform.position).normalized * dashPower;
-        
+
+
+        if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack4))
+        {
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_attack4);
+        }
+
         yield return new WaitForSeconds(1.5f);
         nav.velocity = Vector3.zero;
         yield return new WaitForSeconds(0.625f);
