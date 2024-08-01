@@ -873,6 +873,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 2643228227148131516}
+  - {fileID: 6419810147544142529}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -2653,31 +2654,31 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: isWalk
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: isRun
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: isAttack1
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: isAttack2
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: isAttack3
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: isAttack4
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: isAttack5
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: isDeath
   m_SynchronizeLayers:
-  - SynchronizeType: 0
+  - SynchronizeType: 2
     LayerIndex: 0
 --- !u!1 &7161359871238900911
 GameObject:

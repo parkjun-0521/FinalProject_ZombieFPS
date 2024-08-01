@@ -163,8 +163,12 @@ public class Player : PlayerController
                 ToggleCursor();
             }
 
+            
+
             // 플레이어 상호작용
-            OnPlayerInteraction?.Invoke();
+            if(bulletPos.position != null && ray.direction != null)
+                OnPlayerInteraction?.Invoke();
+
             // 플레이어 회전
             OnPlayerRotation?.Invoke();
 
