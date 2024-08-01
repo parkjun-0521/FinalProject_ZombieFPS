@@ -12,6 +12,7 @@ public class LeaveRoomButton : MonoBehaviour
     }
 
     void OnLeaveRoom() {
+        AudioManager.Instance.PlayBgm(false, ScenesManagerment.Instance.stageCount);
         NetworkManager.Instance.LeaveRoom();
     }
 }

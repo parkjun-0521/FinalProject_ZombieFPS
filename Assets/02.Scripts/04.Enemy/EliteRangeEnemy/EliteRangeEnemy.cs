@@ -128,17 +128,28 @@ public class EliteRangeEnemy : EnemyController
 
     void OnTriggerEnter(Collider other)                       //총알, 근접무기...triggerEnter
     {
-        if (other.CompareTag("Bullet"))             // 총알과 trigger
-            {
+        if (other.CompareTag("Bullet")) {
             Hp = -(other.GetComponent<Bullet>().itemData.damage);  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
             other.gameObject.SetActive(false);
+
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt)) {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
+            }
         }
         else if (other.CompareTag("Weapon"))        // 근접무기와 trigger
         {
             Hp = -(other.GetComponent<ItemSword>().itemData.damage);
+
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt)) {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
+            }
         }
         else if (other.CompareTag("Grenade")) {
             Hp = -(other.GetComponentInParent<ItemGrenade>().itemData.damage);
+
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt)) {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
+            }
         }
         return;
     }
@@ -212,10 +223,10 @@ public class EliteRangeEnemy : EnemyController
                 {
                     nav.SetDestination(hit.position);
                 }
-                else
-                {
-                    Debug.LogWarning("Failed to find valid random destination on NavMesh");
-                }
+            }
+
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_walk)) {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_walk);
             }
         }
     }
@@ -244,10 +255,6 @@ public class EliteRangeEnemy : EnemyController
             }
             nav.SetDestination(enemySpawn.position);
         }
-        else
-        {
-            Debug.LogError("Failed to place agent on NavMesh after returning to origin");
-        }
 
         isRangeOut = false;
     }
@@ -267,7 +274,7 @@ public class EliteRangeEnemy : EnemyController
         {
             isRun = true;
             ani.SetBool("isAttack", false);
-
+            ani.SetBool("isRun", true);
             // NavMeshAgent 설정
             nav.speed = runSpeed;
             nav.destination = playerTr.position;
@@ -295,6 +302,10 @@ public class EliteRangeEnemy : EnemyController
             {
                 nav.isStopped = false;
             }
+
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_run)) {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_run);
+            }
         }
     }
     public void EnemyRangeAttack()
@@ -304,10 +315,12 @@ public class EliteRangeEnemy : EnemyController
             nextAttack += Time.deltaTime;
             if (nextAttack > meleeDelay)
             {
-                //ani.SetBool("isIdle", false);
                 ani.SetBool("isAttack", true);
                 photonView.RPC("RPCEnemyRangeAttack", RpcTarget.AllBuffered);
                 nextAttack = 0;
+                if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack5)) {
+                    AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_attack5);
+                }
                 StartCoroutine(AnimReset("isAttack"));
             }
         }
@@ -316,9 +329,6 @@ public class EliteRangeEnemy : EnemyController
     void RPCEnemyRangeAttack()
     {
         Vector3 attackDir = (playerTr.position - transform.position).normalized;
-        //GameObject zombieRangeAtkPrefab = Pooling.instance.GetObject("EliteRangeZombieProjectile");
-        //zombieRangeAtkPrefab.transform.position = attackPos.position;
-        //zombieRangeAtkPrefab.transform.rotation = Quaternion.identity;
         GameObject zombieRangeAtkPrefab = Instantiate(rangeProjectile, attackPos.position, Quaternion.identity);
         zombieRangeAtkPrefab.GetComponent<Rigidbody>().AddForce(attackDir * attackPrefabSpeed, ForceMode.Impulse);
 
@@ -342,6 +352,9 @@ public class EliteRangeEnemy : EnemyController
         OnEnemyAttack -= EnemyRangeAttack;
         isWalk = false;
         sphereCollider.enabled = false;
+        if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_dead1)) {
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_dead1);
+        }
         ani.SetBool("isDead", true);
         OnEnemyDead -= EnemyDead;
     }
@@ -356,20 +369,6 @@ public class EliteRangeEnemy : EnemyController
     {
         photonView.RPC("EliteRangeChangeHpRPC", RpcTarget.AllBuffered, value);
     }
-    //public override void ChangeHp(float value)
-    //{
-    //    hp += value;
-    //    if (value > 0)
-    //    {
-    //        //좀비가 체력회복할일은 없겠지만 나중에 보스 or 엘리트 좀비가 주변몹 회복할수도있으니 확장성때매 놔둠
-    //        //힐 좀비 주변에 +모양 파티클생성
-    //    }
-    //    else if (value < 0)
-    //    {
-    //        //공격맞은거
-    //        //ani.setTrigger("피격모션");
-    //    }
-    //}
 
     IEnumerator AnimReset(string animString = null)
     {

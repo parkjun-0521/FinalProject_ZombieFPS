@@ -142,7 +142,7 @@ public class BossZombie : EnemyController {
             }
         }
     }
-
+    
     // Player 탐색 
     void FindAllPlayers()
     {
@@ -160,27 +160,37 @@ public class BossZombie : EnemyController {
             int index = Random.Range(0, players.Count);
             playerTr = players[index]; // 랜덤 플레이어를 새로운 타겟으로 설정
             transform.LookAt(playerTr);
-            Debug.Log("따라봄3");
             Debug.Log("타겟 전환: " + playerTr.name);
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack6)) {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_attack6);
+            }
         }
     }
 
   
     void OnTriggerEnter(Collider other)                       //총알, 근접무기...triggerEnter
     {
-
         if (other.CompareTag("Bullet"))             // 총알과 trigger
         {
             Hp = -(other.GetComponent<Bullet>().itemData.damage);  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
             other.gameObject.SetActive(false);
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.BossHit)) {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.BossHit);
+            }
         }
         else if (other.CompareTag("Weapon"))        // 근접무기와 trigger
         {
             Hp = -(other.GetComponent<ItemSword>().itemData.damage);
             BloodEffect(transform.position);
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.BossHit)) {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.BossHit);
+            }
         }
         else if (other.CompareTag("Grenade")) {
             Hp = -(other.GetComponentInParent<ItemGrenade>().itemData.damage);
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.BossHit)) {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.BossHit);
+            }
         }
         return;
     }
@@ -190,7 +200,6 @@ public class BossZombie : EnemyController {
     {
         if (PV.IsMine) {
             OnEnemyMove?.Invoke();
-            Debug.Log("이동1");
         }
     }
 
@@ -220,11 +229,12 @@ public class BossZombie : EnemyController {
     void RandomMove()
     {
         if (PV.IsMine) {
-            Debug.Log("이동2");
             isWalk = true;
             ani.SetBool("isAttack", false);
             ani.SetBool("isWalk", true);
-
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.BossWalk1)) {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.BossWalk1);
+            }
             float dirX = Random.Range(-40, 40);
             float dirZ = Random.Range(-40, 40);
             Vector3 dest = new Vector3(dirX, 0, dirZ);
@@ -248,10 +258,8 @@ public class BossZombie : EnemyController {
                 isRangeOut = true;
                 isNow = false;
             }
-            else
-            {
+            else {
                 isNow = true;
-
                 // NavMeshAgent를 사용하여 이동
                 Vector3 targetPosition = transform.position + dest;
                 NavMeshHit hit;
@@ -290,10 +298,6 @@ public class BossZombie : EnemyController {
             }
             nav.SetDestination(enemySpawn.position);
         }
-        else
-        {
-            Debug.LogError("Failed to place agent on NavMesh after returning to origin");
-        }
 
         isRangeOut = false;
     }
@@ -312,12 +316,11 @@ public class BossZombie : EnemyController {
     {
         if (PV.IsMine) {
             isRun = true;
-            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_run))
-            {
-                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_run);
-            }
             ani.SetBool("isAttack", false);
             ani.SetBool("isRun", true);
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.BossRun1)){
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.BossRun1);
+            }
 
             // NavMeshAgent 설정
             nav.speed = runSpeed;
@@ -366,7 +369,6 @@ public class BossZombie : EnemyController {
             nextAttack += Time.deltaTime;
             if (nextAttack > meleeDelay) {
                 nav.isStopped = true;
-                Debug.Log("공격");
                 if (randPattern < 4) {
                     randPattern = Random.Range(0, 4);   // 기본 공격 패턴 선택
                 }
@@ -395,7 +397,7 @@ public class BossZombie : EnemyController {
     }
 
     // 기본 패턴 1,2,3
-    IEnumerator BossPattern1()
+    IEnumerator BossPattern1()          // 물기 
     {
         OnEnemyAttack -= EnemyMeleeAttack;
         OnEnemyMove -= RandomMove;
@@ -407,6 +409,10 @@ public class BossZombie : EnemyController {
         if(ani.GetBool("isDeath"))
             yield break;
         isWalk = false;
+
+        if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack3)) {
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_attack3);
+        }
 
         yield return new WaitForSeconds(3f);
 
@@ -421,7 +427,7 @@ public class BossZombie : EnemyController {
         ani.SetBool("isAttack1", false);
         nav.isStopped = false;
     }
-    IEnumerator BossPattern2()
+    IEnumerator BossPattern2()                  // 마구찍기
     {
         OnEnemyAttack -= EnemyMeleeAttack;
         OnEnemyMove -= RandomMove;
@@ -430,11 +436,16 @@ public class BossZombie : EnemyController {
 
         ani.SetBool("isAttack2", true);
 
+        if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack4)) {
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_attack4);
+        }
+        yield return new WaitForSeconds(4f);
+
         if (ani.GetBool("isDeath"))
             yield break;
         isWalk = false;
 
-        yield return new WaitForSeconds(15f);
+        yield return new WaitForSeconds(11f);
         OnEnemyAttack += EnemyMeleeAttack;
         OnEnemyMove += RandomMove;
         OnEnemyTracking += EnemyTracking;
@@ -446,7 +457,7 @@ public class BossZombie : EnemyController {
         ani.SetBool("isAttack2", false);
         nav.isStopped = false;
     }
-    IEnumerator BossPattern3()
+    IEnumerator BossPattern3()                      // 꼬리치기
     {
         OnEnemyAttack -= EnemyMeleeAttack;
         OnEnemyMove -= RandomMove;
@@ -460,6 +471,10 @@ public class BossZombie : EnemyController {
             yield break;
         isWalk = false;
         damage = 5f;                               // 증가 데미지
+
+        if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack5)) {
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_attack5);
+        }
 
         yield return new WaitForSeconds(4f);
         OnEnemyAttack += EnemyMeleeAttack;
@@ -485,6 +500,10 @@ public class BossZombie : EnemyController {
         OnEnemyRun -= EnemyRun;
 
         ani.SetBool("isAttack4", true);
+
+        if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack6)) {
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_attack6);
+        }
 
         for (int i = 0; i < 60; i++) {
             if (ani.GetBool("isDeath"))
@@ -526,6 +545,11 @@ public class BossZombie : EnemyController {
         Vector3 endPosition = playerTr.position;
         float duration = 0.5f; 
         float elapsedTime = 0;
+
+        if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack4)) {
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_attack4);
+        }
+
         while (elapsedTime < duration) {
             // 특정 위치로 이동 
             transform.position = Vector3.Lerp(startPosition, endPosition, elapsedTime / duration);
@@ -549,6 +573,9 @@ public class BossZombie : EnemyController {
     public override void EnemyDead() {
         if (hp <= 0 && PV.IsMine) {
             photonView.RPC("HandleEnemyDeath", RpcTarget.AllBuffered);
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.BossDie1)) {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.BossDie1);
+            }
         }
     }
     [PunRPC]
@@ -566,15 +593,13 @@ public class BossZombie : EnemyController {
         rigid.isKinematic = true;
     }
 
-    public override void ChangeHp(float value)
-    {
+    [PunRPC]
+    void EliteRangeChangeHpRPC( float value ) {
         hp += value;
-        if (value > 0) {
-            //좀비가 체력회복할일은 없겠지만 나중에 보스 or 엘리트 좀비가 주변몹 회복할수도있으니 확장성때매 놔둠
-            //힐 좀비 주변에 +모양 파티클생성
-        }
-        else if (value < 0) {
-            //공격맞은거
-        }
+        EnemyDead();
     }
+    public override void ChangeHp( float value ) {
+        photonView.RPC("EliteRangeChangeHpRPC", RpcTarget.AllBuffered, value);
+    }
+
 }

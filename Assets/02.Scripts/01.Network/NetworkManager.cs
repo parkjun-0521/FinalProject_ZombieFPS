@@ -122,6 +122,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
     public override void OnJoinedRoom() {
         Debug.Log("방참가완료");
         PhotonNetwork.LoadLevel("03.MainGameScene");
+        AudioManager.Instance.PlayBgm(true, 0);
     }
 
     public override void OnLeftRoom() {

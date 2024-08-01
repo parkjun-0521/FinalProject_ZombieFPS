@@ -87,7 +87,7 @@ public class EliteMeleeEnemy : EnemyController {
         sphereCollider.enabled = true;
         rigid.isKinematic = false;
         // 초기에 데미지 지정 
-        // damage = 20f;
+        damage = 20f;
     }
 
     void Update()
@@ -119,21 +119,26 @@ public class EliteMeleeEnemy : EnemyController {
     }
     void OnTriggerEnter( Collider other )                       //총알, 근접무기...triggerEnter
     {
-        if (other.CompareTag("Bullet"))             // 총알과 trigger
-            {
+        if (other.CompareTag("Bullet")){
             Hp = -(other.GetComponent<Bullet>().itemData.damage);  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
             other.gameObject.SetActive(false);
-            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt)) {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
+            }
         }
         else if (other.CompareTag("Weapon"))        // 근접무기와 trigger
         {
             Hp = -(other.GetComponent<ItemSword>().itemData.damage);
             BloodEffect(transform.position);
-            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt)) {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
+            }
         }
         else if (other.CompareTag("Grenade")) {
             Hp = -(other.GetComponentInParent<ItemGrenade>().itemData.damage);
-            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt)) {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
+            }
         }
         return;
     }
@@ -171,7 +176,7 @@ public class EliteMeleeEnemy : EnemyController {
         if (PV.IsMine) {
             isWalk = true;
             ani.SetBool("isAttack", false);
-
+            
             float dirX = Random.Range(-40, 40);
             float dirZ = Random.Range(-40, 40);
             Vector3 dest = new Vector3(dirX, 0, dirZ);
@@ -206,10 +211,10 @@ public class EliteMeleeEnemy : EnemyController {
                 {
                     nav.SetDestination(hit.position);
                 }
-                else
-                {
-                    Debug.LogWarning("Failed to find valid random destination on NavMesh");
-                }
+            }
+
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_walk)) {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_walk);
             }
         }
     }
@@ -238,10 +243,6 @@ public class EliteMeleeEnemy : EnemyController {
             }
             nav.SetDestination(enemySpawn.position);
         }
-        else
-        {
-            Debug.LogError("Failed to place agent on NavMesh after returning to origin");
-        }
 
         isRangeOut = false;
     }
@@ -260,7 +261,7 @@ public class EliteMeleeEnemy : EnemyController {
         if (PV.IsMine) {
             isRun = true;
             ani.SetBool("isAttack", false);
-
+            ani.SetBool("isRun", true);
             // NavMeshAgent 설정
             nav.speed = runSpeed;
             nav.destination = playerTr.position;
@@ -289,28 +290,41 @@ public class EliteMeleeEnemy : EnemyController {
             {
                 nav.isStopped = false;
             }
+
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_run)) {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_run);
+            }
         }
     }
 
     public override void EnemyMeleeAttack() {
         if (PV.IsMine) {
-                ani.SetBool("isAttack", true);
-                if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack2))
-                {
+            ani.SetBool("isAttack", true);
+            nextAttack += Time.deltaTime;
+            if (nextAttack > meleeDelay) {
+                /*if(playerTr.GetComponent<Player>().Hp <= 0) {
+                    playerTr = null;
+                }*/
+                StartCoroutine(AttackExit());
+                if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack2)) {
                     AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_attack2);
                 }
-                nextAttack += Time.deltaTime;
-                if (nextAttack > meleeDelay)
-                {
-                    StartCoroutine(AttackExit());
-                    nextAttack = 0;
-                }
-            
+                nextAttack = 0;
+            }
+
         }
     }
     IEnumerator AttackExit()
     {
+        OnEnemyMove -= RandomMove;
+        OnEnemyTracking -= EnemyTracking;
+        OnEnemyRun -= EnemyRun;
+        OnEnemyAttack -= EnemyMeleeAttack;
         yield return new WaitForSeconds(2f);
+        OnEnemyMove += RandomMove;
+        OnEnemyTracking += EnemyTracking;
+        OnEnemyRun += EnemyRun;
+        OnEnemyAttack += EnemyMeleeAttack;
         ani.SetBool("isAttack", false);
 
     }
@@ -332,7 +346,9 @@ public class EliteMeleeEnemy : EnemyController {
                 }
                 bloodParticle.Play();
                 damage = 50f;
-                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_explosion);
+                if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_explosion)) {
+                    AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_explosion);
+                }
 
             }
         }
@@ -350,7 +366,9 @@ public class EliteMeleeEnemy : EnemyController {
         rigid.isKinematic = true;
         capsuleCollider.enabled = false;
         sphereCollider.enabled = false;
-        AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_dead1);
+        if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_dead1)) {
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_dead1);
+        }
         OnEnemyDead -= EnemyDead;
     }
 
@@ -364,15 +382,4 @@ public class EliteMeleeEnemy : EnemyController {
     {
         photonView.RPC("EliteMeleeChangeHpRPC", RpcTarget.AllBuffered, value);
     }
-    //public override void ChangeHp( float value ) {
-    //    hp += value;
-    //    if (value > 0) {
-    //        //좀비가 체력회복할일은 없겠지만 나중에 보스 or 엘리트 좀비가 주변몹 회복할수도있으니 확장성때매 놔둠
-    //        //힐 좀비 주변에 +모양 파티클생성
-    //    }
-    //    else if (value < 0) {
-    //        //공격맞은거
-    //        //ani.setTrigger("피격모션");
-    //    }
-    //}
 }

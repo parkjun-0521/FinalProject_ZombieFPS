@@ -137,17 +137,14 @@ MonoBehaviour:
   runSpeed: 0
   meleeDelay: 4
   nextAttack: 4
+  attackRange: 0
   rangeOut: 100
   resetSpeed: 5
   enemySpawn: {fileID: 0}
-  rad: 3
-  distance: 5
-  layermask:
-    serializedVersion: 2
-    m_Bits: 0
   maxTracingSpeed: 0
   playerTr: {fileID: 0}
   capsuleCollider: {fileID: 0}
+  sphereCollider: {fileID: 0}
   maxHp: 40
   hp: 40
   baseDamage: 10
@@ -162,6 +159,7 @@ MonoBehaviour:
   knockBackPower: 3
   traceTime: 0
   traceChacgeTime: 15
+  lookRadius: 10
 --- !u!195 &7551461160908133071
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -820,6 +818,10 @@ PrefabInstance:
       value: 0.000004428187
       objectReference: {fileID: 0}
     - target: {fileID: -3052839234575326084, guid: 6b0bd4b099654c4419e5cca6bf17fd24, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3052839234575326084, guid: 6b0bd4b099654c4419e5cca6bf17fd24, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 089ca1923d2107b4d9ba97c192e18b61, type: 2}
@@ -1138,6 +1140,10 @@ PrefabInstance:
     - target: {fileID: 643006812469152319, guid: 6b0bd4b099654c4419e5cca6bf17fd24, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 91.86381
+      objectReference: {fileID: 0}
+    - target: {fileID: 720320796288724141, guid: 6b0bd4b099654c4419e5cca6bf17fd24, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 720320796288724141, guid: 6b0bd4b099654c4419e5cca6bf17fd24, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1900,6 +1906,9 @@ MonoBehaviour:
   - Type: 4
     SynchronizeType: 2
     Name: isThunder
+  - Type: 4
+    SynchronizeType: 0
+    Name: isWalk
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0

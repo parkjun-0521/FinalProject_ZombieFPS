@@ -101,18 +101,24 @@ public class NormalEnemy : EnemyController
         {
             Hp = -(other.GetComponent<Bullet>().itemData.damage);
             other.gameObject.SetActive(false);
-            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt)) {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
+            }
         }
         else if (other.CompareTag("Weapon"))
         {
             Hp = -(other.GetComponent<ItemSword>().itemData.damage);
             BloodEffect(transform.position);
-            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt)) {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
+            }
         }
         else if (other.CompareTag("Grenade"))
         {
             Hp = -(other.GetComponentInParent<ItemGrenade>().itemData.damage);
-            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt)) {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
+            }
         }
     }
 
@@ -190,10 +196,6 @@ public class NormalEnemy : EnemyController
                 if (NavMesh.SamplePosition(targetPosition, out hit, 1.0f, NavMesh.AllAreas))
                 {
                     nav.SetDestination(hit.position);
-                }
-                else
-                {
-                    Debug.LogWarning("Failed to find valid random destination on NavMesh");
                 }
             }
             if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_walk))
@@ -298,7 +300,6 @@ public class NormalEnemy : EnemyController
     {
         if (PV.IsMine)
         {
-
             ani.SetBool("isAttack", true);
             if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack))
             {
@@ -324,6 +325,9 @@ public class NormalEnemy : EnemyController
         if (hp <= 0)
         {
             photonView.RPC("HandleEnemyDeath", RpcTarget.AllBuffered);
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_dead1)) {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_dead1);
+            }
         }
     }
 
@@ -353,19 +357,7 @@ public class NormalEnemy : EnemyController
     }
     public override void ChangeHp(float value)
     {
-        //hp += value;
         photonView.RPC("NormalEnemyChangeHpRPC", RpcTarget.AllBuffered, value);
-        //if (value > 0)
-        //{
-        //}
-        //else if (value < 0)
-        //{
-        //}
-
-        //if (hp <= 0)
-        //{
-        //    EnemyDead();
-        //}
     }
 
     IEnumerator AnimationFalse(string str)

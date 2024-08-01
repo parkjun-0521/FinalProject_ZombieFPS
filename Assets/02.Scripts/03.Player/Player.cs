@@ -411,6 +411,7 @@ public class Player : PlayerController
                         Debug.Log("대화");
 
                         GameObject questItemObject = GameObject.Find("QuestItem");
+
                         if (questItemObject != null && !isShaderApplied) {
                             QuestItemShader questItemShader = questItemObject.GetComponent<QuestItemShader>();
                             questItemShader.VisibleShader();
@@ -792,8 +793,6 @@ public class Player : PlayerController
 
         yield return new WaitForSeconds(2f);
         Debug.Log("2초간 장전중");
-        // 여기에 뭔가 애니메이션이나 사운드 넣어줘야 할듯 
-        // AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_run2);   // 장전 사운드 
 
         if (weaponIndex == 0) {
             int availableBullets = theInventory.CalculateTotalItems(ItemController.ItemType.Magazine); // 이 메소드는 인벤토리에서 사용 가능한 모든 총알의 수를 반환해야 함
@@ -848,7 +847,7 @@ public class Player : PlayerController
                 return;
    
             Debug.Log("힐팩");
-            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.MediKit);
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Medikit2);
             //힐 하는시간 변수로 빼고 대충 중앙에 ui띄우고 힐 하는시간 지나면 Hp = (+30) 코루틴사용이 좋겠지 중간에 키입력시 return 애니메이션추가;
 
         }
@@ -1075,24 +1074,6 @@ public class Player : PlayerController
         capsuleCollider.direction = 2;
     }
 
-
-    //public override void PlayerRevive()             //플레이어 부활 - 백업본
-    //{                                               //PlayerFaint 함수와 반대로 하면 됨
-    //                              //기절상태 false
-    //    OnPlayerMove += PlayerMove;                 // 플레이어 이동 
-    //    OnPlayerRotation += PlayerRotation;         // 플레이어 회전
-    //    OnPlayerJump += PlayerJump;                 // 플레이어 점프 
-    //    OnPlayerAttack += PlayerAttack;             // 플레이어 공격
-    //    OnPlayerSwap += WeaponSwap;                 // 무기 교체
-    //    OnPlayerInteraction += PlayerInteraction;   // 플레이어 상호작용
-    //    OnPlayerInventory += PlayerInventory;
-    //    animator.SetBool("isRevive", true);     //기절 애니메이션 출력 나중에 플레이어 완성되면 추가
-    //    StartCoroutine(AnimReset("isRevive"));
-    //    Hp = 50;                             //부활시 반피로 변경! maxHp = 100; 을 따로 선언해서 maxHp / 2해도 되는데 풀피는 100하겠지 뭐
-    //    photonView.RPC("IsFaintRPC", RpcTarget.AllBuffered, false);
-    //    photonView.RPC("UpdateHealthBar", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName, photonView.ViewID, (hp / maxHp) * 100);
-    //}
-
     // 플레이어 사망
     public override void PlayerDead()
     {
@@ -1107,31 +1088,6 @@ public class Player : PlayerController
             photonView.RPC("IsDeadRPC", RpcTarget.AllBuffered, true);
         }
     }
-   
-    //void PlayerReviveUI()  //필요없는거같은데 혹시몰라서 7/22일정도까지 문제없을시 삭제
-    //{
-    //    if (Physics.Raycast(ray, out hit, interactionRange, LayerMask.NameToLayer("LocalPlayer") | LayerMask.NameToLayer("Item")))
-    //    {
-    //        if (hit.collider.CompareTag("Player"))
-    //        {
-    //            isRayPlayer = true;
-    //            Player otherPlayer = hit.collider.GetComponent<Player>();
-    //            if (otherPlayer.isFaint && hit.collider.CompareTag("Player"))
-    //            {
-    //                playerReviveUI.SetActive(true);
-    //                if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
-    //                {
-    //                    StartCoroutine(CorPlayerReviveUI(8.0f, otherPlayer));
-    //                }
-    //            }
-    //        }
-    //    }
-    //    else
-    //    {
-    //        playerReviveUI.SetActive(false);
-    //        isRayPlayer = false;
-    //    }
-    //}
 
     //플레이어 기절상태시 체력줄어드는 UI, ui다달면 죽음 실행 기절코루틴
     IEnumerator PlayerFaintUI(float faintTime)
@@ -1274,15 +1230,9 @@ public class Player : PlayerController
     IEnumerator AnimReset(string animString = null, Animator handAnim = null)
     {
         yield return new WaitForSeconds(0.1f);
-        //animator.ResetTrigger("isDrawGrenade");
-        //animator.ResetTrigger("isDrawHeal");
-        //animator.ResetTrigger("isDrawRifle");
-        //animator.ResetTrigger("isDrawMelee");
-        //animator.ResetTrigger(animString);
         animator.SetBool(animString, false);
         if(handAnim != null)
         handAnim.SetBool(animString, false);
-        AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_knife);
     }
 
     IEnumerator DotDamage(EliteRangeEnemyDotArea _EREP)
@@ -1341,17 +1291,5 @@ public class Player : PlayerController
             }
             photonView.RPC("UpdateHealthBar", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName, photonView.ViewID, (hp / maxHp) * 100);
         }
-    }
-
-
-    [ContextMenu("프로퍼티--")]                      //TEST용 추후삭제
-    void test()
-    {
-        Hp = -1;
-    }
-    [ContextMenu("프로퍼티++")]                     //TEST용 추후삭제
-    void test2()
-    {
-        Hp = +1;
     }
 }
