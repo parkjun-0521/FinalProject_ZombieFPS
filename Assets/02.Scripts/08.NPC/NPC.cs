@@ -14,7 +14,7 @@ public class NPC : MonoBehaviourPun
     public void QusetTalkRPC()
     {
         if (corTextBubbleQuest != null) return;
-        photonView.RPC("TalkQuest", RpcTarget.AllBuffered);
+        photonView.RPC("TalkQuest", RpcTarget.All);
     }
 
     [PunRPC]
@@ -76,7 +76,7 @@ public class NPC : MonoBehaviourPun
     public void QusetClearTalkRPC()
     {
         if (corTextBubbleQuestClear != null) return;
-        photonView.RPC("TalkQuestClear", RpcTarget.AllBuffered);
+        photonView.RPC("TalkQuestClear", RpcTarget.All);
     }
     [PunRPC]
     void TalkQuestClear()
