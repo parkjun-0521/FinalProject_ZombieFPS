@@ -32,9 +32,6 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
     {
         if (PhotonNetwork.IsMasterClient) {
             // 모든 플레이어가 nextStageZone에 들어왔을 때 씬을 로드합니다.
-            Debug.Log(ScenesManagerment.Instance.playerCount);
-            Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
-            Debug.Log(ScenesManagerment.Instance.stageCount);
             if (ScenesManagerment.Instance.playerCount == PhotonNetwork.CurrentRoom.PlayerCount) {
                 if (ScenesManagerment.Instance.stageCount == 0 && isQuest1) {
                     Debug.Log("왜 안들어가짐?");
