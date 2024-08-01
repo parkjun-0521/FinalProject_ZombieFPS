@@ -429,15 +429,7 @@ public class Player : PlayerController
                                     string spriteName = imageComponent.sprite.name;
                                     if (spriteName.Equals("QuestItem")) {
                                         Debug.Log("Äù½ºÆ® ¿Ï·á");
-                                        if (ScenesManagerment.Instance.stageCount == 0) {
-                                            NextSceneManager.Instance.isQuest1 = true;
-                                        }
-                                        else if (ScenesManagerment.Instance.stageCount == 1) {
-                                            NextSceneManager.Instance.isQuest2 = true;
-                                        }
-                                        else if (ScenesManagerment.Instance.stageCount == 2) {
-                                            NextSceneManager.Instance.isQuest3 = true;
-                                        }
+                                        photonView.RPC("QuestComplete", RpcTarget.AllBuffered);
                                         theInventory.DecreaseMagazineCount(ItemController.ItemType.QuestItem);
                                     }
                                     else {
@@ -454,6 +446,19 @@ public class Player : PlayerController
                 playerReviveUI.SetActive(false);
                 isRayPlayer = false;
             }
+        }
+    }
+
+    [PunRPC]
+    void QuestComplete() {
+        if (ScenesManagerment.Instance.stageCount == 0) {
+            NextSceneManager.Instance.isQuest1 = true;
+        }
+        else if (ScenesManagerment.Instance.stageCount == 1) {
+            NextSceneManager.Instance.isQuest2 = true;
+        }
+        else if (ScenesManagerment.Instance.stageCount == 2) {
+            NextSceneManager.Instance.isQuest3 = true;
         }
     }
 
