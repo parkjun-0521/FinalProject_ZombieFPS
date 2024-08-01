@@ -951,6 +951,7 @@ MonoBehaviour:
   maxTracingSpeed: 5
   playerTr: {fileID: 0}
   capsuleCollider: {fileID: 0}
+  sphereCollider: {fileID: 0}
   maxHp: 120
   hp: 500
   baseDamage: 5
@@ -2602,6 +2603,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7579174753185497201}
   - component: {fileID: 2643228226325471192}
+  - component: {fileID: 6419810147544142529}
   m_Layer: 20
   m_Name: Dione
   m_TagString: Enemy
@@ -2648,6 +2650,48 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6419810147544142529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7090200614617701067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 0
+    Name: isWalk
+  - Type: 4
+    SynchronizeType: 0
+    Name: isRun
+  - Type: 4
+    SynchronizeType: 0
+    Name: isAttack1
+  - Type: 4
+    SynchronizeType: 0
+    Name: isAttack2
+  - Type: 4
+    SynchronizeType: 0
+    Name: isAttack3
+  - Type: 4
+    SynchronizeType: 0
+    Name: isAttack4
+  - Type: 4
+    SynchronizeType: 0
+    Name: isAttack5
+  - Type: 4
+    SynchronizeType: 0
+    Name: isDeath
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!1 &7161359871238900911
 GameObject:
   m_ObjectHideFlags: 0

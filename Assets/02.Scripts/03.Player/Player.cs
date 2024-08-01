@@ -85,6 +85,7 @@ public class Player : PlayerController
             ItemController[] items = FindObjectsOfType<ItemController>(true); // true를 사용하여 비활성화된 오브젝트도 포함
             photonView.RPC("UpdateHealthBar", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName, photonView.ViewID, (hp / maxHp) * 100);
             aimingObj.SetActive(true);
+            weaponSelected = false;
         }
         else {
             playerCamera.gameObject.SetActive(false);
@@ -410,16 +411,8 @@ public class Player : PlayerController
                     if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction))) {
                         Debug.Log("대화");
                         hit.collider.GetComponent<NPC>().QusetTalkRPC();
-
-                        GameObject questItemObject = GameObject.Find("QuestItem");
-
-                        if (questItemObject != null && !isShaderApplied) {
-                            QuestItemShader questItemShader = questItemObject.GetComponent<QuestItemShader>();
-                            questItemShader.VisibleShader();
-                            questItemShader.visible.SetTexture("_MainTex", Resources.Load<Texture2D>("PlayerDiffuse"));
-                            isShaderApplied = true;
-                        }
-
+                        photonView.RPC("ShaderVisibleRPC", RpcTarget.AllBuffered);
+                       
                         if (inventory != null && theInventory.go_SlotsParent != null) {
                             Transform slotsParent = theInventory.go_SlotsParent.transform;
                             for (int i = 0; i < slotsParent.childCount; i++) {
@@ -430,7 +423,7 @@ public class Player : PlayerController
                                     string spriteName = imageComponent.sprite.name;
                                     if (spriteName.Equals("QuestItem")) {
                                         Debug.Log("퀘스트 완료");
-                                        photonView.RPC("QuestComplete", RpcTarget.AllBuffered);
+                                        photonView.RPC("QuestCompleteRPC", RpcTarget.AllBuffered);
                                         hit.collider.GetComponent<NPC>().QusetClearTalkRPC();
                                         theInventory.DecreaseMagazineCount(ItemController.ItemType.QuestItem);
                                     }
@@ -452,7 +445,24 @@ public class Player : PlayerController
     }
 
     [PunRPC]
-    void QuestComplete() {
+    public void ShaderVisibleRPC() {
+        GameObject questItemObject = GameObject.Find("QuestItem");
+        if(questItemObject == null) {
+            Debug.Log("아이템 찾음???");
+            questItemObject = GameObject.Find("QuestItem(Clone)");
+            isShaderApplied = false;
+        }
+
+        if (questItemObject != null && !isShaderApplied) {
+            QuestItemShader questItemShader = questItemObject.GetComponent<QuestItemShader>();
+            questItemShader.VisibleShader();
+            questItemShader.visible.SetTexture("_MainTex", Resources.Load<Texture2D>("PlayerDiffuse"));
+            isShaderApplied = true;
+        }
+    }
+
+    [PunRPC]
+    void QuestCompleteRPC() {
         if (ScenesManagerment.Instance.stageCount == 0) {
             NextSceneManager.Instance.isQuest1 = true;
         }
