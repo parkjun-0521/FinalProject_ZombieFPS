@@ -43,6 +43,7 @@ public class EliteRangeEnemy : EnemyController
             }
         }
     }
+    public Collider EnemyLookRange;
 
     void Awake()
     {
@@ -51,7 +52,7 @@ public class EliteRangeEnemy : EnemyController
         rigid = GetComponent<Rigidbody>();
         nav = GetComponent<NavMeshAgent>();
         ani = GetComponentInChildren<Animator>();
-        sphereCollider = GetComponent<SphereCollider>();
+        sphereCollider = (SphereCollider)EnemyLookRange;
     }
 
     private void OnEnable()
@@ -93,7 +94,7 @@ public class EliteRangeEnemy : EnemyController
         // 초기에 데미지 지정 
         // damage = 20f;
         rigid.isKinematic = false;
-        nav.enabled = true;
+        //nav.enabled = true;
         sphereCollider.enabled = true;
     }
 
@@ -121,7 +122,7 @@ public class EliteRangeEnemy : EnemyController
                 rigid.velocity = Vector3.zero;
                 rigid.angularVelocity = Vector3.zero;
             }
-
+            
         }
         
     }
@@ -228,6 +229,7 @@ public class EliteRangeEnemy : EnemyController
             if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_walk)) {
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_walk);
             }
+
         }
     }
     IEnumerator ReturnToOrigin(Vector3 direction)

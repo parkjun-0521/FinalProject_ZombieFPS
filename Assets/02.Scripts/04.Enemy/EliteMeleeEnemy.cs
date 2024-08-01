@@ -40,6 +40,8 @@ public class EliteMeleeEnemy : EnemyController {
 
     public bool isDead;         // RPC 동기화용 Bool 변수 
 
+    public Collider EnemyLookRange;
+
     void Awake() {
         // 레퍼런스 초기화 
         PV = GetComponent<PhotonView>();
@@ -47,7 +49,7 @@ public class EliteMeleeEnemy : EnemyController {
         nav = GetComponent<NavMeshAgent>();
         ani = GetComponentInChildren<Animator>();
         capsuleCollider = GetComponent<CapsuleCollider>();
-        sphereCollider = GetComponent<SphereCollider>();
+        sphereCollider = (SphereCollider)EnemyLookRange;
     }
 
     private void OnEnable() {
@@ -216,6 +218,7 @@ public class EliteMeleeEnemy : EnemyController {
             if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_walk)) {
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_walk);
             }
+
         }
     }
     IEnumerator ReturnToOrigin(Vector3 direction)

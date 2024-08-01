@@ -19,6 +19,8 @@ public class NormalEnemy : EnemyController
     private Vector3 moveDirection;
     private bool isMoving = false;
 
+    public Collider EnemyLookRange;
+
     void Awake()
     {
         // 레퍼런스 초기화 
@@ -60,9 +62,9 @@ public class NormalEnemy : EnemyController
         playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
         InvokeRepeating("EnemyMove", 0.5f, 3.0f);
         capsuleCollider.enabled = true;
-        sphereCollider.enabled = true;
+        sphereCollider = (SphereCollider)EnemyLookRange;
         rigid.isKinematic = false;
-        nav.enabled = true;
+        //nav.enabled = true;
     }
 
     void Update()
@@ -202,7 +204,10 @@ public class NormalEnemy : EnemyController
             {
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_walk);
             }
+
+        
         }
+        
 
     }
 
@@ -339,7 +344,7 @@ public class NormalEnemy : EnemyController
         capsuleCollider.enabled = false;
         sphereCollider.enabled = false;
         rigid.isKinematic = true;
-        nav.enabled = false;
+        //nav.enabled = false;
         OnEnemyReset -= ResetEnemy;
         OnRandomMove -= RandomMove;
         OnEnemyTracking -= EnemyTracking;

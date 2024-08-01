@@ -87,6 +87,7 @@ MonoBehaviour:
   attackColliderPrefab: {fileID: 0}
   attackPoint: {fileID: 0}
   rotationSpeed: 5
+  EnemyLookRange: {fileID: 6598316210746458567}
 --- !u!54 &2740344462459586791
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -175,7 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 997898837732575746}
   - component: {fileID: 6598316210746458567}
-  m_Layer: 20
+  m_Layer: 22
   m_Name: EnemyLookRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
