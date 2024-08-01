@@ -76,6 +76,7 @@ MonoBehaviour:
   attackPrefabSpeed: 30
   rangeProjectile: {fileID: 3102988656494671107, guid: 72ce0ed0184286241b3cc455f2e2d116, type: 3}
   player: []
+  EnemyLookRange: {fileID: 5972394030888022280}
 --- !u!54 &1810938136
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -178,7 +179,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5535596966826836984}
   - component: {fileID: 5972394030888022280}
-  m_Layer: 20
+  m_Layer: 22
   m_Name: EnemyLookRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -189,6 +189,7 @@ MonoBehaviour:
   - {fileID: 2740344462459586780, guid: e2c0035046bec0348a3d9963bdd47c9b, type: 3}
   bloodParticle: {fileID: 3365126088063631719}
   isDead: 0
+  EnemyLookRange: {fileID: 6372042097543369023}
 --- !u!114 &3174076766146402361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -275,7 +276,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8427595692242402804}
   - component: {fileID: 6372042097543369023}
-  m_Layer: 20
+  m_Layer: 22
   m_Name: EnemyLookRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
