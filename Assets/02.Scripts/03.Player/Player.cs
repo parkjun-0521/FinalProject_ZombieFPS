@@ -409,6 +409,7 @@ public class Player : PlayerController
 
                     if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction))) {
                         Debug.Log("대화");
+                        hit.collider.GetComponent<NPC>().QusetTalkRPC();
 
                         GameObject questItemObject = GameObject.Find("QuestItem");
 
@@ -430,6 +431,7 @@ public class Player : PlayerController
                                     if (spriteName.Equals("QuestItem")) {
                                         Debug.Log("퀘스트 완료");
                                         photonView.RPC("QuestComplete", RpcTarget.AllBuffered);
+                                        hit.collider.GetComponent<NPC>().QusetClearTalkRPC();
                                         theInventory.DecreaseMagazineCount(ItemController.ItemType.QuestItem);
                                     }
                                     else {

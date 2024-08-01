@@ -4825,7 +4825,7 @@ GameObject:
   - component: {fileID: 2317252437984456767}
   m_Layer: 0
   m_Name: Missile
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4917,12 +4917,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eb182f2602b4a94c89c9534879d2d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemData: {fileID: 3309935885538863303, guid: 2dacbebdf73b0444e955d70fa4d70e8f, type: 3}
   liveTime: 5
   missile: {fileID: 155060}
   tails:
   - {fileID: 159164}
   - {fileID: 107184}
   explosionParticle: {fileID: 3272599557288452601}
+  range: {fileID: 8850253380862703000}
 --- !u!136 &2317252437984456767
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -9876,7 +9878,7 @@ GameObject:
   - component: {fileID: 8127870984177363396}
   m_Layer: 0
   m_Name: Range
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9906,10 +9908,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 2.2589996
+  m_Radius: 5
   m_Height: 4.517999
   m_Direction: 1
-  m_Center: {x: 0, y: -3.424815e-15, z: -1.7589996}
+  m_Center: {x: 0, y: -3.424815e-15, z: 1.72}
 --- !u!1001 &3272171292735284159
 PrefabInstance:
   m_ObjectHideFlags: 0
