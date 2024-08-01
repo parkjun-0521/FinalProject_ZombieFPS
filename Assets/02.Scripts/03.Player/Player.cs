@@ -391,14 +391,20 @@ public class Player : PlayerController
                 else if (hit.collider.CompareTag("Door")) {
                     playerReviveUI.SetActive(true);
                     Door door = hit.transform.GetComponentInChildren<Door>();
+                    if(door.isOpen)
+                    {
+                        playerReviveUI.GetComponentInChildren<Text>().text = string.Format("'E' 문 닫기");
+                    }
+                    else
+                    {
+                        playerReviveUI.GetComponentInChildren<Text>().text = string.Format("'E' 문 열기");
+                    }
 
                     if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction))) {
                         if (door.isOpen) {
-                            playerReviveUI.GetComponentInChildren<Text>().text = string.Format("'E' 문 열기");
                             door.CloseDoor();
                         }
                         else if (!door.isOpen) {
-                            playerReviveUI.GetComponentInChildren<Text>().text = string.Format("'E' 문 닫기");
                             door.OpenDoor();
                         }
                         playerReviveUI.SetActive(false);
@@ -406,7 +412,7 @@ public class Player : PlayerController
                 }
                 else if (hit.collider.CompareTag("Npc")) {
 
-
+                    Debug.Log(2);
                     if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction))) {
                         Debug.Log("대화");
                         hit.collider.GetComponent<NPC>().QusetTalkRPC();
