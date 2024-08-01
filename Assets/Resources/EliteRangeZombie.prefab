@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 1810938130}
   - component: {fileID: 1810938134}
   - component: {fileID: 1810938135}
-  - component: {fileID: -2862793708303230014}
   m_Layer: 20
   m_Name: EliteRangeZombie
   m_TagString: Enemy
@@ -37,6 +36,7 @@ Transform:
   m_Children:
   - {fileID: 6612130831584067307}
   - {fileID: 7591741114262968317}
+  - {fileID: 5535596966826836984}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -168,13 +168,45 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!135 &-2862793708303230014
+--- !u!1 &4093552959378124508
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5535596966826836984}
+  - component: {fileID: 5972394030888022280}
+  m_Layer: 20
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5535596966826836984
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4093552959378124508}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8457077442840892433}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &5972394030888022280
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2605061689691065164}
+  m_GameObject: {fileID: 4093552959378124508}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
