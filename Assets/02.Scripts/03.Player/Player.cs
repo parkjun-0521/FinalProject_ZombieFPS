@@ -412,13 +412,15 @@ public class Player : PlayerController
                     }
                 }
                 else if (hit.collider.CompareTag("Npc")) {
-
-                    Debug.Log(2);
                     if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction))) {
                         Debug.Log("´ëÈ­");
                         hit.collider.GetComponent<NPC>().QusetTalkRPC();
-                        photonView.RPC("ShaderVisibleRPC", RpcTarget.AllBuffered);
-                       
+                        PhotonView photonView = PhotonView.Get(this);
+
+                        if (photonView != null) {
+                            photonView.RPC("ShaderVisibleRPC", RpcTarget.AllBuffered);
+                        }
+
                         if (inventory != null && theInventory.go_SlotsParent != null) {
                             Transform slotsParent = theInventory.go_SlotsParent.transform;
                             for (int i = 0; i < slotsParent.childCount; i++) {
@@ -429,7 +431,9 @@ public class Player : PlayerController
                                     string spriteName = imageComponent.sprite.name;
                                     if (spriteName.Equals("QuestItem")) {
                                         Debug.Log("Äù½ºÆ® ¿Ï·á");
-                                        photonView.RPC("QuestCompleteRPC", RpcTarget.AllBuffered);
+                                        if (photonView != null) {
+                                            photonView.RPC("QuestCompleteRPC", RpcTarget.AllBuffered, true);
+                                        }
                                         hit.collider.GetComponent<NPC>().QusetClearTalkRPC();
                                         theInventory.DecreaseMagazineCount(ItemController.ItemType.QuestItem);
                                     }
@@ -468,15 +472,19 @@ public class Player : PlayerController
     }
 
     [PunRPC]
-    void QuestCompleteRPC() {
+    public void QuestCompleteRPC(bool isTrue) {
+        Debug.Log("RPC µé¾î¿È ");
         if (ScenesManagerment.Instance.stageCount == 0) {
-            NextSceneManager.Instance.isQuest1 = true;
+            Debug.Log("RPC µé¾î¿È1 ");
+            NextSceneManager.Instance.isQuest1 = isTrue;
         }
         else if (ScenesManagerment.Instance.stageCount == 1) {
-            NextSceneManager.Instance.isQuest2 = true;
+            Debug.Log("RPC µé¾î¿È2 ");
+            NextSceneManager.Instance.isQuest2 = isTrue;
         }
         else if (ScenesManagerment.Instance.stageCount == 2) {
-            NextSceneManager.Instance.isQuest3 = true;
+            Debug.Log("RPC µé¾î¿È3 ");
+            NextSceneManager.Instance.isQuest3 = isTrue;
         }
     }
 
