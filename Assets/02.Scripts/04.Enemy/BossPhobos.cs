@@ -36,7 +36,7 @@ public class BossPhobos : EnemyController
     [Header("보스용 인스펙터")]
     [SerializeField] private GameObject[] players;
     [SerializeField] private float swingAtkDistance = 200;
-    [SerializeField] private float dashAtkDistance = 600;
+    [SerializeField] private float dashAtkDistance = 900;
     [SerializeField] private float dashPower = 30;
     [SerializeField] private float knockBackPower = 3.0f;
     private Collider[] playerCollider;
@@ -178,7 +178,7 @@ public class BossPhobos : EnemyController
         yield return new WaitForSeconds(1.0f);
         //int randomPlayer = random.range(0, 인원수);
         nav.velocity = (players[0].transform.position - transform.position).normalized * dashPower;
-
+        nav.destination = players[0].transform.position;
 
         if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack4))
         {
@@ -264,6 +264,11 @@ public class BossPhobos : EnemyController
             StopAllCoroutines();
             StartCoroutine(AnimationFalse("isDead"));
             state = State.dead;
+
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_dead1))
+            {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_dead1);
+            }
             //델리게이트 다른거 다 빼기
             //?초후에
             //gameObject.SetActive(false); 
