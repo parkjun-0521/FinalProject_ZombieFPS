@@ -12,7 +12,7 @@ public class Missile : ItemSword
      
     private void OnEnable()
     {
-        
+        tails[1].GetComponent<ParticleSystem>().Clear();
     }
 
     private void OnDisable()

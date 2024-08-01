@@ -380,6 +380,7 @@ public class EliteMeleeEnemy : EnemyController {
     }
     public override void ChangeHp(float value)
     {
+        if(photonView.IsMine)
         photonView.RPC("EliteMeleeChangeHpRPC", RpcTarget.AllBuffered, value);
     }
 }
