@@ -9,7 +9,6 @@ interface IEnemy
 {
     void EnemyMove();       // 좀비 이동 
     void EnemyRun();        // 좀비 달리기 
-
     void EnemyMeleeAttack();// 좀비 공격
     void EnemyDead();       // 좀비 사망 
     void EnemyTracking(Collider other);   // 좀비 추적
@@ -18,8 +17,6 @@ interface IEnemy
 
 public class EnemyController : MonoBehaviourPun, IEnemy
 {
-
-
     // 좀비 걷기 속도 
     [SerializeField]
     protected float speed;
@@ -27,33 +24,19 @@ public class EnemyController : MonoBehaviourPun, IEnemy
     // 좀비 달리기 속도
     [SerializeField]
     protected float runSpeed;
+    public float maxTracingSpeed;       // 최대 추적 속도 
 
     // 좀비 공격
     public float meleeDelay = 4.0f;     // 공격 max 주기
     public float nextAttack = 4;        // 공격 쿨타임
-    public float attackRange;
+    public float attackRange;           // 공격 거리 
 
-
-    //일정범위 지정 반지름단위
-    public float rangeOut = 10f;
+    // 일정범위 지정 반지름단위
+    public float rangeOut = 10f;        // walk 범위 
     //리셋 속도 5고정
-    public float resetSpeed = 5f;
+    public float resetSpeed = 5f;       // 원점 돌아오는 속도 
     //스폰 지점 지정
-    public Transform enemySpawn;
-
-    //추적거리
-    public float maxTracingSpeed;
-
-
-    // 컴포넌트
-    protected PhotonView PV;
-    public Transform playerTr;
-    protected Rigidbody rigid;
-    protected NavMeshAgent nav;
-    protected Animator ani;
-
-    public CapsuleCollider capsuleCollider;
-    public SphereCollider sphereCollider;
+    public Transform enemySpawn;        // 스폰 지점 
 
     //좀비 최대 체력
     [SerializeField]
@@ -80,18 +63,27 @@ public class EnemyController : MonoBehaviourPun, IEnemy
         }
     }
 
-    public float baseDamage = 10;
-    public float damage;
-
-    public bool isRangeOut = false;
-    public bool shouldEvaluate = false;
-    public bool isNow = false;
-
-    protected bool isWalk;              // 걷고있는 상태 
+    public float baseDamage = 10;       // 기본 데미지 
+    public float damage;                // 데미지 
+        
+    // 상태 변수 
+    public bool isRangeOut = false;     // 범위 판정 
+    public bool shouldEvaluate = false; // 추적 가능 상태 
+    public bool isNow = false;          // 걷기 가능 상태 
     protected bool isRun;               // 달리는 상태 
     protected bool isAttack;            // 공격 하는 상태 
     protected bool isTracking;          // 추적 상태
-  
+
+
+    // 컴포넌트
+    protected PhotonView PV;            // 포톤 뷰 
+    public Transform playerTr;          // 플레이어 Transform ( 추적 ) 
+    protected Rigidbody rigid;
+    protected NavMeshAgent nav;         // NavMesh 
+    protected Animator ani;             // 애니메이션    
+    public CapsuleCollider capsuleCollider;     // 몬스터 콜라이더 
+    public SphereCollider sphereCollider;       // 엘리트 몹  
+    public SphereCollider EnemyLookRange;       // 인식 범위 콜라이더 
 
     public virtual void EnemyMove() { }
     public virtual void EnemyRun() { }
@@ -99,21 +91,22 @@ public class EnemyController : MonoBehaviourPun, IEnemy
     public virtual void EnemyDead() { }
     public virtual void EnemyTracking(Collider other)
     {
-        if (this == null || transform == null)
-        {
-            return; // 객체가 파괴되었으면 함수 종료
-        }
+        // 객체가 파괴되었으면 함수 종료
+        if (this == null || transform == null) return;
 
         CancelInvoke("EnemyMove");
+        // 속도 초기화 
         rigid.velocity = Vector3.zero;
         rigid.angularVelocity = Vector3.zero;
+        // 플레이어 바라보기 
         transform.LookAt(other.transform);
+        // 플레이어 방향으로 전환 
         playerTr = other.transform;
+        // 트레킹 가능 상태 
         isTracking = true;
 
-        if (hp <= 0)
-        {
-            transform.LookAt(Vector3.zero);
+        if (hp <= 0) {
+            transform.LookAt(null);
             isWalk = false;
         }
     }
