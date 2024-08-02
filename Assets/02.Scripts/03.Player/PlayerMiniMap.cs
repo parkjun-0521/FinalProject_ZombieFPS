@@ -105,6 +105,7 @@ public class PlayerMiniMap : MonoBehaviour
                 MiniMapOtherPlayerMove(0, 1);
                 break;
             case 3:
+                if (players.Length != 3) return;
                 MiniMapOtherPlayerMove(0, 1);
                 MiniMapOtherPlayerMove(1, 2);
                 break;

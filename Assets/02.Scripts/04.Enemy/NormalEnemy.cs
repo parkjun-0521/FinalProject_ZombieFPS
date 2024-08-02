@@ -64,7 +64,15 @@ public class NormalEnemy : EnemyController
         capsuleCollider.enabled = true;
         sphereCollider = (SphereCollider)EnemyLookRange;
         rigid.isKinematic = false;
-        //nav.enabled = true;
+        if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
+        {
+            nav.enabled = true;
+            nav.Warp(hit.position); // 에이전트를 NavMesh에 정확히 배치
+        }
+        else
+        {
+            Debug.LogError("Start 중 에이전트를 NavMesh에 배치하는 데 실패했습니다.");
+        }
     }
 
     void Update()
@@ -73,7 +81,10 @@ public class NormalEnemy : EnemyController
         {
             if (isRangeOut) OnEnemyReset?.Invoke();
             if (isTracking) OnEnemyRun?.Invoke();
-            if (nav.enabled && nav.isStopped) OnEnemyAttack?.Invoke();
+            if (nav.isOnNavMesh)
+            {
+                if (nav.enabled && nav.isStopped) OnEnemyAttack?.Invoke();
+            }
             // 회전과 이동 처리
             if (isMoving)
             {
@@ -103,7 +114,8 @@ public class NormalEnemy : EnemyController
         {
             Hp = -(other.GetComponent<Bullet>().itemData.damage);
             other.gameObject.SetActive(false);
-            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt)) {
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt))
+            {
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
             }
         }
@@ -111,14 +123,16 @@ public class NormalEnemy : EnemyController
         {
             Hp = -(other.GetComponent<ItemSword>().itemData.damage);
             BloodEffect(transform.position);
-            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt)) {
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt))
+            {
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
             }
         }
         else if (other.CompareTag("Grenade"))
         {
             Hp = -(other.GetComponentInParent<ItemGrenade>().itemData.damage);
-            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt)) {
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt))
+            {
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
             }
         }
@@ -191,13 +205,14 @@ public class NormalEnemy : EnemyController
             else
             {
                 isNow = true;
-
-                // NavMeshAgent를 사용하여 이동
-                Vector3 targetPosition = transform.position + dest;
-                NavMeshHit hit;
-                if (NavMesh.SamplePosition(targetPosition, out hit, 1.0f, NavMesh.AllAreas))
+                if (nav.isOnNavMesh)
                 {
-                    nav.SetDestination(hit.position);
+                    Vector3 targetPosition = transform.position + dest;
+                    NavMeshHit hit;
+                    if (NavMesh.SamplePosition(targetPosition, out hit, 1.0f, NavMesh.AllAreas))
+                    {
+                        nav.SetDestination(hit.position);
+                    }
                 }
             }
             if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_walk))
@@ -205,9 +220,9 @@ public class NormalEnemy : EnemyController
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_walk);
             }
 
-        
+
         }
-        
+
 
     }
 
@@ -261,42 +276,46 @@ public class NormalEnemy : EnemyController
     {
         if (PV.IsMine)
         {
-            isRun = true;
-            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_run))
+            if (nav.isOnNavMesh)
             {
-                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_run);
-            }
-            ani.SetBool("isAttack", false);
+                isRun = true;
+                if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_run))
+                {
+                    AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_run);
+                }
+                ani.SetBool("isAttack", false);
 
-            // NavMeshAgent 설정
-            nav.speed = runSpeed;
-            nav.destination = playerTr.position;
+                // NavMeshAgent 설정
+                nav.speed = runSpeed;
+                nav.destination = playerTr.position;
 
-            // Rigidbody와 NavMeshAgent의 속도를 동기화
-            Vector3 desiredVelocity = nav.desiredVelocity;
+                // Rigidbody와 NavMeshAgent의 속도를 동기화
+                Vector3 desiredVelocity = nav.desiredVelocity;
 
-            // 이동 방향과 속도를 조절
-            rigid.velocity = Vector3.Lerp(rigid.velocity, desiredVelocity, Time.deltaTime * runSpeed);
+                // 이동 방향과 속도를 조절
+                rigid.velocity = Vector3.Lerp(rigid.velocity, desiredVelocity, Time.deltaTime * runSpeed);
 
-            // 속도 제한
-            if (rigid.velocity.magnitude > maxTracingSpeed)
-            {
-                rigid.velocity = rigid.velocity.normalized * maxTracingSpeed;
-            }
+                // 속도 제한
+                if (rigid.velocity.magnitude > maxTracingSpeed)
+                {
+                    rigid.velocity = rigid.velocity.normalized * maxTracingSpeed;
+                }
 
-            // 공격 범위 내에서 멈추기
-            float versusDist = Vector3.Distance(transform.position, playerTr.position);
+                // 공격 범위 내에서 멈추기
+                float versusDist = Vector3.Distance(transform.position, playerTr.position);
 
-            if (versusDist < attackRange)
-            {
-                rigid.velocity = Vector3.zero;
-                nav.isStopped = true;
-            }
-            else
-            {
-                nav.isStopped = false;
+                if (versusDist < attackRange)
+                {
+                    rigid.velocity = Vector3.zero;
+                    nav.isStopped = true;
+                }
+                else
+                {
+                    nav.isStopped = false;
+                }
             }
         }
+
 
     }
 
@@ -330,7 +349,8 @@ public class NormalEnemy : EnemyController
         if (hp <= 0)
         {
             photonView.RPC("HandleEnemyDeath", RpcTarget.AllBuffered);
-            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_dead1)) {
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_dead1))
+            {
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_dead1);
             }
         }
@@ -344,7 +364,7 @@ public class NormalEnemy : EnemyController
         capsuleCollider.enabled = false;
         sphereCollider.enabled = false;
         rigid.isKinematic = true;
-        //nav.enabled = false;
+        nav.enabled = false;
         OnEnemyReset -= ResetEnemy;
         OnRandomMove -= RandomMove;
         OnEnemyTracking -= EnemyTracking;

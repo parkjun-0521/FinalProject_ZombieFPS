@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 7b2c8b46d259c544aae83137126ba509, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: bde08042d3372d340b8a8ba97ebefd9b, type: 2}
 --- !u!1 &39821492
 GameObject:
   m_ObjectHideFlags: 0
@@ -52207,8 +52207,8 @@ GameObject:
   m_Name: UNIConcrete_wall_v1_W_tile_1 (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!23 &270629617766357866
 MeshRenderer:
@@ -52273,7 +52273,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 89
+  m_RootOrder: 88
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &270629617766357869
 BoxCollider:
@@ -52300,13 +52300,30 @@ GameObject:
   - component: {fileID: 270629617766357867}
   - component: {fileID: 270629617766357866}
   - component: {fileID: 270629617766357869}
+  - component: {fileID: 270629617766357872}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v2 (14)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &270629617766357872
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270629617766357871}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 9.341001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &270629617909538400
 GameObject:
   m_ObjectHideFlags: 0
@@ -52374,8 +52391,8 @@ GameObject:
   m_Name: Concrete_fence_v2_Gate (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &270629618022666417
 Transform:
@@ -52614,12 +52631,13 @@ GameObject:
   - component: {fileID: 270629618220906266}
   - component: {fileID: 270629618220906269}
   - component: {fileID: 270629618220906268}
+  - component: {fileID: 270629618220906272}
   m_Layer: 0
   m_Name: Concrete_fence_v1_s2 (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &270629618220906271
 Transform:
@@ -52634,8 +52652,24 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 88
+  m_RootOrder: 87
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!208 &270629618220906272
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270629618220906270}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.231, y: 1.4970001, z: 2.015}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!23 &270629618256848160
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -52731,8 +52765,8 @@ GameObject:
   m_Name: Concrete_fence_v2_Gate (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &270629618364738432
 Transform:
@@ -52779,8 +52813,8 @@ GameObject:
   m_Name: Concrete_fence_v2_Gate_lattice (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!23 &270629618364738446
 MeshRenderer:
@@ -52879,8 +52913,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &270629618601957361
 Transform:
@@ -52976,8 +53010,8 @@ GameObject:
   m_Name: UNIConcrete_wall_v1_W_tile_1 (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!23 &270629618656875252
 MeshRenderer:
@@ -53152,8 +53186,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!33 &270629618808485544
 MeshFilter:
@@ -53230,12 +53264,13 @@ GameObject:
   - component: {fileID: 270629618808485544}
   - component: {fileID: 270629618808485547}
   - component: {fileID: 270629618808485546}
+  - component: {fileID: 270629618808485550}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v1 (9)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &270629618808485549
 Transform:
@@ -53250,8 +53285,24 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 90
+  m_RootOrder: 89
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!208 &270629618808485550
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270629618808485548}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 4.684}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!23 &270629618822488262
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -53315,7 +53366,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 91
+  m_RootOrder: 90
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &270629618822488281
 BoxCollider:
@@ -53342,13 +53393,30 @@ GameObject:
   - component: {fileID: 270629618822488263}
   - component: {fileID: 270629618822488262}
   - component: {fileID: 270629618822488281}
+  - component: {fileID: 270629618822488284}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v1 (10)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &270629618822488284
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270629618822488283}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 4.684}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &270629618841943904
 GameObject:
   m_ObjectHideFlags: 0
@@ -53427,8 +53495,8 @@ GameObject:
   m_Name: UNIConcrete_wall_v1_W_tile_1 (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!23 &270629619073045628
 MeshRenderer:
@@ -53604,8 +53672,8 @@ GameObject:
   m_Name: UNIConcrete_wall_v1_W_tile_1 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &270629619474700961
 GameObject:
@@ -53623,8 +53691,8 @@ GameObject:
   m_Name: UNIConcrete_wall_v1_W_tile_1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!23 &270629619474700972
 MeshRenderer:
@@ -53790,12 +53858,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 274523628898884835}
+  - component: {fileID: 274523628898884836}
   m_Layer: 0
   m_Name: Concrete_fence_v2_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &271049086444117085
 GameObject:
@@ -53809,12 +53878,13 @@ GameObject:
   - component: {fileID: 266914564744556191}
   - component: {fileID: 256932022669122987}
   - component: {fileID: 227314267573632729}
+  - component: {fileID: 274523628629724528}
   m_Layer: 0
   m_Name: Concrete_fence_v1_s1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &271049086555710410
 GameObject:
@@ -53866,12 +53936,13 @@ GameObject:
   - component: {fileID: 266914567807712782}
   - component: {fileID: 256932054011367996}
   - component: {fileID: 227314265413537644}
+  - component: {fileID: 274523630044675375}
   m_Layer: 0
   m_Name: Concrete_fence_v1_column
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &271049087026834899
 GameObject:
@@ -53889,8 +53960,8 @@ GameObject:
   m_Name: Concrete_fence_v2_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &271049087405089703
 GameObject:
@@ -53923,12 +53994,13 @@ GameObject:
   - component: {fileID: 266914563430188165}
   - component: {fileID: 256932055404500319}
   - component: {fileID: 225786498285300623}
+  - component: {fileID: 274523628441343334}
   m_Layer: 0
   m_Name: Concrete_fence_v1_c1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &271049087785338290
 GameObject:
@@ -53946,8 +54018,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &271049087865508955
 GameObject:
@@ -53965,8 +54037,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &271049087972770383
 GameObject:
@@ -53984,8 +54056,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &271049088024961345
 GameObject:
@@ -54003,8 +54075,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &271049088031086193
 GameObject:
@@ -54022,8 +54094,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &271049088209518693
 GameObject:
@@ -54041,8 +54113,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &271049088280383884
 GameObject:
@@ -54060,8 +54132,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &271049088339856275
 GameObject:
@@ -54072,12 +54144,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 274523627604826149}
+  - component: {fileID: 274523627604826150}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &271049088593967566
 GameObject:
@@ -54133,8 +54206,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &271049088798177538
 GameObject:
@@ -54164,12 +54237,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 274523626021934439}
+  - component: {fileID: 274523626021934440}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &271049088865551360
 GameObject:
@@ -54196,12 +54270,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 274523625843327859}
+  - component: {fileID: 274523625843327860}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &271049089099487801
 GameObject:
@@ -54269,12 +54344,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 274523626671362224}
+  - component: {fileID: 274523626671362225}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &271049089431492889
 GameObject:
@@ -54292,8 +54368,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &271049089602107049
 GameObject:
@@ -54326,8 +54402,24 @@ Transform:
   - {fileID: 274523629299061279}
   - {fileID: 274523632163065677}
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 98
+  m_RootOrder: 97
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!208 &274523625843327860
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271049088995070149}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!4 &274523626021934439
 Transform:
   m_ObjectHideFlags: 0
@@ -54343,8 +54435,24 @@ Transform:
   - {fileID: 274523629142082571}
   - {fileID: 274523632039024985}
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 99
+  m_RootOrder: 98
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!208 &274523626021934440
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271049088850183889}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!4 &274523626671362224
 Transform:
   m_ObjectHideFlags: 0
@@ -54360,8 +54468,24 @@ Transform:
   - {fileID: 274523630060732892}
   - {fileID: 274523631389596814}
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 100
+  m_RootOrder: 99
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!208 &274523626671362225
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271049089239761670}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!4 &274523627358205473
 Transform:
   m_ObjectHideFlags: 0
@@ -54407,8 +54531,24 @@ Transform:
   - {fileID: 274523628645386569}
   - {fileID: 274523630401606683}
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 94
+  m_RootOrder: 93
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!208 &274523627604826150
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271049088339856275}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!4 &274523627859400150
 Transform:
   m_ObjectHideFlags: 0
@@ -54452,8 +54592,24 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 96
+  m_RootOrder: 95
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!208 &274523628441343334
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271049087407998493}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.215, y: 1.4970001, z: 1.215}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.32000002, y: 0, z: 0.32000002}
+  m_TimeToStationary: 0.5
 --- !u!4 &274523628629724527
 Transform:
   m_ObjectHideFlags: 0
@@ -54467,8 +54623,24 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 97
+  m_RootOrder: 96
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!208 &274523628629724528
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271049086444117085}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.231, y: 1.4970001, z: 2.015}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!4 &274523628645386569
 Transform:
   m_ObjectHideFlags: 0
@@ -54514,8 +54686,24 @@ Transform:
   - {fileID: 274523630863690503}
   - {fileID: 274523631965681213}
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 93
+  m_RootOrder: 92
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!208 &274523628898884836
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271049086251815807}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!4 &274523629115554200
 Transform:
   m_ObjectHideFlags: 0
@@ -54640,8 +54828,24 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 95
+  m_RootOrder: 94
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!208 &274523630044675375
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271049086899428680}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 0.363}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!4 &274523630060732892
 Transform:
   m_ObjectHideFlags: 0
@@ -54931,8 +55135,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!33 &648761521206405211
 MeshFilter:
@@ -55028,8 +55232,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &648761521268621104
 Transform:
@@ -55062,8 +55266,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!33 &648761521268621261
 MeshFilter:
@@ -55172,8 +55376,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!33 &648761521537742766
 MeshFilter:
@@ -55240,7 +55444,7 @@ Transform:
   - {fileID: 648761521951029447}
   - {fileID: 648761520954408176}
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 101
+  m_RootOrder: 100
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &648761521816964325
 GameObject:
@@ -55251,13 +55455,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 648761521816964324}
+  - component: {fileID: 648761521816964326}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &648761521816964326
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648761521816964325}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!33 &648761521852873274
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -55352,8 +55573,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!33 &648761521906911832
 MeshFilter:
@@ -55449,8 +55670,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!33 &648761521951029444
 MeshFilter:
@@ -55546,8 +55767,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &648761522103583350
 Transform:
@@ -55653,7 +55874,7 @@ Transform:
   - {fileID: 648761521852873277}
   - {fileID: 648761522193099810}
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 102
+  m_RootOrder: 101
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &648761522106568429
 GameObject:
@@ -55664,13 +55885,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 648761522106568428}
+  - component: {fileID: 648761522106568430}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &648761522106568430
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648761522106568429}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!4 &648761522118890906
 Transform:
   m_ObjectHideFlags: 0
@@ -55686,7 +55924,7 @@ Transform:
   - {fileID: 648761521537742737}
   - {fileID: 648761521268621104}
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 104
+  m_RootOrder: 103
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &648761522118890907
 GameObject:
@@ -55697,13 +55935,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 648761522118890906}
+  - component: {fileID: 648761522118890908}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &648761522118890908
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648761522118890907}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!23 &648761522193099808
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -55790,8 +56045,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!33 &648761522193099839
 MeshFilter:
@@ -55868,7 +56123,7 @@ Transform:
   - {fileID: 648761521206405214}
   - {fileID: 648761521906911835}
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 103
+  m_RootOrder: 102
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &648761522516902823
 GameObject:
@@ -55879,13 +56134,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 648761522516902822}
+  - component: {fileID: 648761522516902824}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &648761522516902824
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648761522516902823}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!4 &648761522598644275
 Transform:
   m_ObjectHideFlags: 0
@@ -56265,12 +56537,13 @@ GameObject:
   - component: {fileID: 1739713159197055998}
   - component: {fileID: 1729444724142277608}
   - component: {fileID: 1781001689974522644}
+  - component: {fileID: 1781001689974522645}
   m_Layer: 0
   m_Name: Concrete_fence_v1_s2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1756328323921299942
 Transform:
@@ -56285,7 +56558,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 92
+  m_RootOrder: 91
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1781001689974522644
 BoxCollider:
@@ -56300,6 +56573,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4622266, y: 2.9944706, z: 4.0297647}
   m_Center: {x: 0.00000008940697, y: 0.000000059604645, z: 0}
+--- !u!208 &1781001689974522645
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1752466720061450370}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.231, y: 1.4970001, z: 2.015}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!4 &1885481620159309172
 Transform:
   m_ObjectHideFlags: 0
@@ -58783,12 +59072,13 @@ GameObject:
   - component: {fileID: 6514787770411831057}
   - component: {fileID: 6514787770408406833}
   - component: {fileID: 6514787770409537009}
+  - component: {fileID: 6514787770411831058}
   m_Layer: 0
   m_Name: BlockFence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6514787770411831057
 Transform:
@@ -58803,8 +59093,24 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 105
+  m_RootOrder: 104
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!208 &6514787770411831058
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6514787770411733809}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.59000003, y: 2.555, z: 4}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 2.555, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &6637735365766878794
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -77957,7 +78263,7 @@ Transform:
   - {fileID: 9039891093752258688}
   - {fileID: 9039891091348258258}
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 51
+  m_RootOrder: 50
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &9039891086211008579
 Transform:
@@ -77974,7 +78280,7 @@ Transform:
   - {fileID: 9039891093694028079}
   - {fileID: 9039891091155600509}
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 52
+  m_RootOrder: 51
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &9039891086232793731
 Transform:
@@ -77991,7 +78297,7 @@ Transform:
   - {fileID: 9039891093648991215}
   - {fileID: 9039891091188334269}
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 63
+  m_RootOrder: 62
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &9039891086241982951
 Transform:
@@ -78042,7 +78348,7 @@ Transform:
   - {fileID: 9039891093964060625}
   - {fileID: 9039891090888731267}
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 53
+  m_RootOrder: 52
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &9039891086546235539
 Transform:
@@ -78059,7 +78365,7 @@ Transform:
   - {fileID: 9039891093893980671}
   - {fileID: 9039891090954615981}
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 57
+  m_RootOrder: 56
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &9039891086596683671
 Transform:
@@ -78142,7 +78448,7 @@ Transform:
   - {fileID: 9039891092421398054}
   - {fileID: 9039891090553639796}
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 58
+  m_RootOrder: 57
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &9039891086973471215
 Transform:
@@ -78159,7 +78465,7 @@ Transform:
   - {fileID: 9039891092376148099}
   - {fileID: 9039891090577655249}
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 59
+  m_RootOrder: 58
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &9039891087088419803
 Transform:
@@ -78227,7 +78533,7 @@ Transform:
   - {fileID: 9039891092662955474}
   - {fileID: 9039891090294009984}
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 62
+  m_RootOrder: 61
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &9039891087254550337
 Transform:
@@ -78297,7 +78603,7 @@ Transform:
   - {fileID: 9039891092982832687}
   - {fileID: 9039891089974117245}
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 54
+  m_RootOrder: 53
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &9039891087498538767
 Transform:
@@ -78314,7 +78620,7 @@ Transform:
   - {fileID: 9039891092901445219}
   - {fileID: 9039891090069414705}
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 61
+  m_RootOrder: 60
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &9039891087501467563
 Transform:
@@ -78708,7 +79014,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 79
+  m_RootOrder: 78
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &9039891090030153139
 Transform:
@@ -78905,21 +79211,6 @@ Transform:
   m_Father: {fileID: 9039891093247398316}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &9039891090198752324
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9041430836717686500}
-  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 48.4442, y: -15.822, z: 19.8782}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 36
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!4 &9039891090200476162
 Transform:
   m_ObjectHideFlags: 0
@@ -78933,7 +79224,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 84
+  m_RootOrder: 83
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &9039891090211247950
 Transform:
@@ -79113,7 +79404,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 74
+  m_RootOrder: 73
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &9039891090346292626
 Transform:
@@ -79548,7 +79839,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 78
+  m_RootOrder: 77
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &9039891090577655249
 Transform:
@@ -79728,7 +80019,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 77
+  m_RootOrder: 76
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &9039891090686479816
 Transform:
@@ -79803,7 +80094,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 75
+  m_RootOrder: 74
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &9039891090725194636
 Transform:
@@ -80478,7 +80769,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 87
+  m_RootOrder: 86
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &9039891091200908278
 Transform:
@@ -80658,7 +80949,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 49
+  m_RootOrder: 48
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &9039891091369378574
 Transform:
@@ -80748,7 +81039,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 76
+  m_RootOrder: 75
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &9039891091474039544
 Transform:
@@ -80763,7 +81054,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 70
+  m_RootOrder: 69
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &9039891091489874128
 Transform:
@@ -80980,7 +81271,7 @@ Transform:
   - {fileID: 9039891090346292626}
   - {fileID: 9039891093085165570}
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 65
+  m_RootOrder: 64
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &9039891091676978579
 Transform:
@@ -81130,7 +81421,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 72
+  m_RootOrder: 71
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &9039891091826666565
 Transform:
@@ -81357,7 +81648,7 @@ Transform:
   - {fileID: 9039891092311855538}
   - {fileID: 9039891093066313374}
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 68
+  m_RootOrder: 67
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &9039891091976244480
 Transform:
@@ -81524,7 +81815,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 85
+  m_RootOrder: 84
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &9039891092083523198
 Transform:
@@ -81539,7 +81830,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 64
+  m_RootOrder: 63
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &9039891092083760004
 Transform:
@@ -81584,7 +81875,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 86
+  m_RootOrder: 85
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &9039891092127164687
 Transform:
@@ -81616,7 +81907,7 @@ Transform:
   - {fileID: 9039891090104539623}
   - {fileID: 9039891091149636829}
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 60
+  m_RootOrder: 59
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &9039891092143939574
 Transform:
@@ -81923,7 +82214,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 82
+  m_RootOrder: 81
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &9039891092390313181
 Transform:
@@ -82028,7 +82319,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 73
+  m_RootOrder: 72
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &9039891092475915979
 Transform:
@@ -82058,7 +82349,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 50
+  m_RootOrder: 49
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &9039891092482291132
 Transform:
@@ -82136,7 +82427,7 @@ Transform:
   - {fileID: 9039891092815417813}
   - {fileID: 9039891093635935993}
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 69
+  m_RootOrder: 68
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &9039891092627870322
 Transform:
@@ -82151,7 +82442,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 46
+  m_RootOrder: 45
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &9039891092633452304
 Transform:
@@ -82166,7 +82457,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 38
+  m_RootOrder: 37
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &9039891092637310023
 Transform:
@@ -82695,7 +82986,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 56
+  m_RootOrder: 55
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &9039891093010288458
 Transform:
@@ -82757,7 +83048,7 @@ Transform:
   - {fileID: 9039891093375470299}
   - {fileID: 9039891092014953975}
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 66
+  m_RootOrder: 65
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &9039891093052316535
 Transform:
@@ -82862,7 +83153,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 42
+  m_RootOrder: 41
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &9039891093114704814
 Transform:
@@ -83042,7 +83333,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 37
+  m_RootOrder: 36
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &9039891093230992426
 Transform:
@@ -83057,7 +83348,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 45
+  m_RootOrder: 44
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &9039891093240737843
 Transform:
@@ -83182,7 +83473,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 40
+  m_RootOrder: 39
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &9039891093328888721
 Transform:
@@ -83212,7 +83503,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 83
+  m_RootOrder: 82
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &9039891093338810041
 Transform:
@@ -83333,7 +83624,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 48
+  m_RootOrder: 47
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &9039891093375470299
 Transform:
@@ -83500,7 +83791,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 81
+  m_RootOrder: 80
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &9039891093566484506
 Transform:
@@ -83515,7 +83806,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 71
+  m_RootOrder: 70
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &9039891093609935025
 Transform:
@@ -83562,7 +83853,7 @@ Transform:
   - {fileID: 9039891091847719109}
   - {fileID: 9039891090745472511}
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 67
+  m_RootOrder: 66
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!4 &9039891093624850244
 Transform:
@@ -83577,7 +83868,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 55
+  m_RootOrder: 54
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &9039891093630089357
 Transform:
@@ -83682,7 +83973,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 47
+  m_RootOrder: 46
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &9039891093694028079
 Transform:
@@ -83757,7 +84048,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 41
+  m_RootOrder: 40
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &9039891093751475276
 Transform:
@@ -83926,7 +84217,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 44
+  m_RootOrder: 43
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &9039891093831165357
 Transform:
@@ -83971,7 +84262,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 43
+  m_RootOrder: 42
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &9039891093872513602
 Transform:
@@ -84076,7 +84367,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 39
+  m_RootOrder: 38
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &9039891093962784305
 Transform:
@@ -84261,7 +84552,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9041557828730867410}
-  m_RootOrder: 80
+  m_RootOrder: 79
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &9039891094074163256
 Transform:
@@ -84357,8 +84648,8 @@ GameObject:
   m_Name: UNIConcrete_wall_v1_W_tile_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430831532031085
 GameObject:
@@ -84414,8 +84705,8 @@ GameObject:
   m_Name: UNIConcrete_wall_v1_W_tile_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430831779865486
 GameObject:
@@ -84433,8 +84724,8 @@ GameObject:
   m_Name: UNIConcrete_wall_v1_W_tile_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430831829211653
 GameObject:
@@ -84545,8 +84836,8 @@ GameObject:
   m_Name: UNIConcrete_wall_v1_W_tile_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430832143351855
 GameObject:
@@ -84564,8 +84855,8 @@ GameObject:
   m_Name: UNIConcrete_wall_v1_W_tile_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430832188392635
 GameObject:
@@ -84620,8 +84911,8 @@ GameObject:
   m_Name: UNIConcrete_wall_v1_W_tile_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430832497471195
 GameObject:
@@ -84919,8 +85210,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430835591441874
 GameObject:
@@ -84938,8 +85229,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430835622193836
 GameObject:
@@ -84988,13 +85279,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891087088419803}
+  - component: {fileID: 9041430835659968622}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (7)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430835659968622
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430835659968621}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430835668526318
 GameObject:
   m_ObjectHideFlags: 0
@@ -85011,8 +85319,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430835720076974
 GameObject:
@@ -85026,12 +85334,13 @@ GameObject:
   - component: {fileID: 9011471567721522264}
   - component: {fileID: 9019485829284619608}
   - component: {fileID: 9050352185121771144}
+  - component: {fileID: 9050352185121771145}
   m_Layer: 0
   m_Name: UNIConcrete_wall_v1_S_middle
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430835743595841
 GameObject:
@@ -85049,8 +85358,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430835753368971
 GameObject:
@@ -85087,8 +85396,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430835771946854
 GameObject:
@@ -85099,13 +85408,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891086878024912}
+  - component: {fileID: 9041430835771946855}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (15)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430835771946855
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430835771946854}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430835776797925
 GameObject:
   m_ObjectHideFlags: 0
@@ -85122,8 +85448,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430835782274253
 GameObject:
@@ -85153,13 +85479,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891091974210126}
+  - component: {fileID: 9041430835789291797}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S_half (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430835789291797
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430835789291796}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430835789992666
 GameObject:
   m_ObjectHideFlags: 0
@@ -85194,8 +85537,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S_half
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430835798414538
 GameObject:
@@ -85213,8 +85556,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430835808475737
 GameObject:
@@ -85225,13 +85568,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891086973471215}
+  - component: {fileID: 9041430835808475738}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (26)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430835808475738
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430835808475737}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430835818741609
 GameObject:
   m_ObjectHideFlags: 0
@@ -85279,13 +85639,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891086951358282}
+  - component: {fileID: 9041430835832687869}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (25)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430835832687869
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430835832687868}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430835836531244
 GameObject:
   m_ObjectHideFlags: 0
@@ -85352,13 +85729,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891086762786264}
+  - component: {fileID: 9041430835853635183}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (14)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430835853635183
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430835853635182}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430835860142541
 GameObject:
   m_ObjectHideFlags: 0
@@ -85371,12 +85765,13 @@ GameObject:
   - component: {fileID: 9011471574440262771}
   - component: {fileID: 9019485831846137541}
   - component: {fileID: 9051388465547373363}
+  - component: {fileID: 9051388465547373364}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v2
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430835863349990
 GameObject:
@@ -85409,12 +85804,13 @@ GameObject:
   - component: {fileID: 9011471574408408145}
   - component: {fileID: 9019485831814291175}
   - component: {fileID: 9051388465583422225}
+  - component: {fileID: 9051388465583422226}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v2 (10)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430835911310269
 GameObject:
@@ -85432,8 +85828,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430835939335177
 GameObject:
@@ -85602,8 +85998,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836019602465
 GameObject:
@@ -85614,13 +86010,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891086596683671}
+  - component: {fileID: 9041430836019602466}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (18)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430836019602466
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430836019602465}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430836040818060
 GameObject:
   m_ObjectHideFlags: 0
@@ -85637,8 +86050,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836076417953
 GameObject:
@@ -85656,8 +86069,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836081042833
 GameObject:
@@ -85675,8 +86088,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836122579375
 GameObject:
@@ -85694,8 +86107,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836165532795
 GameObject:
@@ -85782,12 +86195,13 @@ GameObject:
   - component: {fileID: 9011471573715271604}
   - component: {fileID: 9019485831496535298}
   - component: {fileID: 9051388465225820404}
+  - component: {fileID: 9051388465225820405}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v2 (13)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836190914433
 GameObject:
@@ -85805,8 +86219,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836203718659
 GameObject:
@@ -85880,8 +86294,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836277763317
 GameObject:
@@ -85892,13 +86306,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891087447019331}
+  - component: {fileID: 9041430836277763318}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (23)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430836277763318
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430836277763317}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430836284984117
 GameObject:
   m_ObjectHideFlags: 0
@@ -85911,12 +86342,13 @@ GameObject:
   - component: {fileID: 9011471573747093131}
   - component: {fileID: 9019485831670856765}
   - component: {fileID: 9051388465458420171}
+  - component: {fileID: 9051388465458420172}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v2 (12)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836289767778
 GameObject:
@@ -85930,12 +86362,13 @@ GameObject:
   - component: {fileID: 9011471573750566108}
   - component: {fileID: 9019485831668170346}
   - component: {fileID: 9051388465461107612}
+  - component: {fileID: 9051388465461107613}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v2 (11)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836292329843
 GameObject:
@@ -85946,13 +86379,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891092611990057}
+  - component: {fileID: 9041430836292329844}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S_half
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430836292329844
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430836292329843}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430836294442997
 GameObject:
   m_ObjectHideFlags: 0
@@ -85969,8 +86419,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S_half
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836313892196
 GameObject:
@@ -85981,13 +86431,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891087407593170}
+  - component: {fileID: 9041430836313892197}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430836313892197
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430836313892196}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430836323814429
 GameObject:
   m_ObjectHideFlags: 0
@@ -85997,13 +86464,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891087501467563}
+  - component: {fileID: 9041430836323814430}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (8)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430836323814430
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430836323814429}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430836325874873
 GameObject:
   m_ObjectHideFlags: 0
@@ -86013,13 +86497,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891087498538767}
+  - component: {fileID: 9041430836325874874}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (27)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430836325874874
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430836325874873}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430836344084611
 GameObject:
   m_ObjectHideFlags: 0
@@ -86055,8 +86556,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836363630342
 GameObject:
@@ -86112,8 +86613,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836396614827
 GameObject:
@@ -86143,13 +86644,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891091504279954}
+  - component: {fileID: 9041430836402279219}
   m_Layer: 0
   m_Name: Concrete_fence_v2_Gate (2)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430836402279219
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430836402279218}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430836418010014
 GameObject:
   m_ObjectHideFlags: 0
@@ -86181,12 +86699,13 @@ GameObject:
   - component: {fileID: 9011471573879896238}
   - component: {fileID: 9019485831268993560}
   - component: {fileID: 9051388465054904302}
+  - component: {fileID: 9051388465054904303}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v2
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836426201013
 GameObject:
@@ -86197,13 +86716,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891087263843331}
+  - component: {fileID: 9041430836426201014}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (20)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430836426201014
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430836426201013}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430836437469912
 GameObject:
   m_ObjectHideFlags: 0
@@ -86216,12 +86752,13 @@ GameObject:
   - component: {fileID: 9011471573896400742}
   - component: {fileID: 9019485831251967440}
   - component: {fileID: 9051388465038383142}
+  - component: {fileID: 9051388465038383143}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v2
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836456737151
 GameObject:
@@ -86239,8 +86776,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836472232800
 GameObject:
@@ -86254,12 +86791,13 @@ GameObject:
   - component: {fileID: 9011471573888245254}
   - component: {fileID: 9019485830957950566}
   - component: {fileID: 9050352179960723708}
+  - component: {fileID: 9050352179960723709}
   m_Layer: 0
   m_Name: UNIConcrete_wall_v1_W_end_2
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836489742555
 GameObject:
@@ -86277,8 +86815,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836497855423
 GameObject:
@@ -86296,8 +86834,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836512869786
 GameObject:
@@ -86311,12 +86849,13 @@ GameObject:
   - component: {fileID: 9011471573955282980}
   - component: {fileID: 9019485831193410194}
   - component: {fileID: 9051388464962789220}
+  - component: {fileID: 9051388464962789221}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v2 (3)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836514114497
 GameObject:
@@ -86330,12 +86869,13 @@ GameObject:
   - component: {fileID: 9011471573954170495}
   - component: {fileID: 9019485831190068425}
   - component: {fileID: 9051388464961935679}
+  - component: {fileID: 9051388464961935680}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v2 (4)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836532998352
 GameObject:
@@ -86353,8 +86893,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836539052243
 GameObject:
@@ -86421,13 +86961,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891091648908002}
+  - component: {fileID: 9041430836546791491}
   m_Layer: 0
   m_Name: Concrete_fence_v2_Gate
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430836546791491
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430836546791490}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430836550503957
 GameObject:
   m_ObjectHideFlags: 0
@@ -86437,13 +86994,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891087174245795}
+  - component: {fileID: 9041430836550503958}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (9)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430836550503958
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430836550503957}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430836551785070
 GameObject:
   m_ObjectHideFlags: 0
@@ -86460,8 +87034,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_L
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836606810604
 GameObject:
@@ -86479,8 +87053,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836607458673
 GameObject:
@@ -86517,8 +87091,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836613813252
 GameObject:
@@ -86567,13 +87141,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891087194258622}
+  - component: {fileID: 9041430836628975369}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (28)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430836628975369
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430836628975368}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430836631738739
 GameObject:
   m_ObjectHideFlags: 0
@@ -86583,13 +87174,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891087192492741}
+  - component: {fileID: 9041430836631738740}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430836631738740
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430836631738739}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430836652581951
 GameObject:
   m_ObjectHideFlags: 0
@@ -86675,12 +87283,13 @@ GameObject:
   - component: {fileID: 9011471573072329107}
   - component: {fileID: 9019485833145649957}
   - component: {fileID: 9051388464784731859}
+  - component: {fileID: 9051388464784731860}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v2 (8)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836706855073
 GameObject:
@@ -86698,8 +87307,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836715946727
 GameObject:
@@ -86717,24 +87326,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &9041430836717686500
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 9039891090198752324}
-  m_Layer: 0
-  m_Name: Concrete_fence_v2_Gate (1)
-  m_TagString: Ground
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836725243847
 GameObject:
@@ -86752,8 +87345,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836727596878
 GameObject:
@@ -86771,8 +87364,8 @@ GameObject:
   m_Name: Concrete_fence_v2_Gate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836729063868
 GameObject:
@@ -86790,8 +87383,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836765440924
 GameObject:
@@ -86805,12 +87398,13 @@ GameObject:
   - component: {fileID: 9011471573132312098}
   - component: {fileID: 9019485833086225556}
   - component: {fileID: 9051388464709937506}
+  - component: {fileID: 9051388464709937507}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v2 (5)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836783742808
 GameObject:
@@ -86821,13 +87415,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891085998386414}
+  - component: {fileID: 9041430836783742809}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (19)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430836783742809
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430836783742808}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430836794302070
 GameObject:
   m_ObjectHideFlags: 0
@@ -86844,8 +87455,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836796559617
 GameObject:
@@ -86863,8 +87474,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836807147309
 GameObject:
@@ -86913,13 +87524,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891085787174390}
+  - component: {fileID: 9041430836829095489}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (17)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430836829095489
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430836829095488}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430836835092691
 GameObject:
   m_ObjectHideFlags: 0
@@ -86936,8 +87564,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836855055852
 GameObject:
@@ -86955,8 +87583,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836865694507
 GameObject:
@@ -86993,8 +87621,8 @@ GameObject:
   m_Name: Concrete_fence_v2_Gate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836874839291
 GameObject:
@@ -87012,8 +87640,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S_half
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836885355133
 GameObject:
@@ -87024,13 +87652,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891093042026791}
+  - component: {fileID: 9041430836885355134}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S_half (2)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430836885355134
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430836885355133}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430836891665573
 GameObject:
   m_ObjectHideFlags: 0
@@ -87062,12 +87707,13 @@ GameObject:
   - component: {fileID: 9011471573274588646}
   - component: {fileID: 9019485833213691728}
   - component: {fileID: 9051388464850903718}
+  - component: {fileID: 9051388464850903719}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v2 (9)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836898667064
 GameObject:
@@ -87100,12 +87746,13 @@ GameObject:
   - component: {fileID: 9011471573381076281}
   - component: {fileID: 9019485832909285263}
   - component: {fileID: 9051388464488415865}
+  - component: {fileID: 9051388464488415866}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v2 (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836942431184
 GameObject:
@@ -87123,8 +87770,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836968597245
 GameObject:
@@ -87180,8 +87827,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430836988992872
 GameObject:
@@ -87218,8 +87865,8 @@ GameObject:
   m_Name: Concrete_fence_v2_Gate_lattice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837005211045
 GameObject:
@@ -87275,8 +87922,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837033070220
 GameObject:
@@ -87313,8 +87960,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837041609956
 GameObject:
@@ -87332,8 +87979,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837047620340
 GameObject:
@@ -87385,12 +88032,13 @@ GameObject:
   - component: {fileID: 9011471573550146370}
   - component: {fileID: 9019485829553576738}
   - component: {fileID: 9050352179367544248}
+  - component: {fileID: 9050352179367544249}
   m_Layer: 0
   m_Name: UNIConcrete_wall_v1_W_end_2 (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837086771329
 GameObject:
@@ -87442,12 +88090,13 @@ GameObject:
   - component: {fileID: 9011471573482413149}
   - component: {fileID: 9019485833008393963}
   - component: {fileID: 9051388464657681181}
+  - component: {fileID: 9051388464657681182}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v2 (2)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837097669745
 GameObject:
@@ -87503,8 +88152,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837123927814
 GameObject:
@@ -87515,13 +88164,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891085625547952}
+  - component: {fileID: 9041430837123927815}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (13)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430837123927815
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430837123927814}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430837139456004
 GameObject:
   m_ObjectHideFlags: 0
@@ -87538,8 +88204,8 @@ GameObject:
   m_Name: Concrete_fence_v2_Gate_lattice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837143992602
 GameObject:
@@ -87576,8 +88242,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837145371782
 GameObject:
@@ -87591,12 +88257,13 @@ GameObject:
   - component: {fileID: 9011471573599535416}
   - component: {fileID: 9019485832959980430}
   - component: {fileID: 9051388464538326648}
+  - component: {fileID: 9051388464538326649}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v2 (7)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837154387275
 GameObject:
@@ -87671,8 +88338,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837208852913
 GameObject:
@@ -87705,12 +88372,13 @@ GameObject:
   - component: {fileID: 9011471572579315694}
   - component: {fileID: 9019485832633900376}
   - component: {fileID: 9051388464189192366}
+  - component: {fileID: 9051388464189192367}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v2 (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837235763946
 GameObject:
@@ -87778,13 +88446,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891086482056893}
+  - component: {fileID: 9041430837242705164}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (22)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430837242705164
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430837242705163}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430837271603296
 GameObject:
   m_ObjectHideFlags: 0
@@ -87908,13 +88593,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891086546235539}
+  - component: {fileID: 9041430837310546726}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (24)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430837310546726
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430837310546725}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430837324299993
 GameObject:
   m_ObjectHideFlags: 0
@@ -87962,13 +88664,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891086378593983}
+  - component: {fileID: 9041430837345025290}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (10)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430837345025290
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430837345025289}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430837349294143
 GameObject:
   m_ObjectHideFlags: 0
@@ -87981,12 +88700,13 @@ GameObject:
   - component: {fileID: 9011471572724737409}
   - component: {fileID: 9019485832756123447}
   - component: {fileID: 9051388464335401665}
+  - component: {fileID: 9051388464335401666}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v2 (6)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837369137370
 GameObject:
@@ -88004,8 +88724,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837375160936
 GameObject:
@@ -88023,8 +88743,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837375430195
 GameObject:
@@ -88042,8 +88762,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837377703575
 GameObject:
@@ -88061,8 +88781,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837391648843
 GameObject:
@@ -88080,8 +88800,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837403432942
 GameObject:
@@ -88099,8 +88819,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837436289108
 GameObject:
@@ -88137,8 +88857,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837462078175
 GameObject:
@@ -88168,13 +88888,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891086241982951}
+  - component: {fileID: 9041430837480585810}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (3)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430837480585810
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430837480585809}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430837484384722
 GameObject:
   m_ObjectHideFlags: 0
@@ -88191,8 +88928,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837488689461
 GameObject:
@@ -88203,13 +88940,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891086232793731}
+  - component: {fileID: 9041430837488689462}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (29)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430837488689462
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430837488689461}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430837496324418
 GameObject:
   m_ObjectHideFlags: 0
@@ -88222,12 +88976,13 @@ GameObject:
   - component: {fileID: 9011471572804134140}
   - component: {fileID: 9019485832340592202}
   - component: {fileID: 9051388463979115452}
+  - component: {fileID: 9051388463979115453}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v2 (2)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837499738745
 GameObject:
@@ -88276,13 +89031,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891086211008579}
+  - component: {fileID: 9041430837512723446}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (21)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430837512723446
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430837512723445}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430837534682734
 GameObject:
   m_ObjectHideFlags: 0
@@ -88337,8 +89109,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837554471555
 GameObject:
@@ -88356,8 +89128,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837557840456
 GameObject:
@@ -88375,8 +89147,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837568992644
 GameObject:
@@ -88432,8 +89204,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837615182444
 GameObject:
@@ -88489,8 +89261,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837626240386
 GameObject:
@@ -88508,8 +89280,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837642041168
 GameObject:
@@ -88520,13 +89292,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891086046921958}
+  - component: {fileID: 9041430837642041169}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (16)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430837642041169
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430837642041168}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430837659206647
 GameObject:
   m_ObjectHideFlags: 0
@@ -88558,12 +89347,13 @@ GameObject:
   - component: {fileID: 9011471573030437790}
   - component: {fileID: 9019485832449601832}
   - component: {fileID: 9051388464004388062}
+  - component: {fileID: 9051388464004388063}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v2 (3)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837697009369
 GameObject:
@@ -88581,8 +89371,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837697380575
 GameObject:
@@ -88638,8 +89428,8 @@ GameObject:
   m_Name: Concrete_fence_v2_lattice_S
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837722398368
 GameObject:
@@ -88653,12 +89443,13 @@ GameObject:
   - component: {fileID: 9011471573014215454}
   - component: {fileID: 9019485832399800744}
   - component: {fileID: 9051388464020630622}
+  - component: {fileID: 9051388464020630623}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v2 (4)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837723062874
 GameObject:
@@ -88669,13 +89460,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891086135816684}
+  - component: {fileID: 9041430837723062875}
   m_Layer: 0
   m_Name: Concrete_fence_v2_S (2)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430837723062875
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430837723062874}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430837732367621
 GameObject:
   m_ObjectHideFlags: 0
@@ -88782,12 +89590,13 @@ GameObject:
   - component: {fileID: 9011471567477840910}
   - component: {fileID: 9019485831704879264}
   - component: {fileID: 9051388467373134712}
+  - component: {fileID: 9051388467373134713}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v1
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837775018213
 GameObject:
@@ -88819,12 +89628,13 @@ GameObject:
   - component: {fileID: 9011471566782619851}
   - component: {fileID: 9019485837485396991}
   - component: {fileID: 9051388472350011533}
+  - component: {fileID: 9051388472350011534}
   m_Layer: 0
   m_Name: Concrete_fence_v1_s1
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837787094888
 GameObject:
@@ -88870,13 +89680,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891087545134040}
+  - component: {fileID: 9041430837805201453}
   m_Layer: 0
   m_Name: UNIConcrete_wall_v1_S_R_2 (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430837805201453
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430837805201452}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430837806928279
 GameObject:
   m_ObjectHideFlags: 0
@@ -89041,12 +89868,13 @@ GameObject:
   - component: {fileID: 9011471567622391966}
   - component: {fileID: 9019485831577400368}
   - component: {fileID: 9051388467500615656}
+  - component: {fileID: 9051388467500615657}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v1 (7)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837916672415
 GameObject:
@@ -89057,13 +89885,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891092136979971}
+  - component: {fileID: 9041430837916672416}
   m_Layer: 0
   m_Name: Concrete_fence_v2_L (4)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430837916672416
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430837916672415}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430837924580247
 GameObject:
   m_ObjectHideFlags: 0
@@ -89149,12 +89994,13 @@ GameObject:
   - component: {fileID: 9011471571661831216}
   - component: {fileID: 9019485830391222274}
   - component: {fileID: 9051388465626434898}
+  - component: {fileID: 9051388465626434899}
   m_Layer: 0
   m_Name: Concrete_fence_v1_column (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430837996568305
 GameObject:
@@ -89168,12 +90014,13 @@ GameObject:
   - component: {fileID: 9011471567176518369}
   - component: {fileID: 9019485831402518095}
   - component: {fileID: 9051388467137578391}
+  - component: {fileID: 9051388467137578392}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v1 (5)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430838005113099
 GameObject:
@@ -89324,8 +90171,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S_half
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430838095772437
 GameObject:
@@ -89354,13 +90201,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891087254550337}
+  - component: {fileID: 9041430838096045238}
   m_Layer: 0
   m_Name: UNIConcrete_wall_v1_S_R_2
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430838096045238
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430838096045237}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430838151758830
 GameObject:
   m_ObjectHideFlags: 0
@@ -89411,12 +90275,13 @@ GameObject:
   - component: {fileID: 9011471571963525496}
   - component: {fileID: 9019485830156571978}
   - component: {fileID: 9051388465928652826}
+  - component: {fileID: 9051388465928652827}
   m_Layer: 0
   m_Name: Concrete_fence_v1_column
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430838233547174
 GameObject:
@@ -89446,13 +90311,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891092526821482}
+  - component: {fileID: 9041430838244276503}
   m_Layer: 0
   m_Name: UNIConcrete_wall_v1_W_3
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430838244276503
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430838244276502}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430838245579671
 GameObject:
   m_ObjectHideFlags: 0
@@ -89507,8 +90389,8 @@ GameObject:
   m_Name: Concrete_fence_v2_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430838266613681
 GameObject:
@@ -89526,8 +90408,8 @@ GameObject:
   m_Name: UNIConcrete_wall_v1_S_R_2f
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430838271749558
 GameObject:
@@ -89655,12 +90537,13 @@ GameObject:
   - component: {fileID: 9011471572101903291}
   - component: {fileID: 9019485831108648841}
   - component: {fileID: 9051388464984900313}
+  - component: {fileID: 9051388464984900314}
   m_Layer: 0
   m_Name: Concrete_fence_v1_column
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430838348223561
 GameObject:
@@ -89712,12 +90595,13 @@ GameObject:
   - component: {fileID: 9011471574515912863}
   - component: {fileID: 9019485832251634161}
   - component: {fileID: 9050352180356979891}
+  - component: {fileID: 9050352180356979892}
   m_Layer: 0
   m_Name: UNIConcrete_wall_v1_W_tile_2
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430838391900793
 GameObject:
@@ -89788,12 +90672,13 @@ GameObject:
   - component: {fileID: 9011471568099485722}
   - component: {fileID: 9019485832056575156}
   - component: {fileID: 9051388468059531116}
+  - component: {fileID: 9051388468059531117}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v1 (3)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430838445951783
 GameObject:
@@ -89845,12 +90730,13 @@ GameObject:
   - component: {fileID: 9011471568146604732}
   - component: {fileID: 9019485832093212178}
   - component: {fileID: 9051388468016606666}
+  - component: {fileID: 9051388468016606667}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v1 (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430838478030047
 GameObject:
@@ -89921,12 +90807,13 @@ GameObject:
   - component: {fileID: 9011471567783455381}
   - component: {fileID: 9019485831402631811}
   - component: {fileID: 9051388464239342207}
+  - component: {fileID: 9051388464239342208}
   m_Layer: 0
   m_Name: Concrete_fence_v1_s2
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430838498994106
 GameObject:
@@ -90010,13 +90897,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891092748462028}
+  - component: {fileID: 9041430838519965777}
   m_Layer: 0
   m_Name: Concrete_fence_v2_L (2)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430838519965777
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430838519965776}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430838523962585
 GameObject:
   m_ObjectHideFlags: 0
@@ -90033,8 +90937,8 @@ GameObject:
   m_Name: Concrete_fence_v2_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430838524518138
 GameObject:
@@ -90052,8 +90956,8 @@ GameObject:
   m_Name: Concrete_fence_v2_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430838526749762
 GameObject:
@@ -90105,12 +91009,13 @@ GameObject:
   - component: {fileID: 9011471567716959151}
   - component: {fileID: 9019485831935688449}
   - component: {fileID: 9051388467670813913}
+  - component: {fileID: 9051388467670813914}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v1 (4)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430838552833553
 GameObject:
@@ -90128,8 +91033,8 @@ GameObject:
   m_Name: Concrete_fence_v2_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430838557463336
 GameObject:
@@ -90147,8 +91052,8 @@ GameObject:
   m_Name: UNIConcrete_wall_v1_S_R_2f
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430838598101271
 GameObject:
@@ -90166,8 +91071,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S_half
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430838599512286
 GameObject:
@@ -90522,12 +91427,13 @@ GameObject:
   - component: {fileID: 9011471566362165328}
   - component: {fileID: 9019485832736701694}
   - component: {fileID: 9051388466307764006}
+  - component: {fileID: 9051388466307764007}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v1
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430838835317060
 GameObject:
@@ -90538,13 +91444,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891094074163256}
+  - component: {fileID: 9041430838835317061}
   m_Layer: 0
   m_Name: UNIConcrete_wall_v1_W_3 (5)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430838835317061
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430838835317060}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430838846929502
 GameObject:
   m_ObjectHideFlags: 0
@@ -90580,8 +91503,8 @@ GameObject:
   m_Name: UNIConcrete_wall_v1_S_R_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430838866606610
 GameObject:
@@ -90649,13 +91572,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891093996657125}
+  - component: {fileID: 9041430838892023962}
   m_Layer: 0
   m_Name: UNIConcrete_wall_v1_W_3 (3)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430838892023962
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430838892023961}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430838902103321
 GameObject:
   m_ObjectHideFlags: 0
@@ -90687,12 +91627,13 @@ GameObject:
   - component: {fileID: 9011471570462454586}
   - component: {fileID: 9019485829461860104}
   - component: {fileID: 9051388464408707672}
+  - component: {fileID: 9051388464408707673}
   m_Layer: 0
   m_Name: Concrete_fence_v1_column (2)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430838908950666
 GameObject:
@@ -90817,12 +91758,13 @@ GameObject:
   - component: {fileID: 9011471567801708930}
   - component: {fileID: 9019485836415976118}
   - component: {fileID: 9051388471196443076}
+  - component: {fileID: 9051388471196443077}
   m_Layer: 0
   m_Name: Concrete_fence_v1_s1 (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430839027129904
 GameObject:
@@ -90833,13 +91775,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891093247398316}
+  - component: {fileID: 9041430839027129905}
   m_Layer: 0
   m_Name: Concrete_fence_v2_L
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430839027129905
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430839027129904}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430839032799820
 GameObject:
   m_ObjectHideFlags: 0
@@ -90907,12 +91866,13 @@ GameObject:
   - component: {fileID: 9011471566600586221}
   - component: {fileID: 9019485832565653315}
   - component: {fileID: 9051388466471472283}
+  - component: {fileID: 9051388466471472284}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v1 (8)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430839080723301
 GameObject:
@@ -90942,13 +91902,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891093791684913}
+  - component: {fileID: 9041430839088590926}
   m_Layer: 0
   m_Name: UNIConcrete_wall_v1_W_3 (4)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430839088590926
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430839088590925}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430839088928690
 GameObject:
   m_ObjectHideFlags: 0
@@ -91060,8 +92037,8 @@ GameObject:
   m_Name: UNIConcrete_wall_v1_S_R_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430839139673302
 GameObject:
@@ -91098,8 +92075,8 @@ GameObject:
   m_Name: Concrete_fence_v2_S_half
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430839144119524
 GameObject:
@@ -91155,8 +92132,8 @@ GameObject:
   m_Name: Concrete_fence_v2_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430839246602573
 GameObject:
@@ -91370,13 +92347,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891093614862113}
+  - component: {fileID: 9041430839394717886}
   m_Layer: 0
   m_Name: Concrete_fence_v2_L
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430839394717886
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430839394717885}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430839400847617
 GameObject:
   m_ObjectHideFlags: 0
@@ -91426,12 +92420,13 @@ GameObject:
   - component: {fileID: 9011471566961489527}
   - component: {fileID: 9019485833194441433}
   - component: {fileID: 9051388466916423937}
+  - component: {fileID: 9051388466916423938}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v1 (6)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430839450176466
 GameObject:
@@ -91483,12 +92478,13 @@ GameObject:
   - component: {fileID: 9011471571059834634}
   - component: {fileID: 9019485829931799352}
   - component: {fileID: 9051388464076492392}
+  - component: {fileID: 9051388464076492393}
   m_Layer: 0
   m_Name: Concrete_fence_v1_column (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430839517099492
 GameObject:
@@ -91575,13 +92571,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891093296620441}
+  - component: {fileID: 9041430839549831910}
   m_Layer: 0
   m_Name: UNIConcrete_wall_v1_W_3 (2)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430839549831910
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430839549831909}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430839568143527
 GameObject:
   m_ObjectHideFlags: 0
@@ -91648,13 +92661,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891093344597280}
+  - component: {fileID: 9041430839598857309}
   m_Layer: 0
   m_Name: UNIConcrete_wall_v1_W_3 (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430839598857309
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430839598857308}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430839604347398
 GameObject:
   m_ObjectHideFlags: 0
@@ -91819,12 +92849,13 @@ GameObject:
   - component: {fileID: 9011471571306234673}
   - component: {fileID: 9019485829742014211}
   - component: {fileID: 9051388464169824851}
+  - component: {fileID: 9051388464169824852}
   m_Layer: 0
   m_Name: Concrete_fence_v1_column
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430839719554474
 GameObject:
@@ -92006,13 +93037,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891094056080873}
+  - component: {fileID: 9041430839827487350}
   m_Layer: 0
   m_Name: Concrete_fence_v2_L (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430839827487350
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430839827487349}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430839831353084
 GameObject:
   m_ObjectHideFlags: 0
@@ -92029,8 +93077,8 @@ GameObject:
   m_Name: Concrete_fence_v2_L
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430839832915852
 GameObject:
@@ -92060,13 +93108,30 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9039891094058414026}
+  - component: {fileID: 9041430839838269527}
   m_Layer: 0
   m_Name: Concrete_fence_v2_L (3)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
+--- !u!208 &9041430839838269527
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430839838269526}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &9041430839849355800
 GameObject:
   m_ObjectHideFlags: 0
@@ -92079,12 +93144,13 @@ GameObject:
   - component: {fileID: 9011471566879424008}
   - component: {fileID: 9019485832840331942}
   - component: {fileID: 9051388466767212926}
+  - component: {fileID: 9051388466767212927}
   m_Layer: 0
   m_Name: Concrete_fence_v1_wall_set_v1 (2)
   m_TagString: Ground
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!1 &9041430839873499529
 GameObject:
@@ -92282,7 +93348,6 @@ Transform:
   - {fileID: 9039891093630089357}
   - {fileID: 9039891091992047771}
   - {fileID: 9039891092979273425}
-  - {fileID: 9039891090198752324}
   - {fileID: 9039891093229608268}
   - {fileID: 9039891092633452304}
   - {fileID: 9039891093961240319}
@@ -92369,7 +93434,7 @@ GameObject:
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &9041557828792105362
 Transform:
@@ -93189,6 +94254,22 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300046, guid: c6d026d6367d43a438c71a59c9da8290, type: 3}
+--- !u!208 &9050352179367544249
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430837071939108}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.171, y: 0.836, z: 5.1710005}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!64 &9050352179380391577
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -93567,6 +94648,22 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300046, guid: c6d026d6367d43a438c71a59c9da8290, type: 3}
+--- !u!208 &9050352179960723709
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430836472232800}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.171, y: 0.836, z: 5.1710005}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!64 &9050352180019948068
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -93861,6 +94958,22 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300042, guid: c6d026d6367d43a438c71a59c9da8290, type: 3}
+--- !u!208 &9050352180356979892
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430838390416535}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.171, y: 0.836, z: 2.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!64 &9050352180364257701
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -94141,6 +95254,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300078, guid: c6d026d6367d43a438c71a59c9da8290, type: 3}
+--- !u!208 &9050352185121771145
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430835720076974}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.416, y: 0.836, z: 5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 1.1190001, y: -0.002, z: 0.056}
+  m_TimeToStationary: 0.5
 --- !u!64 &9050352185134311735
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -94863,6 +95992,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 18.681244}
   m_Center: {x: 0, y: -0.000000059604645, z: -0.00000047683716}
+--- !u!208 &9051388463979115453
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430837496324418}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 9.341001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388463980702281
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -94915,6 +96060,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 18.681244}
   m_Center: {x: 0, y: -0.000000059604645, z: -0.00000047683716}
+--- !u!208 &9051388464004388063
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430837672592928}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 9.341001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388464014771358
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -94941,6 +96102,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 18.681244}
   m_Center: {x: 0, y: -0.000000059604645, z: -0.00000047683716}
+--- !u!208 &9051388464020630623
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430837722398368}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 9.341001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388464048420311
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -94980,6 +96157,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.297325, z: 0.7262564}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!208 &9051388464076492393
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430839511407692}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 0.363}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388464141813217
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -95006,6 +96199,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.297325, z: 0.7262564}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!208 &9051388464169824852
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430839705395319}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 0.363}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388464189192366
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -95019,6 +96228,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 18.681244}
   m_Center: {x: 0, y: -0.000000059604645, z: -0.00000047683716}
+--- !u!208 &9051388464189192367
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430837217765968}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 9.341001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388464200700268
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -95058,6 +96283,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4622266, y: 2.9944706, z: 4.0297647}
   m_Center: {x: 0.00000008940697, y: 0.000000059604645, z: 0}
+--- !u!208 &9051388464239342208
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430838494124521}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.231, y: 1.4970001, z: 2.015}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388464335401665
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -95071,6 +96312,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 18.681244}
   m_Center: {x: 0, y: -0.000000059604645, z: -0.00000047683716}
+--- !u!208 &9051388464335401666
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430837349294143}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 9.341001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388464374995917
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -95097,6 +96354,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.297325, z: 0.7262564}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!208 &9051388464408707673
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430838904459388}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 0.363}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388464432525953
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -95136,6 +96409,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 18.681244}
   m_Center: {x: 0, y: -0.000000059604645, z: -0.00000047683716}
+--- !u!208 &9051388464488415866
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430836927697031}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 9.341001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388464538326648
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -95149,6 +96438,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 18.681244}
   m_Center: {x: 0, y: -0.000000059604645, z: -0.00000047683716}
+--- !u!208 &9051388464538326649
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430837145371782}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 9.341001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388464559122882
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -95175,6 +96480,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 18.681244}
   m_Center: {x: 0, y: -0.000000059604645, z: -0.00000047683716}
+--- !u!208 &9051388464657681182
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430837094865379}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 9.341001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388464672953212
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -95214,6 +96535,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 18.681244}
   m_Center: {x: 0, y: -0.000000059604645, z: -0.00000047683716}
+--- !u!208 &9051388464709937507
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430836765440924}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 9.341001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388464729099517
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -95240,6 +96577,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 18.681244}
   m_Center: {x: 0, y: -0.000000059604645, z: -0.00000047683716}
+--- !u!208 &9051388464784731860
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430836691336237}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 9.341001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388464850903718
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -95253,6 +96606,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 18.681244}
   m_Center: {x: 0, y: -0.000000059604645, z: -0.00000047683716}
+--- !u!208 &9051388464850903719
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430836891725912}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 9.341001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388464865714308
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -95292,6 +96661,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 18.681244}
   m_Center: {x: 0, y: -0.000000059604645, z: -0.00000047683716}
+--- !u!208 &9051388464961935680
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430836514114497}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 9.341001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388464962789220
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -95305,6 +96690,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 18.681244}
   m_Center: {x: 0, y: -0.000000059604645, z: -0.00000047683716}
+--- !u!208 &9051388464962789221
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430836512869786}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 9.341001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388464966717490
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -95331,6 +96732,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.297325, z: 0.7262564}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!208 &9051388464984900314
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430838338752765}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 0.363}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388464992160830
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -95370,6 +96787,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 18.681244}
   m_Center: {x: 0, y: -0.000000059604645, z: -0.00000047683716}
+--- !u!208 &9051388465038383143
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430836437469912}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 9.341001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388465054904302
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -95383,6 +96816,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 18.681244}
   m_Center: {x: 0, y: -0.000000059604645, z: -0.00000047683716}
+--- !u!208 &9051388465054904303
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430836420443408}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 9.341001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388465070852556
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -95461,6 +96910,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 18.681244}
   m_Center: {x: 0, y: -0.000000059604645, z: -0.00000047683716}
+--- !u!208 &9051388465225820405
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430836190804490}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 9.341001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388465241225893
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -95578,6 +97043,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 18.681244}
   m_Center: {x: 0, y: -0.000000059604645, z: -0.00000047683716}
+--- !u!208 &9051388465458420172
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430836284984117}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 9.341001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388465461107612
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -95591,6 +97072,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 18.681244}
   m_Center: {x: 0, y: -0.000000059604645, z: -0.00000047683716}
+--- !u!208 &9051388465461107613
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430836289767778}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 9.341001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388465511788951
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -95630,6 +97127,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 18.681244}
   m_Center: {x: 0, y: -0.000000059604645, z: -0.00000047683716}
+--- !u!208 &9051388465547373364
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430835860142541}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 9.341001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388465555938284
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -95669,6 +97182,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 18.681244}
   m_Center: {x: 0, y: -0.000000059604645, z: -0.00000047683716}
+--- !u!208 &9051388465583422226
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430835891988975}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 9.341001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388465626434898
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -95682,6 +97211,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.297325, z: 0.7262564}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!208 &9051388465626434899
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430837974048630}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 0.363}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388465653426303
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -95799,6 +97344,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.297325, z: 0.7262564}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!208 &9051388465928652827
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430838208698942}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 0.363}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388465955061116
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -95968,6 +97529,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 9.36788}
   m_Center: {x: 0, y: -0.000000059604645, z: 0.00000023841858}
+--- !u!208 &9051388466307764007
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430838827693120}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 4.684}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388466317383780
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -96046,6 +97623,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 9.36788}
   m_Center: {x: 0, y: -0.000000059604645, z: 0.00000023841858}
+--- !u!208 &9051388466471472284
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430839066900477}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 4.684}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388466490495894
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -96280,6 +97873,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 9.36788}
   m_Center: {x: 0, y: -0.000000059604645, z: 0.00000023841858}
+--- !u!208 &9051388466767212927
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430839849355800}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 4.684}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388466776754935
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -96332,6 +97941,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 9.36788}
   m_Center: {x: 0, y: -0.000000059604645, z: 0.00000023841858}
+--- !u!208 &9051388466916423938
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430839428072039}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 4.684}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388466932612767
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -96423,6 +98048,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 9.36788}
   m_Center: {x: 0, y: -0.000000059604645, z: 0.00000023841858}
+--- !u!208 &9051388467137578392
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430837996568305}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 4.684}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388467163059486
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -96579,6 +98220,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 9.36788}
   m_Center: {x: 0, y: -0.000000059604645, z: 0.00000023841858}
+--- !u!208 &9051388467373134713
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430837762353182}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 4.684}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388467384474558
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -96657,6 +98314,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 9.36788}
   m_Center: {x: 0, y: -0.000000059604645, z: 0.00000023841858}
+--- !u!208 &9051388467500615657
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430837906685070}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 4.684}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388467540018414
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -96748,6 +98421,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 9.36788}
   m_Center: {x: 0, y: -0.000000059604645, z: 0.00000023841858}
+--- !u!208 &9051388467670813914
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430838538385343}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 4.684}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388467675074745
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -96969,6 +98658,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 9.36788}
   m_Center: {x: 0, y: -0.000000059604645, z: 0.00000023841858}
+--- !u!208 &9051388468016606667
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430838464730796}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 4.684}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388468025670539
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -97008,6 +98713,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.71984005, y: 3.2973251, z: 9.36788}
   m_Center: {x: 0, y: -0.000000059604645, z: 0.00000023841858}
+--- !u!208 &9051388468059531117
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430838415252490}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.36, y: 1.649, z: 4.684}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388468060170999
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -97138,6 +98859,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.46222323, y: 2.9944692, z: 4.029767}
   m_Center: {x: -0.00000032037497, y: 0.000000059604645, z: 0.00000023841858}
+--- !u!208 &9051388471196443077
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430839011984192}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.231, y: 1.4970001, z: 2.015}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!65 &9051388471372567523
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -97229,6 +98966,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.46222323, y: 2.9944692, z: 4.029767}
   m_Center: {x: -0.00000032037497, y: 0.000000059604645, z: 0.00000023841858}
+--- !u!208 &9051388472350011534
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9041430837783187977}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.231, y: 1.4970001, z: 2.015}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!199 &9203366991013536678
 ParticleSystemRenderer:
   serializedVersion: 6
