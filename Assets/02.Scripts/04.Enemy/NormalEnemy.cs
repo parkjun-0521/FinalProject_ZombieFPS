@@ -9,7 +9,7 @@ public class NormalEnemy : EnemyController
     public static event EnemymoveHandle OnEnemyReset, OnEnemyMove, OnRandomMove, OnEnemyRun, OnEnemyAttack, OnEnemyDead;
     public delegate void EnemyTraceHandle(Collider other);
     public static event EnemyTraceHandle OnEnemyTracking;
-
+    //¹æ
     // °ø°Ý
     public GameObject attackColliderPrefab;
     public Transform attackPoint;
