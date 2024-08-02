@@ -5,11 +5,20 @@ using UnityEngine.AI;
 
 public class NormalEnemy : EnemyController
 {
-    public delegate void EnemymoveHandle();
-    public static event EnemymoveHandle OnEnemyReset, OnEnemyMove, OnRandomMove, OnEnemyRun, OnEnemyAttack, OnEnemyDead;
-    public delegate void EnemyTraceHandle(Collider other);
-    public static event EnemyTraceHandle OnEnemyTracking;
-    //방
+    enum State
+    {
+        idle,
+        randomMove,
+        attack,
+        track,
+    }
+    State state = State.idle;
+    [SerializeField] GameObject[] players;
+
+
+
+
+
     // 공격
     public GameObject attackColliderPrefab;
     public Transform attackPoint;
@@ -34,46 +43,39 @@ public class NormalEnemy : EnemyController
 
     private void OnEnable()
     {
-        OnEnemyReset += ResetEnemy;
-        OnEnemyMove += RandomMove;
-        OnRandomMove += RandomMove;
-        OnEnemyTracking += EnemyTracking;
-        OnEnemyRun += EnemyRun;
-        OnEnemyAttack += EnemyMeleeAttack;
-        OnEnemyDead += EnemyDead;
 
-        hp = maxHp;
-        rigid.velocity = Vector3.zero;
     }
 
     private void OnDisable()
     {
-        OnEnemyReset -= ResetEnemy;
-        OnEnemyMove -= RandomMove;
-        OnRandomMove -= RandomMove;
-        OnEnemyTracking -= EnemyTracking;
-        OnEnemyRun -= EnemyRun;
-        OnEnemyAttack -= EnemyMeleeAttack;
-        OnEnemyDead -= EnemyDead;
+
     }
 
     void Start()
     {
-        playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
-        InvokeRepeating("EnemyMove", 0.5f, 3.0f);
-        capsuleCollider.enabled = true;
-        sphereCollider = (SphereCollider)EnemyLookRange;
-        rigid.isKinematic = false;
-        //nav.enabled = true;
+        players = GameObject.FindGameObjectsWithTag("Player");
+
     }
 
     void Update()
     {
         if (PV.IsMine)
         {
-            if (isRangeOut) OnEnemyReset?.Invoke();
-            if (isTracking) OnEnemyRun?.Invoke();
-            if (nav.enabled && nav.isStopped) OnEnemyAttack?.Invoke();
+            switch (state)
+            {
+                case State.idle:
+                    Idle();
+                    break;
+                case State.randomMove:
+                    RandomMove();
+                    break;
+                case State.track:
+                    break;
+                case State.attack:
+
+                    break;
+            }
+
             // 회전과 이동 처리
             if (isMoving)
             {
@@ -103,7 +105,8 @@ public class NormalEnemy : EnemyController
         {
             Hp = -(other.GetComponent<Bullet>().itemData.damage);
             other.gameObject.SetActive(false);
-            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt)) {
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt))
+            {
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
             }
         }
@@ -111,14 +114,16 @@ public class NormalEnemy : EnemyController
         {
             Hp = -(other.GetComponent<ItemSword>().itemData.damage);
             BloodEffect(transform.position);
-            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt)) {
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt))
+            {
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
             }
         }
         else if (other.CompareTag("Grenade"))
         {
             Hp = -(other.GetComponentInParent<ItemGrenade>().itemData.damage);
-            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt)) {
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt))
+            {
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
             }
         }
@@ -154,8 +159,12 @@ public class NormalEnemy : EnemyController
     {
         if (PV.IsMine)
         {
-            OnRandomMove?.Invoke();
+            //OnRandomMove?.Invoke();
         }
+    }
+    void Idle()
+    {
+
     }
     void RandomMove()
     {
@@ -205,9 +214,9 @@ public class NormalEnemy : EnemyController
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_walk);
             }
 
-        
+
         }
-        
+
 
     }
 
@@ -330,7 +339,8 @@ public class NormalEnemy : EnemyController
         if (hp <= 0)
         {
             photonView.RPC("HandleEnemyDeath", RpcTarget.AllBuffered);
-            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_dead1)) {
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_dead1))
+            {
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_dead1);
             }
         }
@@ -344,12 +354,7 @@ public class NormalEnemy : EnemyController
         capsuleCollider.enabled = false;
         sphereCollider.enabled = false;
         rigid.isKinematic = true;
-        //nav.enabled = false;
-        OnEnemyReset -= ResetEnemy;
-        OnRandomMove -= RandomMove;
-        OnEnemyTracking -= EnemyTracking;
-        OnEnemyRun -= EnemyRun;
-        OnEnemyAttack -= EnemyMeleeAttack;
+
         isWalk = false;
         isTracking = false;
     }
