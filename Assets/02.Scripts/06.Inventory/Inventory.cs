@@ -164,4 +164,24 @@ public class Inventory : MonoBehaviour {
             else if (index == 3)    UIManager.Instance.UpdateTotalHealCount(0);        
         }
     }
+
+    public void AllItemInfo() {
+        foreach (Slot slot in allSlots) {
+            // 슬롯의 부모 오브젝트를 임시로 활성화
+            GameObject parent = slot.gameObject;
+            bool wasActive = parent.activeSelf;
+            parent.SetActive(true);
+
+            // 데이터를 가져옴
+            if (slot.item != null) {
+                Debug.Log(slot.item.itemName + " " + slot.item.itemCount);
+            }
+            else {
+                Debug.Log("Item is null");
+            }
+
+            // 다시 원래 상태로 설정
+            parent.SetActive(wasActive);
+        }
+    }
 }
