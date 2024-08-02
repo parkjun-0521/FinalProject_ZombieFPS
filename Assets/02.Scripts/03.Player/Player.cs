@@ -404,10 +404,10 @@ public class Player : PlayerController
 
                     if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction))) {
                         if (door.isOpen) {
-                            door.CloseDoor();
+                            door.CloseDoorRPC();
                         }
                         else if (!door.isOpen) {
-                            door.OpenDoor();
+                            door.OpenDoorRPC();
                         }
                         playerReviveUI.SetActive(false);
                     }
