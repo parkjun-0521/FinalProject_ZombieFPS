@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1308974652153021}
   - component: {fileID: 1308974652152994}
   - component: {fileID: 1308974652152995}
+  - component: {fileID: 7222560828787257402}
   m_Layer: 0
   m_Name: Hangar_v2_6_door1
   m_TagString: Untagged
@@ -140,6 +141,29 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
+--- !u!114 &7222560828787257402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2567347232076164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 1308974652152995}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &2567348315721322
 GameObject:
   m_ObjectHideFlags: 0
@@ -328,6 +352,7 @@ GameObject:
   - component: {fileID: 1308976190050499}
   - component: {fileID: 1308976190050525}
   - component: {fileID: 1308976190050524}
+  - component: {fileID: 8048736024397178237}
   m_Layer: 11
   m_Name: HGv2gate
   m_TagString: Door
@@ -467,6 +492,29 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 6.1029243, y: 3.4621344, z: 0.039325736}
   m_Center: {x: -0.0000076293945, y: 0, z: 0.000005722045}
+--- !u!114 &8048736024397178237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2567349609969402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 1308976190050499}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &2567349712278988
 GameObject:
   m_ObjectHideFlags: 0
@@ -951,7 +999,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8489682402000748788}
-  - component: {fileID: 8489682402000748784}
   - component: {fileID: 3560803977384148303}
   m_Layer: 11
   m_Name: GameObject
@@ -976,29 +1023,6 @@ Transform:
   m_Father: {fileID: 1308974528754972}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8489682402000748784
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8489682402000748789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 1308976190050499}
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!208 &3560803977384148303
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -1024,7 +1048,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8489682402634364853}
-  - component: {fileID: 8489682402634364493}
   m_Layer: 0
   m_Name: GameObject (1)
   m_TagString: Untagged
@@ -1048,26 +1071,3 @@ Transform:
   m_Father: {fileID: 1308974528754972}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8489682402634364493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8489682402634364850}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 1308974652152995}
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
