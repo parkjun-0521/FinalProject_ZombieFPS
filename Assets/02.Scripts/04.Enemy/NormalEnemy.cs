@@ -64,7 +64,15 @@ public class NormalEnemy : EnemyController
         capsuleCollider.enabled = true;
         sphereCollider = (SphereCollider)EnemyLookRange;
         rigid.isKinematic = false;
-        //nav.enabled = true;
+        if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
+        {
+            nav.enabled = true;
+            nav.Warp(hit.position); // 에이전트를 NavMesh에 정확히 배치
+        }
+        else
+        {
+            Debug.LogError("Start 중 에이전트를 NavMesh에 배치하는 데 실패했습니다.");
+        }
     }
 
     void Update()
@@ -73,7 +81,10 @@ public class NormalEnemy : EnemyController
         {
             if (isRangeOut) OnEnemyReset?.Invoke();
             if (isTracking) OnEnemyRun?.Invoke();
-            if (nav.enabled && nav.isStopped) OnEnemyAttack?.Invoke();
+            if (nav.isOnNavMesh)
+            {
+                if (nav.enabled && nav.isStopped) OnEnemyAttack?.Invoke();
+            }
             // 회전과 이동 처리
             if (isMoving)
             {

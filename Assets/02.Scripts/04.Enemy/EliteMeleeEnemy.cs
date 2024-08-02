@@ -90,6 +90,15 @@ public class EliteMeleeEnemy : EnemyController {
         rigid.isKinematic = false;
         // 초기에 데미지 지정 
         damage = 20f;
+        if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
+        {
+            nav.enabled = true;
+            nav.Warp(hit.position); // 에이전트를 NavMesh에 정확히 배치
+        }
+        else
+        {
+            Debug.LogError("Start 중 에이전트를 NavMesh에 배치하는 데 실패했습니다.");
+        }
     }
 
     void Update()
@@ -98,7 +107,10 @@ public class EliteMeleeEnemy : EnemyController {
         {
             if (isRangeOut == true) OnEnemyReset?.Invoke();         // 범위 나갔을 때 초기화 
             if (isTracking) OnEnemyRun?.Invoke();           // 추격 시 달리기 
-            if (nav.isStopped == true) OnEnemyAttack?.Invoke();        // 몬스터 공격
+            if (nav.isOnNavMesh)
+            {
+                if (nav.enabled && nav.isStopped) OnEnemyAttack?.Invoke();
+            }            
             // 회전과 이동 처리
             if (isMoving)
             {
@@ -211,7 +223,10 @@ public class EliteMeleeEnemy : EnemyController {
                 NavMeshHit hit;
                 if (NavMesh.SamplePosition(targetPosition, out hit, 1.0f, NavMesh.AllAreas))
                 {
-                    nav.SetDestination(hit.position);
+                    if (nav.isOnNavMesh)
+                    {
+                        nav.SetDestination(hit.position);
+                    }
                 }
             }
 
@@ -266,12 +281,13 @@ public class EliteMeleeEnemy : EnemyController {
             ani.SetBool("isAttack", false);
             ani.SetBool("isRun", true);
             // NavMeshAgent 설정
-            nav.speed = runSpeed;
-            nav.destination = playerTr.position;
-
+            if (nav.isOnNavMesh)
+            {
+                nav.speed = runSpeed;
+                nav.destination = playerTr.position;
+            }
             // Rigidbody와 NavMeshAgent의 속도를 동기화
             Vector3 desiredVelocity = nav.desiredVelocity;
-
             // 이동 방향과 속도를 조절
             rigid.velocity = Vector3.Lerp(rigid.velocity, desiredVelocity, Time.deltaTime * runSpeed);
 
