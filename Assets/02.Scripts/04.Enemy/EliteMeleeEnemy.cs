@@ -11,8 +11,6 @@ public class EliteMeleeEnemy : EnemyController {
     public static event EnemyTraceHandle OnEnemyTracking;
 
 
-    public float rotationSpeed = 2.0f;
-    private Quaternion targetRotation; // 목표 회전
     private Vector3 moveDirection;
     private bool isMoving = false;
 
@@ -40,7 +38,6 @@ public class EliteMeleeEnemy : EnemyController {
 
     public bool isDead;         // RPC 동기화용 Bool 변수 
 
-    public Collider EnemyLookRange;
 
     void Awake() {
         // 레퍼런스 초기화 
@@ -100,23 +97,6 @@ public class EliteMeleeEnemy : EnemyController {
             if (isTracking) OnEnemyRun?.Invoke();           // 추격 시 달리기 
             if (nav.isStopped == true) OnEnemyAttack?.Invoke();        // 몬스터 공격
             // 회전과 이동 처리
-            if (isMoving)
-            {
-                // 이동 중 회전 업데이트
-                Vector3 moveDirection = (nav.destination - transform.position).normalized;
-                targetRotation = Quaternion.LookRotation(moveDirection);
-
-                // 회전
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
-
-                // 이동
-                Vector3 moveDelta = moveDirection * speed * Time.deltaTime;
-                rigid.MovePosition(transform.position + moveDelta);
-
-                // 이동 중 속도를 초기화
-                rigid.velocity = Vector3.zero;
-                rigid.angularVelocity = Vector3.zero;
-            }
         }
     }
     void OnTriggerEnter( Collider other )                       //총알, 근접무기...triggerEnter
@@ -200,11 +180,9 @@ public class EliteMeleeEnemy : EnemyController {
                 StartCoroutine(ReturnToOrigin(direction));
 
                 isRangeOut = true;
-                isNow = false;
             }
             else
             {
-                isNow = true;
 
                 // NavMeshAgent를 사용하여 이동
                 Vector3 targetPosition = transform.position + dest;

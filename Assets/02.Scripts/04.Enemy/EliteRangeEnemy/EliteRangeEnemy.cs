@@ -12,8 +12,6 @@ public class EliteRangeEnemy : EnemyController
     public static event EnemyTraceHandle OnEnemyTracking;
 
 
-    public float rotationSpeed = 2.0f;
-    private Quaternion targetRotation; // 목표 회전
     private Vector3 moveDirection;
     private bool isMoving = false;
     //공격
@@ -43,7 +41,6 @@ public class EliteRangeEnemy : EnemyController
             }
         }
     }
-    public Collider EnemyLookRange;
 
     void Awake()
     {
@@ -105,24 +102,7 @@ public class EliteRangeEnemy : EnemyController
             if (isRangeOut == true) OnEnemyReset?.Invoke();         // 범위 나갔을 때 초기화 
             if (isTracking) OnEnemyRun?.Invoke();                   // 추격 시 달리기 
             if (nav.isStopped == true) OnEnemyAttack?.Invoke();     // 몬스터 공격 
-            if (isMoving)
-            {
-                // 이동 중 회전 업데이트
-                Vector3 moveDirection = (nav.destination - transform.position).normalized;
-                targetRotation = Quaternion.LookRotation(moveDirection);
 
-                // 회전
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
-
-                // 이동
-                Vector3 moveDelta = moveDirection * speed * Time.deltaTime;
-                rigid.MovePosition(transform.position + moveDelta);
-
-                // 이동 중 속도를 초기화
-                rigid.velocity = Vector3.zero;
-                rigid.angularVelocity = Vector3.zero;
-            }
-            
         }
         
     }
@@ -211,11 +191,9 @@ public class EliteRangeEnemy : EnemyController
                 StartCoroutine(ReturnToOrigin(direction));
 
                 isRangeOut = true;
-                isNow = false;
             }
             else
             {
-                isNow = true;
 
                 // NavMeshAgent를 사용하여 이동
                 Vector3 targetPosition = transform.position + dest;

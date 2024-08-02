@@ -160,26 +160,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c48c1572b85d6b545a1a886004523ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 7
+  baseSpeed: 0
   runSpeed: 7
+  maxTracingSpeed: 5
+  maxMoveDirTime: 3
+  curMoveTime: 3
   meleeDelay: 1
   nextAttack: 2
   attackRange: 3
   rangeOut: 100
   resetSpeed: 5
   enemySpawn: {fileID: 0}
-  maxTracingSpeed: 5
-  playerTr: {fileID: 0}
-  capsuleCollider: {fileID: 0}
-  sphereCollider: {fileID: 0}
   maxHp: 120
   hp: 120
   baseDamage: 10
   damage: 1
   isRangeOut: 0
   shouldEvaluate: 0
-  isNow: 0
+  isWalk: 0
+  playerTr: {fileID: 0}
+  capsuleCollider: {fileID: 0}
+  sphereCollider: {fileID: 0}
+  EnemyLookRange: {fileID: 6372042097543369023}
   rotationSpeed: 2
+  targetRotation: {x: 0, y: 0, z: 0, w: 0}
   attackColliderPrefab: {fileID: 0}
   attackPoint: {fileID: 0}
   splitZombies:
@@ -189,7 +193,6 @@ MonoBehaviour:
   - {fileID: 2740344462459586780, guid: e2c0035046bec0348a3d9963bdd47c9b, type: 3}
   bloodParticle: {fileID: 3365126088063631719}
   isDead: 0
-  EnemyLookRange: {fileID: 6372042097543369023}
 --- !u!114 &3174076766146402361
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -43,8 +43,7 @@ public class BossZombie : EnemyController {
     int randPattern;
     float AttackCooltime;
 
-    public float rotationSpeed = 2.0f;
-    private Quaternion targetRotation; // 목표 회전
+
     private bool isMoving = false;
 
     public GameObject projectilePrefab;
@@ -123,23 +122,6 @@ public class BossZombie : EnemyController {
                 if (nav.isStopped == true) OnEnemyAttack?.Invoke();
             }
             // 회전과 이동 처리
-            if (isMoving)
-            {
-                // 이동 중 회전 업데이트
-                Vector3 moveDirection = (nav.destination - transform.position).normalized;
-                targetRotation = Quaternion.LookRotation(moveDirection);
-
-                // 회전
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
-
-                // 이동
-                Vector3 moveDelta = moveDirection * speed * Time.deltaTime;
-                rigid.MovePosition(transform.position + moveDelta);
-
-                // 이동 중 속도를 초기화
-                rigid.velocity = Vector3.zero;
-                rigid.angularVelocity = Vector3.zero;
-            }
         }
     }
     
@@ -256,10 +238,8 @@ public class BossZombie : EnemyController {
                 StartCoroutine(ReturnToOrigin(direction));
 
                 isRangeOut = true;
-                isNow = false;
             }
             else {
-                isNow = true;
                 // NavMeshAgent를 사용하여 이동
                 Vector3 targetPosition = transform.position + dest;
                 NavMeshHit hit;

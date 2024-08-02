@@ -65,29 +65,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34d6d2a0842b3644bb20a0737688f00e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  runSpeed: 10
-  meleeDelay: 4
+  baseSpeed: 5
+  runSpeed: 7
+  maxTracingSpeed: 5
+  maxMoveDirTime: 3
+  curMoveTime: 3
+  meleeDelay: 2
   nextAttack: 4
   attackRange: 3
   rangeOut: 100
   resetSpeed: 10
   enemySpawn: {fileID: 0}
-  maxTracingSpeed: 5
-  playerTr: {fileID: 0}
-  capsuleCollider: {fileID: 0}
-  sphereCollider: {fileID: 0}
   maxHp: 100
   hp: 100
   baseDamage: 10
   damage: 1
   isRangeOut: 0
   shouldEvaluate: 0
-  isNow: 0
+  isWalk: 0
+  isRun: 0
+  isAttack: 0
+  isTracking: 0
+  PV: {fileID: 0}
+  playerTr: {fileID: 0}
+  rigid: {fileID: 0}
+  nav: {fileID: 0}
+  ani: {fileID: 0}
+  capsuleCollider: {fileID: 0}
+  sphereCollider: {fileID: 0}
+  EnemyLookRange: {fileID: 6598316210746458567}
+  searchInterval: 1
+  nextSearchTime: 0
+  targetRotation: {x: 0, y: 0, z: 0, w: 0}
+  rotationSpeed: 5
   attackColliderPrefab: {fileID: 0}
   attackPoint: {fileID: 0}
-  rotationSpeed: 5
-  EnemyLookRange: {fileID: 6598316210746458567}
 --- !u!54 &2740344462459586791
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -176,7 +188,7 @@ GameObject:
   m_Component:
   - component: {fileID: 997898837732575746}
   - component: {fileID: 6598316210746458567}
-  m_Layer: 22
+  m_Layer: 21
   m_Name: EnemyLookRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -209,7 +221,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 5
+  m_Radius: 15
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2740344462615235569
 PrefabInstance:
@@ -1909,7 +1921,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 1
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
