@@ -36,8 +36,8 @@ public class EnemySpawnManager : MonoBehaviourPun
                         break;
                     }
                 }
-
-                enemyObj.transform.rotation = transform.rotation;
+                if(enemyObj.transform != null)
+                    enemyObj.transform.rotation = transform.rotation;
                 EnemyController enemyLogin = enemyObj.GetComponent<EnemyController>();
                 enemyLogin.enemySpawn = spawnPoint;
             }

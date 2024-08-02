@@ -67,7 +67,11 @@ public class BossPhobos : EnemyController
         //}
         //StartCoroutine(Trace());
         //포톤 추가시 밑에 인원수만큼foreach
-        Physics.IgnoreCollision(players[0].GetComponent<Collider>(), transform.GetComponent<Collider>(), true);
+        foreach(var player in players)
+        {
+            Physics.IgnoreCollision(player.GetComponent<Collider>(), transform.GetComponent<Collider>(), true);
+        }
+        //Physics.IgnoreCollision(players[0].GetComponent<Collider>(), transform.GetComponent<Collider>(), true);
     }
 
 
@@ -176,9 +180,9 @@ public class BossPhobos : EnemyController
         StartCoroutine(AnimationFalse("isDash"));
 
         yield return new WaitForSeconds(1.0f);
-        //int randomPlayer = random.range(0, 인원수);
-        nav.velocity = (players[0].transform.position - transform.position).normalized * dashPower;
-        nav.destination = players[0].transform.position;
+        int randomPlayer = Random.Range(0, PhotonNetwork.CurrentRoom.PlayerCount);
+        nav.velocity = (players[randomPlayer].transform.position - transform.position).normalized * dashPower;
+        nav.destination = players[randomPlayer].transform.position;
 
         if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack4))
         {
