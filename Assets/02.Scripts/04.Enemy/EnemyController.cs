@@ -119,31 +119,7 @@ public class EnemyController : MonoBehaviourPun, IEnemy
     }
     void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            float closestDistance = Mathf.Infinity;
-            Collider closestPlayer = null;
-
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position, Mathf.Infinity);
-            foreach (var hitCollider in hitColliders)
-            {
-                if (hitCollider.CompareTag("Player"))
-                {
-                    float distance = Vector3.Distance(transform.position, hitCollider.transform.position);
-                    if (distance < closestDistance)
-                    {
-                        closestDistance = distance;
-                        closestPlayer = hitCollider;
-                    }
-                }
-            }
-
-            if (closestPlayer != null)
-            {
-                EnemyTracking(closestPlayer);
-            }
-        }
-        else if(other.CompareTag("FireDotArea"))
+        if(other.CompareTag("FireDotArea"))
         {
             Hp = -(other.GetComponent<ItemFireGrenadeDotArea>().dotDamage); //안되면 Hp=>hp 해보기 stay라 여러번 호출되니 뎀지 0.1정도 
         }

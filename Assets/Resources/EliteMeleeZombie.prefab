@@ -179,9 +179,13 @@ MonoBehaviour:
   isRangeOut: 0
   shouldEvaluate: 0
   isNow: 0
+  state: 0
+  players: []
+  traceRange: 10
+  attackDistance: 2
   rotationSpeed: 2
-  attackColliderPrefab: {fileID: 0}
-  attackPoint: {fileID: 0}
+  AtkCoolTime: 3
+  zombieCollider: {fileID: 0}
   splitZombies:
   - {fileID: 2740344462459586780, guid: e2c0035046bec0348a3d9963bdd47c9b, type: 3}
   - {fileID: 2740344462459586780, guid: e2c0035046bec0348a3d9963bdd47c9b, type: 3}
@@ -189,7 +193,6 @@ MonoBehaviour:
   - {fileID: 2740344462459586780, guid: e2c0035046bec0348a3d9963bdd47c9b, type: 3}
   bloodParticle: {fileID: 3365126088063631719}
   isDead: 0
-  EnemyLookRange: {fileID: 6372042097543369023}
 --- !u!114 &3174076766146402361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,8 +217,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
+  m_Speed: 7
+  m_Acceleration: 100
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0

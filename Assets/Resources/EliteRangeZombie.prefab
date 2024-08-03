@@ -71,12 +71,15 @@ MonoBehaviour:
   isRangeOut: 0
   shouldEvaluate: 0
   isNow: 0
+  state: 0
+  players: []
+  traceRange: 10
+  attackDistance: 9
   rotationSpeed: 2
-  attackPos: {fileID: 7591741114262968317}
-  attackPrefabSpeed: 30
   rangeProjectile: {fileID: 3102988656494671107, guid: 72ce0ed0184286241b3cc455f2e2d116, type: 3}
-  player: []
-  EnemyLookRange: {fileID: 5972394030888022280}
+  attackPos: {fileID: 7591741114262968317}
+  attackPrefabSpeed: 80
+  isDead: 0
 --- !u!54 &1810938136
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -5,8 +5,6 @@ using UnityEngine.AI;
 
 public class NormalEnemy : EnemyController
 {
-   
-
     enum State
     {
         idle,
@@ -20,20 +18,11 @@ public class NormalEnemy : EnemyController
     [SerializeField] GameObject[] players;
     [SerializeField] float traceRange = 10f;  //플레이어 감지거리
     [SerializeField] float attackDistance = 2f;
-
-
-
-    // 공격
-    public GameObject attackColliderPrefab;
-    public Transform attackPoint;
-
-    public float rotationSpeed = 2.0f;
+    [SerializeField] float rotationSpeed = 2.0f;
+    [SerializeField] float AtkCoolTime = 3.0f;
     private Quaternion targetRotation; // 목표 회전
-    private Vector3 moveDirection;
-    private bool isMoving = false;
+    [SerializeField] Collider zombieCollider;
 
-    public Collider EnemyLookRange;
-    
     void Awake()
     {
         // 레퍼런스 초기화 
@@ -41,13 +30,15 @@ public class NormalEnemy : EnemyController
         nav = GetComponent<NavMeshAgent>();
         ani = GetComponentInChildren<Animator>();
         PV = GetComponent<PhotonView>();
-        capsuleCollider = GetComponent<CapsuleCollider>();
-        sphereCollider = GetComponent<SphereCollider>();
+        zombieCollider = GetComponent<CapsuleCollider>();
     }
 
     private void OnEnable()
     {
-
+        if(PV.IsMine)
+        {
+            state = State.idle;
+        }
     }
 
     private void OnDisable()
@@ -65,7 +56,6 @@ public class NormalEnemy : EnemyController
     {
         if (PV.IsMine)
         {
-            if (state == State.dead) return;
             switch (state)
             {
                 case State.idle:
@@ -80,6 +70,8 @@ public class NormalEnemy : EnemyController
                 case State.attack:
                     Attack();
                     break;
+                case State.dead:
+                    break;
             }
         }
 
@@ -90,6 +82,7 @@ public class NormalEnemy : EnemyController
     {
         if (other.CompareTag("Bullet"))
         {
+            if (state == State.dead) return;
             Hp = -(other.GetComponent<Bullet>().itemData.damage);
             other.gameObject.SetActive(false);
             if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt))
@@ -99,6 +92,7 @@ public class NormalEnemy : EnemyController
         }
         else if (other.CompareTag("Weapon"))
         {
+            if (state == State.dead) return;
             Hp = -(other.GetComponent<ItemSword>().itemData.damage);
             BloodEffect(transform.position);
             if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt))
@@ -108,6 +102,7 @@ public class NormalEnemy : EnemyController
         }
         else if (other.CompareTag("Grenade"))
         {
+            if (state == State.dead) return;
             Hp = -(other.GetComponentInParent<ItemGrenade>().itemData.damage);
             if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt))
             {
@@ -226,129 +221,27 @@ public class NormalEnemy : EnemyController
     {
         ani.SetBool("isAttack", true);
         StartCoroutine(AnimationFalse("isAttack"));
-        yield return new WaitForSeconds(3f); //공격애니메이션 시간 2.633
-        state = State.chase;
-        AttackCoroutine = null;
-    }
-    //IEnumerator ReturnToOrigin(Vector3 direction)
-    //{
-    //    nav.enabled = false; // NavMeshAgent 비활성화
-
-    //    while (Vector3.Distance(transform.position, enemySpawn.position) > 0.1f)
-    //    {
-    //        Vector3 newPosition = transform.position + direction * resetSpeed * Time.deltaTime;
-    //        rigid.MovePosition(newPosition);
-    //        yield return null;
-    //    }
-
-    //    // NavMeshAgent 활성화 및 경로 설정
-    //    NavMeshHit hit;
-    //    if (NavMesh.SamplePosition(transform.position, out hit, 1.0f, NavMesh.AllAreas))
-    //    {
-    //        nav.enabled = true;
-    //        nav.Warp(hit.position); // 에이전트를 NavMesh에 정확히 배치
-
-    //        // NavMeshAgent가 활성화된 상태에서만 Resume 호출
-    //        if (nav.isOnNavMesh)
-    //        {
-    //            nav.isStopped = false;
-    //        }
-    //        nav.SetDestination(enemySpawn.position);
-    //    }
-    //    else
-    //    {
-    //        Debug.LogError("Failed to place agent on NavMesh after returning to origin");
-    //    }
-
-    //    isRangeOut = false;
-    //}
-
-    IEnumerator RotateTowards(Quaternion targetRotation)
-    {
-        while (Quaternion.Angle(transform.rotation, targetRotation) > 0.1f)
+        if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack2))
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
-            yield return null;
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_attack2);
         }
-        transform.rotation = targetRotation;
+        yield return new WaitForSeconds(AtkCoolTime); //공격애니메이션 시간 2.633
+        if(state != State.dead)
+        {
+            state = State.chase;
+            AttackCoroutine = null;
+        }
     }
 
-
-
-
-    //public override void EnemyRun()
-    //{
-    //    if (PV.IsMine)
-    //    {
-    //        isRun = true;
-    //        if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_run))
-    //        {
-    //            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_run);
-    //        }
-    //        ani.SetBool("isAttack", false);
-
-    //        // NavMeshAgent 설정
-    //        nav.speed = runSpeed;
-    //        nav.destination = playerTr.position;
-
-    //        // Rigidbody와 NavMeshAgent의 속도를 동기화
-    //        Vector3 desiredVelocity = nav.desiredVelocity;
-
-    //        // 이동 방향과 속도를 조절
-    //        rigid.velocity = Vector3.Lerp(rigid.velocity, desiredVelocity, Time.deltaTime * runSpeed);
-
-    //        // 속도 제한
-    //        if (rigid.velocity.magnitude > maxTracingSpeed)
-    //        {
-    //            rigid.velocity = rigid.velocity.normalized * maxTracingSpeed;
-    //        }
-
-    //        // 공격 범위 내에서 멈추기
-    //        float versusDist = Vector3.Distance(transform.position, playerTr.position);
-
-    //        if (versusDist < attackRange)
-    //        {
-    //            rigid.velocity = Vector3.zero;
-    //            nav.isStopped = true;
-    //        }
-    //        else
-    //        {
-    //            nav.isStopped = false;
-    //        }
-    //    }
-
-    //}
-
-
-    //public override void EnemyMeleeAttack()
-    //{
-    //    if (PV.IsMine)
-    //    {
-    //        ani.SetBool("isAttack", true);
-    //        nextAttack += Time.deltaTime;
-    //        if (nextAttack > meleeDelay)
-    //        {
-    //            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack))
-    //            {
-    //                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_attack);
-    //            }
-    //            StartCoroutine(AttackExit());
-    //            nextAttack = 0;
-    //        }
-    //    }
-    //}
-    //IEnumerator AttackExit()
-    //{
-    //    yield return new WaitForSeconds(2f);
-    //    ani.SetBool("isAttack", false);
-
-    //}
 
     public override void EnemyDead()
     {
         if (hp <= 0)
         {
             state = State.dead;
+            nav.isStopped = true;
+            rigid.velocity = Vector3.zero;
+            zombieCollider.enabled = false;
             ani.SetBool("isDead", true);
             if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_dead1))
             {
@@ -362,18 +255,21 @@ public class NormalEnemy : EnemyController
     void NormalEnemyChangeHpRPC(float value)
     {
         hp += value;
+        if(state == State.randomMove)
+        {
+            state = State.chase;
+        }
         EnemyDead();
     }
     public override void ChangeHp(float value)
     {
-        photonView.RPC("NormalEnemyChangeHpRPC", RpcTarget.AllBuffered, value);
+        if (photonView.IsMine)
+            photonView.RPC("NormalEnemyChangeHpRPC", RpcTarget.AllBuffered, value);
     }
 
     IEnumerator AnimationFalse(string str)
     {
         yield return new WaitForSeconds(0.1f);
         ani.SetBool(str, false);
-
-        state = State.chase;
     }
 }

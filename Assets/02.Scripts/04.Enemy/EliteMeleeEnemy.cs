@@ -5,20 +5,25 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class EliteMeleeEnemy : EnemyController {
-    public delegate void EnemymoveHandle();
-    public static event EnemymoveHandle OnEnemyReset, OnEnemyMove, OnEnemyRun, OnEnemyAttack, OnEnemyDead;
-    public delegate void EnemyTraceHandle(Collider other);
-    public static event EnemyTraceHandle OnEnemyTracking;
 
 
+    enum State
+    {
+        idle,
+        randomMove,
+        attack,
+        chase,
+        dead
+    }
+    [Header("ver.osj")]
+    [SerializeField] State state = State.idle;
+    [SerializeField] GameObject[] players;
+    [SerializeField] float traceRange = 10f;  //플레이어 감지거리
+    [SerializeField] float attackDistance = 2f;
     public float rotationSpeed = 2.0f;
     private Quaternion targetRotation; // 목표 회전
-    private Vector3 moveDirection;
-    private bool isMoving = false;
-
-    //공격
-    public GameObject attackColliderPrefab;
-    public Transform attackPoint;
+    [SerializeField] float AtkCoolTime = 3.0f;
+    [SerializeField] Collider zombieCollider;
 
     public GameObject[] splitZombies;
     public ParticleSystem bloodParticle;
@@ -33,14 +38,13 @@ public class EliteMeleeEnemy : EnemyController {
                 Debug.Log(hp);
             }
             else if(hp <= 0) {
-                OnEnemyDead?.Invoke();
+                EnemyDead();
             }
         }
     }
 
     public bool isDead;         // RPC 동기화용 Bool 변수 
 
-    public Collider EnemyLookRange;
 
     void Awake() {
         // 레퍼런스 초기화 
@@ -48,18 +52,12 @@ public class EliteMeleeEnemy : EnemyController {
         rigid = GetComponent<Rigidbody>();
         nav = GetComponent<NavMeshAgent>();
         ani = GetComponentInChildren<Animator>();
-        capsuleCollider = GetComponent<CapsuleCollider>();
-        sphereCollider = (SphereCollider)EnemyLookRange;
+        zombieCollider = GetComponent<CapsuleCollider>();
     }
 
     private void OnEnable() {
         if (PV.IsMine) {
-            OnEnemyReset += ResetEnemy;
-            OnEnemyMove += RandomMove;
-            OnEnemyTracking += EnemyTracking;
-            OnEnemyRun += EnemyRun;
-            OnEnemyAttack += EnemyMeleeAttack;
-            OnEnemyDead += EnemyDead;
+
 
             hp = maxHp;
             ani.SetBool("isDead", false);
@@ -71,57 +69,42 @@ public class EliteMeleeEnemy : EnemyController {
 
     void OnDisable() {
         if (PV.IsMine) {
-            OnEnemyReset -= ResetEnemy;
-            OnEnemyMove -= RandomMove;
-            OnEnemyTracking -= EnemyTracking;
-            OnEnemyRun -= EnemyRun;
-            OnEnemyAttack -= EnemyMeleeAttack;
-            OnEnemyDead -= EnemyDead;
+
         }
     }
 
 
     void Start() {
-        playerTr = GameObject.FindWithTag("Player").GetComponent<Transform>();
-        InvokeRepeating("EnemyMove", 0.5f, 3.0f);
-        bloodParticle.Stop();
-        capsuleCollider.enabled = true;
-        sphereCollider.enabled = true;
-        rigid.isKinematic = false;
-        // 초기에 데미지 지정 
-        damage = 20f;
+        players = GameObject.FindGameObjectsWithTag("Player");
     }
 
     void Update()
     {
         if (PV.IsMine)
         {
-            if (isRangeOut == true) OnEnemyReset?.Invoke();         // 범위 나갔을 때 초기화 
-            if (isTracking) OnEnemyRun?.Invoke();           // 추격 시 달리기 
-            if (nav.isStopped == true) OnEnemyAttack?.Invoke();        // 몬스터 공격
-            // 회전과 이동 처리
-            if (isMoving)
+            if (state == State.dead) return;
+            switch (state)
             {
-                // 이동 중 회전 업데이트
-                Vector3 moveDirection = (nav.destination - transform.position).normalized;
-                targetRotation = Quaternion.LookRotation(moveDirection);
-
-                // 회전
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
-
-                // 이동
-                Vector3 moveDelta = moveDirection * speed * Time.deltaTime;
-                rigid.MovePosition(transform.position + moveDelta);
-
-                // 이동 중 속도를 초기화
-                rigid.velocity = Vector3.zero;
-                rigid.angularVelocity = Vector3.zero;
+                case State.idle:
+                    Idle();
+                    break;
+                case State.randomMove:
+                    RandomMove();
+                    break;
+                case State.chase:
+                    Chase();
+                    break;
+                case State.attack:
+                    Attack();
+                    break;
             }
+        
         }
     }
     void OnTriggerEnter( Collider other )                       //총알, 근접무기...triggerEnter
     {
         if (other.CompareTag("Bullet")){
+            if (state == State.dead) return;
             Hp = -(other.GetComponent<Bullet>().itemData.damage);  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
             other.gameObject.SetActive(false);
             if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt)) {
@@ -130,6 +113,7 @@ public class EliteMeleeEnemy : EnemyController {
         }
         else if (other.CompareTag("Weapon"))        // 근접무기와 trigger
         {
+            if (state == State.dead) return;
             Hp = -(other.GetComponent<ItemSword>().itemData.damage);
             BloodEffect(transform.position);
             if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt)) {
@@ -137,6 +121,7 @@ public class EliteMeleeEnemy : EnemyController {
             }
         }
         else if (other.CompareTag("Grenade")) {
+            if (state == State.dead) return;
             Hp = -(other.GetComponentInParent<ItemGrenade>().itemData.damage);
             if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt)) {
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
@@ -145,198 +130,140 @@ public class EliteMeleeEnemy : EnemyController {
         return;
     }
 
-    //보통 적 NPC의 이동
-    public override void EnemyMove() {
-        if (PV.IsMine) {
-            OnEnemyMove?.Invoke();
-        }
+    void Idle()
+    {
+        RandomMovePoscalculate();
     }
-
-    void ResetEnemy() {
-        if (PV.IsMine) {
-            if (nav.isOnNavMesh)
-            {
-                nav.isStopped = true; // 먼저 멈춤
-                nav.ResetPath(); // 경로 초기화
-                nav.isStopped = false; // 다시 시작
-            }
-
-            transform.LookAt(enemySpawn.position);
-            if (Vector3.Distance(transform.position, enemySpawn.position) < 0.1f && shouldEvaluate)
-            {
-                rigid.velocity = Vector3.zero;
-                rigid.angularVelocity = Vector3.zero;
-                InvokeRepeating("EnemyMove", 0.5f, 3.0f);
-                shouldEvaluate = false;
-                isRangeOut = false;
-            }
-            shouldEvaluate = true;
-        }
-    }
-
-    void RandomMove() {
-        if (PV.IsMine) {
-            isWalk = true;
-            ani.SetBool("isAttack", false);
-            
+    bool isRandomMove;
+    void RandomMovePoscalculate()
+    {
+        if (PV.IsMine && !isRandomMove)
+        {
             float dirX = Random.Range(-40, 40);
             float dirZ = Random.Range(-40, 40);
             Vector3 dest = new Vector3(dirX, 0, dirZ);
 
-            // 목표 회전 설정
             targetRotation = Quaternion.LookRotation(dest);
-
-            Vector3 toOrigin = enemySpawn.position - transform.position;
-
-            // 일정 범위를 나가면
-            if (toOrigin.magnitude > rangeOut / 2)
+            Vector3 targetPosition = transform.position + dest;
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(targetPosition, out hit, 1.0f, NavMesh.AllAreas))
             {
-                CancelInvoke();
-                rigid.velocity = Vector3.zero;
-                rigid.angularVelocity = Vector3.zero;
-
-                // 다시 돌아오는 방향 설정 및 이동
-                Vector3 direction = (enemySpawn.position - transform.position).normalized;
-                StartCoroutine(ReturnToOrigin(direction));
-
-                isRangeOut = true;
-                isNow = false;
-            }
-            else
-            {
-                isNow = true;
-
-                // NavMeshAgent를 사용하여 이동
-                Vector3 targetPosition = transform.position + dest;
-                NavMeshHit hit;
-                if (NavMesh.SamplePosition(targetPosition, out hit, 1.0f, NavMesh.AllAreas))
-                {
-                    nav.SetDestination(hit.position);
-                }
+                nav.SetDestination(hit.position);
             }
 
-            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_walk)) {
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_walk))
+            {
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_walk);
             }
-
+            state = State.randomMove;
+            isRandomMove = true;
         }
     }
-    IEnumerator ReturnToOrigin(Vector3 direction)
+
+    Collider[] detectedPlayer;
+    void RandomMove()
     {
-        nav.enabled = false; // NavMeshAgent 비활성화
 
-        while (Vector3.Distance(transform.position, enemySpawn.position) > 0.1f)
+        if ((transform.position - nav.destination).magnitude < 1.3)
         {
-            Vector3 newPosition = transform.position + direction * resetSpeed * Time.deltaTime;
-            rigid.MovePosition(newPosition);
-            yield return null;
+            state = State.idle;
+            isRandomMove = false;
         }
 
-        // NavMeshAgent 활성화 및 경로 설정
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(transform.position, out hit, 1.0f, NavMesh.AllAreas))
+        detectedPlayer = Physics.OverlapSphere(transform.position, traceRange, LayerMask.GetMask("LocalPlayer"));
+        if (detectedPlayer.Length > 0 || hp != maxHp)  //근처에 오거나 피가 1이라도 달면
         {
-            nav.enabled = true;
-            nav.Warp(hit.position); // 에이전트를 NavMesh에 정확히 배치
-
-            // NavMeshAgent가 활성화된 상태에서만 Resume 호출
-            if (nav.isOnNavMesh)
-            {
-                nav.isStopped = false;
-            }
-            nav.SetDestination(enemySpawn.position);
+            state = State.chase;
         }
-
-        isRangeOut = false;
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, traceRange);
+        Gizmos.DrawWireSphere(transform.position, attackDistance);
     }
 
-    IEnumerator RotateTowards(Quaternion targetRotation)
+    void Chase()
     {
-        while (Quaternion.Angle(transform.rotation, targetRotation) > 0.1f)
+        Transform closestPlayer = players[0].transform;
+        foreach (GameObject player in players)
+        {
+            Vector3 playerTr = player.transform.position;
+            float playerDistance = ((playerTr - transform.position).sqrMagnitude);
+            if ((closestPlayer.position - transform.position).sqrMagnitude >= playerDistance)
+                closestPlayer.position = playerTr;
+        }
+        nav.SetDestination(closestPlayer.position);
+        Quaternion targetRotation = Quaternion.LookRotation(closestPlayer.position - transform.position);
+        if (Quaternion.Angle(transform.rotation, targetRotation) > 1f)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
-            yield return null;
         }
-        transform.rotation = targetRotation;
-    }
 
-    public override void EnemyRun() {
-        if (PV.IsMine) {
-            isRun = true;
-            ani.SetBool("isAttack", false);
-            ani.SetBool("isRun", true);
-            // NavMeshAgent 설정
-            nav.speed = runSpeed;
-            nav.destination = playerTr.position;
-
-            // Rigidbody와 NavMeshAgent의 속도를 동기화
-            Vector3 desiredVelocity = nav.desiredVelocity;
-
-            // 이동 방향과 속도를 조절
-            rigid.velocity = Vector3.Lerp(rigid.velocity, desiredVelocity, Time.deltaTime * runSpeed);
-
-            // 속도 제한
-            if (rigid.velocity.magnitude > maxTracingSpeed)
-            {
-                rigid.velocity = rigid.velocity.normalized * maxTracingSpeed;
-            }
-
-            // 공격 범위 내에서 멈추기
-            float versusDist = Vector3.Distance(transform.position, playerTr.position);
-
-            if (versusDist < attackRange)
-            {
-                rigid.velocity = Vector3.zero;
-                nav.isStopped = true;
-            }
-            else
-            {
-                nav.isStopped = false;
-            }
-
-            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_run)) {
-                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_run);
-            }
+        if ((closestPlayer.position - transform.position).magnitude < attackDistance)
+        {
+            state = State.attack;
+            nav.velocity = Vector3.zero;
         }
     }
 
-    public override void EnemyMeleeAttack() {
-        if (PV.IsMine) {
-            ani.SetBool("isAttack", true);
-            nextAttack += Time.deltaTime;
-            if (nextAttack > meleeDelay) {
-                /*if(playerTr.GetComponent<Player>().Hp <= 0) {
-                    playerTr = null;
-                }*/
-                StartCoroutine(AttackExit());
-                if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack2)) {
-                    AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_attack2);
-                }
-                nextAttack = 0;
-            }
-
-        }
-    }
-    IEnumerator AttackExit()
+    Coroutine AttackCoroutine;
+    void Attack()
     {
-        OnEnemyMove -= RandomMove;
-        OnEnemyTracking -= EnemyTracking;
-        OnEnemyRun -= EnemyRun;
-        OnEnemyAttack -= EnemyMeleeAttack;
-        yield return new WaitForSeconds(2f);
-        OnEnemyMove += RandomMove;
-        OnEnemyTracking += EnemyTracking;
-        OnEnemyRun += EnemyRun;
-        OnEnemyAttack += EnemyMeleeAttack;
-        ani.SetBool("isAttack", false);
+        Transform closestPlayer = players[0].transform;
+        foreach (GameObject player in players)
+        {
+            Vector3 playerTr = player.transform.position;
+            float playerDistance = ((playerTr - transform.position).sqrMagnitude);
+            if ((closestPlayer.position - transform.position).sqrMagnitude >= playerDistance)
+                closestPlayer.position = playerTr;
+        }
+        nav.SetDestination(closestPlayer.position);
+        Vector3 directionToTarget = closestPlayer.position - transform.position; // 목표 방향 계산
+        if (directionToTarget != Vector3.zero) // 방향이 0이 아닌 경우에만 회전 계산
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+            if (Quaternion.Angle(transform.rotation, targetRotation) < 27f) // 1도 이상 차이 나는 경우에만 회전
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+            }
+        }
 
+
+        if (AttackCoroutine == null)
+        {
+            AttackCoroutine = StartCoroutine(AttackCor());
+        }
     }
+    IEnumerator AttackCor()
+    {
+        ani.SetBool("isAttack", true);
+        StartCoroutine(AnimationFalse("isAttack"));
+        if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack2))
+        {
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_attack2);
+        }
+        yield return new WaitForSeconds(AtkCoolTime); //공격애니메이션 시간 2.633
+        AttackCoroutine = null;
+        if (state != State.dead)
+        {
+            state = State.chase;
+            AttackCoroutine = null;
+        }
+    }
+
+
+
 
     public override void EnemyDead() {
         if (hp <= 0 && !isDead) {
             photonView.RPC("HandleEnemyDeath", RpcTarget.AllBuffered);
             ani.SetBool("isDead", true);
-            
+            state = State.dead;
+            nav.isStopped = true;
+            rigid.velocity = Vector3.zero;
+            zombieCollider.enabled = false;
+
             for (int i = 0; i < 4; i++) {
                 GameObject splitEnemy = Pooling.instance.GetObject("Zombie1", transform.position);
                 splitEnemy.transform.position = transform.position + new Vector3(Random.Range(0, 2), 0, Random.Range(0, 2));
@@ -359,31 +286,34 @@ public class EliteMeleeEnemy : EnemyController {
     [PunRPC]
     public void HandleEnemyDeath() {
         hp = 0;
-        OnEnemyReset -= ResetEnemy;
-        OnEnemyMove -= RandomMove;
-        OnEnemyTracking -= EnemyTracking;
-        OnEnemyRun -= EnemyRun;
-        OnEnemyAttack -= EnemyMeleeAttack;
         isWalk = false;
         isDead = true;
         rigid.isKinematic = true;
-        capsuleCollider.enabled = false;
-        sphereCollider.enabled = false;
+        state = State.dead;
         if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_dead1)) {
             AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_dead1);
         }
-        OnEnemyDead -= EnemyDead;
+        ani.SetBool("isDead", true);
     }
 
     [PunRPC]
     void EliteMeleeChangeHpRPC(float value)
     {
         hp += value;
+        if (state == State.randomMove)
+        {
+            state = State.chase;
+        }
         EnemyDead();
     }
     public override void ChangeHp(float value)
     {
         if(photonView.IsMine)
         photonView.RPC("EliteMeleeChangeHpRPC", RpcTarget.AllBuffered, value);
+    }
+    IEnumerator AnimationFalse(string str)
+    {
+        yield return new WaitForSeconds(0.1f);
+        ani.SetBool(str, false);
     }
 }
