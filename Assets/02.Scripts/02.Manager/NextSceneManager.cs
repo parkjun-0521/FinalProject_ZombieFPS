@@ -2,6 +2,7 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 public class NextSceneManager : MonoBehaviourPunCallbacks {
@@ -9,6 +10,9 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
     public bool isQuest1 = false;
     public bool isQuest2 = false;
     public bool isQuest3 = false;
+
+    private bool dataLoaded = false;
+    public Inventory theInventory;
 
     void Awake() {
         Instance = this;
@@ -34,7 +38,6 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
             // 모든 플레이어가 nextStageZone에 들어왔을 때 씬을 로드합니다.
             if (ScenesManagerment.Instance.playerCount == PhotonNetwork.CurrentRoom.PlayerCount) {
                 if (ScenesManagerment.Instance.stageCount == 0 && isQuest1) {
-                    Debug.Log("왜 안들어가짐?");
                     AudioManager.Instance.PlayBgm(false, ScenesManagerment.Instance.stageCount);
                     PhotonNetwork.LoadLevel("03.MainGameScene_1");
                     ScenesManagerment.Instance.stageCount += 1;
@@ -59,5 +62,6 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
             }
         }
     }
+
 }
 

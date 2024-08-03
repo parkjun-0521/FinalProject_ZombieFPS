@@ -11,9 +11,11 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static InputKeyManager;
+
 
 public class Player : PlayerController 
 {
@@ -164,7 +166,8 @@ public class Player : PlayerController
             }
 
             // 플레이어 상호작용
-            OnPlayerInteraction?.Invoke();
+            if(bulletPos.position !=null && ray.direction != null)
+                OnPlayerInteraction?.Invoke();
             // 플레이어 회전
             OnPlayerRotation?.Invoke();
 
@@ -518,6 +521,9 @@ public class Player : PlayerController
                 if (PhotonNetwork.IsConnected && PhotonNetwork.InRoom) {
                     // 인벤토리에 아이템 넣기 
                     theInventory.AcquireItem(itemObj.transform.GetComponent<ItemPickUp>());
+                    
+                    // DB에 아이템 넣기 
+
                     // 아이템 제거 동기화
                     PV.RPC("ItemPickUpRPC", RpcTarget.AllBuffered, itemObj.GetComponent<PhotonView>().ViewID);
                 }
