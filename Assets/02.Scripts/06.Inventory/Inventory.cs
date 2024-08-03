@@ -1,7 +1,9 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 using static ItemController;
 public class Inventory : MonoBehaviour {
@@ -16,9 +18,10 @@ public class Inventory : MonoBehaviour {
     public List<Slot> slots;                    // 슬롯들 배열
     public List<Slot> allSlots;                 // 모든 슬롯 
 
-    void Start() {
+    void Start()
+    {
         // slots를 List로 초기화
-        slots = new List<Slot>();       
+        slots = new List<Slot>();
         slots.AddRange(go_SlotsParent.GetComponentsInChildren<Slot>());             // 인벤토리 슬롯 추가 
         slots.AddRange(go_MauntingSlotsParent.GetComponentsInChildren<Slot>());     // 장비 장착칸 슬롯을 인벤토리 칸에 추가 ( 아이템 자동 장착을 위해 ) 
         allSlots = new List<Slot>(GetComponentsInChildren<Slot>(true));             // 모든 슬롯 
@@ -38,7 +41,7 @@ public class Inventory : MonoBehaviour {
         if (itemType == ItemController.ItemType.Magazine) {
             UIManager.Instance.UpdateTotalBulletCount(CalculateTotalItems(ItemController.ItemType.Magazine));
         }
-        else if(itemType == ItemController.ItemType.ShotMagazine) {
+        else if (itemType == ItemController.ItemType.ShotMagazine) {
             UIManager.Instance.UpdateTotalBulletCount(CalculateTotalItems(ItemController.ItemType.ShotMagazine));
         }
 
@@ -53,18 +56,19 @@ public class Inventory : MonoBehaviour {
         foreach (Slot slot in allSlots) {
             // 아이템이 하나라도 있으면 true 반환
             if (slot.item != null && slot.item.type == itemType && slot.itemCount > 0) {
-                return true; 
+                return true;
             }
         }
         // 모든 슬롯을 검사했지만 아이템이 없는 경우
-        return false; 
+        return false;
     }
 
-    public void AcquireItem( ItemController _item, int _count = 1 ) {       // 초기값이 없으면 1로  
-        if (ItemController.ItemType.Gun != _item.type     &&
+    public void AcquireItem(ItemController _item, int _count = 1)
+    {       // 초기값이 없으면 1로  
+        if (ItemController.ItemType.Gun != _item.type &&
             ItemController.ItemType.ShotGun != _item.type &&
-            ItemController.ItemType.Sword1 != _item.type  &&
-            ItemController.ItemType.Sword2 != _item.type  ) {                 // 총과 칼은 합쳐지지 않는 무기기 때문에 if문으로 조건 처리
+            ItemController.ItemType.Sword1 != _item.type &&
+            ItemController.ItemType.Sword2 != _item.type) {                 // 총과 칼은 합쳐지지 않는 무기기 때문에 if문으로 조건 처리
 
             /*if (_item.type == ItemController.ItemType.Magazine) {
                 UIManager.Instance.UpdateTotalBulletCount(CalculateTotalItems(ItemController.ItemType.Magazine));
@@ -117,19 +121,21 @@ public class Inventory : MonoBehaviour {
     }
 
     // 아이템이 가득 찼는지 확인 
-    public bool IsFull() {
+    public bool IsFull()
+    {
         // 장비 장착칸 4칸을 제외하고 모든 슬롯을 순회
         for (int i = 0; i < slots.Count - 4; i++) {
             Slot slot = slots[i];
             // slot이 비어있으면 인벤토리가 가득 차지 않음
-            if (!slot.HasItem()) 
+            if (!slot.HasItem())
                 return false;
         }
         return true;
     }
 
     // 아이템의 ID값 찾아오기 
-    public Slot FindSlotByID( int itemID ) {
+    public Slot FindSlotByID(int itemID)
+    {
         foreach (Slot slot in slots) {
             if (slot.slotID == itemID) {
                 return slot;
@@ -156,16 +162,17 @@ public class Inventory : MonoBehaviour {
 
         if (slotText != null) {
             int grenadeCount = int.Parse(slotText.text);
-            if (index == 2)         UIManager.Instance.UpdateTotalGrenadeCount(grenadeCount);
-            else if(index == 3)     UIManager.Instance.UpdateTotalHealCount(grenadeCount);
+            if (index == 2) UIManager.Instance.UpdateTotalGrenadeCount(grenadeCount);
+            else if (index == 3) UIManager.Instance.UpdateTotalHealCount(grenadeCount);
         }
         else {
-            if (index == 2)         UIManager.Instance.UpdateTotalGrenadeCount(0);
-            else if (index == 3)    UIManager.Instance.UpdateTotalHealCount(0);        
+            if (index == 2) UIManager.Instance.UpdateTotalGrenadeCount(0);
+            else if (index == 3) UIManager.Instance.UpdateTotalHealCount(0);
         }
     }
 
-    public void AllItemInfo() {
+    public void AllItemInfo()
+    {
         foreach (Slot slot in allSlots) {
             // 슬롯의 부모 오브젝트를 임시로 활성화
             GameObject parent = slot.gameObject;
@@ -175,6 +182,8 @@ public class Inventory : MonoBehaviour {
             // 데이터를 가져옴
             if (slot.item != null) {
                 Debug.Log(slot.item.itemName + " " + slot.item.itemCount);
+                string userID = PhotonNetwork.NickName;
+                StartCoroutine(SendItemData(userID, slot.item.itemName, slot.item.itemCount));
             }
             else {
                 Debug.Log("Item is null");
@@ -182,6 +191,25 @@ public class Inventory : MonoBehaviour {
 
             // 다시 원래 상태로 설정
             parent.SetActive(wasActive);
+        }
+    }
+    // 아이템 데이터를 서버로 전송
+    IEnumerator SendItemData(string userID, string itemName, int itemCount)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("UserID", userID); // UserID 추가
+        form.AddField("ItemName", itemName);
+        form.AddField("ItemCount", itemCount);
+
+        using (UnityWebRequest www = UnityWebRequest.Post(URLs.ItemSaveURL, form)) {
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success) {
+                Debug.LogError("Error while sending item data: " + www.error);
+            }
+            else {
+                Debug.Log("Item data sent successfully!");
+            }
         }
     }
 }

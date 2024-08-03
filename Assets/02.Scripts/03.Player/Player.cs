@@ -569,7 +569,16 @@ public class Player : PlayerController
             Debug.Log("장비가 장착되지 않음");
             return false;
         }
+     
+        return true;
+    }
 
+    void ItemCountChange(int slotID)
+    {
+        // theInventory에서 Inventory 컴포넌트를 가져옴
+        Inventory inventory = theInventory.GetComponent<Inventory>();
+        // MountingSlotsParent에서 Slot 컴포넌트들을 가져오고, ID가 3인 슬롯을 찾음
+        Slot slotWithID = inventory.go_MauntingSlotsParent.GetComponentsInChildren<Slot>().FirstOrDefault(slot => slot.slotID == slotID);
         switch (slotID) {
             case 3:
                 // ID가 3인 슬롯이 null이거나 비어 있는 경우의 조건문   
@@ -593,7 +602,6 @@ public class Player : PlayerController
                 // 아이템을 다 쓰고 난 후 손에 있는 무기 비활성화
                 break;
         }
-        return true;
     }
 
     // 근접 칼
@@ -887,6 +895,7 @@ public class Player : PlayerController
             AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Medikit2);
             //힐 하는시간 변수로 빼고 대충 중앙에 ui띄우고 힐 하는시간 지나면 Hp = (+30) 코루틴사용이 좋겠지 중간에 키입력시 return 애니메이션추가;
 
+            ItemCountChange(4);
         }
     }
 
@@ -910,28 +919,84 @@ public class Player : PlayerController
             float throwForce = 15f;    // 던지는 힘
             AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_granede);
 
-            //if( 인벤토리 장비 칸에서 이름을 가져옴 == 수류탄)
-            GameObject grenade = Pooling.instance.GetObject("GrenadeObject", Vector3.zero);   // 수류탄 생성 
-            //else if( 인벤토리 장비 칸에서 이름을 가져옴 == 화염병 ) 
-            Rigidbody grenadeRigid = grenade.GetComponent<Rigidbody>();
-            // 초기 위치 설정
-            grenadeRigid.velocity = Vector3.zero;               // 생성 시 가속도 초기화
-            grenade.transform.position = grenadePos.position;   // bullet 위치 초기화                   
-            grenade.transform.rotation = Quaternion.identity;   // bullet 회전값 초기화 
 
-            // 카메라의 중앙에서 나가는 레이 구하기
-            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
-            RaycastHit hit;
-            Vector3 targetPoint;
+            if (inventory != null && theInventory.go_MauntingSlotsParent != null) {
+                Transform slotsParent = theInventory.go_MauntingSlotsParent.transform;
+                if (slotsParent.childCount > 1) {
+                    Transform firstChild = slotsParent.GetChild(2);
 
-            // 맞았을 때 , 안맞았을 때 충돌 지점 지정 
-            targetPoint = (Physics.Raycast(ray, out hit)) ? hit.point : ray.GetPoint(1000);
+                    Transform grandChild = firstChild.GetChild(0);
+                    Image imageComponent = grandChild.GetComponent<Image>();
+                    if (imageComponent != null && imageComponent.sprite != null) {
+                        string spriteName = imageComponent.sprite.name;
+                        if (spriteName.Equals("Grenade")) {
+                            GameObject grenade = Pooling.instance.GetObject("GrenadeObject", Vector3.zero);   // 수류탄 생성 
+                            Rigidbody grenadeRigid = grenade.GetComponent<Rigidbody>();
+                            // 초기 위치 설정
+                            grenadeRigid.velocity = Vector3.zero;               // 생성 시 가속도 초기화
+                            grenade.transform.position = grenadePos.position;   // bullet 위치 초기화                   
+                            grenade.transform.rotation = Quaternion.identity;   // bullet 회전값 초기화 
+                            // 카메라의 중앙에서 나가는 레이 구하기
+                            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+                            RaycastHit hit;
+                            Vector3 targetPoint;
+                            // 맞았을 때 , 안맞았을 때 충돌 지점 지정 
+                            targetPoint = (Physics.Raycast(ray, out hit)) ? hit.point : ray.GetPoint(1000);
 
-            // 던질 방향 계산
-            Vector3 throwDirection = (targetPoint - grenade.transform.position).normalized;
+                            // 던질 방향 계산
+                            Vector3 throwDirection = (targetPoint - grenade.transform.position).normalized;
 
-            // Rigidbody에 힘을 가함
-            grenadeRigid.AddForce(throwDirection * throwForce, ForceMode.VelocityChange);
+                            // Rigidbody에 힘을 가함
+                            grenadeRigid.AddForce(throwDirection * throwForce, ForceMode.VelocityChange);
+                        }
+                        else if (spriteName.Equals("FireGrenade")) {
+                            GameObject grenade = Pooling.instance.GetObject("FireGrenadeObject", Vector3.zero);   // 수류탄 생성 
+                            Rigidbody grenadeRigid = grenade.GetComponent<Rigidbody>();
+                            // 초기 위치 설정
+                            grenadeRigid.velocity = Vector3.zero;               // 생성 시 가속도 초기화
+                            grenade.transform.position = grenadePos.position;   // bullet 위치 초기화                   
+                            grenade.transform.rotation = Quaternion.identity;   // bullet 회전값 초기화 
+
+                            // 카메라의 중앙에서 나가는 레이 구하기
+                            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+                            RaycastHit hit;
+                            Vector3 targetPoint;
+
+                            // 맞았을 때 , 안맞았을 때 충돌 지점 지정 
+                            targetPoint = (Physics.Raycast(ray, out hit)) ? hit.point : ray.GetPoint(1000);
+
+                            // 던질 방향 계산
+                            Vector3 throwDirection = (targetPoint - grenade.transform.position).normalized;
+
+                            // Rigidbody에 힘을 가함
+                            grenadeRigid.AddForce(throwDirection * throwForce, ForceMode.VelocityChange);
+                        }
+                        else if (spriteName.Equals("SupportGrenade")) {
+                            GameObject grenade = Pooling.instance.GetObject("SupportGrenadeObject", Vector3.zero);   // 수류탄 생성 
+                            Rigidbody grenadeRigid = grenade.GetComponent<Rigidbody>();
+                            // 초기 위치 설정
+                            grenadeRigid.velocity = Vector3.zero;               // 생성 시 가속도 초기화
+                            grenade.transform.position = grenadePos.position;   // bullet 위치 초기화                   
+                            grenade.transform.rotation = Quaternion.identity;   // bullet 회전값 초기화 
+
+                            // 카메라의 중앙에서 나가는 레이 구하기
+                            Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+                            RaycastHit hit;
+                            Vector3 targetPoint;
+
+                            // 맞았을 때 , 안맞았을 때 충돌 지점 지정 
+                            targetPoint = (Physics.Raycast(ray, out hit)) ? hit.point : ray.GetPoint(1000);
+
+                            // 던질 방향 계산
+                            Vector3 throwDirection = (targetPoint - grenade.transform.position).normalized;
+
+                            // Rigidbody에 힘을 가함
+                            grenadeRigid.AddForce(throwDirection * throwForce, ForceMode.VelocityChange);
+                        }
+                    }                  
+                }
+            }
+            ItemCountChange(3);
         }
     }
 

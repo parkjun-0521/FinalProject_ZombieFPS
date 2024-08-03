@@ -42956,7 +42956,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -46182,7 +46181,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3546432924878277635, guid: b95a227e244636949b4c42bb41f3414e, type: 3}
       propertyPath: persent.Array.data[0]
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3546432924878277635, guid: b95a227e244636949b4c42bb41f3414e, type: 3}
       propertyPath: persent.Array.data[1]
@@ -46191,6 +46190,10 @@ PrefabInstance:
     - target: {fileID: 3546432924878277635, guid: b95a227e244636949b4c42bb41f3414e, type: 3}
       propertyPath: persent.Array.data[2]
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3546432924878277635, guid: b95a227e244636949b4c42bb41f3414e, type: 3}
+      propertyPath: persent.Array.data[3]
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3546432924878277662, guid: b95a227e244636949b4c42bb41f3414e, type: 3}
       propertyPath: m_Layer
@@ -49228,15 +49231,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7247861760516663461, guid: 041a01888cab2294490e1cb732e40897, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -22.470001
+      value: 73.53
       objectReference: {fileID: 0}
     - target: {fileID: 7247861760516663461, guid: 041a01888cab2294490e1cb732e40897, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -11.5
+      value: -8.25
       objectReference: {fileID: 0}
     - target: {fileID: 7247861760516663461, guid: 041a01888cab2294490e1cb732e40897, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -47
+      value: 59.75
       objectReference: {fileID: 0}
     - target: {fileID: 7247861760516663461, guid: 041a01888cab2294490e1cb732e40897, type: 3}
       propertyPath: m_LocalRotation.w
@@ -49325,6 +49328,9 @@ MonoBehaviour:
   - {fileID: 2643228227148131504, guid: 81dbe2d59c248604f96da36a48b3a43c, type: 3}
   - {fileID: 7551461160908133067, guid: b1fde0c5f5fa59b42bc1c8b898df8be3, type: 3}
   - {fileID: 1551386107059371073, guid: e857a537b15b3674db694690e32e1881, type: 3}
+  - {fileID: 391476628684390422, guid: e8cbe085b5ad3334e95fa07c2d403dd6, type: 3}
+  - {fileID: 391476628684390422, guid: 38b4f40b520249647abe41268df07211, type: 3}
+  - {fileID: 115386, guid: bcc28e0bcd95630478d414cfb3367461, type: 3}
 --- !u!4 &1725192240
 Transform:
   m_ObjectHideFlags: 0

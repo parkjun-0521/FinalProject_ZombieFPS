@@ -72,7 +72,7 @@ MonoBehaviour:
   curMoveTime: 3
   meleeDelay: 2
   nextAttack: 4
-  attackRange: 3
+  attackRange: 2
   rangeOut: 100
   resetSpeed: 10
   enemySpawn: {fileID: 0}
@@ -1898,10 +1898,10 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: isDead
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: isAttack
   m_SynchronizeLayers:
   - SynchronizeType: 0

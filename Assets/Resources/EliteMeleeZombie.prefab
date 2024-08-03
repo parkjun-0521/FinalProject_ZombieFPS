@@ -178,12 +178,21 @@ MonoBehaviour:
   isRangeOut: 0
   shouldEvaluate: 0
   isWalk: 0
+  isRun: 0
+  isAttack: 0
+  isTracking: 0
+  PV: {fileID: 0}
   playerTr: {fileID: 0}
+  rigid: {fileID: 0}
+  nav: {fileID: 0}
+  ani: {fileID: 0}
   capsuleCollider: {fileID: 0}
   sphereCollider: {fileID: 0}
   EnemyLookRange: {fileID: 6372042097543369023}
-  rotationSpeed: 2
+  searchInterval: 1
+  nextSearchTime: 0
   targetRotation: {x: 0, y: 0, z: 0, w: 0}
+  rotationSpeed: 2
   attackColliderPrefab: {fileID: 0}
   attackPoint: {fileID: 0}
   splitZombies:
@@ -192,7 +201,6 @@ MonoBehaviour:
   - {fileID: 2740344462459586780, guid: e2c0035046bec0348a3d9963bdd47c9b, type: 3}
   - {fileID: 2740344462459586780, guid: e2c0035046bec0348a3d9963bdd47c9b, type: 3}
   bloodParticle: {fileID: 3365126088063631719}
-  isDead: 0
 --- !u!114 &3174076766146402361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,7 +287,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8427595692242402804}
   - component: {fileID: 6372042097543369023}
-  m_Layer: 22
+  m_Layer: 21
   m_Name: EnemyLookRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -312,7 +320,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 5
+  m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &3174076764713127079
 PrefabInstance:

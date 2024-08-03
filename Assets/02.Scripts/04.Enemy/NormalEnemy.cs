@@ -39,9 +39,23 @@ public class NormalEnemy : EnemyController {
 
     void Start() {
         RandomMove();
+
+        SphereCollider lookRangeCollider = EnemyLookRange; // EnemyLookRange 콜라이더 참조
+        int weaponLayer = LayerMask.NameToLayer("Weapon"); // 'Weapon' 레이어 이름에 해당하는 레이어 인덱스 가져오기
+
+        // 모든 무기 콜라이더를 찾아 EnemyLookRange와의 충돌을 무시
+        GameObject[] weapons = GameObject.FindGameObjectsWithTag("Weapon");
+        foreach (var weapon in weapons) {
+            Collider[] weaponColliders = weapon.GetComponentsInChildren<Collider>();
+            foreach (var collider in weaponColliders) {
+                Physics.IgnoreCollision(lookRangeCollider, collider, true);
+            }
+        }
     }
 
     void Update() {
+        if (hp <= 0) return;
+
         if (isTracking && playerTr != null) {
             Vector3 directionToPlayer = (playerTr.position - transform.position).normalized;
             targetRotation = Quaternion.LookRotation(directionToPlayer);
@@ -142,7 +156,7 @@ public class NormalEnemy : EnemyController {
     }
 
     public override void EnemyMeleeAttack() {
-        if (playerTr == null) return;
+        if (hp <= 0 || playerTr == null || isAttack) return;
 
         isAttack = true;
         nav.isStopped = true;
