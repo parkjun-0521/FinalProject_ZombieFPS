@@ -38,6 +38,7 @@ public class Player : PlayerController
     //dot damage 코루틴
     Coroutine dotCoroutine;
 
+    [SerializeField] CapsuleCollider swordCollider;
     void Awake()
     {
         // 레퍼런스 초기화 
@@ -52,7 +53,6 @@ public class Player : PlayerController
             Cursor.visible = false;                         // 마우스 커서 비활성화
             Cursor.lockState = CursorLockMode.Locked;       // 마우스 커서 현재 위치 고정 
             rotateToMouse = GetComponentInChildren<RotateToMouse>();
-           
         }
     }
 
@@ -609,6 +609,7 @@ public class Player : PlayerController
             Debug.Log("칼 공격");
             animator.SetBool("isMeleeWeaponSwing", true);          //외부에서 보여질때 애니메이션
             handAnimator.SetBool("isMeleeWeaponSwing", true);   //플레이어 1인칭 애니메이션
+            StartCoroutine(SwordCollider());
             StartCoroutine(AnimReset("isMeleeWeaponSwing", handAnimator));
             // 데미지는 weapon에서 줄꺼임 그리고 체력은 좀비에서 감소시킬예정
         }
@@ -1326,5 +1327,12 @@ public class Player : PlayerController
             }
             photonView.RPC("UpdateHealthBar", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName, photonView.ViewID, (hp / maxHp) * 100);
         }
+    }
+
+    IEnumerator SwordCollider()
+    {
+        swordCollider.enabled = true;
+        yield return new WaitForSeconds(1.0f);
+        swordCollider.enabled = false;
     }
 }

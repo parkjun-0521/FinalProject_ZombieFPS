@@ -242,7 +242,7 @@ public class EliteRangeEnemy : EnemyController
             }
         }
 
-
+        nav.isStopped = true;
         if (AttackCoroutine == null)
         {
             AttackCoroutine = StartCoroutine(AttackCor());
@@ -258,6 +258,7 @@ public class EliteRangeEnemy : EnemyController
         }
         yield return new WaitForSeconds(3f); //공격애니메이션 시간 2.633
         state = State.chase;
+        nav.isStopped = false;
         AttackCoroutine = null;
     }
 
@@ -302,12 +303,14 @@ public class EliteRangeEnemy : EnemyController
     {
        
         isWalk = false;
-        sphereCollider.enabled = false;
+        capsuleCollider.enabled = false;
         if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_dead1)) {
             AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_dead1);
         }
         ani.SetBool("isDead", true);
-        nav.enabled = false;
+        nav.isStopped = true;
+        state = State.dead;
+        //nav.enabled = false;
     }
 
     [PunRPC]
