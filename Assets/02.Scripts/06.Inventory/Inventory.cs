@@ -181,9 +181,9 @@ public class Inventory : MonoBehaviour {
 
             // 데이터를 가져옴
             if (slot.item != null) {
-                Debug.Log(slot.item.itemName + " " + slot.item.itemCount);
+                Debug.Log(slot.item.itemName + " " + slot.itemCount);
                 string userID = PhotonNetwork.NickName;
-                StartCoroutine(SendItemData(userID, slot.item.itemName, slot.item.itemCount));
+                StartCoroutine(SendItemData(userID, slot.item.itemName, slot.itemCount));
             }
             else {
                 Debug.Log("Item is null");

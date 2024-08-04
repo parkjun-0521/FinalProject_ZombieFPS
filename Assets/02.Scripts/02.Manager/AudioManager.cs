@@ -99,14 +99,14 @@ public class AudioManager : MonoBehaviour
 
     public void PlayBgm(bool isPlay, int stageCount)
     {
-        if (stageCount == 0)
-            bgmPlayer.clip = bgmClips[0];
-        else if (stageCount == 1)
-            bgmPlayer.clip = bgmClips[1];
-        else if (stageCount == 2)
-            bgmPlayer.clip = bgmClips[2];
         // 사용시 AudioManager.Instance.PlayBgm(true); // 끌때는 false
         if (isPlay) {
+            if (stageCount == 0)
+                bgmPlayer.clip = bgmClips[0];
+            else if (stageCount == 1)
+                bgmPlayer.clip = bgmClips[1];
+            else if (stageCount == 2)
+                bgmPlayer.clip = bgmClips[2];
             bgmPlayer.Play();
         }
         else {

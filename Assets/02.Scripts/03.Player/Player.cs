@@ -512,7 +512,7 @@ public class Player : PlayerController
     }
 
     // 아이템 줍기 
-    private void ItemPickUp(GameObject itemObj) {
+    public void ItemPickUp(GameObject itemObj) {
         if (PV.IsMine) { 
             if (theInventory.IsFull()) {
                 Debug.Log("인벤토리가 가득 찼습니다. 더 이상 아이템을 줍지 못합니다.");
@@ -522,7 +522,8 @@ public class Player : PlayerController
                     // 인벤토리에 아이템 넣기 
                     theInventory.AcquireItem(itemObj.transform.GetComponent<ItemPickUp>());
                     // 아이템 제거 동기화
-                    PV.RPC("ItemPickUpRPC", RpcTarget.AllBuffered, itemObj.GetComponent<PhotonView>().ViewID);
+                    if (PV != null)
+                        PV.RPC("ItemPickUpRPC", RpcTarget.AllBuffered, itemObj.GetComponent<PhotonView>().ViewID);
                 }
                 else {
                     // 룸이 아닐 때 테스트 용 ( 추후 지울 예정 ) ============================================================
