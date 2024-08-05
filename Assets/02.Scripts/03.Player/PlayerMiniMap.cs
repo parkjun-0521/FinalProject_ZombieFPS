@@ -47,7 +47,8 @@ public class PlayerMiniMap : MonoBehaviour
     }
     private void Update()
     {
-        PlayerCount = PhotonNetwork.CurrentRoom.PlayerCount;
+        if(PhotonNetwork.CurrentRoom != null)
+            PlayerCount = PhotonNetwork.CurrentRoom.PlayerCount;
         if (player != null)
         {
             minimap.offsetMax = new Vector2((temp.x + player.transform.position.x) * sizeX, (temp.z + player.transform.position.z) * sizeY);
