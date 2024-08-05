@@ -1433,6 +1433,10 @@ public class Player : PlayerController
                 spectateCamera.transform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
                 GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
                 playerCamera.enabled = false;
+                //ui ≤®¡÷±‚
+                
+
+                aiming.sprite = null;
                 foreach (GameObject player in players)
                 {
                     if (player.GetComponent<PhotonView>().IsMine == false)
