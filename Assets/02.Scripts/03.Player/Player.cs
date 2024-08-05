@@ -22,7 +22,7 @@ public class Player : PlayerController
     public static event PlayerMoveHandler OnPlayerMove, OnPlayerAttack;
 
     public delegate void PlayerJumpedHandler();
-    public static event PlayerJumpedHandler OnPlayerRotation, OnPlayerJump, OnPlayerSwap, OnPlayerInteraction, OnPlayerInventory;
+    public static event PlayerJumpedHandler OnPlayerRotation, OnPlayerJump, OnPlayerSwap, OnPlayerInteraction, OnPlayerInventory, OnPlayerSpectate;
 
     private RotateToMouse rotateToMouse;
     private InputKeyManager keyManager;
@@ -178,7 +178,8 @@ public class Player : PlayerController
 
             ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
             //사람 죽은놈 쪽으로 레이쏴서 ui true
-            
+
+            OnPlayerSpectate?.Invoke();  // 죽었을때 관전
         }
     }
 
@@ -250,6 +251,17 @@ public class Player : PlayerController
         }
     }
 
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (PV.IsMine)
+        {
+            if (collision.gameObject.CompareTag("Ground") && rigid.velocity.y > 0)
+            {
+                isJump = false;
+            }
+        }
+    }
     void OnCollisionEnter(Collision collision)
     {
         if (PV.IsMine) {
@@ -260,14 +272,7 @@ public class Player : PlayerController
         }
     }
 
-    void OnCollisionExit(Collision collision)
-    {
-        if (PV.IsMine) {
-            if (collision.gameObject.CompareTag("Ground")) {
-                isJump = false;
-            }
-        }
-    }
+    
 
     // 플레이어 이동 ( 달리는 중인가 check bool ) 
     public override void PlayerMove(bool type) {
@@ -1195,6 +1200,7 @@ public class Player : PlayerController
             AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_death_BGM);
             photonView.RPC("IsFaintRPC", RpcTarget.AllBuffered, false);
             photonView.RPC("IsDeadRPC", RpcTarget.AllBuffered, true);
+            OnPlayerSpectate += PlayerSpectate;         //뒤지면 관전기능
         }
     }
 
@@ -1407,5 +1413,40 @@ public class Player : PlayerController
         swordCollider.enabled = true;
         yield return new WaitForSeconds(1.0f);
         swordCollider.enabled = false;
+    }
+
+    GameObject spectateCamera;
+    List<GameObject> otherPlayers;
+    int playerCount = 0;
+    void PlayerSpectate() //관전
+    {
+        if(PhotonNetwork.CurrentRoom.PlayerCount > 1)
+        {
+            if(spectateCamera == null)
+            {
+                spectateCamera = Instantiate(gameObject);
+                spectateCamera.transform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
+                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+                foreach(GameObject player in players)
+                {
+                    if(player.GetComponent<PhotonView>().IsMine == false)
+                    {
+                        otherPlayers.Add(player);
+                    }
+                }
+            }
+        }
+
+        if(Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Attack)))
+        {
+            playerCount++;
+            if (PhotonNetwork.CurrentRoom.PlayerCount == playerCount + 1)
+            {
+                playerCount = 0;
+            }
+           
+        }
+
+        spectateCamera.transform.position = otherPlayers[playerCount].transform.position + Vector3.up * 20;
     }
 }

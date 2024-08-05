@@ -32,7 +32,6 @@ public class PlayerMiniMap : MonoBehaviour
             if (playerCount == PhotonNetwork.CurrentRoom.PlayerCount) return;
             playerCount = PhotonNetwork.CurrentRoom.PlayerCount;
             StartCoroutine(Search());
-            Debug.Log("프로퍼티작동");
         }
     }
     GameObject otherPlayerUI;
