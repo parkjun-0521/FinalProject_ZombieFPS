@@ -2669,7 +2669,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 2
+  m_Height: 2.1
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &-916454897100102919
@@ -2745,8 +2745,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76f0bbade31d31446b626d664d65d99d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  runSpeed: 10
+  speed: 4
+  runSpeed: 7
   jumpForce: 5
   gravity: -20
   interactionRange: 2

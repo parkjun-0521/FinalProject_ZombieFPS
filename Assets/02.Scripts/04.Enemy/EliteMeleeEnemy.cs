@@ -117,7 +117,7 @@ public class EliteMeleeEnemy : EnemyController {
     void RandomMove()
     {
         if (isTracking) return;
-        ani.SetBool("isWalk", true);
+
         if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_walk)) {
             AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_walk);
         }
@@ -156,9 +156,10 @@ public class EliteMeleeEnemy : EnemyController {
     {
         isWalk = true;
         curMoveTime = 0;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         isWalk = false;
-        RandomMove(); // 다시 랜덤 이동 호출
+        /*RandomMove(); // 다시 랜덤 이동 호출*/
+        yield return new WaitForSeconds(2f);
     }
 
     public override void EnemyRun()

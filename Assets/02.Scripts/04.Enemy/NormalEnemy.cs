@@ -150,7 +150,7 @@ public class NormalEnemy : EnemyController {
         curMoveTime = 0;
         yield return new WaitForSeconds(1f);
         isWalk = false;
-        RandomMove(); // 다시 랜덤 이동 호출
+        /*RandomMove(); // 다시 랜덤 이동 호출*/
         yield return new WaitForSeconds(2f);
     }
 
@@ -197,10 +197,11 @@ public class NormalEnemy : EnemyController {
 
     private IEnumerator ResetAttackState() {
         yield return new WaitForSeconds(meleeDelay);
+
         isAttack = false;
         ani.SetBool("isAttack", false);
+        if (hp <= 0 || playerTr == null || isAttack) yield break;
         nav.isStopped = false;
-
         if (playerTr != null) {
             nav.SetDestination(playerTr.position);
         }
@@ -223,7 +224,6 @@ public class NormalEnemy : EnemyController {
         isWalk = true;
         isTracking = true;
         EnemyLookRange.enabled = false;
-        nav.isStopped = true;
         rigid.isKinematic = true;
         capsuleCollider.enabled = false;
         nav.enabled = false;

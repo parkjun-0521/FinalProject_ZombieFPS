@@ -34,7 +34,7 @@ public class Player : PlayerController
 
     Ray ray;
     bool isRayPlayer = false;
-
+    //private bool isFalling;
     //dot damage 코루틴
     Coroutine dotCoroutine;
 
@@ -112,7 +112,7 @@ public class Player : PlayerController
                     lastAttackTime = Time.time;                 // 딜레이 초기화
                 }
             }
-            
+
             // 점프 
             if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Jump)) && isJump) {
                 OnPlayerJump?.Invoke();
@@ -162,8 +162,6 @@ public class Player : PlayerController
                 cursorLocked = false;
                 ToggleCursor();
             }
-
-            
 
             // 플레이어 상호작용
             if (bulletPos.position != null && ray.direction != null)
@@ -250,8 +248,15 @@ public class Player : PlayerController
         }
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
+    void OnCollisionExit( Collision collision ) {
+        if (PV.IsMine) {
+            if (collision.gameObject.CompareTag("Ground") && rigid.velocity.y > 0) {
+                isJump = false;
+            }
+        }
+    }
+
+    void OnCollisionEnter( Collision collision ) {
         if (PV.IsMine) {
             // 지면 태그 필요 
             if (collision.gameObject.CompareTag("Ground")) {
@@ -259,16 +264,6 @@ public class Player : PlayerController
             }
         }
     }
-
-    void OnCollisionExit(Collision collision)
-    {
-        if (PV.IsMine) {
-            if (collision.gameObject.CompareTag("Ground")) {
-                isJump = false;
-            }
-        }
-    }
-
     // 플레이어 이동 ( 달리는 중인가 check bool ) 
     public override void PlayerMove(bool type) {
         if (PV.IsMine) {
@@ -1016,12 +1011,15 @@ public class Player : PlayerController
                     if (slotsParent.childCount > 1) {
                         Transform firstChild = slotsParent.GetChild(0);
                         Transform grandChild = firstChild.GetChild(0);
-                        string imageComponent = grandChild.GetComponent<Image>().sprite.name;
-                        if (imageComponent != null) {
-                            if (imageComponent.Equals("Gun"))
-                                weaponIndex = 0;
-                            else if (imageComponent.Equals("ShotGun"))
-                                weaponIndex = 4;
+                        Image imageComponent = grandChild.GetComponent<Image>();
+                        if (imageComponent != null && imageComponent.sprite != null) {
+                            string spriteName = imageComponent.sprite.name;
+                            if (spriteName != null) {
+                                if (spriteName.Equals("Gun"))
+                                    weaponIndex = 0;
+                                else if (spriteName.Equals("ShotGun"))
+                                    weaponIndex = 4;
+                            }
                         }
                     }
                 }

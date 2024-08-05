@@ -129,6 +129,7 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
                                                                                         // 방나가기 버튼으로 만들어서 로비로 이동하도록 만듦
                     AudioManager.Instance.PlayBgm(false, ScenesManagerment.Instance.stageCount);
                     PhotonNetwork.LoadLevel("04.Ending");
+                    ScenesManagerment.Instance.stageCount += 1;
                     ScenesManagerment.Instance.playerCount = 0;
                 }
             }

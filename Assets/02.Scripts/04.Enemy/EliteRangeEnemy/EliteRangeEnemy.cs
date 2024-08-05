@@ -115,7 +115,6 @@ public class EliteRangeEnemy : EnemyController
     void RandomMove()
     {
         if (isTracking) return;
-        ani.SetBool("isWalk", true);
 
         StartCoroutine(ResteWalk());
 
@@ -156,9 +155,10 @@ public class EliteRangeEnemy : EnemyController
     {
         isWalk = true;
         curMoveTime = 0;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         isWalk = false;
-        RandomMove(); // 다시 랜덤 이동 호출
+        /*RandomMove(); // 다시 랜덤 이동 호출*/
+        yield return new WaitForSeconds(2f);
     }
 
     public override void EnemyRun()

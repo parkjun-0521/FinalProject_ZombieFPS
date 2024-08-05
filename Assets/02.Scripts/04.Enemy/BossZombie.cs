@@ -62,9 +62,9 @@ public class BossZombie : EnemyController {
             OnRandomMove += RandomMove;             // 랜덤 방향전환 이동 
             OnEnemyTracking += EnemyTracking;
             OnEnemyAttack += EnemyMeleeAttack;
+            OnChangeTarget += ChangeTarget;
             OnEnemyDead += EnemyDead;
             bloodParticle.Stop();
-            capsuleCollider.enabled = true;
         }
     }
 
@@ -74,70 +74,69 @@ public class BossZombie : EnemyController {
             OnRandomMove -= RandomMove;             // 랜덤 방향전환 이동 
             OnEnemyTracking -= EnemyTracking;
             OnEnemyAttack -= EnemyMeleeAttack;
+            OnChangeTarget -= ChangeTarget;
             OnEnemyDead -= EnemyDead;
         }
     }
 
-    void Start()
-    {
-        if (PV.IsMine) {
-            FindAllPlayers();
-            ChangeTarget();                             // 시작 시 바로 대상 변경
-            RandomMove();
+    void Start() {
 
-            targetChangeTimer = targetChangeInterval;
-            capsuleCollider.enabled = true;
-            rigid.isKinematic = false;
-            bloodParticle.Stop();
-            hp = maxHp;
+        capsuleCollider.enabled = true;
+        rigid.isKinematic = false;
+        bloodParticle.Stop();
+        hp = maxHp;
+        RandomMove();
+        FindAllPlayers();
+        ChangeTarget();                             // 시작 시 바로 대상 변경
 
-            SphereCollider lookRangeCollider = EnemyLookRange; // EnemyLookRange 콜라이더 참조
-            int weaponLayer = LayerMask.NameToLayer("Weapon"); // 'Weapon' 레이어 이름에 해당하는 레이어 인덱스 가져오기
+        targetChangeTimer = targetChangeInterval;
 
-            // 모든 무기 콜라이더를 찾아 EnemyLookRange와의 충돌을 무시
-            GameObject[] weapons = GameObject.FindGameObjectsWithTag("Weapon");
-            foreach (var weapon in weapons) {
-                Collider[] weaponColliders = weapon.GetComponentsInChildren<Collider>();
-                foreach (var collider in weaponColliders) {
-                    Physics.IgnoreCollision(lookRangeCollider, collider, true);
-                }
+        SphereCollider lookRangeCollider = EnemyLookRange; // EnemyLookRange 콜라이더 참조
+        int weaponLayer = LayerMask.NameToLayer("Weapon"); // 'Weapon' 레이어 이름에 해당하는 레이어 인덱스 가져오기
+
+        // 모든 무기 콜라이더를 찾아 EnemyLookRange와의 충돌을 무시
+        GameObject[] weapons = GameObject.FindGameObjectsWithTag("Weapon");
+        foreach (var weapon in weapons) {
+            Collider[] weaponColliders = weapon.GetComponentsInChildren<Collider>();
+            foreach (var collider in weaponColliders) {
+                Physics.IgnoreCollision(lookRangeCollider, collider, true);
             }
         }
+
     }
 
-    void Update()
-    {
-        if (PV.IsMine) {
-            // 어그로 전환 
-            if (hp <= 0) return;
+    void Update() {
 
-            targetChangeTimer -= Time.deltaTime;
-            if (targetChangeTimer <= 0) {
-                OnChangeTarget?.Invoke();
-                targetChangeTimer = targetChangeInterval;
+        // 어그로 전환 
+        if (hp <= 0) return;
+
+        targetChangeTimer -= Time.deltaTime;
+        if (targetChangeTimer <= 0) {
+            OnChangeTarget?.Invoke();
+            targetChangeTimer = targetChangeInterval;
+        }
+
+        if (isTracking && playerTr != null) {
+            Vector3 directionToPlayer = (playerTr.position - transform.position).normalized;
+            targetRotation = Quaternion.LookRotation(directionToPlayer);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+
+            if (nav.remainingDistance <= nav.stoppingDistance) {
+                nav.isStopped = false;
+                nav.SetDestination(playerTr.position);
             }
 
-            if (isTracking && playerTr != null) {
-                Vector3 directionToPlayer = (playerTr.position - transform.position).normalized;
-                targetRotation = Quaternion.LookRotation(directionToPlayer);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
-
-                if (nav.remainingDistance <= nav.stoppingDistance) {
-                    nav.isStopped = false;
-                    nav.SetDestination(playerTr.position);
-                }
-
-                float versusDist = Vector3.Distance(transform.position, playerTr.position);
-                if (versusDist < attackRange && !isAttack) {
-                    EnemyMeleeAttack();
-                }
-            }
-            else if (!isTracking && !isAttack) {
-                if (!isWalk) {
-                    RandomMove();
-                }
+            float versusDist = Vector3.Distance(transform.position, playerTr.position);
+            if (versusDist < attackRange && !isAttack) {
+                EnemyMeleeAttack();
             }
         }
+        else if (!isTracking && !isAttack) {
+            if (!isWalk) {
+                RandomMove();
+            }
+        }
+
     }
     
     // Player 탐색 
@@ -170,31 +169,29 @@ public class BossZombie : EnemyController {
         if (other.CompareTag("Bullet")) {
             Hp = -(other.GetComponent<Bullet>().itemData.damage);
             other.gameObject.SetActive(false);
-            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt)) {
-                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.BossHit)) {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.BossHit);
             }
         }
         else if (other.CompareTag("Weapon")) {
             Hp = -(other.GetComponent<ItemSword>().itemData.damage);
             BloodEffect(transform.position);
-            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt)) {
-                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.BossHit)) {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.BossHit);
             }
         }
         else if (other.CompareTag("Grenade")) {
             Hp = -(other.GetComponentInParent<ItemGrenade>().itemData.damage);
-            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt)) {
-                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.BossHit)) {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.BossHit);
             }
         }
         return;
     }
-    void RandomMove()
-    {
+    void RandomMove() {
         if (isTracking) return;
-        ani.SetBool("isWalk", true);
-
         StartCoroutine(ResteWalk());
+        ani.SetBool("isWalk", true);
 
         float dirX = Random.Range(-50, 50);
         float dirZ = Random.Range(-50, 50);
@@ -207,14 +204,29 @@ public class BossZombie : EnemyController {
         if (NavMesh.SamplePosition(targetPosition, out hit, 1.0f, NavMesh.AllAreas)) {
             nav.SetDestination(hit.position);
         }
+
+        if (hp != maxHp) {
+            float closestDistance = Mathf.Infinity;
+            Collider closestPlayer = null;
+            GameObject[] player = GameObject.FindGameObjectsWithTag("Player");
+            foreach (var hitCollider in player) {
+                if (hitCollider.CompareTag("Player")) {
+                    float distance = Vector3.Distance(transform.position, hitCollider.transform.position);
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        closestPlayer = hitCollider.GetComponent<Collider>();
+                    }
+                }
+            }
+            EnemyTracking(closestPlayer);
+        }
     }
-    IEnumerator ResteWalk()
-    {
+    IEnumerator ResteWalk() {
         isWalk = true;
         curMoveTime = 0;
         yield return new WaitForSeconds(3f);
         isWalk = false;
-        RandomMove(); // 다시 랜덤 이동 호출
+        yield return new WaitForSeconds(1f);
     }
 
     public override void EnemyRun()
