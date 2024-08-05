@@ -94,15 +94,13 @@ public class EnemyController : MonoBehaviourPun, IEnemy
             nextSearchTime = Time.time + searchInterval;
 
             if (other.CompareTag("Player")) {
-                Debug.Log("Player detected in OnTriggerStay");
 
                 float closestDistance = Mathf.Infinity;
                 Collider closestPlayer = null;
 
                 Collider[] hitColliders = Physics.OverlapSphere(transform.position, 200);
                 foreach (var hitCollider in hitColliders) {
-                    if (hitCollider.CompareTag("Player")) {
-                        Debug.Log("Player detected in OverlapSphere: " + hitCollider.name);
+                    if (hitCollider.CompareTag("Player")) {                    
 
                         float distance = Vector3.Distance(transform.position, hitCollider.transform.position);
                         if (distance < closestDistance) {
@@ -116,7 +114,7 @@ public class EnemyController : MonoBehaviourPun, IEnemy
                 }
             }
             else if (other.CompareTag("FireDotArea")) {
-                Hp -= other.GetComponent<ItemFireGrenadeDotArea>().dotDamage;
+                Hp = -other.GetComponent<ItemFireGrenadeDotArea>().dotDamage;
             }
         }
     }

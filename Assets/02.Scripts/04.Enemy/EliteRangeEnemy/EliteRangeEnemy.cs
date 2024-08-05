@@ -78,7 +78,6 @@ public class EliteRangeEnemy : EnemyController
 
             float versusDist = Vector3.Distance(transform.position, playerTr.position);
             if (versusDist < attackRange && !isAttack) {
-                Debug.Log("Player in attack range");
                 EnemyRangeAttack();
             }
         }

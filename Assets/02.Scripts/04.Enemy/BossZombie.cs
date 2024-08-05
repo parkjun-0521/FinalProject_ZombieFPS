@@ -129,7 +129,6 @@ public class BossZombie : EnemyController {
 
                 float versusDist = Vector3.Distance(transform.position, playerTr.position);
                 if (versusDist < attackRange && !isAttack) {
-                    Debug.Log("Player in attack range");
                     EnemyMeleeAttack();
                 }
             }
@@ -194,7 +193,6 @@ public class BossZombie : EnemyController {
     {
         if (isTracking) return;
         ani.SetBool("isWalk", true);
-        Debug.Log("RandomMove called");
 
         StartCoroutine(ResteWalk());
 

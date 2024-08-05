@@ -68,7 +68,6 @@ public class NormalEnemy : EnemyController {
 
             float versusDist = Vector3.Distance(transform.position, playerTr.position);
             if (versusDist < attackRange && !isAttack) {
-                Debug.Log("Player in attack range");
                 EnemyMeleeAttack();
             }
         }
@@ -104,8 +103,6 @@ public class NormalEnemy : EnemyController {
 
     void RandomMove() {
         if (isTracking) return;
-
-        Debug.Log("RandomMove called");
 
         StartCoroutine(ResteWalk());
 
@@ -161,8 +158,6 @@ public class NormalEnemy : EnemyController {
         isAttack = true;
         nav.isStopped = true;
         ani.SetBool("isAttack", true);
-
-        Debug.Log("Enemy is attacking");
 
         // 공격 애니메이션을 수행
         // 애니메이션 이벤트 또는 코루틴을 통해 실제 데미지를 적용
