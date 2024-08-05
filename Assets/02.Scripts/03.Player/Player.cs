@@ -1016,12 +1016,17 @@ public class Player : PlayerController
                     if (slotsParent.childCount > 1) {
                         Transform firstChild = slotsParent.GetChild(0);
                         Transform grandChild = firstChild.GetChild(0);
-                        string imageComponent = grandChild.GetComponent<Image>().sprite.name;
-                        if (imageComponent != null) {
-                            if (imageComponent.Equals("Gun"))
-                                weaponIndex = 0;
-                            else if (imageComponent.Equals("ShotGun"))
-                                weaponIndex = 4;
+                        Image imageComponent = grandChild.GetComponent<Image>();
+                        if (imageComponent != null && imageComponent.sprite != null)
+                        {
+                            string spriteName = imageComponent.sprite.name;
+                            if (spriteName != null)
+                            {
+                                if (spriteName.Equals("Gun"))
+                                    weaponIndex = 0;
+                                else if (spriteName.Equals("ShotGun"))
+                                    weaponIndex = 4;
+                            }
                         }
                     }
                 }

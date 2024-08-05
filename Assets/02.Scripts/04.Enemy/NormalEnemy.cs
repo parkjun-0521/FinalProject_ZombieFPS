@@ -199,8 +199,8 @@ public class NormalEnemy : EnemyController {
         yield return new WaitForSeconds(meleeDelay);
         isAttack = false;
         ani.SetBool("isAttack", false);
+        if (hp <= 0 || playerTr == null || isAttack) yield break;
         nav.isStopped = false;
-
         if (playerTr != null) {
             nav.SetDestination(playerTr.position);
         }
@@ -223,7 +223,6 @@ public class NormalEnemy : EnemyController {
         isWalk = true;
         isTracking = true;
         EnemyLookRange.enabled = false;
-        nav.isStopped = true;
         rigid.isKinematic = true;
         capsuleCollider.enabled = false;
         nav.enabled = false;

@@ -5,9 +5,14 @@ public class Door : MonoBehaviourPun
 {
     private Animator animator;
     public bool isOpen = false;
-
+    [SerializeField] GameObject otherObject;
     void Start()
     {
+        if(otherObject != null)
+        {
+            animator = otherObject.GetComponent<Animator>();
+            return;
+        }
         animator = GetComponent<Animator>();
     }
 
