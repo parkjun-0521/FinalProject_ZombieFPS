@@ -1416,20 +1416,20 @@ public class Player : PlayerController
     }
 
     GameObject spectateCamera;
-    List<GameObject> otherPlayers;
+    List<GameObject> otherPlayers = new List<GameObject>();
     int playerCount = 0;
     void PlayerSpectate() //°üÀü
     {
-        if(PhotonNetwork.CurrentRoom.PlayerCount > 1)
+        if (PhotonNetwork.CurrentRoom.PlayerCount > 1)
         {
-            if(spectateCamera == null)
+            if (spectateCamera == null)
             {
                 spectateCamera = Instantiate(gameObject);
                 spectateCamera.transform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
                 GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-                foreach(GameObject player in players)
+                foreach (GameObject player in players)
                 {
-                    if(player.GetComponent<PhotonView>().IsMine == false)
+                    if (player.GetComponent<PhotonView>().IsMine == false)
                     {
                         otherPlayers.Add(player);
                     }
@@ -1437,14 +1437,14 @@ public class Player : PlayerController
             }
         }
 
-        if(Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Attack)))
+        if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Attack)))
         {
             playerCount++;
             if (PhotonNetwork.CurrentRoom.PlayerCount == playerCount + 1)
             {
                 playerCount = 0;
             }
-           
+
         }
 
         spectateCamera.transform.position = otherPlayers[playerCount].transform.position + Vector3.up * 20;
