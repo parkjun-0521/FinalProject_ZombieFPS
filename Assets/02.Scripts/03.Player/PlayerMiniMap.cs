@@ -123,6 +123,7 @@ public class PlayerMiniMap : MonoBehaviour
     {
         playerIconRect[iconNum].offsetMax = new Vector2((otherTemp.x - players[PlayersNum].transform.position.x) * otherPlayerSize, (otherTemp.z - players[PlayersNum].transform.position.z) * otherPlayerSize);
         playerIconRect[iconNum].offsetMin = new Vector2((otherTemp.x - players[PlayersNum].transform.position.x) * otherPlayerSize, (otherTemp.z - players[PlayersNum].transform.position.z) * otherPlayerSize);
+        playerIconRect[iconNum].rotation = Quaternion.Euler(0, 0, -players[PlayersNum].transform.rotation.eulerAngles.y + 180);
     }
     IEnumerator Search()
     {
