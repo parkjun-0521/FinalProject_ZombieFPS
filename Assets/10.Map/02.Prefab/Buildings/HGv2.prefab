@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1308974652152995}
   - component: {fileID: 3560803977384148308}
   m_Layer: 0
-  m_Name: Hangar_v2_6_door1
+  m_Name: HGv2Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -136,7 +136,7 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: isOpen
   m_SynchronizeLayers:
   - SynchronizeType: 0
@@ -1001,7 +1001,7 @@ GameObject:
   - component: {fileID: 8489682402000748788}
   - component: {fileID: 3560803977384148303}
   m_Layer: 11
-  m_Name: GameObject
+  m_Name: GateMechanism
   m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1049,7 +1049,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8489682402634364853}
   m_Layer: 0
-  m_Name: GameObject (1)
+  m_Name: DoorMechanism
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
