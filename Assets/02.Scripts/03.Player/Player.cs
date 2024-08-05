@@ -176,7 +176,11 @@ public class Player : PlayerController
                 ToggleCursor();
             }
 
-            ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+            if(Camera.main != null)
+            {
+                ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+            }
+            
             //»ç¶÷ Á×Àº³ð ÂÊÀ¸·Î ·¹ÀÌ½÷¼­ ui true
 
             OnPlayerSpectate?.Invoke();  // Á×¾úÀ»¶§ °üÀü
@@ -1424,9 +1428,11 @@ public class Player : PlayerController
         {
             if (spectateCamera == null)
             {
-                spectateCamera = Instantiate(gameObject);
+                spectateCamera = new GameObject("spectateCamera");
+                spectateCamera.AddComponent<Camera>();
                 spectateCamera.transform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
                 GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+                playerCamera.enabled = false;
                 foreach (GameObject player in players)
                 {
                     if (player.GetComponent<PhotonView>().IsMine == false)
@@ -1444,7 +1450,6 @@ public class Player : PlayerController
             {
                 playerCount = 0;
             }
-
         }
 
         spectateCamera.transform.position = otherPlayers[playerCount].transform.position + Vector3.up * 20;
