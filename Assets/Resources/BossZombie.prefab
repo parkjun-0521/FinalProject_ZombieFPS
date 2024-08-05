@@ -904,7 +904,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 7
   m_Speed: 3.5
-  m_Acceleration: 8
+  m_Acceleration: 100
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
@@ -3307,7 +3307,7 @@ GameObject:
   - component: {fileID: 3840176505455984012}
   m_Layer: 21
   m_Name: EnemyLookRange
-  m_TagString: Untagged
+  m_TagString: EnemyRange
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -38,6 +38,7 @@ public class NormalEnemy : EnemyController {
     }
 
     void Start() {
+        nav.enabled = true;
         RandomMove();
 
         SphereCollider lookRangeCollider = EnemyLookRange; // EnemyLookRange 콜라이더 참조
@@ -87,6 +88,8 @@ public class NormalEnemy : EnemyController {
             }
         }
         else if (other.CompareTag("Weapon")) {
+            if (gameObject.CompareTag("EnemyRange")) return;
+
             Hp = -(other.GetComponent<ItemSword>().itemData.damage);
             BloodEffect(transform.position);
             if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt)) {
@@ -117,14 +120,38 @@ public class NormalEnemy : EnemyController {
         if (NavMesh.SamplePosition(targetPosition, out hit, 1.0f, NavMesh.AllAreas)) {
             nav.SetDestination(hit.position);
         }
+
+        if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_walk)) {
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_walk);
+        }
+
+        // 이론상 총에 맞으면 가까운 플레이어를 따라감 
+        //==================================================//
+        if (hp != maxHp) {
+            float closestDistance = Mathf.Infinity;
+            Collider closestPlayer = null;
+            GameObject[] player = GameObject.FindGameObjectsWithTag("Player");
+            foreach (var hitCollider in player) {
+                if (hitCollider.CompareTag("Player")) {
+                    float distance = Vector3.Distance(transform.position, hitCollider.transform.position);
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        closestPlayer = hitCollider.GetComponent<Collider>();
+                    }
+                }
+            }
+            EnemyTracking(closestPlayer);
+        }
+        //==================================================//
     }
 
     IEnumerator ResteWalk() {
         isWalk = true;
         curMoveTime = 0;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         isWalk = false;
         RandomMove(); // 다시 랜덤 이동 호출
+        yield return new WaitForSeconds(2f);
     }
 
     public override void EnemyRun() {
@@ -161,7 +188,9 @@ public class NormalEnemy : EnemyController {
 
         // 공격 애니메이션을 수행
         // 애니메이션 이벤트 또는 코루틴을 통해 실제 데미지를 적용
-
+        if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack2)) {
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_attack2);
+        }
         // 일정 시간이 지난 후 공격 상태 해제
         StartCoroutine(ResetAttackState());
     }
@@ -197,6 +226,7 @@ public class NormalEnemy : EnemyController {
         nav.isStopped = true;
         rigid.isKinematic = true;
         capsuleCollider.enabled = false;
+        nav.enabled = false;
         ani.SetBool("isDead", true);
         StartCoroutine(AnimationFalse("isDead"));
     }

@@ -119,6 +119,10 @@ public class EliteRangeEnemy : EnemyController
 
         StartCoroutine(ResteWalk());
 
+        if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_walk)) {
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_walk);
+        }
+
         float dirX = Random.Range(-50, 50);
         float dirZ = Random.Range(-50, 50);
         Vector3 dest = new Vector3(dirX, 0, dirZ);
@@ -129,6 +133,22 @@ public class EliteRangeEnemy : EnemyController
         NavMeshHit hit;
         if (NavMesh.SamplePosition(targetPosition, out hit, 1.0f, NavMesh.AllAreas)) {
             nav.SetDestination(hit.position);
+        }
+
+        if (hp != maxHp) {
+            float closestDistance = Mathf.Infinity;
+            Collider closestPlayer = null;
+            GameObject[] player = GameObject.FindGameObjectsWithTag("Player");
+            foreach (var hitCollider in player) {
+                if (hitCollider.CompareTag("Player")) {
+                    float distance = Vector3.Distance(transform.position, hitCollider.transform.position);
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        closestPlayer = hitCollider.GetComponent<Collider>();
+                    }
+                }
+            }
+            EnemyTracking(closestPlayer);
         }
     }
 
@@ -147,6 +167,10 @@ public class EliteRangeEnemy : EnemyController
         ani.SetBool("isRun", true);
         nav.speed = runSpeed;
         nav.SetDestination(playerTr.position);
+
+        if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_run)) {
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_run);
+        }
 
         Vector3 desiredVelocity = nav.desiredVelocity;
 

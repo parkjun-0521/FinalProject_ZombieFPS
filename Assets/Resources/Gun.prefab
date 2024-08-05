@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 1551386107059371072}
   - component: {fileID: 793917278634077883}
   - component: {fileID: 1613964684}
+  - component: {fileID: 3972059970235404327}
   m_Layer: 10
   m_Name: Gun
   m_TagString: Item
@@ -191,6 +192,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a678b7ad4a2cde948a252da79b9c008f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!208 &3972059970235404327
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1551386107059371073}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.051000003, y: 0.509, z: 0.172}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: -0.097, z: -0.068}
+  m_TimeToStationary: 0.5
 --- !u!1 &2997138768922559903
 GameObject:
   m_ObjectHideFlags: 0

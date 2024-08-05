@@ -118,8 +118,9 @@ public class EliteMeleeEnemy : EnemyController {
     {
         if (isTracking) return;
         ani.SetBool("isWalk", true);
-        Debug.Log("RandomMove called");
-
+        if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_walk)) {
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_walk);
+        }
         StartCoroutine(ResteWalk());
 
         float dirX = Random.Range(-50, 50);
@@ -132,6 +133,22 @@ public class EliteMeleeEnemy : EnemyController {
         NavMeshHit hit;
         if (NavMesh.SamplePosition(targetPosition, out hit, 1.0f, NavMesh.AllAreas)) {
             nav.SetDestination(hit.position);
+        }
+
+        if (hp != maxHp) {
+            float closestDistance = Mathf.Infinity;
+            Collider closestPlayer = null;
+            GameObject[] player = GameObject.FindGameObjectsWithTag("Player");
+            foreach (var hitCollider in player) {
+                if (hitCollider.CompareTag("Player")) {
+                    float distance = Vector3.Distance(transform.position, hitCollider.transform.position);
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        closestPlayer = hitCollider.GetComponent<Collider>();
+                    }
+                }
+            }
+            EnemyTracking(closestPlayer);
         }
     }
 
@@ -150,7 +167,9 @@ public class EliteMeleeEnemy : EnemyController {
         ani.SetBool("isRun", true);
         nav.speed = runSpeed;
         nav.SetDestination(playerTr.position);
-
+        if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_run)) {
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_run);
+        }
         Vector3 desiredVelocity = nav.desiredVelocity;
 
         rigid.velocity = Vector3.Lerp(rigid.velocity, desiredVelocity, Time.deltaTime * runSpeed);
@@ -180,6 +199,9 @@ public class EliteMeleeEnemy : EnemyController {
 
         // 공격 애니메이션을 수행
         // 애니메이션 이벤트 또는 코루틴을 통해 실제 데미지를 적용
+        if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack2)) {
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_attack2);
+        }
 
         // 일정 시간이 지난 후 공격 상태 해제
         StartCoroutine(ResetAttackState());
