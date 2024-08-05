@@ -1434,9 +1434,11 @@ public class Player : PlayerController
                 GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
                 playerCamera.enabled = false;
                 //ui ≤®¡÷±‚
-                
+                playerFaintUI.SetActive(false);
+                bloodScreen.gameObject.SetActive(false);
+                aimingObj.SetActive(false);
+                UIManager.Instance.transform.GetChild(0).gameObject.SetActive(false);
 
-                aiming.sprite = null;
                 foreach (GameObject player in players)
                 {
                     if (player.GetComponent<PhotonView>().IsMine == false)
