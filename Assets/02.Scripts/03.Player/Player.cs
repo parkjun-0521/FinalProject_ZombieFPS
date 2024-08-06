@@ -86,10 +86,12 @@ public class Player : PlayerController
             photonView.RPC("UpdateHealthBar", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName, photonView.ViewID, (hp / maxHp) * 100);
             aimingObj.SetActive(true);
             weaponSelected = false;
+            nickNameText.text = PhotonNetwork.NickName;
         }
         else {
             playerCamera.gameObject.SetActive(false);
             aimingObj.SetActive(false);
+            nickNameText.text = PV.Owner.NickName;
         }
     }
 
