@@ -8,7 +8,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static InputKeyManager;
 using static ItemController;
-using static UnityEditor.PlayerSettings;
 
 public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler {
     public int slotID;          // ÀåÂø °¡´ÉÇÑ ½½·Ô ID

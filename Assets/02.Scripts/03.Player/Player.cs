@@ -1347,6 +1347,7 @@ public class Player : PlayerController
             photonView.RPC("IsFaintRPC", RpcTarget.AllBuffered, false);
             photonView.RPC("IsDeadRPC", RpcTarget.AllBuffered, true);
             OnPlayerSpectate += PlayerSpectate;         //뒤지면 관전기능
+            NextSceneManager.Instance.deadPlayerCount += 1;
         }
     }
 
