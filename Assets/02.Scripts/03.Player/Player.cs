@@ -486,7 +486,7 @@ public class Player : PlayerController
                     if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
                     {
                         Debug.Log("대화");
-                        hit.collider.GetComponent<NPC>().QusetTalkRPC();
+                        
                         PhotonView photonView = PhotonView.Get(this);
                         if (photonView != null)
                         {
@@ -513,13 +513,11 @@ public class Player : PlayerController
                                         }
                                         hit.collider.GetComponent<NPC>().QusetClearTalkRPC();
                                         theInventory.DecreaseMagazineCount(ItemController.ItemType.QuestItem);
-                                    }
-                                    else
-                                    {
-                                        Debug.Log("아이템 부족 대화");
+                                        return;
                                     }
                                 }
                             }
+                        hit.collider.GetComponent<NPC>().QusetTalkRPC();
                         }
                     }
                 }

@@ -241,7 +241,7 @@ public class BossPhobos : EnemyController
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, 14.1f);
-        Gizmos.DrawWireSphere(transform.position, 24.5f);
+        Gizmos.DrawWireSphere(transform.position, 30f);
     }
 
     [PunRPC]
