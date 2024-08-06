@@ -133,25 +133,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3fcd990cf468e5499e47395608b6cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  baseSpeed: 0
   runSpeed: 0
+  maxTracingSpeed: 0
+  maxMoveDirTime: 3
+  curMoveTime: 3
   meleeDelay: 4
   nextAttack: 4
   attackRange: 0
   rangeOut: 100
   resetSpeed: 5
   enemySpawn: {fileID: 0}
-  maxTracingSpeed: 0
-  playerTr: {fileID: 0}
-  capsuleCollider: {fileID: 0}
-  sphereCollider: {fileID: 0}
   maxHp: 40
   hp: 40
   baseDamage: 10
   damage: 2
   isRangeOut: 0
   shouldEvaluate: 0
-  isNow: 0
+  isWalk: 0
+  isRun: 0
+  isAttack: 0
+  isTracking: 0
+  PV: {fileID: 0}
+  playerTr: {fileID: 0}
+  rigid: {fileID: 0}
+  nav: {fileID: 0}
+  ani: {fileID: 0}
+  capsuleCollider: {fileID: 0}
+  sphereCollider: {fileID: 0}
+  EnemyLookRange: {fileID: 0}
+  searchInterval: 1
+  nextSearchTime: 0
+  targetRotation: {x: 0, y: 0, z: 0, w: 0}
+  rotationSpeed: 5
   players: []
   swingAtkDistance: 200
   dashAtkDistance: 600
@@ -159,7 +173,7 @@ MonoBehaviour:
   knockBackPower: 3
   traceTime: 0
   traceChacgeTime: 15
-  lookRadius: 10
+  lookRadius: 100
 --- !u!195 &7551461160908133071
 NavMeshAgent:
   m_ObjectHideFlags: 0
