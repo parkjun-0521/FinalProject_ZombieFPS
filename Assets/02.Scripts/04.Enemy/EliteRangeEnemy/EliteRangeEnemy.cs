@@ -97,10 +97,14 @@ public class EliteRangeEnemy : EnemyController
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
             }
         }
-        else if (other.CompareTag("Weapon")) {
-            Hp = -(other.GetComponent<ItemSword>().itemData.damage);
+        else if (other.CompareTag("Weapon"))
+        {
+            if (gameObject.CompareTag("EnemyRange")) return;
+
+            Hp = -(other.transform.parent.GetComponent<ItemSword>().itemData.damage);
             BloodEffect(transform.position);
-            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt)) {
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt))
+            {
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
             }
         }

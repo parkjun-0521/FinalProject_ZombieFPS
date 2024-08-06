@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using TMPro;
 
 public class NPC : MonoBehaviourPun
 {
-    [SerializeField]TextMesh textMesh;
+    [SerializeField] TMP_Text textMesh;
     Coroutine corTextBubbleQuest;
     Coroutine corTextBubbleQuestClear;
-    string[] QuestCleardialogue = { "     ㄱ", "     고", "     고ㅁ", "     고마", "     고마ㅇ", "     고마우", "     고마워", "     고마워.", "     고마워..", "     고마워...", "     고마워...." };
+    string[] QuestCleardialogue = { "     ㄱ", "     고", "     고ㅁ", "     고마", "     고마ㅇ", "     고마우", "     고마워", "     고마워.", "     고마워..", "     고마워...", "     고마워....", "" };
 
 
     public void QusetTalkRPC()
@@ -76,11 +77,13 @@ public class NPC : MonoBehaviourPun
     public void QusetClearTalkRPC()
     {
         if (corTextBubbleQuestClear != null) return;
+        
         photonView.RPC("TalkQuestClear", RpcTarget.All);
     }
     [PunRPC]
     void TalkQuestClear()
     {
+        if(corTextBubbleQuest != null) StopCoroutine(corTextBubbleQuest);   //null안해줌
         corTextBubbleQuestClear = StartCoroutine(TextBubbleQuestClear());
     }
     IEnumerator TextBubbleQuestClear()
@@ -90,5 +93,6 @@ public class NPC : MonoBehaviourPun
             yield return new WaitForSeconds(0.2f);
             textMesh.text = temp.ToString();
         }
+        corTextBubbleQuestClear = null;
     }
 }

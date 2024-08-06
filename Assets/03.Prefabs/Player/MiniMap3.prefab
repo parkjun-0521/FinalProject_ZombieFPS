@@ -197,7 +197,7 @@ MonoBehaviour:
   - {fileID: 1067199129611745962}
   otherTemp: {x: 140.5, y: 0, z: -250.9}
   otherPlayerSize: 0.3967
-  localPlayerIcon: {fileID: 0}
+  localPlayerIcon: {fileID: 1752620118089023139}
 --- !u!1 &1752620117777667267
 GameObject:
   m_ObjectHideFlags: 0
@@ -522,6 +522,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1629737100181635882, guid: bd9ab7f2ca4eee0429dcabf50a1972ae, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629737100181635883, guid: bd9ab7f2ca4eee0429dcabf50a1972ae, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5d0b5553dc90a0045a1e9a7aaa0b872b, type: 3}
+    - target: {fileID: 1629737100181635883, guid: bd9ab7f2ca4eee0429dcabf50a1972ae, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629737100181635883, guid: bd9ab7f2ca4eee0429dcabf50a1972ae, type: 3}
+      propertyPath: m_Color.g
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

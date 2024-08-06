@@ -90,7 +90,7 @@ public class NormalEnemy : EnemyController {
         else if (other.CompareTag("Weapon")) {
             if (gameObject.CompareTag("EnemyRange")) return;
 
-            Hp = -(other.GetComponent<ItemSword>().itemData.damage);
+            Hp = -(other.transform.parent.GetComponent<ItemSword>().itemData.damage);
             BloodEffect(transform.position);
             if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt)) {
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);

@@ -217,15 +217,20 @@ public class BossPhobos : EnemyController
             Hp = -(other.GetComponent<Bullet>().itemData.damage);  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
             other.gameObject.SetActive(false);
         }
-        else if (other.CompareTag("Weapon"))        // 근접무기와 trigger
-        {
-            Hp = -(other.GetComponent<ItemSword>().itemData.damage);
+        else if (other.CompareTag("Weapon")) {
+            if (gameObject.CompareTag("EnemyRange")) return;
+
+            Hp = -(other.transform.parent.GetComponent<ItemSword>().itemData.damage);
             BloodEffect(transform.position);
+            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt)) {
+                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
+            }
         }
         else if (other.CompareTag("Grenade"))
         {
             Hp = -(other.GetComponentInParent<ItemGrenade>().itemData.damage);
-        }else if(other.CompareTag("Player"))
+        }
+        else if(other.CompareTag("Player"))
         {
             other.GetComponent<PlayerController>().rigid.AddForce((other.transform.position - transform.position).normalized * knockBackPower, ForceMode.Impulse);
         }
@@ -236,7 +241,7 @@ public class BossPhobos : EnemyController
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, 14.1f);
-        Gizmos.DrawWireSphere(transform.position, 24.5f);
+        Gizmos.DrawWireSphere(transform.position, 30f);
     }
 
     [PunRPC]
