@@ -273,6 +273,11 @@ public class BossPhobos : EnemyController
             {
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_dead1);
             }
+
+            if (photonView != null) {
+                photonView.RPC("QuestCompleteRPC", RpcTarget.AllBuffered, true);
+            }
+
             //µ¨¸®°ÔÀÌÆ® ´Ù¸¥°Å ´Ù »©±â
             //?ÃÊÈÄ¿¡
             //gameObject.SetActive(false); 
@@ -284,4 +289,25 @@ public class BossPhobos : EnemyController
         yield return new WaitForSeconds(0.2f);
         ani.SetBool(str, false);
     }
+
+    [PunRPC]
+    public void QuestCompleteRPC( bool isTrue ) {
+        Debug.Log("RPC µé¾î¿È ");
+        if (ScenesManagerment.Instance.stageCount == 0) {
+            Debug.Log("RPC µé¾î¿È1 ");
+            NextSceneManager.Instance.isQuest1 = isTrue;
+        }
+        else if (ScenesManagerment.Instance.stageCount == 1) {
+            Debug.Log("RPC µé¾î¿È2 ");
+            NextSceneManager.Instance.isQuest2 = isTrue;
+        }
+        else if (ScenesManagerment.Instance.stageCount == 2) {
+            Debug.Log("RPC µé¾î¿È3 ");
+            GameObject nextStageZone = GameObject.FindGameObjectWithTag("NextStageZone");
+            nextStageZone.GetComponent<BoxCollider>().enabled = true;
+            NextSceneManager.Instance.isQuest3 = isTrue;
+
+        }
+    }
+
 }

@@ -2,6 +2,7 @@ using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -127,6 +128,8 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     public Image aiming;
     public GameObject aimingObj;
 
+    [Header("´Ð³×ÀÓ=======")]
+    public TMP_Text nickNameText;
     public abstract void PlayerMove(bool type);
     public abstract void PlayerJump();
     public abstract void PlayerInteraction();
