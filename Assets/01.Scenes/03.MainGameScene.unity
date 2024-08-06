@@ -47139,6 +47139,10 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3546432924878277635, guid: b95a227e244636949b4c42bb41f3414e, type: 3}
+      propertyPath: isInfinite
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3546432924878277635, guid: b95a227e244636949b4c42bb41f3414e, type: 3}
       propertyPath: spawnCount
       value: 1
       objectReference: {fileID: 0}
@@ -58587,6 +58591,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOpen: 0
+  otherObject: {fileID: 0}
 --- !u!4 &2365362713879446569
 Transform:
   m_ObjectHideFlags: 0
@@ -58654,6 +58659,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOpen: 0
+  otherObject: {fileID: 0}
 --- !u!4 &2864891427830599141
 Transform:
   m_ObjectHideFlags: 0
@@ -60283,6 +60289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOpen: 0
+  otherObject: {fileID: 0}
 --- !u!1 &4952813295747408501
 GameObject:
   m_ObjectHideFlags: 0
@@ -60314,6 +60321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOpen: 0
+  otherObject: {fileID: 0}
 --- !u!95 &4952813296087405873
 Animator:
   serializedVersion: 4
@@ -60401,6 +60409,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOpen: 0
+  otherObject: {fileID: 0}
 --- !u!4 &4952813297129288274
 Transform:
   m_ObjectHideFlags: 0
@@ -60468,6 +60477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOpen: 0
+  otherObject: {fileID: 0}
 --- !u!4 &4952813297527997715
 Transform:
   m_ObjectHideFlags: 0
@@ -60587,6 +60597,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOpen: 0
+  otherObject: {fileID: 0}
 --- !u!1 &5924034845730800613
 GameObject:
   m_ObjectHideFlags: 0
