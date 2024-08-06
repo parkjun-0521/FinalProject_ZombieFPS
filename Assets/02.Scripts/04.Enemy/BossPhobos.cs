@@ -67,10 +67,10 @@ public class BossPhobos : EnemyController
         //}
         //StartCoroutine(Trace());
         //Æ÷Åæ Ãß°¡½Ã ¹Ø¿¡ ÀÎ¿ø¼ö¸¸Å­foreach
-        foreach(var player in players)
-        {
-            Physics.IgnoreCollision(player.GetComponent<Collider>(), transform.GetComponent<Collider>(), true);
-        }
+        //foreach(var player in players)
+        //{
+        //    Physics.IgnoreCollision(player.GetComponent<Collider>(), transform.GetComponent<Collider>(), true);
+        //}
         //Physics.IgnoreCollision(players[0].GetComponent<Collider>(), transform.GetComponent<Collider>(), true);
     }
 
@@ -196,13 +196,6 @@ public class BossPhobos : EnemyController
         StartCoroutine(Trace());
     }
 
-    IEnumerator ThunderPattern()
-    {
-        StopCoroutine(Trace());
-        ani.SetBool("isThunder", true);
-        StartCoroutine(AnimationFalse("isThunder"));
-        yield return new WaitForSeconds(7.0f);
-    }
 
 
 
@@ -296,17 +289,21 @@ public class BossPhobos : EnemyController
     }
 
     [PunRPC]
-    public void QuestCompleteRPC( bool isTrue ) {
+    public void QuestCompleteRPC(bool isTrue)
+    {
         Debug.Log("RPC µé¾î¿È ");
-        if (ScenesManagerment.Instance.stageCount == 0) {
+        if (ScenesManagerment.Instance.stageCount == 0)
+        {
             Debug.Log("RPC µé¾î¿È1 ");
             NextSceneManager.Instance.isQuest1 = isTrue;
         }
-        else if (ScenesManagerment.Instance.stageCount == 1) {
+        else if (ScenesManagerment.Instance.stageCount == 1)
+        {
             Debug.Log("RPC µé¾î¿È2 ");
             NextSceneManager.Instance.isQuest2 = isTrue;
         }
-        else if (ScenesManagerment.Instance.stageCount == 2) {
+        else if (ScenesManagerment.Instance.stageCount == 2)
+        {
             Debug.Log("RPC µé¾î¿È3 ");
             GameObject nextStageZone = GameObject.FindGameObjectWithTag("NextStageZone");
             nextStageZone.GetComponent<BoxCollider>().enabled = true;

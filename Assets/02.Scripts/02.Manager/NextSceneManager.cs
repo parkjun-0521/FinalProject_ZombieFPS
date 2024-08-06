@@ -88,19 +88,43 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player")) {
-            ScenesManagerment.Instance.playerCount -= 1;
-            isItemInfoSaved = false;  // 플레이어가 나가면 플래그 리셋
-            isSceneChange = false;
-            if (ScenesManagerment.Instance.stageCount == 0) {
-                StopCoroutine(currentCoroutine1);
-                endLoading.SetActive(false);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if (other.CompareTag("Player"))
+            {
+                ScenesManagerment.Instance.playerCount -= 1;
+                isItemInfoSaved = false;  // 플레이어가 나가면 플래그 리셋
+                isSceneChange = false;
+                if (ScenesManagerment.Instance.stageCount == 0)
+                {
+                    StopCoroutine(currentCoroutine1);
+                    endLoading.SetActive(false);
+                }
+                else if (ScenesManagerment.Instance.stageCount == 1)
+                {
+                    StopCoroutine(currentCoroutine2);
+                    endLoading.SetActive(false);
+                }
+                playersInTrigger.Remove(other.gameObject);
             }
-            else if (ScenesManagerment.Instance.stageCount == 1) {
-                StopCoroutine(currentCoroutine2);
-                endLoading.SetActive(false);
+        }
+        else
+        {
+            if (other.CompareTag("Player"))
+            {
+                ScenesManagerment.Instance.playerCount -= 1;
+                isItemInfoSaved = false;  // 플레이어가 나가면 플래그 리셋
+                isSceneChange = false;
+                if (ScenesManagerment.Instance.stageCount == 0)
+                {
+                    endLoading.SetActive(false);
+                }
+                else if (ScenesManagerment.Instance.stageCount == 1)
+                {
+                    endLoading.SetActive(false);
+                }
+                playersInTrigger.Remove(other.gameObject);
             }
-            playersInTrigger.Remove(other.gameObject);
         }
     }
 
@@ -110,7 +134,8 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
             foreach (GameObject player in playersInTrigger) {
                 PhotonView photonView = player.GetComponent<PhotonView>();
                 if (photonView != null && photonView.IsMine && other.CompareTag("Player")) {
-                    isItemInfoSaved = true;          
+                    isItemInfoSaved = true;
+                    endLoading.SetActive(true);
                     StartCoroutine(DeleteItemData(PhotonNetwork.NickName, player));
                 }
             }
@@ -146,7 +171,6 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
     IEnumerator SenecChange1()
     {
         isSceneChange = true;
-        endLoading.SetActive(true);
         yield return new WaitForSeconds(5f);
         ScenesManagerment.Instance.stageCount += 1;
         ScenesManagerment.Instance.playerCount = 0;
@@ -156,7 +180,6 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
     IEnumerator SenecChange2()
     {
         isSceneChange = true;
-        endLoading.SetActive(true);
         yield return new WaitForSeconds(5f);
         ScenesManagerment.Instance.stageCount += 1;
         ScenesManagerment.Instance.playerCount = 0;
@@ -165,7 +188,6 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
 
     IEnumerator SenecChange3() {
         isSceneChange = true;
-        endLoading.SetActive(true);
         yield return new WaitForSeconds(5f);
         ScenesManagerment.Instance.stageCount += 1;
         ScenesManagerment.Instance.playerCount = 0;

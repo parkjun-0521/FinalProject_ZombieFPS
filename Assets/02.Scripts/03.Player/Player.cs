@@ -79,6 +79,7 @@ public class Player : PlayerController
         OnPlayerSwap -= WeaponSwap;
         OnPlayerInteraction -= PlayerInteraction;   // 플레이어 상호작용
         OnPlayerInventory -= PlayerInventory;
+        OnPlayerSpectate -= PlayerSpectate;
     }
 
     void Start()
