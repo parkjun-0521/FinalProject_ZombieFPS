@@ -15,14 +15,14 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static InputKeyManager;
 
-public class Player : PlayerController 
+public class Player : PlayerController
 {
     // delegate 선언
-    public delegate void PlayerMoveHandler( bool value );
+    public delegate void PlayerMoveHandler(bool value);
     public static event PlayerMoveHandler OnPlayerMove, OnPlayerAttack;
 
     public delegate void PlayerJumpedHandler();
-    public static event PlayerJumpedHandler OnPlayerRotation, OnPlayerJump, OnPlayerSwap, OnPlayerInteraction, OnPlayerInventory;
+    public static event PlayerJumpedHandler OnPlayerRotation, OnPlayerJump, OnPlayerSwap, OnPlayerInteraction, OnPlayerInventory, OnPlayerSpectate;
 
     private RotateToMouse rotateToMouse;
     private InputKeyManager keyManager;
@@ -34,7 +34,7 @@ public class Player : PlayerController
 
     Ray ray;
     bool isRayPlayer = false;
-    //private bool isFalling;
+
     //dot damage 코루틴
     Coroutine dotCoroutine;
 
@@ -43,7 +43,8 @@ public class Player : PlayerController
     {
         // 레퍼런스 초기화 
         PV = GetComponent<PhotonView>();
-        if (PV.IsMine) {
+        if (PV.IsMine)
+        {
             rigid = GetComponent<Rigidbody>();
             Animator[] animators = GetComponentsInChildren<Animator>();
             animator = animators[1];                        //나중에 새로운 애니메이터 중간에 들어오면 좀 불안정해짐 
@@ -56,7 +57,8 @@ public class Player : PlayerController
         }
     }
 
-    void OnEnable() {
+    void OnEnable()
+    {
         // 이벤트 등록
         OnPlayerMove += PlayerMove;                 // 플레이어 이동 
         OnPlayerRotation += PlayerRotation;         // 플레이어 회전
@@ -67,7 +69,8 @@ public class Player : PlayerController
         OnPlayerInventory += PlayerInventory;
     }
 
-    void OnDisable() {
+    void OnDisable()
+    {
         // 이벤트 해제 
         OnPlayerMove -= PlayerMove;
         OnPlayerRotation -= PlayerRotation;
@@ -78,8 +81,10 @@ public class Player : PlayerController
         OnPlayerInventory -= PlayerInventory;
     }
 
-    void Start() {
-        if (PV.IsMine) {
+    void Start()
+    {
+        if (PV.IsMine)
+        {
             keyManager = InputKeyManager.instance.GetComponent<InputKeyManager>();
             playerCamera.gameObject.SetActive(true);
             ItemController[] items = FindObjectsOfType<ItemController>(true); // true를 사용하여 비활성화된 오브젝트도 포함
@@ -87,34 +92,40 @@ public class Player : PlayerController
             aimingObj.SetActive(true);
             weaponSelected = false;
         }
-        else {
+        else
+        {
             playerCamera.gameObject.SetActive(false);
             aimingObj.SetActive(false);
         }
     }
 
-    void Update() {
+    void Update()
+    {
         // 단발적인 행동 
-        if (PV.IsMine) {
+        if (PV.IsMine)
+        {
             // 무기 스왑 
             OnPlayerSwap?.Invoke();
 
             // 공격
-            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Attack)) && !EventSystem.current.IsPointerOverGameObject() && !isNextStageZone) {
+            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Attack)) && !EventSystem.current.IsPointerOverGameObject())
+            {
                 // 총,칼 0.1초, 수류탄,힐팩 1초 딜레이
                 attackMaxDelay = stanceWeaponType ? 1.0f : weaponIndex == 4 ? 1f : weaponIndex == 1 ? 1f : 0.1f;
 
                 animator.SetBool("isRifleMoveShot", true);  //총쏘는 애니메이션
 
                 // 일정 딜레이가 될 때 마다 총알을 발사
-                if (Time.time - lastAttackTime >= attackMaxDelay) {
+                if (Time.time - lastAttackTime >= attackMaxDelay)
+                {
                     OnPlayerAttack?.Invoke(isAtkDistance);
                     lastAttackTime = Time.time;                 // 딜레이 초기화
                 }
             }
 
             // 점프 
-            if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Jump)) && isJump) {
+            if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Jump)) && isJump)
+            {
                 OnPlayerJump?.Invoke();
             }
 
@@ -125,20 +136,25 @@ public class Player : PlayerController
             }
 
             // 장전
-            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.BulletLoad)) && isGun && !isLoad) {
+            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.BulletLoad)) && isGun && !isLoad)
+            {
 
-                if (inventory != null && theInventory.go_MauntingSlotsParent != null) {
+                if (inventory != null && theInventory.go_MauntingSlotsParent != null)
+                {
                     Transform slotsParent = theInventory.go_MauntingSlotsParent.transform;
-                    if (slotsParent.childCount > 1) {
+                    if (slotsParent.childCount > 1)
+                    {
                         Transform firstChild = slotsParent.GetChild(0);
                         Transform grandChild = firstChild.GetChild(0);
                         string imageComponent = grandChild.GetComponent<Image>().sprite.name;
-                        if (imageComponent.Equals("Gun")) {
+                        if (imageComponent.Equals("Gun"))
+                        {
                             if (UIManager.Instance.CurBulletCount.text.Equals("30")) return;
                             string totalBullet = UIManager.Instance.totalBulletCount.text;
                             if (int.Parse(totalBullet) < 30) return;
                         }
-                        else if (imageComponent.Equals("ShotGun")) {
+                        else if (imageComponent.Equals("ShotGun"))
+                        {
                             if (UIManager.Instance.CurBulletCount.text.Equals("15")) return;
                             string totalBullet = UIManager.Instance.totalBulletCount.text;
                             if (int.Parse(totalBullet) < 15) return;
@@ -152,16 +168,20 @@ public class Player : PlayerController
             }
 
             // 인벤토리
-            if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Inventory))) {
+            if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Inventory)))
+            {
                 OnPlayerInventory?.Invoke();
             }
 
             // 설정
-            if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Setting)) && inventory.activeSelf) {
+            if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Setting)) && inventory.activeSelf)
+            {
                 InventoryClose();
                 cursorLocked = false;
                 ToggleCursor();
             }
+
+
 
             // 플레이어 상호작용
             if (bulletPos.position != null && ray.direction != null)
@@ -170,22 +190,30 @@ public class Player : PlayerController
             OnPlayerRotation?.Invoke();
 
             // 마우스 커서 생성 
-            if (Input.GetKeyDown(KeyCode.LeftAlt)) {
+            if (Input.GetKeyDown(KeyCode.LeftAlt))
+            {
                 ToggleCursor();
             }
 
-            ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+            if (Camera.main != null)
+            {
+                ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+            }
+
             //사람 죽은놈 쪽으로 레이쏴서 ui true
-            
+
+            OnPlayerSpectate?.Invoke();  // 죽었을때 관전
         }
     }
 
     // 마우스 커서 생성 
-    public void ToggleCursor() {
+    public void ToggleCursor()
+    {
         cursorLocked = !cursorLocked;           // cursorLocked : false => 마우스가 활성화 None, true => 마우스 비활성화 Lock
         Cursor.visible = !cursorLocked;
         Cursor.lockState = cursorLocked ? CursorLockMode.Locked : CursorLockMode.None;
-        if(cursorLocked) {
+        if (cursorLocked)
+        {
             if (isFaint || isDead) return;
             OnPlayerMove += PlayerMove;                 // 플레이어 이동 
             OnPlayerRotation += PlayerRotation;         // 플레이어 회전
@@ -195,20 +223,23 @@ public class Player : PlayerController
             OnPlayerInteraction += PlayerInteraction;   // 플레이어 상호작용
             OnPlayerInventory += PlayerInventory;
         }
-        else {
+        else
+        {
             OnPlayerMove -= PlayerMove;
             OnPlayerRotation -= PlayerRotation;
             OnPlayerJump -= PlayerJump;
             OnPlayerAttack -= PlayerAttack;
-            OnPlayerSwap -= WeaponSwap;                 
-            OnPlayerInteraction -= PlayerInteraction;   
+            OnPlayerSwap -= WeaponSwap;
+            OnPlayerInteraction -= PlayerInteraction;
             OnPlayerInventory -= PlayerInventory;
         }
     }
 
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
         // delegate 등록
-        if (PV.IsMine) {
+        if (PV.IsMine)
+        {
             // 이동
             bool isRun = Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Run));
             OnPlayerMove?.Invoke(isRun);
@@ -217,39 +248,30 @@ public class Player : PlayerController
 
     private void OnTriggerStay(Collider other)
     {
-        if(PV.IsMine)
+        if (PV.IsMine)
         {
-            if(other.CompareTag("DotArea"))
+            if (other.CompareTag("DotArea"))
             {
-                if(dotCoroutine == null)
+                if (dotCoroutine == null)
                 {
                     EliteRangeEnemyDotArea EREP = other.GetComponent<EliteRangeEnemyDotArea>();
                     dotCoroutine = StartCoroutine(DotDamage(EREP));
                 }
             }
-            
-            if (other.CompareTag("NextStageZone")) {
-                isNextStageZone = true;
-            }
         }
     }
 
-    private void OnTriggerExit( Collider other ) {
-        if (other.CompareTag("NextStageZone")) {
-            isNextStageZone = false;
-        }
-    }
-
-    void OnTriggerEnter( Collider other )                       //좀비 트리거콜라이더에 enter했을때
+    void OnTriggerEnter(Collider other)                       //좀비 트리거콜라이더에 enter했을때
     {
-        if (PV.IsMine) {
+        if (PV.IsMine)
+        {
             // 적과 충돌 
             if (other.CompareTag("Enemy"))
             {
                 Hp = -(other.GetComponentInParent<EnemyController>().damage);  //-로 했지만 좀비쪽에서 공격력을 -5 이렇게하면 여기-떼도됨
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_hurt);
             }
-            else if(other.CompareTag("EnemyProjectile"))
+            else if (other.CompareTag("EnemyProjectile"))
             {
                 Hp = -(other.GetComponent<EliteRangeEnemyProjectile>().damage);
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_hurt);
@@ -258,25 +280,36 @@ public class Player : PlayerController
         }
     }
 
-    void OnCollisionExit( Collision collision ) {
-        if (PV.IsMine) {
-            if (collision.gameObject.CompareTag("Ground") && rigid.velocity.y > 0) {
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (PV.IsMine)
+        {
+            if (collision.gameObject.CompareTag("Ground") && rigid.velocity.y > 0)
+            {
                 isJump = false;
             }
         }
     }
-
-    void OnCollisionEnter( Collision collision ) {
-        if (PV.IsMine) {
+    void OnCollisionEnter(Collision collision)
+    {
+        if (PV.IsMine)
+        {
             // 지면 태그 필요 
-            if (collision.gameObject.CompareTag("Ground")) {
+            if (collision.gameObject.CompareTag("Ground"))
+            {
                 isJump = true;
             }
         }
     }
+
+
+
     // 플레이어 이동 ( 달리는 중인가 check bool ) 
-    public override void PlayerMove(bool type) {
-        if (PV.IsMine) {
+    public override void PlayerMove(bool type)
+    {
+        if (PV.IsMine)
+        {
             float x = 0f;
             float z = 0f;
 
@@ -284,30 +317,37 @@ public class Player : PlayerController
             float playerSpeed = type ? runSpeed : speed;
             isMove = false;
             // 좌우 이동
-            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.LeftMove))) {
+            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.LeftMove)))
+            {
                 isMove = true;
                 x = -1f;
             }
-            else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.RightMove))) {
+            else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.RightMove)))
+            {
                 isMove = true;
                 x = 1f;
             }
             // 상하 이동         
-            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.DownMove))) {
+            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.DownMove)))
+            {
                 isMove = true;
                 z = -1f;
             }
-            else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.UpMove))) {
+            else if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.UpMove)))
+            {
                 isMove = true;
                 z = 1f;
             }
 
-            if (isMove) {
+            if (isMove)
+            {
                 animator.SetFloat("speedBlend", type ? 1.0f : 0.5f);
-                if (type && !AudioManager.Instance.IsPlaying(AudioManager.Sfx.Player_run2)) {
+                if (type && !AudioManager.Instance.IsPlaying(AudioManager.Sfx.Player_run2))
+                {
                     AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_run2);
                 }
-                else if (!type && !AudioManager.Instance.IsPlaying(AudioManager.Sfx.Player_walk3)) {
+                else if (!type && !AudioManager.Instance.IsPlaying(AudioManager.Sfx.Player_walk3))
+                {
                     AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_walk3);
                 }
             }
@@ -320,8 +360,10 @@ public class Player : PlayerController
     }
 
     // 플레이어 회전
-    public void PlayerRotation() {
-        if (PV.IsMine) {
+    public void PlayerRotation()
+    {
+        if (PV.IsMine)
+        {
             float mouseX = Input.GetAxis("Mouse X");
             float mouseY = Input.GetAxis("Mouse Y");
             rotateToMouse.UpdateRotate(mouseX, mouseY);
@@ -329,18 +371,22 @@ public class Player : PlayerController
     }
 
     // 플레이어 점프 
-    public override void PlayerJump() {
+    public override void PlayerJump()
+    {
         // 땅에 붙어있을 때 점프
-        if (PV.IsMine) {
+        if (PV.IsMine)
+        {
             rigid.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_jump);
-            isJump = false; 
+            isJump = false;
         }
     }
 
     // 인벤토리 활성화
-    public void PlayerInventory() {
-        if (PV.IsMine) {
+    public void PlayerInventory()
+    {
+        if (PV.IsMine)
+        {
             AudioManager.Instance.PlayerSfx(AudioManager.Sfx.UI_Button);
             cursorLocked = true;
             ToggleCursor();
@@ -348,8 +394,10 @@ public class Player : PlayerController
         }
     }
     // 인벤토리 비활성화
-    public void InventoryClose() {
-        if (PV.IsMine) {
+    public void InventoryClose()
+    {
+        if (PV.IsMine)
+        {
             AudioManager.Instance.PlayerSfx(AudioManager.Sfx.UI_Button);
             cursorLocked = false;
             ToggleCursor();
@@ -358,49 +406,60 @@ public class Player : PlayerController
     }
 
     // 플레이어 상호작용 
-    public override void PlayerInteraction() {
-        if (PV.IsMine) {
+    public override void PlayerInteraction()
+    {
+        if (PV.IsMine)
+        {
             RaycastHit hit;
 
             int layerMask = LayerMask.GetMask("LocalPlayer", "Item", "Door", "Npc");
-            foreach (SelectedOutline outlineComponent in FindObjectsOfType<SelectedOutline>()) {
+            foreach (SelectedOutline outlineComponent in FindObjectsOfType<SelectedOutline>())
+            {
                 outlineComponent.DeactivateOutline();
-            }      
-            if (Physics.Raycast(bulletPos.position, ray.direction, out hit, interactionRange, layerMask))   
+            }
+            if (Physics.Raycast(bulletPos.position, ray.direction, out hit, interactionRange, layerMask))
             {
                 SelectedOutline outlineComponent = hit.collider.GetComponent<SelectedOutline>();
-                if (outlineComponent != null) {
+                if (outlineComponent != null)
+                {
                     outlineComponent.ActivateOutline();
                 }
 
-                if (hit.collider.CompareTag("Item")) {
+                if (hit.collider.CompareTag("Item"))
+                {
                     playerReviveUI.SetActive(true);
                     playerReviveUI.GetComponentInChildren<Text>().text = string.Format("'E' {0} 아이템 줍기", hit.collider.GetComponent<ItemPickUp>().itemName);
-                    if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction))) {
+                    if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
+                    {
                         ItemPickUp(hit.collider.gameObject);
                         AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_item);
                         AcquireItems();
                     }
                 }
-                else if (hit.collider.CompareTag("Player")) {
+                else if (hit.collider.CompareTag("Player"))
+                {
                     isRayPlayer = true;
                     Player otherPlayer = hit.collider.GetComponent<Player>();
-                    if (otherPlayer.isFaint) {
+                    if (otherPlayer.isFaint)
+                    {
                         playerReviveUI.SetActive(true);
                         playerReviveUI.GetComponentInChildren<Text>().text = "'E' 플레이어 부활";
-                        if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction))) {
+                        if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
+                        {
                             StartCoroutine(CorPlayerReviveUI(8.0f, otherPlayer));
                         }
                     }
-                    else {
+                    else
+                    {
                         playerReviveUI.SetActive(false);
                         isRayPlayer = false;
                     }
                 }
-                else if (hit.collider.CompareTag("Door")) {
+                else if (hit.collider.CompareTag("Door"))
+                {
                     playerReviveUI.SetActive(true);
                     Door door = hit.transform.GetComponentInChildren<Door>();
-                    if(door.isOpen)
+                    if (door.isOpen)
                     {
                         playerReviveUI.GetComponentInChildren<Text>().text = string.Format("'E' 문 닫기");
                     }
@@ -409,26 +468,33 @@ public class Player : PlayerController
                         playerReviveUI.GetComponentInChildren<Text>().text = string.Format("'E' 문 열기");
                     }
 
-                    if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction))) {
-                        if (door.isOpen) {
+                    if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
+                    {
+                        if (door.isOpen)
+                        {
                             door.CloseDoorRPC();
                         }
-                        else if (!door.isOpen) {
+                        else if (!door.isOpen)
+                        {
                             door.OpenDoorRPC();
                         }
                         playerReviveUI.SetActive(false);
                     }
                 }
-                else if (hit.collider.CompareTag("Npc")) {
-                    if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction))) {
+                else if (hit.collider.CompareTag("Npc"))
+                {
+                    if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
+                    {
                         Debug.Log("대화");
                         hit.collider.GetComponent<NPC>().QusetTalkRPC();
                         PhotonView photonView = PhotonView.Get(this);
-                        if (photonView != null) {
+                        if (photonView != null)
+                        {
                             photonView.RPC("ShaderVisibleRPC", RpcTarget.AllBuffered);
                         }
 
-                        if (inventory != null && theInventory.go_SlotsParent != null) {
+                        if (inventory != null && theInventory.go_SlotsParent != null)
+                        {
                             Transform slotsParent = theInventory.go_SlotsParent.transform;
                             for (int i = 0; i < slotsParent.childCount; i++)
                             {
@@ -441,7 +507,8 @@ public class Player : PlayerController
                                     if (spriteName.Equals("QuestItem"))
                                     {
                                         Debug.Log("퀘스트 완료");
-                                        if (photonView != null) {
+                                        if (photonView != null)
+                                        {
                                             photonView.RPC("QuestCompleteRPC", RpcTarget.AllBuffered, true);
                                         }
                                         hit.collider.GetComponent<NPC>().QusetClearTalkRPC();
@@ -466,15 +533,18 @@ public class Player : PlayerController
     }
 
     [PunRPC]
-    public void ShaderVisibleRPC() {
+    public void ShaderVisibleRPC()
+    {
         GameObject questItemObject = GameObject.Find("QuestItem");
-        if(questItemObject == null) {
+        if (questItemObject == null)
+        {
             Debug.Log("아이템 찾음???");
             questItemObject = GameObject.Find("QuestItem(Clone)");
             isShaderApplied = false;
         }
 
-        if (questItemObject != null && !isShaderApplied) {
+        if (questItemObject != null && !isShaderApplied)
+        {
             QuestItemShader questItemShader = questItemObject.GetComponent<QuestItemShader>();
             questItemShader.VisibleShader();
             questItemShader.visible.SetTexture("_MainTex", Resources.Load<Texture2D>("PlayerDiffuse"));
@@ -483,17 +553,21 @@ public class Player : PlayerController
     }
 
     [PunRPC]
-    public void QuestCompleteRPC(bool isTrue) {
+    public void QuestCompleteRPC(bool isTrue)
+    {
         Debug.Log("RPC 들어옴 ");
-        if (ScenesManagerment.Instance.stageCount == 0) {
+        if (ScenesManagerment.Instance.stageCount == 0)
+        {
             Debug.Log("RPC 들어옴1 ");
             NextSceneManager.Instance.isQuest1 = isTrue;
         }
-        else if (ScenesManagerment.Instance.stageCount == 1) {
+        else if (ScenesManagerment.Instance.stageCount == 1)
+        {
             Debug.Log("RPC 들어옴2 ");
             NextSceneManager.Instance.isQuest2 = isTrue;
         }
-        else if (ScenesManagerment.Instance.stageCount == 2) {
+        else if (ScenesManagerment.Instance.stageCount == 2)
+        {
             Debug.Log("RPC 들어옴3 ");
             NextSceneManager.Instance.isQuest3 = isTrue;
         }
@@ -501,13 +575,16 @@ public class Player : PlayerController
 
     void AcquireItems()
     {
-        if (theInventory != null && theInventory.go_MauntingSlotsParent != null) {
+        if (theInventory != null && theInventory.go_MauntingSlotsParent != null)
+        {
             Transform slotsParent = theInventory.go_MauntingSlotsParent.transform;
-            if (slotsParent.childCount > 1) {
+            if (slotsParent.childCount > 1)
+            {
                 Transform firstChild = slotsParent.GetChild(0);
                 Transform grandChild = firstChild.GetChild(0);
                 Image imageComponent = grandChild.GetComponent<Image>();
-                if (imageComponent != null && imageComponent.sprite != null) {
+                if (imageComponent != null && imageComponent.sprite != null)
+                {
                     string spriteName = imageComponent.sprite.name;
                     if (spriteName.Equals("Gun")) UIManager.Instance.UpdateTotalBulletCount(theInventory.CalculateTotalItems(ItemController.ItemType.Magazine));
                     else if (spriteName.Equals("ShotGun")) UIManager.Instance.UpdateTotalBulletCount(theInventory.CalculateTotalItems(ItemController.ItemType.ShotMagazine));
@@ -517,20 +594,26 @@ public class Player : PlayerController
     }
 
     // 아이템 줍기 
-    public void ItemPickUp(GameObject itemObj) {
-        if (PV.IsMine) { 
-            if (theInventory.IsFull()) {
+    public void ItemPickUp(GameObject itemObj)
+    {
+        if (PV.IsMine)
+        {
+            if (theInventory.IsFull())
+            {
                 Debug.Log("인벤토리가 가득 찼습니다. 더 이상 아이템을 줍지 못합니다.");
             }
-            else {
-                if (PhotonNetwork.IsConnected && PhotonNetwork.InRoom) {
+            else
+            {
+                if (PhotonNetwork.IsConnected && PhotonNetwork.InRoom)
+                {
                     // 인벤토리에 아이템 넣기 
                     theInventory.AcquireItem(itemObj.transform.GetComponent<ItemPickUp>());
                     // 아이템 제거 동기화
                     if (PV != null)
                         PV.RPC("ItemPickUpRPC", RpcTarget.AllBuffered, itemObj.GetComponent<PhotonView>().ViewID);
                 }
-                else {
+                else
+                {
                     // 룸이 아닐 때 테스트 용 ( 추후 지울 예정 ) ============================================================
                     theInventory.AcquireItem(itemObj.transform.GetComponent<ItemPickUp>());
                     itemObj.SetActive(false);
@@ -550,9 +633,11 @@ public class Player : PlayerController
     }
 
     // 플레이어 공격 ( 근접인지 원거리인지 판단 bool ) 
-    public override void PlayerAttack(bool type) {
+    public override void PlayerAttack(bool type)
+    {
         // 무기 거리에 따른 공격 
-        if (PV.IsMine) {
+        if (PV.IsMine)
+        {
             if (type)
                 // 근거리 공격
                 (stanceWeaponType ? (Action)ItemHealpack : SwordAttack)();      // 힐팩 : 근접공격
@@ -571,11 +656,12 @@ public class Player : PlayerController
         Slot slotWithID = inventory.go_MauntingSlotsParent.GetComponentsInChildren<Slot>().FirstOrDefault(slot => slot.slotID == slotID);
 
         // 무기가 장착되지 않았을 때
-        if (slotWithID == null || slotWithID.item == null) {
+        if (slotWithID == null || slotWithID.item == null)
+        {
             Debug.Log("장비가 장착되지 않음");
             return false;
         }
-     
+
         return true;
     }
 
@@ -585,20 +671,25 @@ public class Player : PlayerController
         Inventory inventory = theInventory.GetComponent<Inventory>();
         // MountingSlotsParent에서 Slot 컴포넌트들을 가져오고, ID가 3인 슬롯을 찾음
         Slot slotWithID = inventory.go_MauntingSlotsParent.GetComponentsInChildren<Slot>().FirstOrDefault(slot => slot.slotID == slotID);
-        switch (slotID) {
+        switch (slotID)
+        {
             case 3:
                 // ID가 3인 슬롯이 null이거나 비어 있는 경우의 조건문   
-                if (slotWithID != null && slotWithID.item.type == ItemController.ItemType.Grenade) {
+                if (slotWithID != null && slotWithID.item.type == ItemController.ItemType.Grenade)
+                {
                     theInventory.DecreaseMagazineCount(ItemController.ItemType.Grenade);
                 }
-                else if (slotWithID != null && slotWithID.item.type == ItemController.ItemType.FireGrenade) {
+                else if (slotWithID != null && slotWithID.item.type == ItemController.ItemType.FireGrenade)
+                {
                     theInventory.DecreaseMagazineCount(ItemController.ItemType.FireGrenade);
                 }
-                else if (slotWithID != null && slotWithID.item.type == ItemController.ItemType.SupportFireGrenade) {
+                else if (slotWithID != null && slotWithID.item.type == ItemController.ItemType.SupportFireGrenade)
+                {
                     theInventory.DecreaseMagazineCount(ItemController.ItemType.SupportFireGrenade);
                 }
                 // 아이템을 다 쓰고 난 후 손에 있는 무기 비활성화
-                if (slotWithID.itemCount == 0) {
+                if (slotWithID.itemCount == 0)
+                {
                     countZero = true;
                 }
                 break;
@@ -613,8 +704,10 @@ public class Player : PlayerController
     // 근접 칼
     void SwordAttack()
     {
-        if (PV.IsMine) {
-            if (!theInventory.HasItemUse(ItemController.ItemType.Sword1) && !theInventory.HasItemUse(ItemController.ItemType.Sword2)) {
+        if (PV.IsMine)
+        {
+            if (!theInventory.HasItemUse(ItemController.ItemType.Sword1) && !theInventory.HasItemUse(ItemController.ItemType.Sword2))
+            {
                 Debug.Log("칼이 없음");
                 return;
             }
@@ -648,13 +741,16 @@ public class Player : PlayerController
                         Transform firstChild = slotsParent.GetChild(0);
                         Transform grandChild = firstChild.GetChild(0);
                         Image imageComponent = grandChild.GetComponent<Image>();
-                        if (imageComponent != null && imageComponent.sprite != null) {
+                        if (imageComponent != null && imageComponent.sprite != null)
+                        {
                             string spriteName = imageComponent.sprite.name;
-                            if (spriteName.Equals("Gun")) {
+                            if (spriteName.Equals("Gun"))
+                            {
                                 bulletCount[0] = 0;
                                 UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
                             }
-                            else if (spriteName.Equals("ShotGun")) {
+                            else if (spriteName.Equals("ShotGun"))
+                            {
                                 bulletCount[1] = 0;
                                 UIManager.Instance.CurBulletCount.text = bulletCount[1].ToString();
                             }
@@ -677,9 +773,11 @@ public class Player : PlayerController
                         Transform firstChild = slotsParent.GetChild(0);
                         Transform grandChild = firstChild.GetChild(0);
                         Image imageComponent = grandChild.GetComponent<Image>();
-                        if (imageComponent != null && imageComponent.sprite != null) {
+                        if (imageComponent != null && imageComponent.sprite != null)
+                        {
                             string spriteName = imageComponent.sprite.name;
-                            if (spriteName.Equals("Gun")) {
+                            if (spriteName.Equals("Gun"))
+                            {
                                 bulletCount[0] = 0;
                                 UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
                                 Debug.Log("탄창 없음");
@@ -701,10 +799,12 @@ public class Player : PlayerController
                         Transform firstChild = slotsParent.GetChild(0);
                         Transform grandChild = firstChild.GetChild(0);
                         Image imageComponent = grandChild.GetComponent<Image>();
-                        if (imageComponent != null && imageComponent.sprite != null) {
+                        if (imageComponent != null && imageComponent.sprite != null)
+                        {
 
                             string spriteName = imageComponent.sprite.name;
-                            if (spriteName.Equals("ShotGun")) {
+                            if (spriteName.Equals("ShotGun"))
+                            {
                                 bulletCount[1] = 0;
                                 UIManager.Instance.CurBulletCount.text = bulletCount[1].ToString();
                                 Debug.Log("탄창 없음");
@@ -715,21 +815,27 @@ public class Player : PlayerController
                 }
             }
 
-            if (inventory != null && theInventory.go_MauntingSlotsParent != null) {
+            if (inventory != null && theInventory.go_MauntingSlotsParent != null)
+            {
                 Transform slotsParent = theInventory.go_MauntingSlotsParent.transform;
-                if (slotsParent.childCount > 1) {
+                if (slotsParent.childCount > 1)
+                {
                     Transform firstChild = slotsParent.GetChild(0);
                     Transform grandChild = firstChild.GetChild(0);
                     string imageComponent = grandChild.GetComponent<Image>().sprite.name;
-                    if (imageComponent.Equals("Gun")) {
-                        if (bulletCount[0] == 0 && isGun && !isLoad) {
+                    if (imageComponent.Equals("Gun"))
+                    {
+                        if (bulletCount[0] == 0 && isGun && !isLoad)
+                        {
                             isLoad = true;
                             StartCoroutine(BulletLoad());
                             isBulletZero = true;
                         }
                     }
-                    else if (imageComponent.Equals("ShotGun")) {
-                        if (bulletCount[1] == 0 && isGun && !isLoad) {
+                    else if (imageComponent.Equals("ShotGun"))
+                    {
+                        if (bulletCount[1] == 0 && isGun && !isLoad)
+                        {
                             isLoad = true;
                             StartCoroutine(BulletLoad());
                             isBulletZero = true;
@@ -749,23 +855,27 @@ public class Player : PlayerController
             // 이펙트 생성 
             muzzleFlashEffect.Play();
             // 충돌 확인
-            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, enemyLayer)) {
+            if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, enemyLayer))
+            {
                 targetPoint = hit.point;
                 hit.transform.GetComponent<EnemyController>().BloodEffect(hit.point);       // 좀비 피 이펙트 동작
             }
-            else {
+            else
+            {
                 targetPoint = ray.origin + ray.direction * 1000f;                           // 레이가 맞지 않았을 때는 먼 지점을 목표로 설정
             }
 
             // 총알 생성 (오브젝트 풀링 사용)
-            if (weaponIndex == 0) {
+            if (weaponIndex == 0)
+            {
                 GameObject bullet = Pooling.instance.GetObject("Bullet", Vector3.zero);   // 총알 생성 
                 bullet.transform.position = bulletPos.position;                           // bullet 위치 초기화
                 bullet.transform.rotation = Quaternion.identity;                          // bullet 회전값 초기화
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_gun2);
 
                 TrailRenderer trail = bullet.GetComponent<TrailRenderer>();
-                if (trail != null) {
+                if (trail != null)
+                {
                     trail.Clear();
                 }
 
@@ -786,15 +896,18 @@ public class Player : PlayerController
                 // 발사 방향과 속도를 함께 적용
                 rb.AddForce(direction * 50f, ForceMode.VelocityChange);
             }
-            else if(weaponIndex == 4) {
+            else if (weaponIndex == 4)
+            {
                 float spreadRadius = 0.1f; // 발사 방향의 분산 범위 반지름 설정 (조정 가능)
 
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i < 5; i++)
+                {
                     GameObject bullet = Pooling.instance.GetObject("Bullet", Vector3.zero);   // 총알 생성 
                     bullet.transform.position = bulletPos.position;                           // bullet 위치 초기화
                     bullet.transform.rotation = Quaternion.identity;                          // bullet 회전값 초기화
                     TrailRenderer trail = bullet.GetComponent<TrailRenderer>();
-                    if (trail != null) {
+                    if (trail != null)
+                    {
                         trail.Clear();
                     }
 
@@ -827,7 +940,7 @@ public class Player : PlayerController
             }
         }
     }
-    
+
     IEnumerator BulletLoadImage()
     {
         UIManager.Instance.reloadImage.fillAmount = 0;
@@ -846,35 +959,41 @@ public class Player : PlayerController
         yield return new WaitForSeconds(2f);
         Debug.Log("2초간 장전중");
 
-        if (weaponIndex == 0) {
+        if (weaponIndex == 0)
+        {
             int availableBullets = theInventory.CalculateTotalItems(ItemController.ItemType.Magazine); // 이 메소드는 인벤토리에서 사용 가능한 모든 총알의 수를 반환해야 함
             bulletCount[0] = (availableBullets > 0) ? Mathf.Min(availableBullets, 30) : 0;
             UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
             isBulletZero = false;
 
-            if (availableBullets > 0) {
+            if (availableBullets > 0)
+            {
                 bulletCount[0] = Mathf.Min(availableBullets, 30); // 남은 총알이 30개 이상이면 30개를, 그렇지 않으면 남은 총알만큼 장전
                 UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
                 isBulletZero = false; // 총알이 남아있음
             }
-            else {
+            else
+            {
                 bulletCount[0] = 0;
                 UIManager.Instance.CurBulletCount.text = bulletCount[0].ToString();
                 isBulletZero = false; // 총알이 다 떨어짐
             }
         }
-        else if(weaponIndex == 4) {
+        else if (weaponIndex == 4)
+        {
             int availableBullets = theInventory.CalculateTotalItems(ItemController.ItemType.ShotMagazine); // 이 메소드는 인벤토리에서 사용 가능한 모든 총알의 수를 반환해야 함
             bulletCount[1] = (availableBullets > 0) ? Mathf.Min(availableBullets, 15) : 0;
             UIManager.Instance.CurBulletCount.text = bulletCount[1].ToString();
             isBulletZero = false;
 
-            if (availableBullets > 0) {
+            if (availableBullets > 0)
+            {
                 bulletCount[1] = Mathf.Min(availableBullets, 15); // 남은 총알이 30개 이상이면 30개를, 그렇지 않으면 남은 총알만큼 장전
                 UIManager.Instance.CurBulletCount.text = bulletCount[1].ToString();
                 isBulletZero = false; // 총알이 남아있음
             }
-            else {
+            else
+            {
                 bulletCount[1] = 0;
                 UIManager.Instance.CurBulletCount.text = bulletCount[1].ToString();
                 isBulletZero = false; // 총알이 다 떨어짐
@@ -888,16 +1007,18 @@ public class Player : PlayerController
     // 근거리 아이템 힐팩 
     void ItemHealpack()
     {
-        if (PV.IsMine) {
-            if (!theInventory.HasItemUse(ItemController.ItemType.Healpack)) {
+        if (PV.IsMine)
+        {
+            if (!theInventory.HasItemUse(ItemController.ItemType.Healpack))
+            {
                 Debug.Log("힐팩 없음");
-                return; 
+                return;
             }
 
             // 아이템 미장착 
             if (!ItemNotEquipped(4))
                 return;
-   
+
             Debug.Log("힐팩");
             AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Medikit2);
             //힐 하는시간 변수로 빼고 대충 중앙에 ui띄우고 힐 하는시간 지나면 Hp = (+30) 코루틴사용이 좋겠지 중간에 키입력시 return 애니메이션추가;
@@ -909,12 +1030,14 @@ public class Player : PlayerController
     // 원거리 아이템 수류탄  
     void ItemGrenade()
     {
-        if (PV.IsMine) {
-            if (!theInventory.HasItemUse(ItemController.ItemType.Grenade) && 
-                !theInventory.HasItemUse(ItemController.ItemType.FireGrenade) && 
-                !theInventory.HasItemUse(ItemController.ItemType.SupportFireGrenade)) {
+        if (PV.IsMine)
+        {
+            if (!theInventory.HasItemUse(ItemController.ItemType.Grenade) &&
+                !theInventory.HasItemUse(ItemController.ItemType.FireGrenade) &&
+                !theInventory.HasItemUse(ItemController.ItemType.SupportFireGrenade))
+            {
                 Debug.Log("투척무기 없음");
-                return; 
+                return;
             }
             // 아이템 미장착 
             if (!ItemNotEquipped(3))
@@ -927,16 +1050,20 @@ public class Player : PlayerController
             AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_granede);
 
 
-            if (inventory != null && theInventory.go_MauntingSlotsParent != null) {
+            if (inventory != null && theInventory.go_MauntingSlotsParent != null)
+            {
                 Transform slotsParent = theInventory.go_MauntingSlotsParent.transform;
-                if (slotsParent.childCount > 1) {
+                if (slotsParent.childCount > 1)
+                {
                     Transform firstChild = slotsParent.GetChild(2);
 
                     Transform grandChild = firstChild.GetChild(0);
                     Image imageComponent = grandChild.GetComponent<Image>();
-                    if (imageComponent != null && imageComponent.sprite != null) {
+                    if (imageComponent != null && imageComponent.sprite != null)
+                    {
                         string spriteName = imageComponent.sprite.name;
-                        if (spriteName.Equals("Grenade")) {
+                        if (spriteName.Equals("Grenade"))
+                        {
                             GameObject grenade = Pooling.instance.GetObject("GrenadeObject", Vector3.zero);   // 수류탄 생성 
                             Rigidbody grenadeRigid = grenade.GetComponent<Rigidbody>();
                             // 초기 위치 설정
@@ -956,7 +1083,8 @@ public class Player : PlayerController
                             // Rigidbody에 힘을 가함
                             grenadeRigid.AddForce(throwDirection * throwForce, ForceMode.VelocityChange);
                         }
-                        else if (spriteName.Equals("FireGrenade")) {
+                        else if (spriteName.Equals("FireGrenade"))
+                        {
                             GameObject grenade = Pooling.instance.GetObject("FireGrenadeObject", Vector3.zero);   // 수류탄 생성 
                             Rigidbody grenadeRigid = grenade.GetComponent<Rigidbody>();
                             // 초기 위치 설정
@@ -978,7 +1106,8 @@ public class Player : PlayerController
                             // Rigidbody에 힘을 가함
                             grenadeRigid.AddForce(throwDirection * throwForce, ForceMode.VelocityChange);
                         }
-                        else if (spriteName.Equals("SupportGrenade")) {
+                        else if (spriteName.Equals("SupportGrenade"))
+                        {
                             GameObject grenade = Pooling.instance.GetObject("SupportGrenadeObject", Vector3.zero);   // 수류탄 생성 
                             Rigidbody grenadeRigid = grenade.GetComponent<Rigidbody>();
                             // 초기 위치 설정
@@ -1000,7 +1129,7 @@ public class Player : PlayerController
                             // Rigidbody에 힘을 가함
                             grenadeRigid.AddForce(throwDirection * throwForce, ForceMode.VelocityChange);
                         }
-                    }                  
+                    }
                 }
             }
             ItemCountChange(3);
@@ -1008,23 +1137,31 @@ public class Player : PlayerController
     }
 
     // 무기 교체
-    public override void WeaponSwap() {
-        if (PV.IsMine) {
-            if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Weapon1))) {        // 원거리 무기 
-                if (WeaponSwapStatus(0, false, false, true, "isDrawRifle", 0, beforeWeapon)) {
+    public override void WeaponSwap()
+    {
+        if (PV.IsMine)
+        {
+            if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Weapon1)))
+            {        // 원거리 무기 
+                if (WeaponSwapStatus(0, false, false, true, "isDrawRifle", 0, beforeWeapon))
+                {
                     countZero = false;
                     beforeWeapon = 1;
                 }
                 Inventory inventory = theInventory.GetComponent<Inventory>();
-                if (inventory != null && inventory.go_MauntingSlotsParent != null) {
+                if (inventory != null && inventory.go_MauntingSlotsParent != null)
+                {
                     Transform slotsParent = inventory.go_MauntingSlotsParent.transform;
-                    if (slotsParent.childCount > 1) {
+                    if (slotsParent.childCount > 1)
+                    {
                         Transform firstChild = slotsParent.GetChild(0);
                         Transform grandChild = firstChild.GetChild(0);
                         Image imageComponent = grandChild.GetComponent<Image>();
-                        if (imageComponent != null && imageComponent.sprite != null) {
+                        if (imageComponent != null && imageComponent.sprite != null)
+                        {
                             string spriteName = imageComponent.sprite.name;
-                            if (spriteName != null) {
+                            if (spriteName != null)
+                            {
                                 if (spriteName.Equals("Gun"))
                                     weaponIndex = 0;
                                 else if (spriteName.Equals("ShotGun"))
@@ -1036,21 +1173,25 @@ public class Player : PlayerController
                 isGun = true;
                 handAnimator.SetTrigger("isTakeOut");
             }
-            else if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Weapon2))) {   // 근접 무기
-                if (WeaponSwapStatus(1, true, false, true, "isDrawMelee", 1, beforeWeapon)) {
+            else if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Weapon2)))
+            {   // 근접 무기
+                if (WeaponSwapStatus(1, true, false, true, "isDrawMelee", 1, beforeWeapon))
+                {
                     countZero = false;
                     handAnimator.SetTrigger("isDrawMelee");
                     beforeWeapon = 2;
                 }
                 isGun = false;
             }
-            else if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Weapon3))) {   // 투척 무기
-                if(WeaponSwapStatus(2, false, true, true, "isDrawGrenade", 2, beforeWeapon))
+            else if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Weapon3)))
+            {   // 투척 무기
+                if (WeaponSwapStatus(2, false, true, true, "isDrawGrenade", 2, beforeWeapon))
                     beforeWeapon = 3;
                 isGun = false;
             }
-            else if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Weapon4))) {   // 힐팩
-                if(WeaponSwapStatus(3, true, true, true, "isDrawHeal", 3, beforeWeapon))
+            else if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Weapon4)))
+            {   // 힐팩
+                if (WeaponSwapStatus(3, true, true, true, "isDrawHeal", 3, beforeWeapon))
                     beforeWeapon = 4;
                 isGun = false;
             }
@@ -1062,15 +1203,17 @@ public class Player : PlayerController
             if (equipWeapon != null)
                 equipWeapon.SetActive(false);
             // 무기 선택 
-            
+
             equipWeapon = weapons[weaponIndex];
 
             // 선택된 무기 활성화 ( 무기를 다 사용했을 시 비활성화 )
-            if (!countZero) {
+            if (!countZero)
+            {
                 equipWeapon.SetActive(true);
             }
-            else {
-                if (beforeWeapon != 0) 
+            else
+            {
+                if (beforeWeapon != 0)
                     UIManager.Instance.weaponItem[beforeWeapon - 1].color = new Color(1, 1, 1, 0.2f);
                 beforeWeapon = 0;
                 equipWeapon.SetActive(false);
@@ -1085,13 +1228,15 @@ public class Player : PlayerController
         Slot slotWithID = inventory.go_MauntingSlotsParent.GetComponentsInChildren<Slot>().FirstOrDefault(slot => slot.slotID == weaponIndex + 1);
         Slot slotBeforeWeaponID = inventory.go_MauntingSlotsParent.GetComponentsInChildren<Slot>().FirstOrDefault(slot => slot.slotID == beforeWeapon);
 
-        if (slotWithID == null || slotWithID.item == null) {
+        if (slotWithID == null || slotWithID.item == null)
+        {
             UIManager.Instance.weaponItem[uiPos].color = new Color(1, 1, 1, 0.2f);
             Debug.Log("장비가 장착되지 않음");
             return false;
         }
         // 아이템이 0보다 많으면 활성화 될 수 있도록 
-        if (slotWithID.itemCount > 0) {
+        if (slotWithID.itemCount > 0)
+        {
             countZero = false;
         }
 
@@ -1100,11 +1245,14 @@ public class Player : PlayerController
         this.isAtkDistance = isAtkDistance;
         this.stanceWeaponType = stanceWeaponType;
         this.weaponSelected = weaponSelected;
-        if (beforeWeapon != 0) {
-            if (slotBeforeWeaponID.item != null) {
+        if (beforeWeapon != 0)
+        {
+            if (slotBeforeWeaponID.item != null)
+            {
                 UIManager.Instance.weaponItem[beforeWeapon - 1].color = Color.white;
             }
-            else if(slotBeforeWeaponID == null || slotBeforeWeaponID.item == null) {
+            else if (slotBeforeWeaponID == null || slotBeforeWeaponID.item == null)
+            {
                 UIManager.Instance.weaponItem[beforeWeapon - 1].color = new Color(1, 1, 1, 0.2f);
             }
         }
@@ -1116,19 +1264,21 @@ public class Player : PlayerController
 
     // 체력 변화 
     [PunRPC]
-    public override void ChangeHp( float value )
+    public override void ChangeHp(float value)
     {
         if (hp == 0) return;
-        if(isDead) return;
+        if (isDead) return;
         if (PV.IsMine)
         {
             hp += value;
             if (hp > 100)
                 hp = 100;
-            if (value > 0) {
+            if (value > 0)
+            {
                 StartCoroutine(ShowHealScreen());   //힐 화면 출력
             }
-            else if (value < 0) {
+            else if (value < 0)
+            {
                 StartCoroutine(ShowBloodScreen(value));  //피격화면 출력 
                 hp = Mathf.Clamp(hp, 0, maxHp);
                 UIManager.Instance.hpBar[0].value = (hp / maxHp) * 100;
@@ -1138,7 +1288,7 @@ public class Player : PlayerController
     }
 
     // 플레이어 기절 
-  
+
     public override void PlayerFaint()
     {
         if (hp <= 0 && PV.IsMine)                            //만약 플레이어 체력이 0보다 작아지면
@@ -1159,14 +1309,14 @@ public class Player : PlayerController
             StartCoroutine(PlayerFaintUI(faintTime));
             //capsuleCollider.direction = 2;
         }
-  
-            
+
+
     }
     [PunRPC]
     public void IsFaintRPC(bool isFaint)
     {
         this.isFaint = isFaint;
-        if(isFaint)
+        if (isFaint)
         {
             capsuleCollider = GetComponent<CapsuleCollider>();
             capsuleCollider.direction = 2;
@@ -1176,7 +1326,7 @@ public class Player : PlayerController
             capsuleCollider = GetComponent<CapsuleCollider>();
             capsuleCollider.direction = 1;
         }
-        
+
     }
     [PunRPC]
     public void IsDeadRPC(bool isDead)
@@ -1198,6 +1348,7 @@ public class Player : PlayerController
             AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_death_BGM);
             photonView.RPC("IsFaintRPC", RpcTarget.AllBuffered, false);
             photonView.RPC("IsDeadRPC", RpcTarget.AllBuffered, true);
+            OnPlayerSpectate += PlayerSpectate;         //뒤지면 관전기능
         }
     }
 
@@ -1208,9 +1359,9 @@ public class Player : PlayerController
         Image[] images = playerFaintUI.GetComponentsInChildren<Image>();
         Color defaultColor = new Color(1, 1, 1, 0);
         faintSlider.value = 1;
-        
+
         playerFaintUI.SetActive(true);
-        while(faintSlider.value != 0)
+        while (faintSlider.value != 0)
         {
             yield return null;
             faintSlider.value -= Time.deltaTime / faintTime;
@@ -1230,7 +1381,7 @@ public class Player : PlayerController
             yield return null;
             _time += Time.deltaTime;
             fillImage.fillAmount = _time / time;
-            if(!isRayPlayer || isFaint)
+            if (!isRayPlayer || isFaint)
             {
                 fillImage.fillAmount = 0;
                 playerReviveUI.SetActive(false);
@@ -1250,7 +1401,7 @@ public class Player : PlayerController
     [PunRPC]
     public override void PlayerRevive()             //플레이어 부활 - 다른플레이어가 부활할때 얘의 player에 접근해서 호출 내부에선 안쓸꺼임 제세동기를만들지않는이상...
     {                                               //PlayerFaint 함수와 반대로 하면 됨
-        if(PV.IsMine)
+        if (PV.IsMine)
         {
             OnPlayerMove += PlayerMove;                 // 플레이어 이동 
             OnPlayerRotation += PlayerRotation;         // 플레이어 회전
@@ -1266,16 +1417,16 @@ public class Player : PlayerController
             photonView.RPC("UpdateHealthBar", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName, photonView.ViewID, (hp / maxHp) * 100);
             playerFaintUI.SetActive(false);      //기절화면 끄기
         }
-        
+
     }
     // 피격시 셰이더 변경 
     IEnumerator ShowBloodScreen(float value)                  //화면 붉게
     {
-        if(value > -5)
+        if (value > -5)
         {
             bloodScreen.color = new Color(1, 0, 0, UnityEngine.Random.Range(0.1f, 0.15f));  //시뻘겋게 변경
         }
-        else if(value > -20)
+        else if (value > -20)
         {
             bloodScreen.color = new Color(1, 0, 0, UnityEngine.Random.Range(0.3f, 0.4f));  //시뻘겋게 변경
         }
@@ -1306,7 +1457,7 @@ public class Player : PlayerController
     }
 
     //힐팩 코루틴
-    IEnumerator HealItemUse(float time, float healAmount, Slot slot)                                                     
+    IEnumerator HealItemUse(float time, float healAmount, Slot slot)
     {
         if (Hp == 100) yield break;
         OnPlayerInteraction -= PlayerInteraction;
@@ -1343,8 +1494,8 @@ public class Player : PlayerController
     {
         yield return new WaitForSeconds(0.1f);
         animator.SetBool(animString, false);
-        if(handAnim != null)
-        handAnim.SetBool(animString, false);
+        if (handAnim != null)
+            handAnim.SetBool(animString, false);
     }
 
     IEnumerator DotDamage(EliteRangeEnemyDotArea _EREP)
@@ -1356,11 +1507,14 @@ public class Player : PlayerController
     }
 
     // 플레이어 동기화
-    public override void OnPhotonSerializeView( PhotonStream stream, PhotonMessageInfo info ) {
-        if (stream.IsWriting) {
+    public override void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
             stream.SendNext(hp);
         }
-        else {
+        else
+        {
             hp = (float)stream.ReceiveNext();
         }
         /*if (stream.IsWriting) {
@@ -1378,8 +1532,10 @@ public class Player : PlayerController
     }
 
     [PunRPC]
-    public void UpdateHealthBar( string nickName, int viewID, float healthPercent ) {
-        if (photonView.ViewID == viewID) {
+    public void UpdateHealthBar(string nickName, int viewID, float healthPercent)
+    {
+        if (photonView.ViewID == viewID)
+        {
             UIManager.Instance.UpdatePlayerHealthBar(nickName, viewID, healthPercent);
         }
     }
@@ -1389,7 +1545,7 @@ public class Player : PlayerController
     {
         if (PV.IsMine)
         {
-            if(isDead)
+            if (isDead)
             {
                 return;
             }
@@ -1410,5 +1566,51 @@ public class Player : PlayerController
         swordCollider.enabled = true;
         yield return new WaitForSeconds(1.0f);
         swordCollider.enabled = false;
+    }
+
+    GameObject spectateCamera;
+    List<GameObject> otherPlayers = new List<GameObject>();
+    int playerCount = 0;
+    void PlayerSpectate() //관전
+    {
+        if (PhotonNetwork.CurrentRoom.PlayerCount > 1)
+        {
+            if (spectateCamera == null)
+            {
+                spectateCamera = new GameObject("spectateCamera");
+                spectateCamera.AddComponent<Camera>();
+                //spectateCamera.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+                spectateCamera.GetComponent<Camera>().cullingMask = ~LayerMask.GetMask("RemotePlayer");
+                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+                playerCamera.enabled = false;
+                //ui 꺼주기
+                playerFaintUI.SetActive(false);
+                bloodScreen.gameObject.SetActive(false);
+                aimingObj.SetActive(false);
+                UIManager.Instance.transform.GetChild(0).gameObject.SetActive(false);
+
+                foreach (GameObject player in players)
+                {
+                    if (player.GetComponent<PhotonView>().IsMine == false)
+                    {
+                        otherPlayers.Add(player);
+                    }
+                }
+            }
+        }
+
+        if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Attack)))
+        {
+            playerCount++;
+            if (PhotonNetwork.CurrentRoom.PlayerCount == playerCount + 1)
+            {
+                playerCount = 0;
+            }
+        }
+        spectateCamera.transform.parent = otherPlayers[playerCount].transform.GetChild(1);
+        spectateCamera.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
+        spectateCamera.transform.localPosition = new Vector3(0, 0, 0.012f);
+        //spectateCamera.transform.position = otherPlayers[playerCount].transform.position;
+        //spectateCamera.transform.rotation = Quaternion.Euler(otherPlayers[playerCount].transform.GetChild(1).position.x, otherPlayers[playerCount].transform.eulerAngles.y, 0);
     }
 }

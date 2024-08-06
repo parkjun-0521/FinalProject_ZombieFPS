@@ -45,13 +45,15 @@ public class Missile : ItemSword
     {
 
         float _time = 0;
+        yield return new WaitForSeconds(0.2f);
+        if (range.activeSelf)
+        {
+            range.SetActive(false);
+        }
+
         while (1 >= _time)
         {
-            yield return new WaitForSeconds(0.2f);
-            if(range.activeSelf)
-            {
-                range.SetActive(false);
-            }
+            
             _time += Time.deltaTime / _liveTime;
         }
         gameObject.SetActive(false);
