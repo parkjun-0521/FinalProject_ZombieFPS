@@ -101,6 +101,7 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     public bool isShaderApplied;        // 쉐이더 활성화 
     [SerializeField]protected bool isDead; // 사망 상태 
     public bool isLoad;
+    public bool isNextStageZone;        // 다음 맵 이동 존 확인 
 
     // 사용 안할 꺼 같은데 예외처리에 필요할 Bool 변수 모음 
     protected bool isMove;              // 걷고있는 상태 
