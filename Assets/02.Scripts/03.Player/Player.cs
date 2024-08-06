@@ -437,21 +437,15 @@ public class Player : PlayerController
                                 Transform firstChild = slotsParent.GetChild(i);
                                 Transform grandChild = firstChild.GetChild(0);
                                 Image imageComponent = grandChild.GetComponent<Image>();
-                                if (imageComponent != null && imageComponent.sprite != null)
-                                {
+                                if (imageComponent != null && imageComponent.sprite != null) {
                                     string spriteName = imageComponent.sprite.name;
-                                    if (spriteName.Equals("QuestItem"))
-                                    {
+                                    if (spriteName.Equals("QuestItem")) {
                                         Debug.Log("퀘스트 완료");
                                         if (photonView != null) {
                                             photonView.RPC("QuestCompleteRPC", RpcTarget.AllBuffered, true);
                                         }
                                         hit.collider.GetComponent<NPC>().QusetClearTalkRPC();
                                         theInventory.DecreaseMagazineCount(ItemController.ItemType.QuestItem);
-                                    }
-                                    else
-                                    {
-                                        Debug.Log("아이템 부족 대화");
                                     }
                                 }
                             }

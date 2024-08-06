@@ -7,6 +7,10 @@ using UnityEngine.SceneManagement;
 
 public class NextSceneManager : MonoBehaviourPunCallbacks {
     public static NextSceneManager Instance;
+
+    private Coroutine currentCoroutine1;
+    private Coroutine currentCoroutine2;
+
     public bool isQuest1 = false;
     public bool isQuest2 = false;
     public bool isQuest3 = false;
@@ -14,8 +18,10 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
     public bool isItemInfoSaved = false;
     public bool isSceneChange = false;
 
+    public GameObject endLoading;
+    
     List<GameObject> playersInTrigger = new List<GameObject>();
-
+    
     void Awake()
     {
         Instance = this;
@@ -87,10 +93,12 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
             isItemInfoSaved = false;  // 플레이어가 나가면 플래그 리셋
             isSceneChange = false;
             if (ScenesManagerment.Instance.stageCount == 0) {
-                StopCoroutine(SenecChange1());
+                StopCoroutine(currentCoroutine1);
+                endLoading.SetActive(false);
             }
             else if (ScenesManagerment.Instance.stageCount == 1) {
-                StopCoroutine(SenecChange2());
+                StopCoroutine(currentCoroutine2);
+                endLoading.SetActive(false);
             }
             playersInTrigger.Remove(other.gameObject);
         }
@@ -114,13 +122,13 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
                 if (ScenesManagerment.Instance.stageCount == 0 && isQuest1) {
                     AudioManager.Instance.PlayBgm(false, ScenesManagerment.Instance.stageCount);
                     if (!isSceneChange) {
-                        StartCoroutine(SenecChange1());
+                        currentCoroutine1 = StartCoroutine(SenecChange1());
                     }
                 }
                 else if (ScenesManagerment.Instance.stageCount == 1 && isQuest2) {
                     AudioManager.Instance.PlayBgm(false, ScenesManagerment.Instance.stageCount);
                     if (!isSceneChange) {
-                        StartCoroutine(SenecChange2());
+                        currentCoroutine2 = StartCoroutine(SenecChange2());
                     }
                 }
                 else if (ScenesManagerment.Instance.stageCount == 2 && isQuest3) {      // 가장 마지막 보스가 죽으면 isQUest3 을 true 바꿔주고 
@@ -128,9 +136,8 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
                                                                                         // 가장 마지막에 버튼 하나 
                                                                                         // 방나가기 버튼으로 만들어서 로비로 이동하도록 만듦
                     AudioManager.Instance.PlayBgm(false, ScenesManagerment.Instance.stageCount);
-                    PhotonNetwork.LoadLevel("04.Ending");
-                    ScenesManagerment.Instance.stageCount += 1;
-                    ScenesManagerment.Instance.playerCount = 0;
+                    if (!isSceneChange) 
+                        StartCoroutine(SenecChange3());
                 }
             }
         }
@@ -139,19 +146,30 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
     IEnumerator SenecChange1()
     {
         isSceneChange = true;
+        endLoading.SetActive(true);
         yield return new WaitForSeconds(5f);
-        PhotonNetwork.LoadLevel("03.MainGameScene_1");
         ScenesManagerment.Instance.stageCount += 1;
         ScenesManagerment.Instance.playerCount = 0;
+        PhotonNetwork.LoadLevel("03.MainGameScene_1");
     }
 
     IEnumerator SenecChange2()
     {
         isSceneChange = true;
+        endLoading.SetActive(true);
         yield return new WaitForSeconds(5f);
-        PhotonNetwork.LoadLevel("03.MainGameScene_2");
         ScenesManagerment.Instance.stageCount += 1;
         ScenesManagerment.Instance.playerCount = 0;
+        PhotonNetwork.LoadLevel("03.MainGameScene_2");
+    }
+
+    IEnumerator SenecChange3() {
+        isSceneChange = true;
+        endLoading.SetActive(true);
+        yield return new WaitForSeconds(5f);
+        ScenesManagerment.Instance.stageCount += 1;
+        ScenesManagerment.Instance.playerCount = 0;
+        PhotonNetwork.LoadLevel("04.Ending");
     }
 
     IEnumerator DeleteItemData(string userID, GameObject other)

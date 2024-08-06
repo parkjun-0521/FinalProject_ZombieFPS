@@ -474,6 +474,7 @@ public class BossZombie : EnemyController {
     public override void EnemyDead() {
         if (hp <= 0 && PV.IsMine) {
             photonView.RPC("HandleEnemyDeath", RpcTarget.AllBuffered);
+            Pooling.instance.GetObject("QuestItem", transform.position);
             if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.BossDie1)) {
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.BossDie1);
             }

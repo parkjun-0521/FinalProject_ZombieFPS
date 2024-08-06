@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static InputKeyManager;
 using static ItemController;
+using static UnityEditor.PlayerSettings;
 
 public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler {
     public int slotID;          // ÀåÂø °¡´ÉÇÑ ½½·Ô ID
@@ -306,6 +307,7 @@ public class Slot : MonoBehaviourPun, IPointerClickHandler, IBeginDragHandler, I
             if (player.WeaponSwapStatus(0, false, false, true, "isDrawRifle", 0, player.beforeWeapon)) {
                 player.countZero = false;
                 player.beforeWeapon = 1;
+                UIManager.Instance.weaponItem[0].color = Color.white;
             }
             Transform slotsParent = inventory.go_MauntingSlotsParent.transform;
             if (slotsParent.childCount > 1) {
