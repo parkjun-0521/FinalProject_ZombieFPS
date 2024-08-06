@@ -21,7 +21,8 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
     public bool isSceneChange = false;
 
     public GameObject endLoading;
-    
+    public GameObject mapGimmick;
+
     List<GameObject> playersInTrigger = new List<GameObject>();
     
     void Awake()
@@ -34,6 +35,12 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
         isItemInfoSaved = false;
         SceneManager.sceneLoaded += OnSceneLoaded;
         StartCoroutine(GetItemData());
+    }
+
+    void Update() {
+        if (isQuest2 && mapGimmick.activeSelf) {
+            mapGimmick.SetActive(false);
+        }
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -123,19 +130,16 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
         // 모든 플레이어가 nextStageZone에 들어왔을 때 씬을 로드합니다.
         if (ScenesManagerment.Instance.playerCount == (PhotonNetwork.CurrentRoom.PlayerCount - deadPlayerCount)) {
             if (ScenesManagerment.Instance.stageCount == 0 && isQuest1) {
-                AudioManager.Instance.PlayBgm(false, ScenesManagerment.Instance.stageCount);
                 if (!isSceneChange) {
                     currentCoroutine1 = StartCoroutine(SenecChange1());
                 }
             }
             else if (ScenesManagerment.Instance.stageCount == 1 && isQuest2) {
-                AudioManager.Instance.PlayBgm(false, ScenesManagerment.Instance.stageCount);
                 if (!isSceneChange) {
                     currentCoroutine2 = StartCoroutine(SenecChange2());
                 }
             }
             else if (ScenesManagerment.Instance.stageCount == 2 && isQuest3) {  
-                AudioManager.Instance.PlayBgm(false, ScenesManagerment.Instance.stageCount);
                 if (!isSceneChange)
                     StartCoroutine(SenecChange3());
             }
@@ -144,8 +148,10 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
 
     IEnumerator SenecChange1()
     {
-        isSceneChange = true;        
-        yield return new WaitForSeconds(5f);
+        isSceneChange = true;
+        yield return new WaitForSeconds(4.5f);
+        AudioManager.Instance.PlayBgm(false, ScenesManagerment.Instance.stageCount);
+        yield return new WaitForSeconds(0.5f);
         ScenesManagerment.Instance.stageCount += 1;
         ScenesManagerment.Instance.playerCount = 0;
         deadPlayerCount = 0;
@@ -155,7 +161,9 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
     IEnumerator SenecChange2()
     {
         isSceneChange = true;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(4.5f);
+        AudioManager.Instance.PlayBgm(false, ScenesManagerment.Instance.stageCount);
+        yield return new WaitForSeconds(0.5f);
         ScenesManagerment.Instance.stageCount += 1;
         ScenesManagerment.Instance.playerCount = 0;
         deadPlayerCount = 0;
@@ -164,7 +172,9 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
 
     IEnumerator SenecChange3() {
         isSceneChange = true;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(4.5f);
+        AudioManager.Instance.PlayBgm(false, ScenesManagerment.Instance.stageCount);
+        yield return new WaitForSeconds(0.5f);
         ScenesManagerment.Instance.stageCount += 1;
         ScenesManagerment.Instance.playerCount = 0;
         deadPlayerCount = 0;

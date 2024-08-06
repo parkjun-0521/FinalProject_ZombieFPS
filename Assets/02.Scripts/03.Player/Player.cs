@@ -110,7 +110,7 @@ public class Player : PlayerController
             OnPlayerSwap?.Invoke();
 
             // °ø°Ý
-            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Attack)) && !EventSystem.current.IsPointerOverGameObject())
+            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Attack)) && !EventSystem.current.IsPointerOverGameObject() && !isNextStageZone)
             {
                 // ÃÑ,Ä® 0.1ÃÊ, ¼ö·ùÅº,ÈúÆÑ 1ÃÊ µô·¹ÀÌ
                 attackMaxDelay = stanceWeaponType ? 1.0f : weaponIndex == 4 ? 1f : weaponIndex == 1 ? 1f : 0.1f;
@@ -259,6 +259,18 @@ public class Player : PlayerController
                     EliteRangeEnemyDotArea EREP = other.GetComponent<EliteRangeEnemyDotArea>();
                     dotCoroutine = StartCoroutine(DotDamage(EREP));
                 }
+            }
+
+            if (other.CompareTag("NextStageZone")) {
+                isNextStageZone = true;
+            }
+        }
+    }
+
+    private void OnTriggerExit( Collider other ) {
+        if (PV.IsMine) {
+            if (other.CompareTag("NextStageZone")) {
+                isNextStageZone = false;
             }
         }
     }
