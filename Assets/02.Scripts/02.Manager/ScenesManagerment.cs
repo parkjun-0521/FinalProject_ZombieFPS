@@ -9,6 +9,8 @@ public class ScenesManagerment : MonoBehaviourPun
     public static ScenesManagerment Instance;
     public int playerCount;
     public int stageCount;
+
+    public int readyUserCount;
     void Awake() {
         Instance = this;
         DontDestroyOnLoad(gameObject);

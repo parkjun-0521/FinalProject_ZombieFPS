@@ -101,6 +101,7 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     protected bool isThrow;             // 아이템 버리는 상태 
     public bool isShaderApplied;        // 쉐이더 활성화 
     [SerializeField]protected bool isDead; // 사망 상태 
+    public bool isStart;
     public bool isLoad;
     public bool isNextStageZone;        // 다음 맵 이동 존 확인 
 
@@ -130,6 +131,9 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
 
     [Header("닉네임=======")]
     public TMP_Text nickNameText;
+
+    [HideInInspector]
+    public GameObject ReadyObj;
     public abstract void PlayerMove(bool type);
     public abstract void PlayerJump();
     public abstract void PlayerInteraction();

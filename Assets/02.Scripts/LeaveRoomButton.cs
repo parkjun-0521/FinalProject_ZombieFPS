@@ -28,13 +28,6 @@ public class LeaveRoomButton : MonoBehaviour
 
         using (UnityWebRequest www = UnityWebRequest.Post(URLs.ItemDeleteURL, form)) {
             yield return www.SendWebRequest();
-
-            if (www.result != UnityWebRequest.Result.Success) {
-                Debug.LogError("Error while sending delete item request: " + www.error);
-            }
-            else {
-                Debug.Log("Delete item request sent successfully!");
-            }
         }
     }
 }

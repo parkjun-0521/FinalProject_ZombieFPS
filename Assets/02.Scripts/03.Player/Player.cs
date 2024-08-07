@@ -39,6 +39,7 @@ public class Player : PlayerController
     Coroutine dotCoroutine;
 
     [SerializeField] CapsuleCollider swordCollider;
+    
     void Awake()
     {
         // 레퍼런스 초기화 
@@ -92,6 +93,17 @@ public class Player : PlayerController
             aimingObj.SetActive(true);
             weaponSelected = false;
             nickNameText.text = PhotonNetwork.NickName;
+            ReadyObj = GameObject.FindGameObjectWithTag("ReadyUI");
+            isStart = false;
+            if (ReadyObj.activeSelf) {
+                OnPlayerMove -= PlayerMove;
+                OnPlayerRotation -= PlayerRotation;
+                OnPlayerJump -= PlayerJump;
+                OnPlayerAttack -= PlayerAttack;
+                OnPlayerSwap -= WeaponSwap;
+                OnPlayerInteraction -= PlayerInteraction;   // 플레이어 상호작용
+                OnPlayerInventory -= PlayerInventory;
+            }
         }
         else
         {
@@ -106,11 +118,22 @@ public class Player : PlayerController
         // 단발적인 행동 
         if (PV.IsMine)
         {
+            if (!ReadyObj.activeSelf && !isStart) {
+                OnPlayerMove += PlayerMove;                 // 플레이어 이동 
+                OnPlayerRotation += PlayerRotation;         // 플레이어 회전
+                OnPlayerJump += PlayerJump;                 // 플레이어 점프 
+                OnPlayerAttack += PlayerAttack;             // 플레이어 공격
+                OnPlayerSwap += WeaponSwap;                 // 무기 교체
+                OnPlayerInteraction += PlayerInteraction;   // 플레이어 상호작용
+                OnPlayerInventory += PlayerInventory;
+                isStart = true;
+            }
+
             // 무기 스왑 
             OnPlayerSwap?.Invoke();
 
             // 공격
-            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Attack)) && !EventSystem.current.IsPointerOverGameObject())
+            if (Input.GetKey(keyManager.GetKeyCode(KeyCodeTypes.Attack)) && !EventSystem.current.IsPointerOverGameObject() && !isNextStageZone)
             {
                 // 총,칼 0.1초, 수류탄,힐팩 1초 딜레이
                 attackMaxDelay = stanceWeaponType ? 1.0f : weaponIndex == 4 ? 1f : weaponIndex == 1 ? 1f : 0.1f;
@@ -259,6 +282,18 @@ public class Player : PlayerController
                     EliteRangeEnemyDotArea EREP = other.GetComponent<EliteRangeEnemyDotArea>();
                     dotCoroutine = StartCoroutine(DotDamage(EREP));
                 }
+            }
+
+            if (other.CompareTag("NextStageZone")) {
+                isNextStageZone = true;
+            }
+        }
+    }
+
+    private void OnTriggerExit( Collider other ) {
+        if (PV.IsMine) {
+            if (other.CompareTag("NextStageZone")) {
+                isNextStageZone = false;
             }
         }
     }
@@ -1347,6 +1382,7 @@ public class Player : PlayerController
             photonView.RPC("IsFaintRPC", RpcTarget.AllBuffered, false);
             photonView.RPC("IsDeadRPC", RpcTarget.AllBuffered, true);
             OnPlayerSpectate += PlayerSpectate;         //뒤지면 관전기능
+            NextSceneManager.Instance.deadPlayerCount += 1;
         }
     }
 
