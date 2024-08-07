@@ -225,10 +225,9 @@ public class Player : PlayerController
                 ToggleCursor();
             }
 
-            if (Camera.main != null)
-            {
-                ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-            }
+            
+            ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+            
 
             //»ç¶÷ Á×Àº³ð ÂÊÀ¸·Î ·¹ÀÌ½÷¼­ ui true
 
@@ -383,6 +382,7 @@ public class Player : PlayerController
 
             if (isMove)
             {
+                if (animator == null) return;
                 animator.SetFloat("speedBlend", type ? 1.0f : 0.5f);
                 if (type && !AudioManager.Instance.IsPlaying(AudioManager.Sfx.Player_run2))
                 {
