@@ -80,6 +80,7 @@ public class Player : PlayerController
         OnPlayerSwap -= WeaponSwap;
         OnPlayerInteraction -= PlayerInteraction;   // 플레이어 상호작용
         OnPlayerInventory -= PlayerInventory;
+        OnPlayerSpectate -= PlayerSpectate;
     }
 
     void Start()
@@ -393,7 +394,11 @@ public class Player : PlayerController
                 }
             }
             else
+            {
+                if (animator == null) return;
                 animator.SetFloat("speedBlend", 0);
+            }
+                
 
             Vector3 moveDirection = (transform.forward * z + transform.right * x).normalized;
             rigid.MovePosition(transform.position + moveDirection * playerSpeed * Time.deltaTime);

@@ -33,9 +33,6 @@ public abstract class PlayerController : MonoBehaviourPun, IPlayer, IPunObservab
     [SerializeField]
     protected float jumpForce;
 
-    // 중력 계수 ( 점프 후 착지 )
-    [SerializeField]
-    protected float gravity;
 
     [Header("체력=======")]
     // Player 체력 
