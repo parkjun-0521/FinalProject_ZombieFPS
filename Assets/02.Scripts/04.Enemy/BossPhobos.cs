@@ -77,6 +77,8 @@ public class BossPhobos : EnemyController
 
     private void Update()
     {
+        if (!PV.IsMine) return;
+
         traceTime += Time.deltaTime;
         playerCollider = Physics.OverlapSphere(transform.position, lookRadius, LayerMask.GetMask("LocalPlayer"));
         if(playerCollider.Length > 0 && !isLook)
@@ -90,7 +92,7 @@ public class BossPhobos : EnemyController
 
     IEnumerator Trace()
     {
-        while(state != State.dead)             //안죽었으면 0.5초마다 가까이있는 플레이어 추격
+        while (state != State.dead)             //안죽었으면 0.5초마다 가까이있는 플레이어 추격
         {
             Transform closestPlayer = players[0].transform;
             foreach (GameObject player in players)
@@ -225,6 +227,8 @@ public class BossPhobos : EnemyController
         }
         else if(other.CompareTag("Player"))
         {
+            if (other.GetComponent<PlayerController>().rigid == null) return; //
+            if (other.GetComponent<Rigidbody>() == null) return;
             other.GetComponent<PlayerController>().rigid.AddForce((other.transform.position - transform.position).normalized * knockBackPower, ForceMode.Impulse);
         }
     }
