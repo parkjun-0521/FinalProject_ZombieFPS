@@ -460,7 +460,7 @@ public class Player : PlayerController
         {
             RaycastHit hit;
 
-            int layerMask = LayerMask.GetMask("LocalPlayer", "Item", "Door", "Npc");
+            int layerMask = LayerMask.GetMask("LocalPlayer", "Item", "Door", "Npc", "Car");
             foreach (SelectedOutline outlineComponent in FindObjectsOfType<SelectedOutline>())
             {
                 outlineComponent.DeactivateOutline();
@@ -565,6 +565,15 @@ public class Player : PlayerController
                             }
                         hit.collider.GetComponent<NPC>().QusetTalkRPC();
                         }
+                    }
+                }
+                else if (hit.collider.CompareTag("Car"))
+                {
+                    playerReviveUI.SetActive(true);
+                    playerReviveUI.GetComponentInChildren<Text>().text = "'E' 자동차타기";
+                    if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
+                    {
+                        playerCamera.transform.parent = hit.transform;
                     }
                 }
             }

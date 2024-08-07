@@ -8,43 +8,44 @@ public class Car : MonoBehaviour
     [SerializeField] Transform[] wheels;
     [SerializeField] float torque = 100;
     [SerializeField] float angle = 45;
-
+    [SerializeField] bool isDrive;
     private void Update()
     {
-        for(int i = 0; i < wheelCols.Length; i++)
+        if(isDrive)
         {
-            wheelCols[i].brakeTorque = 0;
-            wheelCols[i].motorTorque = InputAxisVer() * torque;
-            if (i == 0 || i == 2)
+            for (int i = 0; i < wheelCols.Length; i++)
             {
-                wheelCols[i].steerAngle = InputAxisHor() * angle;
-            }
-            Vector3 pos = transform.position;
-            Quaternion rot = transform.rotation;
-            wheelCols[i].GetWorldPose(out pos, out rot);
-            wheels[i].position = pos;
-            wheels[i].rotation = Quaternion.Euler(new Vector3(rot.x, rot.y, 90));
-        }
-        
-        if(Input.anyKey)
-        {
-            if (Input.GetKey(InputKeyManager.instance.GetKeyCode(InputKeyManager.KeyCodeTypes.Jump)))
-            {
-                foreach (WheelCollider wheelCol in wheelCols)
+                wheelCols[i].brakeTorque = 0;
+                wheelCols[i].motorTorque = InputAxisVer() * torque;
+                if (i == 0 || i == 2)
                 {
-                    wheelCol.brakeTorque = 2000;
+                    wheelCols[i].steerAngle = InputAxisHor() * angle;
+                }
+                Vector3 pos = transform.position;
+                Quaternion rot = transform.rotation;
+                wheelCols[i].GetWorldPose(out pos, out rot);
+                wheels[i].position = pos;
+                wheels[i].rotation = Quaternion.Euler(new Vector3(rot.x, rot.y, 90));
+            }
+
+            if (Input.anyKey)
+            {
+                if (Input.GetKey(InputKeyManager.instance.GetKeyCode(InputKeyManager.KeyCodeTypes.Jump)))
+                {
+                    foreach (WheelCollider wheelCol in wheelCols)
+                    {
+                        wheelCol.brakeTorque = 2000;
+                    }
+                }
+                else
+                {
+                    foreach (WheelCollider wheelCol in wheelCols)
+                    {
+                        wheelCol.brakeTorque = 0;
+                    }
                 }
             }
-            else
-            {
-                foreach (WheelCollider wheelCol in wheelCols)
-                {
-                    wheelCol.brakeTorque = 0;
-                }
-            }
         }
-        
-        
     }
 
     float InputAxisVer()
