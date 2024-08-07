@@ -93,17 +93,7 @@ public class Player : PlayerController
             aimingObj.SetActive(true);
             weaponSelected = false;
             nickNameText.text = PhotonNetwork.NickName;
-            ReadyObj = GameObject.FindGameObjectWithTag("ReadyUI");
-            isStart = false;
-            if (ReadyObj.activeSelf) {
-                OnPlayerMove -= PlayerMove;
-                OnPlayerRotation -= PlayerRotation;
-                OnPlayerJump -= PlayerJump;
-                OnPlayerAttack -= PlayerAttack;
-                OnPlayerSwap -= WeaponSwap;
-                OnPlayerInteraction -= PlayerInteraction;   // 플레이어 상호작용
-                OnPlayerInventory -= PlayerInventory;
-            }
+            
         }
         else
         {
@@ -118,16 +108,7 @@ public class Player : PlayerController
         // 단발적인 행동 
         if (PV.IsMine)
         {
-            if (!ReadyObj.activeSelf && !isStart) {
-                OnPlayerMove += PlayerMove;                 // 플레이어 이동 
-                OnPlayerRotation += PlayerRotation;         // 플레이어 회전
-                OnPlayerJump += PlayerJump;                 // 플레이어 점프 
-                OnPlayerAttack += PlayerAttack;             // 플레이어 공격
-                OnPlayerSwap += WeaponSwap;                 // 무기 교체
-                OnPlayerInteraction += PlayerInteraction;   // 플레이어 상호작용
-                OnPlayerInventory += PlayerInventory;
-                isStart = true;
-            }
+            
 
             // 무기 스왑 
             OnPlayerSwap?.Invoke();
@@ -389,7 +370,11 @@ public class Player : PlayerController
                 }
             }
             else
+            {
+                if (animator == null) return;
                 animator.SetFloat("speedBlend", 0);
+            }
+                
 
             Vector3 moveDirection = (transform.forward * z + transform.right * x).normalized;
             rigid.MovePosition(transform.position + moveDirection * playerSpeed * Time.deltaTime);

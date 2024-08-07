@@ -102,11 +102,13 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
             isItemInfoSaved = false;  // 플레이어가 나가면 플래그 리셋
             isSceneChange = false;
             if (ScenesManagerment.Instance.stageCount == 0) {
-                StopCoroutine(currentCoroutine1);
+                if (currentCoroutine1 != null)
+                    StopCoroutine(currentCoroutine1);
                 endLoading.SetActive(false);
             }
             else if (ScenesManagerment.Instance.stageCount == 1) {
-                StopCoroutine(currentCoroutine2);
+                if (currentCoroutine2 != null)
+                    StopCoroutine(currentCoroutine2);
                 endLoading.SetActive(false);
             }
             playersInTrigger.Remove(other.gameObject);
@@ -128,22 +130,31 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
         }
 
         // 모든 플레이어가 nextStageZone에 들어왔을 때 씬을 로드합니다.
-        if (ScenesManagerment.Instance.playerCount == (PhotonNetwork.CurrentRoom.PlayerCount - deadPlayerCount)) {
-            if (ScenesManagerment.Instance.stageCount == 0 && isQuest1) {
-                if (!isSceneChange) {
-                    currentCoroutine1 = StartCoroutine(SenecChange1());
+        if(PhotonNetwork.IsMasterClient)
+        {
+            if (ScenesManagerment.Instance.playerCount == (PhotonNetwork.CurrentRoom.PlayerCount - deadPlayerCount))
+            {
+                if (ScenesManagerment.Instance.stageCount == 0 && isQuest1)
+                {
+                    if (!isSceneChange)
+                    {
+                        currentCoroutine1 = StartCoroutine(SenecChange1());
+                    }
+                }
+                else if (ScenesManagerment.Instance.stageCount == 1 && isQuest2)
+                {
+                    if (!isSceneChange)
+                    {
+                        currentCoroutine2 = StartCoroutine(SenecChange2());
+                    }
+                }
+                else if (ScenesManagerment.Instance.stageCount == 2 && isQuest3)
+                {
+                    if (!isSceneChange)
+                        StartCoroutine(SenecChange3());
                 }
             }
-            else if (ScenesManagerment.Instance.stageCount == 1 && isQuest2) {
-                if (!isSceneChange) {
-                    currentCoroutine2 = StartCoroutine(SenecChange2());
-                }
-            }
-            else if (ScenesManagerment.Instance.stageCount == 2 && isQuest3) {  
-                if (!isSceneChange)
-                    StartCoroutine(SenecChange3());
-            }
-        }       
+        } 
     }
 
     IEnumerator SenecChange1()
