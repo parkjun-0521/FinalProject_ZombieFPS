@@ -159,9 +159,21 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
 
     private void OnSceneLoaded( Scene scene, LoadSceneMode mode ) {
         // 씬 로드 후 플레이어 생성
+
         if (PhotonNetwork.InRoom) {
             CreatePlayer();
+
+            if (scene.name == "03.MainGameScene") {
+                GameObject gameReadyorStartObj = GameObject.FindGameObjectWithTag("ReadyUI");
+                if (gameReadyorStartObj != null) {
+                    PhotonView pv = gameReadyorStartObj.GetComponent<PhotonView>();
+                    if (pv != null) {
+                        pv.RPC("UpdateUserNameRPC", RpcTarget.AllBuffered);
+                    }
+                }
+            }
         }
+
     }
     public void CreatePlayer() {
         GameObject player = PhotonNetwork.Instantiate("PlayerPrefab", transform.position, Quaternion.identity);
