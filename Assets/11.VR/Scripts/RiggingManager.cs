@@ -19,8 +19,8 @@ public class RiggingManager : MonoBehaviour
     public Vector3[] rightOffset;
     public Vector3[] headOffset;
 
-    public float smoothValue = 0.1f;
-    public float modelHeight = 1.95f;
+    private float smoothValue = 0.1f;
+    public float modelHeight;
 
 
 
@@ -29,11 +29,11 @@ public class RiggingManager : MonoBehaviour
     {
         MappingHandTransform(leftHandIK, leftHandController, true);
         MappingHandTransform(rightHandIK, rightHandController, false);
-        MappingBodyTransform(headIK,hmd);
+        MappingBodyTransform(headIK, hmd);
         MappingHeadTransform(headIK, hmd);
 
     }
-    void MappingHandTransform(Transform ik,Transform controller, bool isLeft)
+    void MappingHandTransform(Transform ik, Transform controller, bool isLeft)
     {
         //ik transform=controller transform
         var offset = isLeft ? leftOffset : rightOffset;
@@ -47,7 +47,7 @@ public class RiggingManager : MonoBehaviour
         var targetRotation = new Vector3(this.transform.eulerAngles.x, yaw, this.transform.eulerAngles.z);
         this.transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.Euler(targetRotation), smoothValue);
     }
-    void MappingHeadTransform(Transform ik,Transform hmd)
+    void MappingHeadTransform(Transform ik, Transform hmd)
     {
         ik.position = hmd.TransformPoint(headOffset[0]);
         ik.rotation = hmd.rotation * Quaternion.Euler(headOffset[1]);
