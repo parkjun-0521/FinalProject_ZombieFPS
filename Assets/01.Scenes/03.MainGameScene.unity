@@ -43400,6 +43400,7 @@ GameObject:
   - component: {fileID: 733894824}
   - component: {fileID: 733894823}
   - component: {fileID: 733894822}
+  - component: {fileID: 733894825}
   m_Layer: 5
   m_Name: ResignBtn2
   m_TagString: Untagged
@@ -43471,7 +43472,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 733894823}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2041433526}
+        m_TargetAssemblyTypeName: GameReadyorStart, Assembly-CSharp
+        m_MethodName: OnResign
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 733894822}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &733894823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43510,6 +43523,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 733894820}
   m_CullTransparentMesh: 1
+--- !u!114 &733894825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733894820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 451
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &752561875
 GameObject:
   m_ObjectHideFlags: 0
@@ -44023,6 +44058,7 @@ GameObject:
   - component: {fileID: 828483964}
   - component: {fileID: 828483963}
   - component: {fileID: 828483962}
+  - component: {fileID: 828483965}
   m_Layer: 5
   m_Name: ResignBtn3
   m_TagString: Untagged
@@ -44094,7 +44130,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 828483963}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2041433526}
+        m_TargetAssemblyTypeName: GameReadyorStart, Assembly-CSharp
+        m_MethodName: OnResign
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 828483962}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &828483963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44133,6 +44181,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 828483960}
   m_CullTransparentMesh: 1
+--- !u!114 &828483965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828483960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 452
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &837481534
 GameObject:
   m_ObjectHideFlags: 0
@@ -53519,6 +53589,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: {fileID: 1260606412}
+  userImage:
+  - {fileID: 386196300}
+  - {fileID: 429101355}
+  - {fileID: 1914254283}
+  - {fileID: 2136549880}
   userName:
   - {fileID: 1319565636}
   - {fileID: 573536736}
@@ -53551,7 +53626,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents: []
-  sceneViewId: 41
+  sceneViewId: 450
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!1 &2053435697
@@ -53566,6 +53641,7 @@ GameObject:
   - component: {fileID: 2053435701}
   - component: {fileID: 2053435700}
   - component: {fileID: 2053435699}
+  - component: {fileID: 2053435702}
   m_Layer: 5
   m_Name: ResignBtn4
   m_TagString: Untagged
@@ -53637,7 +53713,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2053435700}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2041433526}
+        m_TargetAssemblyTypeName: GameReadyorStart, Assembly-CSharp
+        m_MethodName: OnResign
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2053435699}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Button, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2053435700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53676,6 +53764,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2053435697}
   m_CullTransparentMesh: 1
+--- !u!114 &2053435702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2053435697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 453
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &2077044539
 GameObject:
   m_ObjectHideFlags: 0

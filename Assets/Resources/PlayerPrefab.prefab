@@ -2780,6 +2780,7 @@ MonoBehaviour:
   isJump: 0
   isShaderApplied: 0
   isDead: 0
+  isStart: 0
   isLoad: 0
   isNextStageZone: 0
   moveForce: {x: 0, y: 0, z: 0}
@@ -2797,6 +2798,7 @@ MonoBehaviour:
   aiming: {fileID: 1822679039}
   aimingObj: {fileID: 308220294}
   nickNameText: {fileID: 1308384129082916550}
+  ReadyObj: {fileID: 0}
   playerCamera: {fileID: 3889226454062301499}
   cursorLocked: 1
   swordCollider: {fileID: 1059885469}
