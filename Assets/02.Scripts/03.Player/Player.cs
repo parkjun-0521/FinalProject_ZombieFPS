@@ -232,6 +232,7 @@ public class Player : PlayerController
             //사람 죽은놈 쪽으로 레이쏴서 ui true
 
             OnPlayerSpectate?.Invoke();  // 죽었을때 관전
+
         }
     }
 
