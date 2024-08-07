@@ -39,9 +39,15 @@ public class BossPhobos : EnemyController
     [SerializeField] private float dashAtkDistance = 900;
     [SerializeField] private float dashPower = 30;
     [SerializeField] private float knockBackPower = 3.0f;
+    [Header("보스패턴 데미지")]
+    [SerializeField] private float swingDamage = 10;
+    [SerializeField] private float shockwaveDamage = 20;
+    [SerializeField] private float dashDamage = 30;
+    
     private Collider[] playerCollider;
     private float defalutKnockBackPower = 3.0f;
     private bool isLook;
+    [Space(20)]
     [SerializeField] private float traceTime = 0;
     [SerializeField] private float traceChacgeTime = 15.0f;
     [SerializeField] [Header("인식범위")] private float lookRadius = 10;
@@ -94,22 +100,22 @@ public class BossPhobos : EnemyController
     {
         while (state != State.dead)             //안죽었으면 0.5초마다 가까이있는 플레이어 추격
         {
-            Transform closestPlayer = players[0].transform;
+            Vector3 closestPlayer = players[0].transform.position;
             foreach (GameObject player in players)
             {
                 Vector3 playerTr = player.transform.position;
                 float playerDistance = ((playerTr - transform.position).sqrMagnitude);
-                if ((closestPlayer.position - transform.position).sqrMagnitude >= playerDistance)
-                    closestPlayer.position = playerTr;
+                if ((closestPlayer - transform.position).sqrMagnitude >= playerDistance)
+                    closestPlayer = playerTr;
             }
-            nav.SetDestination(closestPlayer.position);
+            nav.SetDestination(closestPlayer);
             transform.LookAt(closestPlayer);
-            if((closestPlayer.position - transform.position).sqrMagnitude < swingAtkDistance)
+            if((closestPlayer - transform.position).sqrMagnitude < swingAtkDistance)
             {
                 StartCoroutine(AtkPattern());
                 yield break;
             }
-            else if((closestPlayer.position - transform.position).sqrMagnitude > dashAtkDistance || traceTime > traceChacgeTime)
+            else if((closestPlayer - transform.position).sqrMagnitude > dashAtkDistance || traceTime > traceChacgeTime)
             {
                 StartCoroutine(DashPattern());
                 traceTime = 0;
@@ -126,6 +132,7 @@ public class BossPhobos : EnemyController
         int randomNum = Random.Range(0, 100);
         if(randomNum < 70)
         {
+            damage = swingDamage;
             knockBackPower = 5.0f;
             ani.SetBool("isSwing", true);
             StartCoroutine(AnimationFalse("isSwing"));
@@ -141,6 +148,7 @@ public class BossPhobos : EnemyController
         }
         else if(randomNum < 90)
         {
+            damage = shockwaveDamage;
             knockBackPower = 5.0f;
             ani.SetBool("isShockWave", true);
             StartCoroutine(AnimationFalse("isShockWave"));
@@ -176,6 +184,7 @@ public class BossPhobos : EnemyController
 
     IEnumerator DashPattern()
     {
+        damage = dashDamage;
         knockBackPower = 10.0f;
         StopCoroutine(Trace());
         ani.SetBool("isDash", true);
@@ -237,8 +246,8 @@ public class BossPhobos : EnemyController
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 14.1f);
-        Gizmos.DrawWireSphere(transform.position, 30f);
+        Gizmos.DrawWireSphere(transform.position, Mathf.Sqrt(swingAtkDistance));
+        Gizmos.DrawWireSphere(transform.position, Mathf.Sqrt(dashAtkDistance));
     }
 
     [PunRPC]

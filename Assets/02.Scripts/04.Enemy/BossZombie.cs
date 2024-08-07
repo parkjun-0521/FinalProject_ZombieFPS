@@ -58,25 +58,25 @@ public class BossZombie : EnemyController {
 
     private void OnEnable()
     {
-        if (PV.IsMine) {
-            OnRandomMove += RandomMove;             // 랜덤 방향전환 이동 
-            OnEnemyTracking += EnemyTracking;
-            OnEnemyAttack += EnemyMeleeAttack;
-            OnChangeTarget += ChangeTarget;
-            OnEnemyDead += EnemyDead;
-            bloodParticle.Stop();
-        }
+
+        OnRandomMove += RandomMove;             // 랜덤 방향전환 이동 
+        OnEnemyTracking += EnemyTracking;
+        OnEnemyAttack += EnemyMeleeAttack;
+        OnChangeTarget += ChangeTarget;
+        OnEnemyDead += EnemyDead;
+        bloodParticle.Stop();
+
     }
 
     void OnDisable()
     {
-        if (PV.IsMine) {
-            OnRandomMove -= RandomMove;             // 랜덤 방향전환 이동 
-            OnEnemyTracking -= EnemyTracking;
-            OnEnemyAttack -= EnemyMeleeAttack;
-            OnChangeTarget -= ChangeTarget;
-            OnEnemyDead -= EnemyDead;
-        }
+
+        OnRandomMove -= RandomMove;             // 랜덤 방향전환 이동 
+        OnEnemyTracking -= EnemyTracking;
+        OnEnemyAttack -= EnemyMeleeAttack;
+        OnChangeTarget -= ChangeTarget;
+        OnEnemyDead -= EnemyDead;
+
     }
 
     void Start() {
@@ -235,46 +235,52 @@ public class BossZombie : EnemyController {
 
     public override void EnemyRun()
     {
-        if (PV.IsMine) {
-            if (!isTracking) return;
 
-            ani.SetBool("isAttack", false);
-            ani.SetBool("isRun", true);
-            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.BossRun1)){
-                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.BossRun1);
-            }
+        if (!isTracking) return;
 
-            nav.speed = runSpeed;
-            nav.SetDestination(playerTr.position);
+        ani.SetBool("isAttack", false);
+        ani.SetBool("isRun", true);
+        if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.BossRun1))
+        {
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.BossRun1);
+        }
 
-            Vector3 desiredVelocity = nav.desiredVelocity;
+        nav.speed = runSpeed;
+        nav.SetDestination(playerTr.position);
 
-            rigid.velocity = Vector3.Lerp(rigid.velocity, desiredVelocity, Time.deltaTime * runSpeed);
+        Vector3 desiredVelocity = nav.desiredVelocity;
 
-            if (rigid.velocity.magnitude > maxTracingSpeed) {
-                rigid.velocity = rigid.velocity.normalized * maxTracingSpeed;
-            }
+        rigid.velocity = Vector3.Lerp(rigid.velocity, desiredVelocity, Time.deltaTime * runSpeed);
 
-            float versusDist = Vector3.Distance(transform.position, playerTr.position);
+        if (rigid.velocity.magnitude > maxTracingSpeed)
+        {
+            rigid.velocity = rigid.velocity.normalized * maxTracingSpeed;
+        }
 
-            if (versusDist < attackRange) {
-                rigid.velocity = Vector3.zero;
+        float versusDist = Vector3.Distance(transform.position, playerTr.position);
+
+        if (versusDist < attackRange)
+        {
+            rigid.velocity = Vector3.zero;
+            nav.isStopped = true;
+        }
+        else
+        {
+            nav.isStopped = false;
+        }
+
+        AttackCooltime += Time.deltaTime;
+
+        if (AttackCooltime > 3f)
+        {
+            if ((playerTr.position - transform.position).magnitude > 25f)
+            {
+                meleeDelay = 1;
+                randPattern = 4;
                 nav.isStopped = true;
             }
-            else {
-                nav.isStopped = false;
-            }
-
-            AttackCooltime += Time.deltaTime;
-
-            if (AttackCooltime > 3f) {
-                if ((playerTr.position - transform.position).magnitude > 25f) {
-                    meleeDelay = 1;
-                    randPattern = 4;
-                    nav.isStopped = true;
-                }
-            }
         }
+
     }
 
     public override void EnemyMeleeAttack()
@@ -476,7 +482,7 @@ public class BossZombie : EnemyController {
     }
 
     public override void EnemyDead() {
-        if (hp <= 0 && PV.IsMine) {
+        if (hp <= 0) {
             photonView.RPC("HandleEnemyDeath", RpcTarget.AllBuffered);
             Pooling.instance.GetObject("QuestItem", transform.position);
             if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.BossDie1)) {
