@@ -95,14 +95,16 @@ public class Player : PlayerController
             nickNameText.text = PhotonNetwork.NickName;
             ReadyObj = GameObject.FindGameObjectWithTag("ReadyUI");
             isStart = false;
-            if (ReadyObj.activeSelf) {
-                OnPlayerMove -= PlayerMove;
-                OnPlayerRotation -= PlayerRotation;
-                OnPlayerJump -= PlayerJump;
-                OnPlayerAttack -= PlayerAttack;
-                OnPlayerSwap -= WeaponSwap;
-                OnPlayerInteraction -= PlayerInteraction;   // 플레이어 상호작용
-                OnPlayerInventory -= PlayerInventory;
+            if (ReadyObj != null) {
+                if (ReadyObj.activeSelf) {
+                    OnPlayerMove -= PlayerMove;
+                    OnPlayerRotation -= PlayerRotation;
+                    OnPlayerJump -= PlayerJump;
+                    OnPlayerAttack -= PlayerAttack;
+                    OnPlayerSwap -= WeaponSwap;
+                    OnPlayerInteraction -= PlayerInteraction;   // 플레이어 상호작용
+                    OnPlayerInventory -= PlayerInventory;
+                }
             }
         }
         else
@@ -118,15 +120,17 @@ public class Player : PlayerController
         // 단발적인 행동 
         if (PV.IsMine)
         {
-            if (!ReadyObj.activeSelf && !isStart) {
-                OnPlayerMove += PlayerMove;                 // 플레이어 이동 
-                OnPlayerRotation += PlayerRotation;         // 플레이어 회전
-                OnPlayerJump += PlayerJump;                 // 플레이어 점프 
-                OnPlayerAttack += PlayerAttack;             // 플레이어 공격
-                OnPlayerSwap += WeaponSwap;                 // 무기 교체
-                OnPlayerInteraction += PlayerInteraction;   // 플레이어 상호작용
-                OnPlayerInventory += PlayerInventory;
-                isStart = true;
+            if (ReadyObj != null) {
+                if (!ReadyObj.activeSelf && !isStart) {
+                    OnPlayerMove += PlayerMove;                 // 플레이어 이동 
+                    OnPlayerRotation += PlayerRotation;         // 플레이어 회전
+                    OnPlayerJump += PlayerJump;                 // 플레이어 점프 
+                    OnPlayerAttack += PlayerAttack;             // 플레이어 공격
+                    OnPlayerSwap += WeaponSwap;                 // 무기 교체
+                    OnPlayerInteraction += PlayerInteraction;   // 플레이어 상호작용
+                    OnPlayerInventory += PlayerInventory;
+                    isStart = true;
+                }
             }
 
             // 무기 스왑 
@@ -1235,17 +1239,17 @@ public class Player : PlayerController
             // 빈손일 경우 예외처리 
             if (equipWeapon != null)
                 equipWeapon.SetActive(false);
+            
             // 무기 선택 
-
             equipWeapon = weapons[weaponIndex];
 
             // 선택된 무기 활성화 ( 무기를 다 사용했을 시 비활성화 )
-            if (!countZero)
-            {
-                equipWeapon.SetActive(true);
+            if (!countZero) {
+                if (equipWeapon != null) {
+                    equipWeapon.SetActive(true);
+                }
             }
-            else
-            {
+            else {
                 if (beforeWeapon != 0)
                     UIManager.Instance.weaponItem[beforeWeapon - 1].color = new Color(1, 1, 1, 0.2f);
                 beforeWeapon = 0;
