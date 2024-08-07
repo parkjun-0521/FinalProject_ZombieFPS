@@ -12,9 +12,10 @@ public class NPC : MonoBehaviourPun
     string[] QuestCleardialogue = { "     ㄱ", "     고", "     고ㅁ", "     고마", "     고마ㅇ", "     고마우", "     고마워", "     고마워.", "     고마워..", "     고마워...", "     고마워....", "" };
 
 
-    public void QusetTalkRPC()
+    public void QusetTalkRPC()  //퀘스트 첨에 말할때 
     {
         if (corTextBubbleQuest != null) return;
+        if (NextSceneManager.Instance.isQuest1) return;
         photonView.RPC("TalkQuest", RpcTarget.All);
     }
 
