@@ -11,7 +11,6 @@ public class InputKeyManager : MonoBehaviour {
         RightMove,
         DownMove,
         UpMove,
-        Down,
         Run,
         Jump,
         Attack,

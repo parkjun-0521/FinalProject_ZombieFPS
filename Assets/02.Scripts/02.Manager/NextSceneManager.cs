@@ -111,7 +111,6 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
                     StopCoroutine(currentCoroutine2);
                 endLoading.SetActive(false);
             }
-            playersInTrigger.Remove(other.gameObject);
         }
     }
 

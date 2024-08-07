@@ -39,9 +39,15 @@ public class BossPhobos : EnemyController
     [SerializeField] private float dashAtkDistance = 900;
     [SerializeField] private float dashPower = 30;
     [SerializeField] private float knockBackPower = 3.0f;
+    [Header("보스패턴 데미지")]
+    [SerializeField] private float swingDamage = 10;
+    [SerializeField] private float shockwaveDamage = 20;
+    [SerializeField] private float dashDamage = 30;
+    
     private Collider[] playerCollider;
     private float defalutKnockBackPower = 3.0f;
     private bool isLook;
+    [Space(20)]
     [SerializeField] private float traceTime = 0;
     [SerializeField] private float traceChacgeTime = 15.0f;
     [SerializeField] [Header("인식범위")] private float lookRadius = 10;
@@ -67,16 +73,18 @@ public class BossPhobos : EnemyController
         //}
         //StartCoroutine(Trace());
         //포톤 추가시 밑에 인원수만큼foreach
-        foreach(var player in players)
-        {
-            Physics.IgnoreCollision(player.GetComponent<Collider>(), transform.GetComponent<Collider>(), true);
-        }
+        //foreach(var player in players)
+        //{
+        //    Physics.IgnoreCollision(player.GetComponent<Collider>(), transform.GetComponent<Collider>(), true);
+        //}
         //Physics.IgnoreCollision(players[0].GetComponent<Collider>(), transform.GetComponent<Collider>(), true);
     }
 
 
     private void Update()
     {
+        if (!PV.IsMine) return;
+
         traceTime += Time.deltaTime;
         playerCollider = Physics.OverlapSphere(transform.position, lookRadius, LayerMask.GetMask("LocalPlayer"));
         if(playerCollider.Length > 0 && !isLook)
@@ -90,24 +98,24 @@ public class BossPhobos : EnemyController
 
     IEnumerator Trace()
     {
-        while(state != State.dead)             //안죽었으면 0.5초마다 가까이있는 플레이어 추격
+        while (state != State.dead)             //안죽었으면 0.5초마다 가까이있는 플레이어 추격
         {
-            Transform closestPlayer = players[0].transform;
+            Vector3 closestPlayer = players[0].transform.position;
             foreach (GameObject player in players)
             {
                 Vector3 playerTr = player.transform.position;
                 float playerDistance = ((playerTr - transform.position).sqrMagnitude);
-                if ((closestPlayer.position - transform.position).sqrMagnitude >= playerDistance)
-                    closestPlayer.position = playerTr;
+                if ((closestPlayer - transform.position).sqrMagnitude >= playerDistance)
+                    closestPlayer = playerTr;
             }
-            nav.SetDestination(closestPlayer.position);
+            nav.SetDestination(closestPlayer);
             transform.LookAt(closestPlayer);
-            if((closestPlayer.position - transform.position).sqrMagnitude < swingAtkDistance)
+            if((closestPlayer - transform.position).sqrMagnitude < swingAtkDistance)
             {
                 StartCoroutine(AtkPattern());
                 yield break;
             }
-            else if((closestPlayer.position - transform.position).sqrMagnitude > dashAtkDistance || traceTime > traceChacgeTime)
+            else if((closestPlayer - transform.position).sqrMagnitude > dashAtkDistance || traceTime > traceChacgeTime)
             {
                 StartCoroutine(DashPattern());
                 traceTime = 0;
@@ -124,6 +132,7 @@ public class BossPhobos : EnemyController
         int randomNum = Random.Range(0, 100);
         if(randomNum < 70)
         {
+            damage = swingDamage;
             knockBackPower = 5.0f;
             ani.SetBool("isSwing", true);
             StartCoroutine(AnimationFalse("isSwing"));
@@ -139,6 +148,7 @@ public class BossPhobos : EnemyController
         }
         else if(randomNum < 90)
         {
+            damage = shockwaveDamage;
             knockBackPower = 5.0f;
             ani.SetBool("isShockWave", true);
             StartCoroutine(AnimationFalse("isShockWave"));
@@ -174,6 +184,7 @@ public class BossPhobos : EnemyController
 
     IEnumerator DashPattern()
     {
+        damage = dashDamage;
         knockBackPower = 10.0f;
         StopCoroutine(Trace());
         ani.SetBool("isDash", true);
@@ -196,13 +207,6 @@ public class BossPhobos : EnemyController
         StartCoroutine(Trace());
     }
 
-    IEnumerator ThunderPattern()
-    {
-        StopCoroutine(Trace());
-        ani.SetBool("isThunder", true);
-        StartCoroutine(AnimationFalse("isThunder"));
-        yield return new WaitForSeconds(7.0f);
-    }
 
 
 
@@ -232,6 +236,8 @@ public class BossPhobos : EnemyController
         }
         else if(other.CompareTag("Player"))
         {
+            if (other.GetComponent<PlayerController>().rigid == null) return; //
+            if (other.GetComponent<Rigidbody>() == null) return;
             other.GetComponent<PlayerController>().rigid.AddForce((other.transform.position - transform.position).normalized * knockBackPower, ForceMode.Impulse);
         }
     }
@@ -240,8 +246,8 @@ public class BossPhobos : EnemyController
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 14.1f);
-        Gizmos.DrawWireSphere(transform.position, 30f);
+        Gizmos.DrawWireSphere(transform.position, Mathf.Sqrt(swingAtkDistance));
+        Gizmos.DrawWireSphere(transform.position, Mathf.Sqrt(dashAtkDistance));
     }
 
     [PunRPC]
@@ -296,17 +302,21 @@ public class BossPhobos : EnemyController
     }
 
     [PunRPC]
-    public void QuestCompleteRPC( bool isTrue ) {
+    public void QuestCompleteRPC(bool isTrue)
+    {
         Debug.Log("RPC 들어옴 ");
-        if (ScenesManagerment.Instance.stageCount == 0) {
+        if (ScenesManagerment.Instance.stageCount == 0)
+        {
             Debug.Log("RPC 들어옴1 ");
             NextSceneManager.Instance.isQuest1 = isTrue;
         }
-        else if (ScenesManagerment.Instance.stageCount == 1) {
+        else if (ScenesManagerment.Instance.stageCount == 1)
+        {
             Debug.Log("RPC 들어옴2 ");
             NextSceneManager.Instance.isQuest2 = isTrue;
         }
-        else if (ScenesManagerment.Instance.stageCount == 2) {
+        else if (ScenesManagerment.Instance.stageCount == 2)
+        {
             Debug.Log("RPC 들어옴3 ");
             GameObject nextStageZone = GameObject.FindGameObjectWithTag("NextStageZone");
             nextStageZone.GetComponent<BoxCollider>().enabled = true;
