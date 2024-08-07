@@ -106,49 +106,51 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
             ScenesManagerment.Instance.playerCount -= 1;
             isItemInfoSaved = false;  // 플레이어가 나가면 플래그 리셋
             isSceneChange = false;
+            if (ScenesManagerment.Instance.playerCount != (PhotonNetwork.CurrentRoom.PlayerCount - deadPlayerCount)) {
+                endLoading.SetActive(false);
+            }
+
             if (ScenesManagerment.Instance.stageCount == 0) {
                 if (currentCoroutine1 != null)
                     StopCoroutine(currentCoroutine1);
-                endLoading.SetActive(false);
             }
             else if (ScenesManagerment.Instance.stageCount == 1) {
                 if (currentCoroutine2 != null)
                     StopCoroutine(currentCoroutine2);
-                endLoading.SetActive(false);
             }
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerStay(Collider other) 
     {
-        if (!isItemInfoSaved) {
-            foreach (GameObject player in playersInTrigger) {
-                PhotonView photonView = player.GetComponent<PhotonView>();
-                if (photonView != null && photonView.IsMine && other.CompareTag("Player")) {
-                    isItemInfoSaved = true;
-                    endLoading.SetActive(true);
-                    StartCoroutine(DeleteItemData(PhotonNetwork.NickName, player));
+        if (other.CompareTag("Player")) {
+            if (ScenesManagerment.Instance.playerCount == (PhotonNetwork.CurrentRoom.PlayerCount - deadPlayerCount)) {
+                PhotonView photonView = other.GetComponent<PhotonView>();
+                if (photonView != null && photonView.IsMine && photonView.Owner.NickName == PhotonNetwork.NickName) {
+                    if (!isItemInfoSaved) {
+                        isItemInfoSaved = true;
+                        endLoading.SetActive(true);
+                        StartCoroutine(DeleteItemData(PhotonNetwork.NickName, other.gameObject));
+                    }
                 }
             }
-
-        }
-
-        // 모든 플레이어가 nextStageZone에 들어왔을 때 씬을 로드합니다.
-        if (PhotonNetwork.IsMasterClient) {
-            if (ScenesManagerment.Instance.playerCount == (PhotonNetwork.CurrentRoom.PlayerCount - deadPlayerCount)) {
-                if (ScenesManagerment.Instance.stageCount == 0 && isQuest1) {
-                    if (!isSceneChange) {
-                        currentCoroutine1 = StartCoroutine(SenecChange1());
+            // 모든 플레이어가 nextStageZone에 들어왔을 때 씬을 로드합니다.
+            if (PhotonNetwork.IsMasterClient) {
+                if (ScenesManagerment.Instance.playerCount == (PhotonNetwork.CurrentRoom.PlayerCount - deadPlayerCount)) {
+                    if (ScenesManagerment.Instance.stageCount == 0 && isQuest1) {
+                        if (!isSceneChange) {
+                            currentCoroutine1 = StartCoroutine(SenecChange1());
+                        }
                     }
-                }
-                else if (ScenesManagerment.Instance.stageCount == 1 && isQuest2) {
-                    if (!isSceneChange) {
-                        currentCoroutine2 = StartCoroutine(SenecChange2());
+                    else if (ScenesManagerment.Instance.stageCount == 1 && isQuest2) {
+                        if (!isSceneChange) {
+                            currentCoroutine2 = StartCoroutine(SenecChange2());
+                        }
                     }
-                }
-                else if (ScenesManagerment.Instance.stageCount == 2 && isQuest3) {
-                    if (!isSceneChange)
-                        StartCoroutine(SenecChange3());
+                    else if (ScenesManagerment.Instance.stageCount == 2 && isQuest3) {
+                        if (!isSceneChange)
+                            StartCoroutine(SenecChange3());
+                    }
                 }
             }
         }

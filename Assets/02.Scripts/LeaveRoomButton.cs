@@ -16,6 +16,7 @@ public class LeaveRoomButton : MonoBehaviour
     void OnLeaveRoom() {
         StartCoroutine(DeleteItemData(PhotonNetwork.NickName));
         AudioManager.Instance.PlayBgm(false, ScenesManagerment.Instance.stageCount);
+        ScenesManagerment.Instance.readyUserCount = 0;
         ScenesManagerment.Instance.stageCount = 0;
         ScenesManagerment.Instance.playerCount = 0;
         NetworkManager.Instance.LeaveRoom();

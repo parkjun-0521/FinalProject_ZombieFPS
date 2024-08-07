@@ -20,6 +20,7 @@ public class LobbyManager : MonoBehaviour
     public Button NextBtn;          // 이후 버튼
 
     public GameObject inputRoomFail;
+    public GameObject ResignRoom;
 
     void Start() {
         NetworkManager.Instance.statusText = statusText;
@@ -43,9 +44,14 @@ public class LobbyManager : MonoBehaviour
         PreviousBtn.onClick.AddListener(() => NetworkManager.Instance.MyListClick(-2));
         NextBtn.onClick.AddListener(() => NetworkManager.Instance.MyListClick(-1));
         
-
         // 씬 전환 후 UI 요소 초기화
         nicknameInput.text = PhotonNetwork.LocalPlayer.NickName;
+
+        if (ScenesManagerment.Instance.isResign) {
+            ResignRoom.GetComponent<Animator>().SetBool("isFail", true);
+            StartCoroutine(UIExit());
+            ScenesManagerment.Instance.isResign = false;
+        }
     }
     void TryJoinRoom()
     {

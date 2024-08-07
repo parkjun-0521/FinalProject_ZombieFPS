@@ -163,7 +163,7 @@ public class GameReadyorStart : MonoBehaviourPun {
                 ScenesManagerment.Instance.stageCount = 0;
                 ScenesManagerment.Instance.playerCount = 0;
                 photonView.RPC("OffRemoveName", RpcTarget.AllBuffered, PhotonNetwork.NickName);
-
+                ScenesManagerment.Instance.isResign = true;
                 NetworkManager.Instance.LeaveRoom();
             }
             else {
@@ -173,7 +173,7 @@ public class GameReadyorStart : MonoBehaviourPun {
                 ScenesManagerment.Instance.stageCount = 0;
                 ScenesManagerment.Instance.playerCount = 0;
                 photonView.RPC("OnRemoveName", RpcTarget.AllBuffered, PhotonNetwork.NickName);
-
+                ScenesManagerment.Instance.isResign = true;
                 NetworkManager.Instance.LeaveRoom();
             }
         }

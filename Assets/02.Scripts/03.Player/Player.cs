@@ -133,7 +133,10 @@ public class Player : PlayerController
                     isStart = true;
                 }
             }
-
+            if (Camera.main != null)
+            {
+                ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+            }
             // 무기 스왑 
             OnPlayerSwap?.Invoke();
 
@@ -203,15 +206,11 @@ public class Player : PlayerController
                 OnPlayerInventory?.Invoke();
             }
 
-            // 설정
+            // 인벤토리 닫기
             if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Setting)) && inventory.activeSelf)
             {
                 InventoryClose();
-                cursorLocked = false;
-                ToggleCursor();
             }
-
-
 
             // 플레이어 상호작용
             if (bulletPos.position != null && ray.direction != null)
@@ -224,11 +223,7 @@ public class Player : PlayerController
             {
                 ToggleCursor();
             }
-
-            if (Camera.main != null)
-            {
-                ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-            }
+            
 
             //사람 죽은놈 쪽으로 레이쏴서 ui true
 
