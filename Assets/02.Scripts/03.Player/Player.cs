@@ -134,6 +134,7 @@ public class Player : PlayerController
                 }
             }
 
+            ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
             // 무기 스왑 
             OnPlayerSwap?.Invoke();
 
@@ -226,7 +227,7 @@ public class Player : PlayerController
             }
 
             
-            ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+            
             
 
             //사람 죽은놈 쪽으로 레이쏴서 ui true
