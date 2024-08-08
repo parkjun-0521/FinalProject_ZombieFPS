@@ -1,0 +1,45 @@
+{
+    "name": "VRToggle",
+    "maps": [
+        {
+            "name": "default",
+            "id": "039d828a-6a46-408c-9127-9fffdbacf42d",
+            "actions": [
+                {
+                    "name": "VRToggle",
+                    "type": "Button",
+                    "id": "997262b1-5c84-4273-afda-f9176cd6e288",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2a6d2fde-101b-49c1-8b5d-77d41250e971",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "VRToggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "147b3b47-4da3-4c02-bc07-90c9f0fd68e6",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "VRToggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
