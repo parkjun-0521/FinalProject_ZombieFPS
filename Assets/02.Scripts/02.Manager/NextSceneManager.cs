@@ -19,7 +19,6 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
 
     public bool isItemInfoSaved = false;
     public bool isSceneChange = false;
-    //public bool isNextScene = false;
 
     public GameObject endLoading;
     public GameObject mapGimmick;
@@ -98,7 +97,6 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
         if (other.CompareTag("Player")) {
             ScenesManagerment.Instance.playerCount += 1;
             playersInTrigger.Add(other.gameObject);
-            //photonView.RPC("SceneChange", RpcTarget.Others, true);
         }
     }
 
@@ -161,11 +159,6 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
                 }
             }
         }
-    }
-
-    [PunRPC]
-    public void SceneChange(bool isNextScene) {
-        //this.isNextScene = isNextScene;
     }
 
     IEnumerator SenecChange1()
