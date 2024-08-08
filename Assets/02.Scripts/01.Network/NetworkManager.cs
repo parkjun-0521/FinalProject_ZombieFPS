@@ -6,6 +6,7 @@ using Photon.Realtime;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Unity.VisualScripting;
+using UnityEngine.Networking;
 
 public class NetworkManager : MonoBehaviourPunCallbacks {
     // ½Ì±ÛÅæ ±¸Çö 
@@ -122,7 +123,18 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
     public override void OnJoinedRoom() {
         Debug.Log("¹æÂü°¡¿Ï·á");
         PhotonNetwork.LoadLevel("03.MainGameScene");
+        StartCoroutine(DeleteItemData(PhotonNetwork.NickName));
         AudioManager.Instance.PlayBgm(true, 0);
+    }
+
+    IEnumerator DeleteItemData(string userID)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("UserID", userID);
+
+        using (UnityWebRequest www = UnityWebRequest.Post(URLs.ItemDeleteURL, form)) {
+            yield return www.SendWebRequest();
+        }
     }
 
     public override void OnLeftRoom() {

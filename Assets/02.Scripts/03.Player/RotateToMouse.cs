@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RotateToMouse : MonoBehaviour {
-    [SerializeField]
+    [Range(0, 100)]
     public float rotCamXAxisSpeed = 1; // X축 카메라 회전속도 
-    [SerializeField]
+    [Range(0, 100)]
     public float rotCamYAxisSpeed = 1; // Y축 카메라 회전속도
 
     [SerializeField]
@@ -61,5 +61,15 @@ public class RotateToMouse : MonoBehaviour {
     public float GetEulerAngleY()
     {
         return eulerAngleY;
+    }
+
+    public void SetSensitivityX(float x)
+    {
+        rotCamXAxisSpeed = x;
+    }
+
+    public void SetSensitivityY(float y)
+    {
+        rotCamYAxisSpeed = y;      
     }
 }

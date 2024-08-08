@@ -904,7 +904,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 7
   m_Speed: 3.5
-  m_Acceleration: 8
+  m_Acceleration: 100
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
@@ -941,31 +941,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f912191e0160ff499e29e74090243cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  baseSpeed: 5
   runSpeed: 10
+  maxTracingSpeed: 5
+  maxMoveDirTime: 3
+  curMoveTime: 2
   meleeDelay: 5
   nextAttack: 5
   attackRange: 10
   rangeOut: 200
   resetSpeed: 10
   enemySpawn: {fileID: 0}
-  maxTracingSpeed: 5
-  playerTr: {fileID: 0}
-  capsuleCollider: {fileID: 0}
-  sphereCollider: {fileID: 0}
-  maxHp: 120
+  maxHp: 500
   hp: 500
   baseDamage: 5
   damage: 5
   isRangeOut: 0
   shouldEvaluate: 0
-  isNow: 0
-  attackColliderPrefab: {fileID: 0}
-  attackPoint: {fileID: 0}
-  splitZombies: []
+  isWalk: 0
+  isRun: 0
+  isAttack: 0
+  isTracking: 0
+  PV: {fileID: 0}
+  playerTr: {fileID: 0}
+  rigid: {fileID: 0}
+  nav: {fileID: 0}
+  ani: {fileID: 0}
+  capsuleCollider: {fileID: 0}
+  sphereCollider: {fileID: 0}
+  EnemyLookRange: {fileID: 3840176505455984012}
+  searchInterval: 1
+  nextSearchTime: 0
+  targetRotation: {x: 0, y: 0, z: 0, w: 0}
+  rotationSpeed: 2
   bloodParticle: {fileID: 198000011254678926, guid: abb9f519b142e304d9c45b56afa768bc, type: 3}
   targetChangeInterval: 10
-  rotationSpeed: 2
   projectilePrefab: {fileID: 3102988656494671107, guid: 72ce0ed0184286241b3cc455f2e2d116, type: 3}
   bulletPos: {fileID: 2643228226905618946}
 --- !u!1 &2766229425720196482
@@ -2678,7 +2688,7 @@ MonoBehaviour:
     SynchronizeType: 2
     Name: isDeath
   m_SynchronizeLayers:
-  - SynchronizeType: 0
+  - SynchronizeType: 2
     LayerIndex: 0
 --- !u!1 &7161359871238900911
 GameObject:
@@ -3295,9 +3305,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4456112623841715272}
   - component: {fileID: 3840176505455984012}
-  m_Layer: 20
+  m_Layer: 21
   m_Name: EnemyLookRange
-  m_TagString: Untagged
+  m_TagString: EnemyRange
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

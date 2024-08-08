@@ -121,6 +121,7 @@ MonoBehaviour:
   - {fileID: 2579948302316515021}
   otherTemp: {x: 36.08, y: 0, z: -0.31}
   otherPlayerSize: 1.35
+  localPlayerIcon: {fileID: 3841618919706700484}
 --- !u!1 &3841618918795428004
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,7 +188,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 62a947512f6886243b1a0f4d4268f95d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5d0b5553dc90a0045a1e9a7aaa0b872b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -263,7 +264,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 62a947512f6886243b1a0f4d4268f95d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5d0b5553dc90a0045a1e9a7aaa0b872b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -418,7 +419,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 62a947512f6886243b1a0f4d4268f95d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5d0b5553dc90a0045a1e9a7aaa0b872b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -521,6 +522,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1629737100181635882, guid: bd9ab7f2ca4eee0429dcabf50a1972ae, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629737100181635883, guid: bd9ab7f2ca4eee0429dcabf50a1972ae, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5d0b5553dc90a0045a1e9a7aaa0b872b, type: 3}
+    - target: {fileID: 1629737100181635883, guid: bd9ab7f2ca4eee0429dcabf50a1972ae, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1629737100181635883, guid: bd9ab7f2ca4eee0429dcabf50a1972ae, type: 3}
+      propertyPath: m_Color.g
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -641,6 +654,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1629737100181635883, guid: bd9ab7f2ca4eee0429dcabf50a1972ae, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 62a947512f6886243b1a0f4d4268f95d, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd9ab7f2ca4eee0429dcabf50a1972ae, type: 3}
 --- !u!224 &2579948301453178552 stripped

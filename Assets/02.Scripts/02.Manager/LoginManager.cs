@@ -23,7 +23,9 @@ public class LoginManager : MonoBehaviour
     string LoginURL = URLs.LoginURL;
     string CreateUserURL = URLs.CreateUserURL;
 
+
     public GameObject CreateUserUI;
+    public GameObject successLoginText;
     public GameObject failLoginText;
     public GameObject CreateUserFail;
     public GameObject CreateUserSuccess;
@@ -61,6 +63,9 @@ public class LoginManager : MonoBehaviour
             else {
                 if (www.downloadHandler.text == "1") // 로그인 성공
                 {
+                    successLoginText.GetComponent<Animator>().SetBool("isFail", true);
+                    yield return new WaitForSeconds(0.1f);
+                    successLoginText.GetComponent<Animator>().SetBool("isFail", false);
                     NetworkManager.Instance.Connect();
                 }
                 else // 로그인 실패

@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 1154866981055428310}
   - component: {fileID: -7990478073777310041}
   - component: {fileID: 550537154}
+  - component: {fileID: -207356626288502388}
   m_Layer: 10
   m_Name: Sword2
   m_TagString: Item
@@ -191,6 +192,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a678b7ad4a2cde948a252da79b9c008f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!208 &-207356626288502388
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154866981055428311}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.16900001, y: 0.70900005, z: 0.017}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.303, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &6080030424193928286
 GameObject:
   m_ObjectHideFlags: 0

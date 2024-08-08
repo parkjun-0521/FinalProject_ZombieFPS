@@ -60,6 +60,7 @@ GameObject:
   - component: {fileID: 848462248}
   - component: {fileID: 848462246}
   - component: {fileID: 848462247}
+  - component: {fileID: 3323234830886936842}
   m_Layer: 0
   m_Name: HGv3Gate
   m_TagString: Untagged
@@ -75,8 +76,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1973941967664463874}
   m_LocalRotation: {x: 0.000000021855694, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.1167297, y: -2.5730793, z: 0.3979199}
-  m_LocalScale: {x: 1, y: 1, z: 0.8716498}
+  m_LocalPosition: {x: 5.258, y: -2.7073, z: 0.398}
+  m_LocalScale: {x: 1, y: 1.0775, z: 0.8716498}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3013939432454078303}
@@ -143,7 +144,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.04268551, y: 3.4621348, z: 6.1029205}
+  m_Size: {x: -0.3, y: 3.4621348, z: 6.1029205}
   m_Center: {x: -0.0000014305115, y: 0.00000071525574, z: 0}
 --- !u!95 &848462248
 Animator:
@@ -155,7 +156,7 @@ Animator:
   m_GameObject: {fileID: 1973941967664463874}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 00a5fc6d054e3d04f88ae286facd0c5f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -192,8 +193,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowLayerWeightsInspector: 1
   ShowParameterInspector: 1
-  m_SynchronizeParameters: []
-  m_SynchronizeLayers: []
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 2
+    Name: isOpen
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
+--- !u!114 &3323234830886936842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1973941967664463874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 848462247}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &2360731722173218864
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,10 +277,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3013939431421514259}
-  - component: {fileID: 3013939431421514257}
-  - component: {fileID: 3013939431421514258}
+  - component: {fileID: 2298453973151604074}
   m_Layer: 0
-  m_Name: Door
+  m_Name: DoorMechanism
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -273,39 +301,22 @@ Transform:
   m_Father: {fileID: 7551780925888859100}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &3013939431421514257
-Animator:
-  serializedVersion: 4
+--- !u!208 &2298453973151604074
+NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3013939431421514260}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fd4fccfef612ffa4f8f43311e317d0d6, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3013939431421514258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3013939431421514260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a35b266d864df234aaf4fb49cc7545ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isOpen: 0
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.995, y: 0.205, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -2.48, y: -4.45, z: -5.87}
+  m_TimeToStationary: 0.5
 --- !u!1 &3013939432454078288
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,10 +326,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3013939432454078303}
-  - component: {fileID: 6670249384222991725}
-  - component: {fileID: 437468288}
+  - component: {fileID: 231947007}
   m_Layer: 0
-  m_Name: Gate
+  m_Name: GateMechanism
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -340,48 +350,22 @@ Transform:
   m_Father: {fileID: 7551780925888859100}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &6670249384222991725
-Animator:
-  serializedVersion: 4
+--- !u!208 &231947007
+NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3013939432454078288}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f3f33c555d6cf654bbce447fa8e245a7, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &437468288
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3013939432454078288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.27, y: 0.495, z: 2.6}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 5.06, y: -4.13, z: 0.37}
+  m_TimeToStationary: 0.5
 --- !u!1 &3604711875104513581
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,6 +377,10 @@ GameObject:
   - component: {fileID: 728427142404322005}
   - component: {fileID: 7238488142443372458}
   - component: {fileID: 1547043578946338930}
+  - component: {fileID: 2345846658170608369}
+  - component: {fileID: 7485510255404874865}
+  - component: {fileID: 564594082148681994}
+  - component: {fileID: 7328774927927603652}
   m_Layer: 0
   m_Name: HGv3Door
   m_TagString: Untagged
@@ -408,8 +396,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3604711875104513581}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -2.4638186, y: -3.518, z: -5.6814632}
-  m_LocalScale: {x: 1, y: 1, z: 0.6279149}
+  m_LocalPosition: {x: -2.4638186, y: -3.4064, z: -5.77}
+  m_LocalScale: {x: 1, y: 0.9154, z: 0.6279149}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3013939431421514259}
@@ -465,6 +453,83 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!95 &2345846658170608369
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3604711875104513581}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2fad988221f93ff4298aad9f88d26582, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7485510255404874865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3604711875104513581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 2
+    Name: isOpen
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
+--- !u!114 &564594082148681994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3604711875104513581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 7485510255404874865}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!65 &7328774927927603652
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3604711875104513581}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.14, y: 2.6384966, z: 3.409693}
+  m_Center: {x: 0.0000009536743, y: 0.0000020265581, z: -0.000005722048}
 --- !u!1 &5597994181622648791
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 5013857301840705350}
   - component: {fileID: -7837000708824896961}
   - component: {fileID: 1788607876}
+  - component: {fileID: 6918775212745500652}
   m_Layer: 10
   m_Name: Healpack
   m_TagString: Item
@@ -191,6 +192,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a678b7ad4a2cde948a252da79b9c008f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!208 &6918775212745500652
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5013857301840705369}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.44300002, y: 0.37500003, z: 0.062000003}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.36900002, z: 0.062000003}
+  m_TimeToStationary: 0.5
 --- !u!1 &7438401757046344743
 GameObject:
   m_ObjectHideFlags: 0

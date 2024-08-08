@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 793917278634077883}
   - component: {fileID: 1613964684}
   - component: {fileID: 319433131741522156}
+  - component: {fileID: 1867828190318103445}
   m_Layer: 10
   m_Name: QuestItem
   m_TagString: Item
@@ -205,6 +206,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visible: {fileID: 0}
+--- !u!208 &1867828190318103445
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1551386107059371073}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.601, y: 0.657, z: 0.46}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.294, y: 0.657, z: -0.16900001}
+  m_TimeToStationary: 0.5
 --- !u!1 &2997138768922559903
 GameObject:
   m_ObjectHideFlags: 0

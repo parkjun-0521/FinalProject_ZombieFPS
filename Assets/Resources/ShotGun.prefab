@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 2355909356478120807}
   - component: {fileID: -4272384771102588538}
   - component: {fileID: 605569669}
+  - component: {fileID: -8623007747722014087}
   m_Layer: 10
   m_Name: ShotGun
   m_TagString: Item
@@ -191,6 +192,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a678b7ad4a2cde948a252da79b9c008f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!208 &-8623007747722014087
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2355909356478120806}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.044000003, y: 0.21400002, z: 0.698}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.28500003, y: 0.335, z: 0.317}
+  m_TimeToStationary: 0.5
 --- !u!1 &4780563226250208634
 GameObject:
   m_ObjectHideFlags: 0

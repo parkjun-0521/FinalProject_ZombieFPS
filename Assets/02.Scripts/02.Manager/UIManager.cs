@@ -26,6 +26,14 @@ public class UIManager : MonoBehaviourPun
     // 에이밍 버튼 
     public Button[] aimingImage;
 
+    // 소리 셋팅 
+    public Slider bgmSlider;
+    public Slider sfxSlider;
+
+    // 감도 셋팅 
+    public Slider xSensitivity;
+    public Slider ySensitivity;
+
     // 체력바 
     public Text[] nickName;
     public Slider[] hpBar; 
@@ -57,6 +65,12 @@ public class UIManager : MonoBehaviourPun
         UIManager.Instance.totalBulletCount.text = "0";
         UIManager.Instance.totalGranedeCount.text = "0";
         UIManager.Instance.totalHealCount.text = "0";
+
+        bgmSlider.value = AudioManager.Instance.bgmVolume;
+        sfxSlider.value = AudioManager.Instance.sfxVolume;
+        bgmSlider.onValueChanged.AddListener((value) => { AudioManager.Instance.SetBgmVolume(value); });
+        sfxSlider.onValueChanged.AddListener((value) => { AudioManager.Instance.SetSfxVolume(value); });
+
     }
 
     void FindLocalPlayer() {
@@ -157,5 +171,30 @@ public class UIManager : MonoBehaviourPun
                 }
             }
         }
+    }
+
+    public void OnBgmVolumeChanged()
+    {
+        float volume = bgmSlider.value;
+        AudioManager.Instance.SetBgmVolume(volume);
+    }
+
+    public void OnSfxVolumeChanged()
+    {
+        float volume = sfxSlider.value;
+        AudioManager.Instance.SetSfxVolume(volume);
+    }
+
+    public void OnSensitivityX()
+    {
+        float x = xSensitivity.value;
+        RotateToMouse player = GameObject.FindWithTag("Player").GetComponent<RotateToMouse>();
+        player.SetSensitivityX(x);
+    }
+    public void OnSensitivityY()
+    {
+        float y = ySensitivity.value;
+        RotateToMouse player = GameObject.FindWithTag("Player").GetComponent<RotateToMouse>();
+        player.SetSensitivityY(y);
     }
 }

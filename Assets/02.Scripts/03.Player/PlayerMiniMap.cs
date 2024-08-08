@@ -18,7 +18,7 @@ public class PlayerMiniMap : MonoBehaviour
     [SerializeField] Vector3 otherTemp = new Vector3(36.08f, 0, -0.31f);
     [SerializeField] float otherPlayerSize = 1.35f;
     bool isPlayerFind = true;
-
+    [SerializeField] RectTransform localPlayerIcon;
     
     int playerCount = 0;
     int PlayerCount
@@ -47,11 +47,13 @@ public class PlayerMiniMap : MonoBehaviour
     }
     private void Update()
     {
-        PlayerCount = PhotonNetwork.CurrentRoom.PlayerCount;
+        if(PhotonNetwork.CurrentRoom != null)
+            PlayerCount = PhotonNetwork.CurrentRoom.PlayerCount;
         if (player != null)
         {
             minimap.offsetMax = new Vector2((temp.x + player.transform.position.x) * sizeX, (temp.z + player.transform.position.z) * sizeY);
             minimap.offsetMin = new Vector2((temp.x + player.transform.position.x) * sizeX, (temp.z + player.transform.position.z) * sizeY);
+            localPlayerIcon.transform.rotation = Quaternion.Euler(0, 0, -player.transform.rotation.eulerAngles.y + 180);
         }
         else
         {
@@ -122,6 +124,7 @@ public class PlayerMiniMap : MonoBehaviour
     {
         playerIconRect[iconNum].offsetMax = new Vector2((otherTemp.x - players[PlayersNum].transform.position.x) * otherPlayerSize, (otherTemp.z - players[PlayersNum].transform.position.z) * otherPlayerSize);
         playerIconRect[iconNum].offsetMin = new Vector2((otherTemp.x - players[PlayersNum].transform.position.x) * otherPlayerSize, (otherTemp.z - players[PlayersNum].transform.position.z) * otherPlayerSize);
+        playerIconRect[iconNum].rotation = Quaternion.Euler(0, 0, -players[PlayersNum].transform.rotation.eulerAngles.y + 180);
     }
     IEnumerator Search()
     {
