@@ -113,9 +113,10 @@ public class EnemyController : MonoBehaviourPun, IEnemy
                     EnemyTracking(closestPlayer);
                 }
             }
-            else if (other.CompareTag("FireDotArea")) {
-                Hp = -other.GetComponent<ItemFireGrenadeDotArea>().dotDamage;
-            }
+        }
+        if (other.CompareTag("FireDotArea"))
+        {
+            Hp = -other.GetComponent<ItemFireGrenadeDotArea>().dotDamage;
         }
     }
 
@@ -123,6 +124,12 @@ public class EnemyController : MonoBehaviourPun, IEnemy
     public virtual void BloodEffect(Vector3 pos, Collider other = null)
     {
         Pooling.instance.GetObject("BloodSprayEffect", Vector3.zero).transform.position = pos;
+    }
+    public virtual void BloodEffectSword(Vector3 pos, Collider other = null)
+    {
+        GameObject blood = Pooling.instance.GetObject("BloodSprayEffect", Vector3.zero);
+        blood.transform.position = pos;
+        blood.transform.localScale = new Vector3(30, 30, 30);
     }
     public virtual void EnemyTakeDamage(float damage)
     {

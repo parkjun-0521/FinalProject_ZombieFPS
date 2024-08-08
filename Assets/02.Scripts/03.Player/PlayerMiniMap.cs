@@ -19,7 +19,6 @@ public class PlayerMiniMap : MonoBehaviour
     [SerializeField] float otherPlayerSize = 1.35f;
     bool isPlayerFind = true;
     [SerializeField] RectTransform localPlayerIcon;
-    
     int playerCount = 0;
     int PlayerCount
     {

@@ -87,7 +87,12 @@ public class EliteRangeEnemy : EnemyController
             }
         }
     }
-
+    bool isSwordHeat;
+    IEnumerator DelaySecond(float second)
+    {
+        yield return new WaitForSeconds(second);
+        isSwordHeat = false;
+    }
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Bullet")) {
@@ -100,9 +105,11 @@ public class EliteRangeEnemy : EnemyController
         else if (other.CompareTag("Weapon"))
         {
             if (gameObject.CompareTag("EnemyRange")) return;
-
-            Hp = -(other.transform.parent.GetComponent<ItemSword>().itemData.damage);
-            BloodEffect(transform.position);
+            if (isSwordHeat) return;
+            isSwordHeat = true;
+            StartCoroutine(DelaySecond(0.8f));
+            Hp = -(other.transform.GetComponent<ItemSword>().itemData.damage);
+            BloodEffectSword(transform.position + Vector3.up);
             if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt))
             {
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
@@ -200,7 +207,8 @@ public class EliteRangeEnemy : EnemyController
         nextAttack += Time.deltaTime;
         if (nextAttack > meleeDelay) {
             ani.SetBool("isAttack", true);
-            photonView.RPC("RPCEnemyRangeAttack", RpcTarget.AllBuffered);
+            //photonView.RPC("RPCEnemyRangeAttack", RpcTarget.AllBuffered);
+            RPCEnemyRangeAttack();
             nextAttack = 0;
             if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack5)) {
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_attack5);
@@ -208,11 +216,12 @@ public class EliteRangeEnemy : EnemyController
             StartCoroutine(AnimReset("isAttack"));
         }
     }
-    [PunRPC]
+    //[PunRPC]
     void RPCEnemyRangeAttack()
     {
         Vector3 attackDir = (playerTr.position - transform.position).normalized;
         GameObject zombieRangeAtkPrefab = Instantiate(rangeProjectile, attackPos.position, Quaternion.identity);
+        //GameObject zombieRangeAtkPrefab = Pooling.instance.GetObject("EliteRangeZombieProjectile", attackPos.position);
         zombieRangeAtkPrefab.GetComponent<Rigidbody>().AddForce(attackDir * attackPrefabSpeed, ForceMode.Impulse);
 
     }

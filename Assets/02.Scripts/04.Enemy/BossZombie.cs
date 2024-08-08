@@ -163,7 +163,12 @@ public class BossZombie : EnemyController {
         }
     }
 
-  
+    bool isSwordHeat;
+    IEnumerator DelaySecond(float second)
+    {
+        yield return new WaitForSeconds(second);
+        isSwordHeat = false;
+    }
     void OnTriggerEnter(Collider other)                       //총알, 근접무기...triggerEnter
     {
         if (other.CompareTag("Bullet")) {
@@ -176,8 +181,10 @@ public class BossZombie : EnemyController {
         else if (other.CompareTag("Weapon"))
         {
             if (gameObject.CompareTag("EnemyRange")) return;
-
-            Hp = -(other.transform.parent.GetComponent<ItemSword>().itemData.damage);
+            if (isSwordHeat) return;
+            isSwordHeat = true;
+            StartCoroutine(DelaySecond(0.8f));
+            Hp = -(other.transform.GetComponent<ItemSword>().itemData.damage);
             BloodEffect(transform.position);
             if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt))
             {
