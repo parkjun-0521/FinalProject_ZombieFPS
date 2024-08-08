@@ -137,10 +137,9 @@ public class Player : PlayerController
                 }
             }
 
-            if (Camera.main != null)
-            {
-                ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-            }
+            
+            ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+            
 
 
 
