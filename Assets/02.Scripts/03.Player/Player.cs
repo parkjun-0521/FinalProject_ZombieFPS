@@ -1647,47 +1647,59 @@ public class Player : PlayerController
     int playerCount = 0;
     void PlayerSpectate() //∞¸¿¸
     {
+        //if (PhotonNetwork.CurrentRoom.PlayerCount > 1)
+        //{
+        //    if (spectateCamera == null)
+        //    {
+        //        spectateCamera = new GameObject("spectateCamera");
+        //        spectateCamera.AddComponent<Camera>();
+        //        spectateCamera.GetComponent<Camera>().cullingMask = ~LayerMask.GetMask("RemotePlayer");
+        //        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        //        playerCamera.enabled = false;
+        //        //ui ≤®¡÷±‚
+        //        playerFaintUI.SetActive(false);
+        //        bloodScreen.gameObject.SetActive(false);
+        //        aimingObj.SetActive(false);
+        //        UIManager.Instance.transform.GetChild(0).gameObject.SetActive(false);
+
+        //        foreach (GameObject player in players)
+        //        {
+        //            if (player.GetComponent<PhotonView>().IsMine == false)
+        //            {
+        //                otherPlayers.Add(player);
+        //            }
+        //        }
+        //    }
+        //}
+
+        //if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Attack)))
+        //{
+        //    playerCount++;
+        //    if (PhotonNetwork.CurrentRoom.PlayerCount == playerCount + 1)
+        //    {
+        //        playerCount = 0;
+        //    }
+        //}
+        //spectateCamera.transform.parent = otherPlayers[playerCount].transform.GetChild(1);
+        //spectateCamera.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
+        //spectateCamera.transform.localPosition = new Vector3(0, 0, 0.012f);
         if (PhotonNetwork.CurrentRoom.PlayerCount > 1)
         {
-            if (spectateCamera == null)
+            if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Attack)))
             {
-                spectateCamera = new GameObject("spectateCamera");
-                spectateCamera.AddComponent<Camera>();
-                //spectateCamera.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-                spectateCamera.GetComponent<Camera>().cullingMask = ~LayerMask.GetMask("RemotePlayer");
-                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-                playerCamera.enabled = false;
-                //ui ≤®¡÷±‚
-                playerFaintUI.SetActive(false);
-                bloodScreen.gameObject.SetActive(false);
-                aimingObj.SetActive(false);
-                UIManager.Instance.transform.GetChild(0).gameObject.SetActive(false);
-
-                foreach (GameObject player in players)
+                playerCount++;
+                if (PhotonNetwork.CurrentRoom.PlayerCount == playerCount + 1)
                 {
-                    if (player.GetComponent<PhotonView>().IsMine == false)
-                    {
-                        otherPlayers.Add(player);
-                    }
+                    playerCount = 0;
                 }
+                foreach(var otherPlayer in otherPlayers)
+                {
+                    otherPlayer.GetComponentInChildren<Camera>().enabled = false;
+                }
+                otherPlayers[playerCount].GetComponentInChildren<Camera>().enabled = true;
             }
         }
-
-        if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Attack)))
-        {
-            playerCount++;
-            if (PhotonNetwork.CurrentRoom.PlayerCount == playerCount + 1)
-            {
-                playerCount = 0;
-            }
-        }
-        spectateCamera.transform.parent = otherPlayers[playerCount].transform.GetChild(1);
-        spectateCamera.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
-        spectateCamera.transform.localPosition = new Vector3(0, 0, 0.012f);
-        //spectateCamera.transform.position = otherPlayers[playerCount].transform.position;
-        //spectateCamera.transform.rotation = Quaternion.Euler(otherPlayers[playerCount].transform.GetChild(1).position.x, otherPlayers[playerCount].transform.eulerAngles.y, 0);
     }
-
     bool isminiMapZoom = false;
     void ZoomMiniMap()
     {
