@@ -124,6 +124,12 @@ public class EnemyController : MonoBehaviourPun, IEnemy
     {
         Pooling.instance.GetObject("BloodSprayEffect", Vector3.zero).transform.position = pos;
     }
+    public virtual void BloodEffectSword(Vector3 pos, Collider other = null)
+    {
+        GameObject blood = Pooling.instance.GetObject("BloodSprayEffect", Vector3.zero);
+        blood.transform.position = pos;
+        blood.transform.localScale = new Vector3(30, 30, 30);
+    }
     public virtual void EnemyTakeDamage(float damage)
     {
         Hp = -damage;

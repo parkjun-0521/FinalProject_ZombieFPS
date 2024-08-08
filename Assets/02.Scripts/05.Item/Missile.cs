@@ -8,7 +8,7 @@ public class Missile : ItemSword
     [SerializeField] GameObject missile;
     [SerializeField] GameObject[] tails;
     [SerializeField] GameObject explosionParticle;
-    [SerializeField] GameObject range;
+    [SerializeField] CapsuleCollider rangeColl;
      
     private void OnEnable()
     {
@@ -24,7 +24,7 @@ public class Missile : ItemSword
         }
 
         explosionParticle.SetActive(false);
-        range.SetActive(false);
+        rangeColl.enabled = false;
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -37,7 +37,7 @@ public class Missile : ItemSword
             }
             explosionParticle.SetActive(true);
             StartCoroutine(LiveTime(liveTime));
-            range.SetActive(true);
+            rangeColl.enabled = true;
         }
     }
 
@@ -46,9 +46,9 @@ public class Missile : ItemSword
 
         float _time = 0;
         yield return new WaitForSeconds(0.2f);
-        if (range.activeSelf)
+        if (rangeColl.enabled)
         {
-            range.SetActive(false);
+            rangeColl.enabled = false;
         }
 
         while (1 >= _time)

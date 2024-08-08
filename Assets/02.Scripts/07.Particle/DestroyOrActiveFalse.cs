@@ -18,6 +18,7 @@ public class DestroyOrActiveFalse : MonoBehaviour
     {
         if(isActiveFalse)
         {
+            transform.localScale = Vector3.one;
             gameObject.SetActive(false);
         }
         else if (isDestroy)

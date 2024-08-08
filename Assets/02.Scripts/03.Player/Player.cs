@@ -22,7 +22,7 @@ public class Player : PlayerController
     public static event PlayerMoveHandler OnPlayerMove, OnPlayerAttack;
 
     public delegate void PlayerJumpedHandler();
-    public static event PlayerJumpedHandler OnPlayerRotation, OnPlayerJump, OnPlayerSwap, OnPlayerInteraction, OnPlayerInventory, OnPlayerSpectate;
+    public static event PlayerJumpedHandler OnPlayerRotation, OnPlayerJump, OnPlayerSwap, OnPlayerInteraction, OnPlayerInventory, OnPlayerSpectate, OnZoomMiniMap;
 
     private RotateToMouse rotateToMouse;
     private InputKeyManager keyManager;
@@ -68,6 +68,7 @@ public class Player : PlayerController
         OnPlayerSwap += WeaponSwap;                 // 무기 교체
         OnPlayerInteraction += PlayerInteraction;   // 플레이어 상호작용
         OnPlayerInventory += PlayerInventory;
+        OnZoomMiniMap += ZoomMiniMap;
     }
 
     void OnDisable()
@@ -81,6 +82,7 @@ public class Player : PlayerController
         OnPlayerInteraction -= PlayerInteraction;   // 플레이어 상호작용
         OnPlayerInventory -= PlayerInventory;
         OnPlayerSpectate -= PlayerSpectate;
+        OnZoomMiniMap -= ZoomMiniMap;
     }
 
     void Start()
@@ -121,6 +123,7 @@ public class Player : PlayerController
         // 단발적인 행동 
         if (PV.IsMine)
         {
+            ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
             if (ReadyObj != null) {
                 if (!ReadyObj.activeSelf && !isStart) {
                     OnPlayerMove += PlayerMove;                 // 플레이어 이동 
@@ -134,7 +137,7 @@ public class Player : PlayerController
                 }
             }
 
-            ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+            
             // 무기 스왑 
             OnPlayerSwap?.Invoke();
 
@@ -233,6 +236,7 @@ public class Player : PlayerController
             //사람 죽은놈 쪽으로 레이쏴서 ui true
 
             OnPlayerSpectate?.Invoke();  // 죽었을때 관전
+            OnZoomMiniMap?.Invoke(); //미니맵 확대, 축소
 
         }
     }
@@ -872,6 +876,7 @@ public class Player : PlayerController
                         if (bulletCount[0] == 0 && isGun && !isLoad)
                         {
                             isLoad = true;
+                            handAnimator.SetTrigger("isReload");
                             StartCoroutine(BulletLoad());
                             isBulletZero = true;
                         }
@@ -881,6 +886,7 @@ public class Player : PlayerController
                         if (bulletCount[1] == 0 && isGun && !isLoad)
                         {
                             isLoad = true;
+                            handAnimator.SetTrigger("isReload");
                             StartCoroutine(BulletLoad());
                             isBulletZero = true;
                         }
@@ -1609,7 +1615,7 @@ public class Player : PlayerController
     IEnumerator SwordCollider()
     {
         swordCollider.enabled = true;
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.6f);
         swordCollider.enabled = false;
     }
 
@@ -1657,5 +1663,34 @@ public class Player : PlayerController
         spectateCamera.transform.localPosition = new Vector3(0, 0, 0.012f);
         //spectateCamera.transform.position = otherPlayers[playerCount].transform.position;
         //spectateCamera.transform.rotation = Quaternion.Euler(otherPlayers[playerCount].transform.GetChild(1).position.x, otherPlayers[playerCount].transform.eulerAngles.y, 0);
+    }
+
+    bool isminiMapZoom = false;
+    void ZoomMiniMap()
+    {
+        if(Input.GetKeyDown(InputKeyManager.instance.GetKeyCode(KeyCodeTypes.MiniMap)))
+        {
+            
+            if (!isminiMapZoom)
+            {
+                GameObject minimap = GameObject.FindWithTag("MiniMap").transform.parent.gameObject;
+                minimap.GetComponent<RectTransform>().anchoredPosition = new Vector2(750, -450);
+                //GameObject.FindWithTag("MiniMap").GetComponent<RectTransform>().anchoredPosition = new Vector2(360, -320);
+                minimap.GetComponent<Mask>().enabled = false;
+                
+                
+
+                isminiMapZoom = true;
+            }
+            else
+            {
+                GameObject minimap = GameObject.FindWithTag("MiniMap").transform.parent.gameObject;
+                minimap.GetComponent<Mask>().enabled = true;
+                minimap.GetComponent<RectTransform>().anchoredPosition = new Vector2(50, -50);
+
+                isminiMapZoom = false;
+            }
+        }
+        
     }
 }

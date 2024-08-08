@@ -146,8 +146,8 @@ MonoBehaviour:
   rangeOut: 100
   resetSpeed: 5
   enemySpawn: {fileID: 0}
-  maxHp: 40
-  hp: 40
+  maxHp: 500
+  hp: 500
   baseDamage: 10
   damage: 2
   isRangeOut: 0
@@ -170,12 +170,15 @@ MonoBehaviour:
   rotationSpeed: 5
   players: []
   swingAtkDistance: 200
-  dashAtkDistance: 600
+  dashAtkDistance: 900
   dashPower: 40
   knockBackPower: 3
   swingDamage: 10
+  swingKnockback: 5
   shockwaveDamage: 20
+  shockwaveKnockback: 7
   dashDamage: 30
+  dashKnockback: 10
   traceTime: 0
   traceChacgeTime: 15
   lookRadius: 100

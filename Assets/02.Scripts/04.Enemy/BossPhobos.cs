@@ -39,11 +39,14 @@ public class BossPhobos : EnemyController
     [SerializeField] private float dashAtkDistance = 900;
     [SerializeField] private float dashPower = 30;
     [SerializeField] private float knockBackPower = 3.0f;
-    [Header("보스패턴 데미지")]
+    [Header("보스패턴 데미지, 넉백")]
     [SerializeField] private float swingDamage = 10;
+    [SerializeField] private float swingKnockback = 5;
     [SerializeField] private float shockwaveDamage = 20;
+    [SerializeField] private float shockwaveKnockback = 7;
     [SerializeField] private float dashDamage = 30;
-    
+    [SerializeField] private float dashKnockback = 20;
+
     private Collider[] playerCollider;
     private float defalutKnockBackPower = 3.0f;
     private bool isLook;
@@ -73,17 +76,17 @@ public class BossPhobos : EnemyController
         //}
         //StartCoroutine(Trace());
         //포톤 추가시 밑에 인원수만큼foreach
-        //foreach(var player in players)
-        //{
-        //    Physics.IgnoreCollision(player.GetComponent<Collider>(), transform.GetComponent<Collider>(), true);
-        //}
+        foreach (var player in players)
+        {
+            Physics.IgnoreCollision(player.GetComponent<Collider>(), transform.GetComponent<Collider>(), true);
+        }
         //Physics.IgnoreCollision(players[0].GetComponent<Collider>(), transform.GetComponent<Collider>(), true);
     }
 
 
     private void Update()
     {
-        if (!PV.IsMine) return;
+        //if (!PV.IsMine) return;
 
         traceTime += Time.deltaTime;
         playerCollider = Physics.OverlapSphere(transform.position, lookRadius, LayerMask.GetMask("LocalPlayer"));
@@ -100,9 +103,12 @@ public class BossPhobos : EnemyController
     {
         while (state != State.dead)             //안죽었으면 0.5초마다 가까이있는 플레이어 추격
         {
-            Vector3 closestPlayer = players[0].transform.position;
+            Vector3 closestPlayer = new Vector3(500, 500, 500);
             foreach (GameObject player in players)
             {
+                Player playerComponent = player.GetComponent<Player>();
+                if (playerComponent.isFaint || playerComponent.isDead) continue;
+
                 Vector3 playerTr = player.transform.position;
                 float playerDistance = ((playerTr - transform.position).sqrMagnitude);
                 if ((closestPlayer - transform.position).sqrMagnitude >= playerDistance)
@@ -133,7 +139,7 @@ public class BossPhobos : EnemyController
         if(randomNum < 70)
         {
             damage = swingDamage;
-            knockBackPower = 5.0f;
+            knockBackPower = swingKnockback;
             ani.SetBool("isSwing", true);
             StartCoroutine(AnimationFalse("isSwing"));
 
@@ -149,7 +155,7 @@ public class BossPhobos : EnemyController
         else if(randomNum < 90)
         {
             damage = shockwaveDamage;
-            knockBackPower = 5.0f;
+            knockBackPower = shockwaveKnockback;
             ani.SetBool("isShockWave", true);
             StartCoroutine(AnimationFalse("isShockWave"));
 
@@ -185,7 +191,7 @@ public class BossPhobos : EnemyController
     IEnumerator DashPattern()
     {
         damage = dashDamage;
-        knockBackPower = 10.0f;
+        knockBackPower = dashKnockback;
         StopCoroutine(Trace());
         ani.SetBool("isDash", true);
         StartCoroutine(AnimationFalse("isDash"));
@@ -213,7 +219,12 @@ public class BossPhobos : EnemyController
 
 
 
-
+    bool isSwordHeat;
+    IEnumerator DelaySecond(float second)
+    {
+        yield return new WaitForSeconds(second);
+        isSwordHeat = false;
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Bullet"))             // 총알과 trigger
@@ -223,8 +234,10 @@ public class BossPhobos : EnemyController
         }
         else if (other.CompareTag("Weapon")) {
             if (gameObject.CompareTag("EnemyRange")) return;
-
-            Hp = -(other.transform.parent.GetComponent<ItemSword>().itemData.damage);
+            if (isSwordHeat) return;
+            isSwordHeat = true;
+            StartCoroutine(DelaySecond(0.8f));
+            Hp = -(other.transform.GetComponent<ItemSword>().itemData.damage);
             BloodEffect(transform.position);
             if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_hurt)) {
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_hurt);
@@ -248,6 +261,8 @@ public class BossPhobos : EnemyController
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, Mathf.Sqrt(swingAtkDistance));
         Gizmos.DrawWireSphere(transform.position, Mathf.Sqrt(dashAtkDistance));
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, lookRadius);
     }
 
     [PunRPC]
@@ -301,6 +316,7 @@ public class BossPhobos : EnemyController
         ani.SetBool(str, false);
     }
 
+   
     [PunRPC]
     public void QuestCompleteRPC(bool isTrue)
     {
