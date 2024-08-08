@@ -1691,6 +1691,5 @@ public class Player : PlayerController
                 isminiMapZoom = false;
             }
         }
-        
     }
 }

@@ -113,9 +113,10 @@ public class EnemyController : MonoBehaviourPun, IEnemy
                     EnemyTracking(closestPlayer);
                 }
             }
-            else if (other.CompareTag("FireDotArea")) {
-                Hp = -other.GetComponent<ItemFireGrenadeDotArea>().dotDamage;
-            }
+        }
+        if (other.CompareTag("FireDotArea"))
+        {
+            Hp = -other.GetComponent<ItemFireGrenadeDotArea>().dotDamage;
         }
     }
 

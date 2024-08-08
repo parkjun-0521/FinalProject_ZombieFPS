@@ -207,7 +207,8 @@ public class EliteRangeEnemy : EnemyController
         nextAttack += Time.deltaTime;
         if (nextAttack > meleeDelay) {
             ani.SetBool("isAttack", true);
-            photonView.RPC("RPCEnemyRangeAttack", RpcTarget.AllBuffered);
+            //photonView.RPC("RPCEnemyRangeAttack", RpcTarget.AllBuffered);
+            RPCEnemyRangeAttack();
             nextAttack = 0;
             if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack5)) {
                 AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_attack5);
@@ -215,11 +216,12 @@ public class EliteRangeEnemy : EnemyController
             StartCoroutine(AnimReset("isAttack"));
         }
     }
-    [PunRPC]
+    //[PunRPC]
     void RPCEnemyRangeAttack()
     {
         Vector3 attackDir = (playerTr.position - transform.position).normalized;
         GameObject zombieRangeAtkPrefab = Instantiate(rangeProjectile, attackPos.position, Quaternion.identity);
+        //GameObject zombieRangeAtkPrefab = Pooling.instance.GetObject("EliteRangeZombieProjectile", attackPos.position);
         zombieRangeAtkPrefab.GetComponent<Rigidbody>().AddForce(attackDir * attackPrefabSpeed, ForceMode.Impulse);
 
     }
