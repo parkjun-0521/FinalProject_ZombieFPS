@@ -1695,6 +1695,7 @@ public class Player : PlayerController
                 foreach(var otherPlayer in otherPlayers)
                 {
                     otherPlayer.GetComponentInChildren<Camera>().enabled = false;
+                    otherPlayer.GetComponentInChildren<Camera>().cullingMask = ~LayerMask.GetMask("RemotePlayer");
                 }
                 otherPlayers[playerCount].GetComponentInChildren<Camera>().enabled = true;
             }
