@@ -19,6 +19,7 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
 
     public bool isItemInfoSaved = false;
     public bool isSceneChange = false;
+    //public bool isNextScene = false;
 
     public GameObject endLoading;
     public GameObject mapGimmick;
@@ -97,6 +98,7 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
         if (other.CompareTag("Player")) {
             ScenesManagerment.Instance.playerCount += 1;
             playersInTrigger.Add(other.gameObject);
+            //photonView.RPC("SceneChange", RpcTarget.Others, true);
         }
     }
 
@@ -106,6 +108,7 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
             ScenesManagerment.Instance.playerCount -= 1;
             isItemInfoSaved = false;  // 플레이어가 나가면 플래그 리셋
             isSceneChange = false;
+            //isNextScene = false;
             if (ScenesManagerment.Instance.playerCount != (PhotonNetwork.CurrentRoom.PlayerCount - deadPlayerCount)) {
                 endLoading.SetActive(false);
             }
@@ -123,7 +126,11 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
 
     private void OnTriggerStay(Collider other) 
     {
-        if (other.CompareTag("Player")) {
+        if (other.CompareTag("Player") && (isQuest1 || isQuest2 || isQuest3)) {
+            Debug.Log(ScenesManagerment.Instance.playerCount);
+            Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
+            Debug.Log(deadPlayerCount);
+
             if (ScenesManagerment.Instance.playerCount == (PhotonNetwork.CurrentRoom.PlayerCount - deadPlayerCount)) {
                 PhotonView photonView = other.GetComponent<PhotonView>();
                 if (photonView != null && photonView.IsMine && photonView.Owner.NickName == PhotonNetwork.NickName) {
@@ -134,7 +141,7 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
                     }
                 }
             }
-            // 모든 플레이어가 nextStageZone에 들어왔을 때 씬을 로드합니다.
+            // 방장 플레이어가 nextStageZone에 들어왔을 때 씬을 로드합니다.
             if (PhotonNetwork.IsMasterClient) {
                 if (ScenesManagerment.Instance.playerCount == (PhotonNetwork.CurrentRoom.PlayerCount - deadPlayerCount)) {
                     if (ScenesManagerment.Instance.stageCount == 0 && isQuest1) {
@@ -156,15 +163,18 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
         }
     }
 
+    [PunRPC]
+    public void SceneChange(bool isNextScene) {
+        //this.isNextScene = isNextScene;
+    }
+
     IEnumerator SenecChange1()
     {
         isSceneChange = true;
         yield return new WaitForSeconds(4.5f);
         AudioManager.Instance.PlayBgm(false, ScenesManagerment.Instance.stageCount);
+        photonView.RPC("ResetCount", RpcTarget.All);
         yield return new WaitForSeconds(0.5f);
-        ScenesManagerment.Instance.stageCount += 1;
-        ScenesManagerment.Instance.playerCount = 0;
-        deadPlayerCount = 0;
         PhotonNetwork.LoadLevel("03.MainGameScene_1");
     }
 
@@ -173,10 +183,8 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
         isSceneChange = true;
         yield return new WaitForSeconds(4.5f);
         AudioManager.Instance.PlayBgm(false, ScenesManagerment.Instance.stageCount);
+        photonView.RPC("ResetCount", RpcTarget.All);
         yield return new WaitForSeconds(0.5f);
-        ScenesManagerment.Instance.stageCount += 1;
-        ScenesManagerment.Instance.playerCount = 0;
-        deadPlayerCount = 0;
         PhotonNetwork.LoadLevel("03.MainGameScene_2");
     }
 
@@ -184,11 +192,16 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
         isSceneChange = true;
         yield return new WaitForSeconds(4.5f);
         AudioManager.Instance.PlayBgm(false, ScenesManagerment.Instance.stageCount);
+        photonView.RPC("ResetCount", RpcTarget.All);
         yield return new WaitForSeconds(0.5f);
+        PhotonNetwork.LoadLevel("04.Ending");
+    }
+
+    [PunRPC]
+    public void ResetCount() {
         ScenesManagerment.Instance.stageCount += 1;
         ScenesManagerment.Instance.playerCount = 0;
         deadPlayerCount = 0;
-        PhotonNetwork.LoadLevel("04.Ending");
     }
 
     IEnumerator DeleteItemData(string userID, GameObject other)

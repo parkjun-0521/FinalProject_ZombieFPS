@@ -86,25 +86,26 @@ public class GameReadyorStart : MonoBehaviourPun {
         if (PhotonNetwork.IsMasterClient) {
             photonView.RPC("AllLeaveRoom", RpcTarget.All);
         }
-
-        if (!isReady) {
-            // 내 이름을 배열에서 지워주고 초기화 해주야함 RPC로 
-            AudioManager.Instance.PlayBgm(false, ScenesManagerment.Instance.stageCount);
-            ScenesManagerment.Instance.stageCount = 0;
-            ScenesManagerment.Instance.playerCount = 0;
-            photonView.RPC("OffRemoveName", RpcTarget.OthersBuffered, PhotonNetwork.NickName);
-
-            NetworkManager.Instance.LeaveRoom();
-        }
         else {
-            isReady = false;
-            // 내 이름을 배열에서 지워주고 초기화 해주야함 RPC로 
-            AudioManager.Instance.PlayBgm(false, ScenesManagerment.Instance.stageCount);
-            ScenesManagerment.Instance.stageCount = 0;
-            ScenesManagerment.Instance.playerCount = 0;
-            photonView.RPC("OnRemoveName", RpcTarget.OthersBuffered, PhotonNetwork.NickName);
+            if (!isReady) {
+                // 내 이름을 배열에서 지워주고 초기화 해주야함 RPC로 
+                AudioManager.Instance.PlayBgm(false, ScenesManagerment.Instance.stageCount);
+                ScenesManagerment.Instance.stageCount = 0;
+                ScenesManagerment.Instance.playerCount = 0;
+                photonView.RPC("OffRemoveName", RpcTarget.OthersBuffered, PhotonNetwork.NickName);
 
-            NetworkManager.Instance.LeaveRoom();
+                NetworkManager.Instance.LeaveRoom();
+            }
+            else {
+                isReady = false;
+                // 내 이름을 배열에서 지워주고 초기화 해주야함 RPC로 
+                AudioManager.Instance.PlayBgm(false, ScenesManagerment.Instance.stageCount);
+                ScenesManagerment.Instance.stageCount = 0;
+                ScenesManagerment.Instance.playerCount = 0;
+                photonView.RPC("OnRemoveName", RpcTarget.OthersBuffered, PhotonNetwork.NickName);
+
+                NetworkManager.Instance.LeaveRoom();
+            }
         }
     }
 
@@ -122,7 +123,6 @@ public class GameReadyorStart : MonoBehaviourPun {
         ScenesManagerment.Instance.readyUserCount -= 1;
         foreach (Text name in userName) {
             if (name.text == nickname) {
-                name.text = null;
                 name.color = Color.white;
                 name.text = "-----";
             }
@@ -133,7 +133,6 @@ public class GameReadyorStart : MonoBehaviourPun {
     public void OffRemoveName( string nickname ) {
         foreach (Text name in userName) {
             if (name.text == nickname) {
-                name.text = null;
                 name.color = Color.white;
                 name.text = "-----";
             }

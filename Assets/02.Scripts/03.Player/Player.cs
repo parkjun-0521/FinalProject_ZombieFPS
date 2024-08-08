@@ -1386,8 +1386,31 @@ public class Player : PlayerController
             photonView.RPC("IsFaintRPC", RpcTarget.AllBuffered, false);
             photonView.RPC("IsDeadRPC", RpcTarget.AllBuffered, true);
             OnPlayerSpectate += PlayerSpectate;         //뒤지면 관전기능
-            NextSceneManager.Instance.deadPlayerCount += 1;
+            PV.RPC("DeadCount", RpcTarget.All);
+
+            if(PhotonNetwork.IsMasterClient) {
+                GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
+
+                foreach (GameObject playerObject in playerObjects) {
+                    Player playerStatus = playerObject.GetComponent<Player>();
+
+                    if (playerStatus != null && !playerStatus.isDead && !playerStatus.isFaint) {
+                        PhotonView photonView = playerObject.GetComponent<PhotonView>();
+
+                        if (photonView != null && photonView.Owner != PhotonNetwork.LocalPlayer) {
+                            // 권한을 해당 플레이어에게 넘깁니다
+                            PhotonNetwork.SetMasterClient(photonView.Owner);
+                            break; // 첫 번째로 발견된 플레이어에게 권한을 넘긴 후 루프를 중단합니다
+                        }
+                    }
+                }
+            }
         }
+    }
+
+    [PunRPC]
+    public void DeadCount() {
+        NextSceneManager.Instance.deadPlayerCount += 1;
     }
 
     //플레이어 기절상태시 체력줄어드는 UI, ui다달면 죽음 실행 기절코루틴

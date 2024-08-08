@@ -19,6 +19,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
     public string playerName;
 
     public GameObject inputRoomFail;                // 방입장 실패 UI
+    public GameObject resignRoom;
 
     public Button[] cellBtn;                        // 방 버튼
     public Button previousBtn;                      // 이전 버튼 
@@ -28,6 +29,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
 
     public Text[] chatText;                         // 채팅 배열 
     public InputField chatInput;                    // 채팅 입력 input
+
 
     void Awake() {
         if (Instance == null) {
@@ -75,9 +77,19 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
     public void JoinLobby() => PhotonNetwork.JoinLobby();
 
     public override void OnJoinedLobby() {
-        Debug.Log("로비접속 완료");
+        Debug.Log("로비접속 완료");       
         ChangeScene("02.LobbyScene");
         myList.Clear();
+        StartCoroutine(ResignMessage());
+    }
+
+    IEnumerator ResignMessage() {
+        yield return new WaitForSeconds(0.5f);
+        if (ScenesManagerment.Instance.isResign) {
+            resignRoom.GetComponent<Animator>().SetBool("isFail", true);
+            StartCoroutine(UIExit());
+            ScenesManagerment.Instance.isResign = false;
+        }
     }
 
     // 방 만들기 ( MaxPlayers = 최대인원 수 ) 
@@ -112,8 +124,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
             }
         }
     }
-
-
     // 방이 생성되었을 때 동작할 부분 
     public override void OnCreatedRoom() {
         Debug.Log("방만들기 완료");
@@ -140,7 +150,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
     public override void OnLeftRoom() {
         Debug.Log("방 떠나기 완료");
         ScenesManagerment.Instance.playerCount = 0;
-        //ChangeScene("02.LobbyScene"); // 로비 씬으로 변경
+        ChangeScene("02.LobbyScene"); // 로비 씬으로 변경
     }
 
     // 예외 처리 
