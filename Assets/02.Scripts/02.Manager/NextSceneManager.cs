@@ -51,15 +51,16 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.name != "02.LobbyScene") {
-            photonView.RPC("AudioBgm", RpcTarget.All, ScenesManagerment.Instance.stageCount);
+            AudioManager.Instance.PlayBgm(true, ScenesManagerment.Instance.stageCount);
+            //photonView.RPC("AudioBgm", RpcTarget.All, ScenesManagerment.Instance.stageCount);
             isItemInfoSaved = false;
         }
     }
 
-    [PunRPC]
+    /*[PunRPC]
     public void AudioBgm(int bgmCount) {
         AudioManager.Instance.PlayBgm(true, bgmCount);
-    }
+    }*/
 
     IEnumerator GetItemData()
     {
