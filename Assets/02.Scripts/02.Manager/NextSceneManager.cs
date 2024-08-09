@@ -57,10 +57,10 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
         }
     }
 
-    [PunRPC]
+    /*[PunRPC]
     public void AudioBgm(int bgmCount) {
         AudioManager.Instance.PlayBgm(true, bgmCount);
-    }
+    }*/
 
     IEnumerator GetItemData()
     {
