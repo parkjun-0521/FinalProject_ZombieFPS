@@ -83,6 +83,7 @@ public class BossZombie : EnemyController {
 
         capsuleCollider.enabled = true;
         rigid.isKinematic = false;
+        nav.enabled = true;
         bloodParticle.Stop();
         hp = maxHp;
         RandomMove();
@@ -203,7 +204,6 @@ public class BossZombie : EnemyController {
         if (isTracking) return;
         StartCoroutine(ResteWalk());
         ani.SetBool("isWalk", true);
-
         float dirX = Random.Range(-50, 50);
         float dirZ = Random.Range(-50, 50);
         Vector3 dest = new Vector3(dirX, 0, dirZ);
@@ -212,7 +212,7 @@ public class BossZombie : EnemyController {
 
         Vector3 targetPosition = transform.position + dest;
         NavMeshHit hit;
-        if (NavMesh.SamplePosition(targetPosition, out hit, 1.0f, NavMesh.AllAreas)) {
+        if (NavMesh.SamplePosition(targetPosition, out hit, 2.0f, NavMesh.AllAreas)) {
             nav.SetDestination(hit.position);
         }
 
