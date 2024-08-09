@@ -21,8 +21,8 @@ public class Player : PlayerController
     public delegate void PlayerMoveHandler(bool value);
     public static event PlayerMoveHandler OnPlayerMove, OnPlayerAttack;
 
-    public delegate void PlayerJumpedHandler();
-    public static event PlayerJumpedHandler OnPlayerRotation, OnPlayerJump, OnPlayerSwap, OnPlayerInteraction, OnPlayerInventory, OnPlayerSpectate, OnZoomMiniMap;
+    public delegate void PlayerHandler();
+    public static event PlayerHandler OnPlayerRotation, OnPlayerJump, OnPlayerSwap, OnPlayerInteraction, OnPlayerInventory, OnPlayerSpectate, OnZoomMiniMap;
 
     private RotateToMouse rotateToMouse;
     private InputKeyManager keyManager;
@@ -123,7 +123,6 @@ public class Player : PlayerController
         // 단발적인 행동 
         if (PV.IsMine)
         {
-            
             if (ReadyObj != null) {
                 if (!ReadyObj.activeSelf && !isStart) {
                     OnPlayerMove += PlayerMove;                 // 플레이어 이동 
@@ -137,10 +136,11 @@ public class Player : PlayerController
                 }
             }
 
-            if (Camera.main != null)
+            ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+            /*if (Camera.main != null)
             {
                 ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-            }
+            }*/
 
 
 
@@ -469,6 +469,7 @@ public class Player : PlayerController
             {
                 outlineComponent.DeactivateOutline();
             }
+
             if (Physics.Raycast(bulletPos.position, ray.direction, out hit, interactionRange, layerMask))
             {
                 SelectedOutline outlineComponent = hit.collider.GetComponent<SelectedOutline>();
@@ -1359,9 +1360,8 @@ public class Player : PlayerController
             StartCoroutine(PlayerFaintUI(faintTime));
             //capsuleCollider.direction = 2;
         }
-
-
     }
+
     [PunRPC]
     public void IsFaintRPC(bool isFaint)
     {

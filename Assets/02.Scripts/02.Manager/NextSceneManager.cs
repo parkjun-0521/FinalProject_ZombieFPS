@@ -51,10 +51,16 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.name != "02.LobbyScene") {
-            AudioManager.Instance.PlayBgm(true, ScenesManagerment.Instance.stageCount);
+            photonView.RPC("AudioBgm", RpcTarget.All, ScenesManagerment.Instance.stageCount);
             isItemInfoSaved = false;
         }
     }
+
+    [PunRPC]
+    public void AudioBgm(int bgmCount) {
+        AudioManager.Instance.PlayBgm(true, bgmCount);
+    }
+
     IEnumerator GetItemData()
     {
         WWWForm form = new WWWForm();
@@ -165,8 +171,7 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
     {
         isSceneChange = true;
         yield return new WaitForSeconds(4.5f);
-        AudioManager.Instance.PlayBgm(false, ScenesManagerment.Instance.stageCount);
-        photonView.RPC("ResetCount", RpcTarget.All);
+        photonView.RPC("ResetCount", RpcTarget.All, ScenesManagerment.Instance.stageCount);
         yield return new WaitForSeconds(0.5f);
         PhotonNetwork.LoadLevel("03.MainGameScene_1");
     }
@@ -175,23 +180,22 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
     {
         isSceneChange = true;
         yield return new WaitForSeconds(4.5f);
-        AudioManager.Instance.PlayBgm(false, ScenesManagerment.Instance.stageCount);
-        photonView.RPC("ResetCount", RpcTarget.All);
+        photonView.RPC("ResetCount", RpcTarget.All, ScenesManagerment.Instance.stageCount);
         yield return new WaitForSeconds(0.5f);
         PhotonNetwork.LoadLevel("03.MainGameScene_2");
     }
 
     IEnumerator SenecChange3() {
         isSceneChange = true;
-        yield return new WaitForSeconds(4.5f);
-        AudioManager.Instance.PlayBgm(false, ScenesManagerment.Instance.stageCount);
-        photonView.RPC("ResetCount", RpcTarget.All);
+        yield return new WaitForSeconds(4.5f);     
+        photonView.RPC("ResetCount", RpcTarget.All , ScenesManagerment.Instance.stageCount);
         yield return new WaitForSeconds(0.5f);
         PhotonNetwork.LoadLevel("04.Ending");
     }
 
     [PunRPC]
-    public void ResetCount() {
+    public void ResetCount(int stageCount) {
+        AudioManager.Instance.PlayBgm(false, stageCount);
         ScenesManagerment.Instance.stageCount += 1;
         ScenesManagerment.Instance.playerCount = 0;
         deadPlayerCount = 0;
