@@ -1,5 +1,99 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1944562409995787155
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3800922059190092713}
+  - component: {fileID: 9057926127586203444}
+  - component: {fileID: 4342890077213585961}
+  - component: {fileID: 2500835352792668949}
+  m_Layer: 0
+  m_Name: Spawn3 (1)
+  m_TagString: SpawnPoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3800922059190092713
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944562409995787155}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 53.25, y: -7.25, z: 6.750001}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2401877635823281015}
+  m_Father: {fileID: 3546432925717171695}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &9057926127586203444
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944562409995787155}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 17.12, y: 10, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4342890077213585961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944562409995787155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c1a045b89299094ba8016b42affd3e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 2401877635823281015}
+  isSpawn: 0
+  spawnCount: 10
+  isInfinite: 0
+  spawnInterval: 1
+  enemyName:
+  - Zombie1
+  - EliteMeleeZombie
+  - EliteRangeZombie
+  - BossZombie
+  - Boss_Phobos
+  persent: 3c0000000f0000000f0000000000000000000000
+--- !u!114 &2500835352792668949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944562409995787155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &3546432924844570777
 GameObject:
   m_ObjectHideFlags: 0
@@ -27,13 +121,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3546432924844570777}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.5, y: -7.25, z: 16.75}
+  m_LocalPosition: {x: 9.75, y: -7.25, z: 16.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3546432925205341227}
   m_Father: {fileID: 3546432925717171695}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &3546432924844570779
 BoxCollider:
@@ -62,14 +156,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 3546432925205341227}
   isSpawn: 0
-  spawnCount: 5
+  spawnCount: 10
+  isInfinite: 0
+  spawnInterval: 1
   enemyName:
   - Zombie1
   - EliteMeleeZombie
   - EliteRangeZombie
   - BossZombie
   - Boss_Phobos
-  persent: 3c0000000f0000000f0000000000000000000000
+  persent: 460000000f0000000f0000000000000000000000
 --- !u!114 &3546432924844570781
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,7 +215,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3546432924878277662}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 87, y: -7.25, z: 37.75}
+  m_LocalPosition: {x: 86, y: -9.25, z: 40.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -138,7 +234,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10, y: 10, z: 2}
+  m_Size: {x: 10, y: 3.22, z: 5.86}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3546432924878277635
 MonoBehaviour:
@@ -154,14 +250,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 3546432925017933441}
   isSpawn: 0
-  spawnCount: 5
+  spawnCount: 8
+  isInfinite: 0
+  spawnInterval: 1
   enemyName:
   - Zombie1
   - EliteMeleeZombie
   - EliteRangeZombie
   - BossZombie
   - Boss_Phobos
-  persent: 3c0000000f0000000f0000000000000000000000
+  persent: 6400000000000000000000000000000000000000
 --- !u!114 &3546432924878277634
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,7 +306,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3546432924909838659}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.25, y: -2.75, z: -27.75}
+  m_LocalPosition: {x: 14.75, y: -1.25, z: -23.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -242,13 +340,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3546432924915409647}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15.75, y: -7.25, z: 5.25}
+  m_LocalPosition: {x: 17, y: -9, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3546432926442610003}
   m_Father: {fileID: 3546432925717171695}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &3546432924915409425
 BoxCollider:
@@ -261,7 +359,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10, y: 10, z: 2}
+  m_Size: {x: 24.8, y: 10, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3546432924915409424
 MonoBehaviour:
@@ -277,14 +375,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 3546432926442610003}
   isSpawn: 0
-  spawnCount: 5
+  spawnCount: 8
+  isInfinite: 0
+  spawnInterval: 1
   enemyName:
   - Zombie1
   - EliteMeleeZombie
   - EliteRangeZombie
   - BossZombie
   - Boss_Phobos
-  persent: 3c0000000f0000000f0000000000000000000000
+  persent: 3c00000014000000140000000000000000000000
 --- !u!114 &3546432924915409427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,13 +434,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3546432924968937655}
   m_LocalRotation: {x: -0, y: 0.70710677, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 29.500004, y: -7.25, z: -13.5}
+  m_LocalPosition: {x: 48.250004, y: -7.25, z: -13.499999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3546432925507451306}
   m_Father: {fileID: 3546432925717171695}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!65 &3546432924968937657
 BoxCollider:
@@ -369,14 +469,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 3546432925507451306}
   isSpawn: 0
-  spawnCount: 5
+  spawnCount: 20
+  isInfinite: 0
+  spawnInterval: 1
   enemyName:
   - Zombie1
   - EliteMeleeZombie
   - EliteRangeZombie
   - BossZombie
   - Boss_Phobos
-  persent: 3c0000000f0000000f0000000000000000000000
+  persent: 3c00000014000000140000000000000000000000
 --- !u!114 &3546432924968937659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -423,7 +525,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3546432925017933470}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5400009, y: -2.0699997, z: -24.05}
+  m_LocalPosition: {x: -0.21, y: 0.9300003, z: -27.77}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -454,7 +556,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3546432925205341224}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.75, y: -5, z: -18.25}
+  m_LocalPosition: {x: -30.75, y: -3.5, z: -6.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -488,7 +590,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3546432925259851441}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 69.25, y: -7.25, z: 14.25}
+  m_LocalPosition: {x: 67.5, y: -7.25, z: 14.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -524,13 +626,15 @@ MonoBehaviour:
   spawnPoint: {fileID: 3546432925766251413}
   isSpawn: 0
   spawnCount: 5
+  isInfinite: 0
+  spawnInterval: 1
   enemyName:
   - Zombie1
   - EliteMeleeZombie
   - EliteRangeZombie
   - BossZombie
   - Boss_Phobos
-  persent: 3c0000000f0000000f0000000000000000000000
+  persent: 3c00000014000000140000000000000000000000
 --- !u!114 &3546432925259851445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -580,7 +684,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3546432925267674332}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 85.75, y: -7.25, z: 18.5}
+  m_LocalPosition: {x: 85.75, y: -7.25, z: 19.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -615,14 +719,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 3546432925920481562}
   isSpawn: 0
-  spawnCount: 5
+  spawnCount: 10
+  isInfinite: 0
+  spawnInterval: 1
   enemyName:
   - Zombie1
   - EliteMeleeZombie
   - EliteRangeZombie
   - BossZombie
   - Boss_Phobos
-  persent: 3c0000000f0000000f0000000000000000000000
+  persent: 460000000f0000000f0000000000000000000000
 --- !u!114 &3546432925267674304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -700,7 +806,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3546432925507451307}
   m_LocalRotation: {x: -0, y: 0.000000059604645, z: -0, w: 1}
-  m_LocalPosition: {x: -42.540005, y: -4.0699997, z: -25.050007}
+  m_LocalPosition: {x: -42.54001, y: -0.069999695, z: -54.050007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -738,11 +844,13 @@ Transform:
   - {fileID: 3546432924878277633}
   - {fileID: 3546432925267674335}
   - {fileID: 3546432925259851440}
+  - {fileID: 3800922059190092713}
   - {fileID: 3546432924968937654}
   - {fileID: 3546432924915409646}
   - {fileID: 3546432924844570776}
   - {fileID: 3546432926552847175}
   - {fileID: 3546432926165205066}
+  - {fileID: 349389932303880776}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -770,7 +878,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3546432925766251410}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 29.460003, y: -2.5699997, z: -13.050007}
+  m_LocalPosition: {x: 19.460001, y: -1.0699997, z: -10.300008}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -801,7 +909,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3546432925920481563}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -24.29, y: -2.5699997, z: 15.950001}
+  m_LocalPosition: {x: -23.04, y: -2.5699997, z: 8.200001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -841,7 +949,7 @@ Transform:
   m_Children:
   - {fileID: 3546432925375934626}
   m_Father: {fileID: 3546432925717171695}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &3546432926165205071
 BoxCollider:
@@ -871,13 +979,15 @@ MonoBehaviour:
   spawnPoint: {fileID: 3546432925375934626}
   isSpawn: 0
   spawnCount: 5
+  isInfinite: 0
+  spawnInterval: 1
   enemyName:
   - Zombie1
   - EliteMeleeZombie
   - EliteRangeZombie
   - BossZombie
   - Boss_Phobos
-  persent: 3c0000000f0000000f0000000000000000000000
+  persent: 3c00000014000000140000000000000000000000
 --- !u!114 &3546432926165205069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -924,7 +1034,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3546432926442610000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -20, y: -2.5, z: -7.25}
+  m_LocalPosition: {x: -17.55, y: -1.5, z: 10.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -958,13 +1068,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3546432926552847172}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -22.5, y: -7.25, z: -7.25}
+  m_LocalPosition: {x: -14.25, y: -7.25, z: -7.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3546432924909838658}
   m_Father: {fileID: 3546432925717171695}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &3546432926552847174
 BoxCollider:
@@ -994,13 +1104,15 @@ MonoBehaviour:
   spawnPoint: {fileID: 3546432924909838658}
   isSpawn: 0
   spawnCount: 5
+  isInfinite: 0
+  spawnInterval: 1
   enemyName:
   - Zombie1
   - EliteMeleeZombie
   - EliteRangeZombie
   - BossZombie
   - Boss_Phobos
-  persent: 3c0000000f0000000f0000000000000000000000
+  persent: 0000000032000000320000000000000000000000
 --- !u!114 &3546432926552847176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1008,6 +1120,162 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3546432926552847172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &5223905206636464647
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2401877635823281015}
+  m_Layer: 0
+  m_Name: 3-1
+  m_TagString: Untagged
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2401877635823281015
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5223905206636464647}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.2899971, y: 14.93, z: -10.300007}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3800922059190092713}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7209035670029320145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8568566849855006784}
+  m_Layer: 0
+  m_Name: 8
+  m_TagString: Untagged
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8568566849855006784
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7209035670029320145}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -8.790001, y: -1.5699997, z: -37.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 349389932303880776}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8904928328447485525
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 349389932303880776}
+  - component: {fileID: 941653304785468680}
+  - component: {fileID: 4835458571239503242}
+  - component: {fileID: 444648843539787572}
+  m_Layer: 0
+  m_Name: Spawn8 (1)
+  m_TagString: SpawnPoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &349389932303880776
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8904928328447485525}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -13.5, y: -9.25, z: 17.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8568566849855006784}
+  m_Father: {fileID: 3546432925717171695}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &941653304785468680
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8904928328447485525}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10, y: 10, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4835458571239503242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8904928328447485525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c1a045b89299094ba8016b42affd3e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 8568566849855006784}
+  isSpawn: 0
+  spawnCount: 10
+  isInfinite: 0
+  spawnInterval: 1
+  enemyName:
+  - Zombie1
+  - EliteMeleeZombie
+  - EliteRangeZombie
+  - BossZombie
+  - Boss_Phobos
+  persent: 3200000019000000190000000000000000000000
+--- !u!114 &444648843539787572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8904928328447485525}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}

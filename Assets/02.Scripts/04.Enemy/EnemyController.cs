@@ -58,6 +58,7 @@ public class EnemyController : MonoBehaviourPun, IEnemy
     public bool isAttack;
     public bool isTracking;
     public bool isDie;
+    public bool isNotWeaponAttack;
 
     public PhotonView PV;
     public Transform playerTr;

@@ -94,7 +94,6 @@ public class NormalEnemy : EnemyController {
             }
         }
         else if (other.CompareTag("Weapon")) {
-            if (gameObject.CompareTag("EnemyRange")) return;
             if (isSwordHeat) return;
             isSwordHeat = true;
             StartCoroutine(DelaySecond(0.8f));

@@ -1395,13 +1395,27 @@ public class Player : PlayerController
             hp = 0;                                 //여기서 hp를 0   //anim.setbool("isFaint", true);    //기절 애니메이션 출력 나중에 플레이어 완성되면 추가
             animator.SetBool("isDead", true);          //죽었을때 애니메이션 출력
             StartCoroutine(AnimReset("isDead"));
-            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_death_BGM);
-            photonView.RPC("IsFaintRPC", RpcTarget.AllBuffered, false);
-            photonView.RPC("IsDeadRPC", RpcTarget.AllBuffered, true);
-            OnPlayerSpectate += PlayerSpectate;         //뒤지면 관전기능
             photonView.RPC("DeadCount", RpcTarget.AllBuffered, 1);
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_death_BGM);
+            // 퀘스트 아이템이 있으면 드랍 
+            if (inventory != null && theInventory.go_SlotsParent != null) {
+                Transform slotsParent = theInventory.go_SlotsParent.transform;
+                for (int i = 0; i < slotsParent.childCount; i++) {
+                    Transform firstChild = slotsParent.GetChild(i);
+                    Transform grandChild = firstChild.GetChild(0);
+                    Image imageComponent = grandChild.GetComponent<Image>();
+                    if (imageComponent != null && imageComponent.sprite != null) {
+                        string spriteName = imageComponent.sprite.name;
+                        if (spriteName.Equals("QuestItem")) {
+                            Pooling.instance.GetObject("QuestItem", transform.position + Vector3.up);
+                            return;
+                        }
+                    }
+                }
+            }
 
-            if(PhotonNetwork.IsMasterClient) {
+            // 권한 넘기기 
+            if (PhotonNetwork.IsMasterClient) {
                 GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
 
                 foreach (GameObject playerObject in playerObjects) {
@@ -1418,6 +1432,16 @@ public class Player : PlayerController
                     }
                 }
             }
+            // 죽었을 때 종료 
+               
+            Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
+            if(NextSceneManager.Instance.deadPlayerCount == PhotonNetwork.CurrentRoom.PlayerCount) {
+                photonView.RPC("AllDead", RpcTarget.All);
+            }
+
+            photonView.RPC("IsFaintRPC", RpcTarget.AllBuffered, false);
+            photonView.RPC("IsDeadRPC", RpcTarget.AllBuffered, true);
+            OnPlayerSpectate += PlayerSpectate;         //뒤지면 관전기능
         }
     }
 
@@ -1425,6 +1449,16 @@ public class Player : PlayerController
     public void DeadCount(int count) {
         Debug.Log("1111111");
         NextSceneManager.Instance.deadPlayerCount += count;
+    }
+
+    [PunRPC]
+    public void AllDead() {
+        ScenesManagerment.Instance.readyUserCount = 0;
+        AudioManager.Instance.PlayBgm(false, ScenesManagerment.Instance.stageCount);
+        ScenesManagerment.Instance.stageCount = 0;
+        ScenesManagerment.Instance.playerCount = 0;
+        Debug.Log("왜 안됨");
+        NetworkManager.Instance.LeaveRoom();
     }
 
     //플레이어 기절상태시 체력줄어드는 UI, ui다달면 죽음 실행 기절코루틴
@@ -1648,6 +1682,8 @@ public class Player : PlayerController
     int playerCount = 0;
     void PlayerSpectate() //관전
     {
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 1) return;
+
         if (PhotonNetwork.CurrentRoom.PlayerCount > 1)
         {
             if (spectateCamera == null)

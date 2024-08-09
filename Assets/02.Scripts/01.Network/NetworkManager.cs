@@ -81,6 +81,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks {
         ChangeScene("02.LobbyScene");
         myList.Clear();
         StartCoroutine(ResignMessage());
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     IEnumerator ResignMessage() {
