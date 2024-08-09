@@ -1648,6 +1648,8 @@ public class Player : PlayerController
     int playerCount = 0;
     void PlayerSpectate() //°üÀü
     {
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 1) return;
+
         if (PhotonNetwork.CurrentRoom.PlayerCount > 1)
         {
             if (spectateCamera == null)

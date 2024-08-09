@@ -9,6 +9,11 @@ public class ItemSupportGrenade : MonoBehaviour
     [SerializeField] float minWidth;
     [SerializeField] float maxWidth;
     [SerializeField] int count;
+    PhotonView pv;
+    private void Awake()
+    {
+        pv = GetComponent<PhotonView>();
+    }
 
     private void OnTriggerStay(Collider other)
     {
@@ -21,6 +26,7 @@ public class ItemSupportGrenade : MonoBehaviour
 
     void AirStrike()
     {
+        if (!pv.IsMine) return;
         for(int i = 0; i < count; i++)
         {
             Vector3 airPos = new Vector3(Random.Range(minWidth, maxWidth), Random.Range(minHeight, maxHeight), Random.Range(minWidth, maxWidth));
