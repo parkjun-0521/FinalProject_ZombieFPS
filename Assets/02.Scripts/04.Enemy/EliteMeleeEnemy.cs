@@ -234,6 +234,7 @@ public class EliteMeleeEnemy : EnemyController {
 
     public override void EnemyDead()
     {
+        if (!photonView.IsMine) return;
         if (hp <= 0) {
             photonView.RPC("HandleEnemyDeath", RpcTarget.AllBuffered);
             photonView.RPC("DeadState", RpcTarget.OthersBuffered);
