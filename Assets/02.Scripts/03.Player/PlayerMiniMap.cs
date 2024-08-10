@@ -17,7 +17,6 @@ public class PlayerMiniMap : MonoBehaviour
     [SerializeField] RectTransform[] playerIconRect;
     [SerializeField] Vector3 otherTemp = new Vector3(36.08f, 0, -0.31f);
     [SerializeField] float otherPlayerSize = 1.35f;
-    bool isPlayerFind = true;
     [SerializeField] RectTransform localPlayerIcon;
     int playerCount = 0;
     int PlayerCount
