@@ -17,8 +17,8 @@ public class VRPlayerControll : MonoBehaviour
 
     private void Awake()
     {
-        rigid = GetComponentInChildren<Rigidbody>();
-        xrController = GameObject.Find("XR Origin").transform.GetChild(0).GetChild(1).GetComponent<XRController>();
+        rigid = GameObject.Find("XR Origin (XR Rig)").transform.GetChild(1).GetComponent<Rigidbody>();
+        xrController = GameObject.Find("XR Origin (XR Rig)").transform.GetChild(0).GetChild(1).GetComponent<XRController>();
     }
  
     // Start is called before the first frame update
@@ -36,7 +36,7 @@ public class VRPlayerControll : MonoBehaviour
             if(AButton==true)
             {
                 rigid.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_jump);
+                //AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Player_jump);
                 isJump = false;
 
             }
