@@ -13,12 +13,12 @@ public class VRPlayerControll : MonoBehaviour
     public float jumpForce;
 
     /*public XRController controller;*/
-    public XRController controller;
+    private XRController xrController;
 
     private void Awake()
     {
         rigid = GetComponentInChildren<Rigidbody>();
-        controller.GetComponent<XRController>();
+        xrController = GameObject.Find("XR Origin").transform.GetChild(0).GetChild(1).GetComponent<XRController>();
     }
  
     // Start is called before the first frame update
@@ -31,7 +31,7 @@ public class VRPlayerControll : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (controller.inputDevice.TryGetFeatureValue(CommonUsages.primaryButton, out bool AButton))
+        if (xrController.inputDevice.TryGetFeatureValue(CommonUsages.primaryButton, out bool AButton))
         {
             if(AButton==true)
             {
