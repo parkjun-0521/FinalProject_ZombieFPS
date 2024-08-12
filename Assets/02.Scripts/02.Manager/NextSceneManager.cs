@@ -35,6 +35,8 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
         isItemInfoSaved = false;
         SceneManager.sceneLoaded += OnSceneLoaded;
         endLoading.SetActive(false);
+        ScenesManagerment.Instance.playerCount = 0;
+        deadPlayerCount = 0;
         StartCoroutine(GetItemData());
     }
 
@@ -52,7 +54,7 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.name != "02.LobbyScene") {
-            AudioManager.Instance.PlayBgm(true, ScenesManagerment.Instance.stageCount);
+            AudioManager.Instance.PlayBgm(true, ScenesManagerment.Instance.stageCount);     
             //photonView.RPC("AudioBgm", RpcTarget.All, ScenesManagerment.Instance.stageCount);
             isItemInfoSaved = false;
         }

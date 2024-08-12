@@ -13,6 +13,8 @@ public class NormalEnemy : EnemyController {
     public GameObject attackColliderPrefab;
     public Transform attackPoint;
 
+    RaycastHit hit;
+
     void Awake() {
         // 레퍼런스 초기화 
         rigid = GetComponent<Rigidbody>();
