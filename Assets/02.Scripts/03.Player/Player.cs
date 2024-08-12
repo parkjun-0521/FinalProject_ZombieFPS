@@ -1127,10 +1127,9 @@ public class Player : PlayerController
                             grenade.transform.rotation = Quaternion.identity;   // bullet 회전값 초기화 
                             // 카메라의 중앙에서 나가는 레이 구하기
                             Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
-                            RaycastHit hit;
                             Vector3 targetPoint;
                             // 맞았을 때 , 안맞았을 때 충돌 지점 지정 
-                            targetPoint = (Physics.Raycast(ray, out hit)) ? hit.point : ray.GetPoint(1000);
+                            targetPoint = ray.GetPoint(1000);
 
                             // 던질 방향 계산
                             Vector3 throwDirection = (targetPoint - grenade.transform.position).normalized;
@@ -1180,7 +1179,8 @@ public class Player : PlayerController
 
                             // 던질 방향 계산
                             Vector3 throwDirection = (targetPoint - grenade.transform.position).normalized;
-
+                            Debug.Log(targetPoint);
+ 
                             // Rigidbody에 힘을 가함
                             grenadeRigid.AddForce(throwDirection * throwForce, ForceMode.VelocityChange);
                         }
