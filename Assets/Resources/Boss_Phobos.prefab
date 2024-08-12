@@ -156,6 +156,8 @@ MonoBehaviour:
   isRun: 0
   isAttack: 0
   isTracking: 0
+  isDie: 0
+  isNotWeaponAttack: 0
   PV: {fileID: 0}
   playerTr: {fileID: 0}
   rigid: {fileID: 0}
@@ -860,6 +862,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -3052839234575326084, guid: 6b0bd4b099654c4419e5cca6bf17fd24, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3052839234575326084, guid: 6b0bd4b099654c4419e5cca6bf17fd24, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 089ca1923d2107b4d9ba97c192e18b61, type: 2}
@@ -1182,6 +1188,10 @@ PrefabInstance:
     - target: {fileID: 720320796288724141, guid: 6b0bd4b099654c4419e5cca6bf17fd24, type: 3}
       propertyPath: m_CastShadows
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 720320796288724141, guid: 6b0bd4b099654c4419e5cca6bf17fd24, type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 720320796288724141, guid: 6b0bd4b099654c4419e5cca6bf17fd24, type: 3}
       propertyPath: m_Materials.Array.data[0]

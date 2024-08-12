@@ -56,7 +56,7 @@ public class InputKeyManager : MonoBehaviour {
         keyMappings[KeyCodeTypes.Weapon4] = KeyCode.Alpha4;     // 힐팩 
         keyMappings[KeyCodeTypes.Setting] = KeyCode.Escape;     // 설정
         keyMappings[KeyCodeTypes.BulletLoad] = KeyCode.R;       // 장전 
-        keyMappings[KeyCodeTypes.MiniMap] = KeyCode.M;       // 장전 
+        keyMappings[KeyCodeTypes.MiniMap] = KeyCode.M;          // 장전 
     }
 
     public KeyCode GetKeyCode( KeyCodeTypes action ) {

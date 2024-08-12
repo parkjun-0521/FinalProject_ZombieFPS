@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 327282102159181589}
   - component: {fileID: -7895975133175986939}
   - component: {fileID: 1798774744962203237}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FireGrenadeObject
   m_TagString: Grenade
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 391476628684390422}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: -7379656534838386515, guid: 15d073c5fc8fa5646a218ea9378d79b7, type: 3}
 --- !u!23 &391476628684390443
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -146,7 +146,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0cf09d944396b3847b7c3d7a37edc67f, type: 2}
+  - {fileID: 2100000, guid: dead61562d3386446bac39c64d87249c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -180,7 +180,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!54 &391476628684390421
 Rigidbody:
   m_ObjectHideFlags: 0

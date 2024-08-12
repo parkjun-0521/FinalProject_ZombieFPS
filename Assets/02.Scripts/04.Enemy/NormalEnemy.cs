@@ -39,7 +39,7 @@ public class NormalEnemy : EnemyController {
 
     void Start() {
         nav.enabled = true;
-        RandomMove();
+        OnRandomMove?.Invoke();
 
         SphereCollider lookRangeCollider = EnemyLookRange; // EnemyLookRange 콜라이더 참조
         int weaponLayer = LayerMask.NameToLayer("Weapon"); // 'Weapon' 레이어 이름에 해당하는 레이어 인덱스 가져오기
@@ -74,7 +74,7 @@ public class NormalEnemy : EnemyController {
         }
         else if (!isTracking && !isAttack) {
             if (!isWalk) {
-                RandomMove();
+                OnRandomMove?.Invoke();
             }
         }
     }
