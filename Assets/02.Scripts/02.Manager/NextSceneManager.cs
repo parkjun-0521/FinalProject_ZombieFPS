@@ -34,6 +34,7 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
     {
         isItemInfoSaved = false;
         SceneManager.sceneLoaded += OnSceneLoaded;
+        endLoading.SetActive(false);
         StartCoroutine(GetItemData());
     }
 

@@ -1447,17 +1447,21 @@ public class Player : PlayerController
 
     [PunRPC]
     public void DeadCount(int count) {
-        Debug.Log("1111111");
         NextSceneManager.Instance.deadPlayerCount += count;
     }
 
     [PunRPC]
     public void AllDead() {
+        StartCoroutine(ENDAnimation());
+    }
+
+    IEnumerator ENDAnimation() {
         ScenesManagerment.Instance.readyUserCount = 0;
         AudioManager.Instance.PlayBgm(false, ScenesManagerment.Instance.stageCount);
         ScenesManagerment.Instance.stageCount = 0;
         ScenesManagerment.Instance.playerCount = 0;
-        Debug.Log("¿Ö ¾ÈµÊ");
+        NextSceneManager.Instance.endLoading.SetActive(true);
+        yield return new WaitForSeconds(5f);
         NetworkManager.Instance.LeaveRoom();
     }
 

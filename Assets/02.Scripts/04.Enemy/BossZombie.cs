@@ -492,9 +492,6 @@ public class BossZombie : EnemyController {
         if (hp <= 0) {
             photonView.RPC("HandleEnemyDeath", RpcTarget.AllBuffered);
             Pooling.instance.GetObject("QuestItem", transform.position);
-            if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.BossDie1)) {
-                AudioManager.Instance.PlayerSfx(AudioManager.Sfx.BossDie1);
-            }
         }
     }
     [PunRPC]
@@ -503,6 +500,9 @@ public class BossZombie : EnemyController {
         OnRandomMove -= RandomMove;
         OnEnemyTracking -= EnemyTracking;
         OnEnemyAttack -= EnemyMeleeAttack;
+        if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.BossDie1)) {
+            AudioManager.Instance.PlayerSfx(AudioManager.Sfx.BossDie1);
+        }
         isWalk = true;
         isTracking = true;
         EnemyLookRange.enabled = false;
@@ -519,7 +519,6 @@ public class BossZombie : EnemyController {
     [PunRPC]
     void EliteRangeChangeHpRPC( float value ) {
         hp += value;
-        EnemyDead();
     }
 
 }

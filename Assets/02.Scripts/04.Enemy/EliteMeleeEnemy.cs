@@ -61,7 +61,7 @@ public class EliteMeleeEnemy : EnemyController {
                 Physics.IgnoreCollision(lookRangeCollider, collider, true);
             }
         }
-        damage = 20f;
+        damage = baseDamage;
     }
 
     void Update()
@@ -246,11 +246,11 @@ public class EliteMeleeEnemy : EnemyController {
                     splitEnemy.GetComponent<NormalEnemy>().maxHp = this.maxHp * 0.8f;           // 분열좀비 능력치 ( 추후 난이도 조절 )
                     splitEnemy.GetComponent<NormalEnemy>().hp = this.maxHp * 0.8f;              // 분열좀비 능력치
                     splitEnemy.GetComponent<NormalEnemy>().damage = this.damage * 0.2f;         // 분열좀비 능력치
-                                                                                                // 터지는 이펙트 추가
+                                                                                                
                     if (splitEnemy.GetComponent<NormalEnemy>().enemySpawn == null) {
                         splitEnemy.GetComponent<NormalEnemy>().enemySpawn = this.transform;
                     }
-                    bloodParticle.Play();
+                   
                     damage = 30f;
                     if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_explosion)) {
                         AudioManager.Instance.PlayerSfx(AudioManager.Sfx.Zombie_explosion);
@@ -270,6 +270,7 @@ public class EliteMeleeEnemy : EnemyController {
         OnRandomMove -= RandomMove;
         OnEnemyTracking -= EnemyTracking;
         OnEnemyAttack -= EnemyMeleeAttack;
+        bloodParticle.Play();               // 터지는 이펙트 추가
         isWalk = true;
         isTracking = true;
         EnemyLookRange.enabled = false;
