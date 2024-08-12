@@ -1131,7 +1131,7 @@ public class Player : PlayerController
                             RaycastHit hit;
                             Vector3 targetPoint;
                             // 맞았을 때 , 안맞았을 때 충돌 지점 지정 
-                            targetPoint = (Physics.Raycast(ray, out hit)) ? hit.point : ray.GetPoint(1000);
+                            targetPoint =  ray.GetPoint(1000);
 
                             // 던질 방향 계산
                             Vector3 throwDirection = (targetPoint - grenade.transform.position).normalized;
@@ -1154,7 +1154,7 @@ public class Player : PlayerController
                             Vector3 targetPoint;
 
                             // 맞았을 때 , 안맞았을 때 충돌 지점 지정 
-                            targetPoint = (Physics.Raycast(ray, out hit)) ? hit.point : ray.GetPoint(1000);
+                            targetPoint =  ray.GetPoint(1000);
 
                             // 던질 방향 계산
                             Vector3 throwDirection = (targetPoint - grenade.transform.position).normalized;
@@ -1177,7 +1177,7 @@ public class Player : PlayerController
                             Vector3 targetPoint;
 
                             // 맞았을 때 , 안맞았을 때 충돌 지점 지정 
-                            targetPoint = (Physics.Raycast(ray, out hit)) ? hit.point : ray.GetPoint(1000);
+                            targetPoint = ray.GetPoint(1000);
 
                             // 던질 방향 계산
                             Vector3 throwDirection = (targetPoint - grenade.transform.position).normalized;
