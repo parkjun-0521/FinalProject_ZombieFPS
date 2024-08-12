@@ -230,7 +230,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3656407878562255024}
-  - component: {fileID: 1615089035}
   m_Layer: 11
   m_Name: GateMechanism
   m_TagString: Door
@@ -254,22 +253,6 @@ Transform:
   m_Father: {fileID: 8029598489629578761}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!208 &1615089035
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3656407878562255027}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.215, y: 0.2, z: 1.415}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: -4.55, y: -2.1, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!1 &4381819121212325579
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,6 +314,7 @@ GameObject:
   - component: {fileID: 1425268133}
   - component: {fileID: 1425268134}
   - component: {fileID: 1425268135}
+  - component: {fileID: 243894084939284610}
   m_Layer: 11
   m_Name: HGv1Gate
   m_TagString: Door
@@ -494,6 +478,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isOpen: 0
   otherObject: {fileID: 0}
+--- !u!208 &243894084939284610
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7357078471848166155}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 3.051, y: 1.7310001, z: 0.020000001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &7357078473023122542
 GameObject:
   m_ObjectHideFlags: 0

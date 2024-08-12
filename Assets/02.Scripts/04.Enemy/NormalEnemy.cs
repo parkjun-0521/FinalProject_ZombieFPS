@@ -234,8 +234,9 @@ public class NormalEnemy : EnemyController {
         rigid.isKinematic = true;
         capsuleCollider.enabled = false;
         nav.enabled = false;
-        ani.SetBool("isDead", true);
-        StartCoroutine(AnimationFalse("isDead"));
+       // ani.SetBool("isDead", true);
+        ani.SetInteger("isDeadInt", Random.Range(0, 3));
+        //StartCoroutine(AnimationFalse("isDead"));
     }
 
     IEnumerator AnimationFalse( string str ) {

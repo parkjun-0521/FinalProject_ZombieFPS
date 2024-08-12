@@ -108,7 +108,8 @@ public class EnemyController : MonoBehaviourPun, IEnemy
 
                 Collider[] hitColliders = Physics.OverlapSphere(transform.position, 200);
                 foreach (var hitCollider in hitColliders) {
-                    if (hitCollider.CompareTag("Player")) {                    
+                    if (hitCollider.CompareTag("Player")) {
+                        if (hitCollider.GetComponent<Player>().isDead || hitCollider.GetComponent<Player>().isFaint) continue;
 
                         float distance = Vector3.Distance(transform.position, hitCollider.transform.position);
                         if (distance < closestDistance) {
