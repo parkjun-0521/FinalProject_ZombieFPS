@@ -197,7 +197,15 @@ public class BossPhobos : EnemyController
         StartCoroutine(AnimationFalse("isDash"));
 
         yield return new WaitForSeconds(1.0f);
-        int randomPlayer = Random.Range(0, PhotonNetwork.CurrentRoom.PlayerCount);
+        int randomPlayer;
+        while(true)
+        {
+            randomPlayer = Random.Range(0, PhotonNetwork.CurrentRoom.PlayerCount);
+            if (!players[randomPlayer].GetComponent<Player>().isDead && !players[randomPlayer].GetComponent<Player>().isFaint)
+            {
+                break;
+            }
+        }
         nav.velocity = (players[randomPlayer].transform.position - transform.position).normalized * dashPower;
         nav.destination = players[randomPlayer].transform.position;
 
