@@ -43,6 +43,7 @@ public class Player : PlayerController
     void Awake()
     {
         // 레퍼런스 초기화 
+        ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
         PV = GetComponent<PhotonView>();
         if (PV.IsMine)
         {

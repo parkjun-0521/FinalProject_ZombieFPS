@@ -4,7 +4,13 @@ using UnityEngine;
 using Photon.Pun;
 public class EliteRangeEnemyProjectile : MonoBehaviour
 {
-    public float damage = 8.0f;
+    [HideInInspector] public float damage;
+    [SerializeField] GameObject eliteEnemyRange;
+
+    private void Start()
+    {
+        damage = eliteEnemyRange.GetComponent<EliteRangeEnemy>().damage;
+    }
     private void OnTriggerStay(Collider other)
     {
         if(other.CompareTag("Ground"))

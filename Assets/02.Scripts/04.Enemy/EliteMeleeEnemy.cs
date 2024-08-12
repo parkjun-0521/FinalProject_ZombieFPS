@@ -61,7 +61,7 @@ public class EliteMeleeEnemy : EnemyController {
                 Physics.IgnoreCollision(lookRangeCollider, collider, true);
             }
         }
-        damage = 20f;
+        damage = baseDamage;
     }
 
     void Update()
