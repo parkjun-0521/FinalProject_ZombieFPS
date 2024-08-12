@@ -26,6 +26,11 @@ public class RotateToMouse : MonoBehaviour {
         // 초기 회전 값 설정
         eulerAngleX = cameraTransform.eulerAngles.x;
         eulerAngleY = transform.eulerAngles.y;
+
+        SetSensitivityX(ScenesManagerment.Instance.x);
+        SetSensitivityY(ScenesManagerment.Instance.y);
+        UIManager.Instance.xSensitivity.value = ScenesManagerment.Instance.x;
+        UIManager.Instance.ySensitivity.value = ScenesManagerment.Instance.y;
     }
 
     public void UpdateRotate(float mouseX, float mouseY)

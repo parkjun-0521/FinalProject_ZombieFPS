@@ -187,14 +187,14 @@ public class UIManager : MonoBehaviourPun
 
     public void OnSensitivityX()
     {
-        float x = xSensitivity.value;
+        ScenesManagerment.Instance.x = xSensitivity.value;
         RotateToMouse player = GameObject.FindWithTag("Player").GetComponent<RotateToMouse>();
-        player.SetSensitivityX(x);
+        player.SetSensitivityX(ScenesManagerment.Instance.x);
     }
     public void OnSensitivityY()
     {
-        float y = ySensitivity.value;
+        ScenesManagerment.Instance.y = ySensitivity.value;
         RotateToMouse player = GameObject.FindWithTag("Player").GetComponent<RotateToMouse>();
-        player.SetSensitivityY(y);
+        player.SetSensitivityY(ScenesManagerment.Instance.y);
     }
 }

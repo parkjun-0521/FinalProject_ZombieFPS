@@ -2,6 +2,7 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class ScenesManagerment : MonoBehaviourPun
@@ -12,6 +13,10 @@ public class ScenesManagerment : MonoBehaviourPun
 
     public int readyUserCount;  // 준비된 플레이어 확인 
     public bool isResign;       // 강퇴 확인 
+
+    // 씬 전환 시 감도 유지 
+    public float x;
+    public float y;
 
     void Awake() {
         Instance = this;

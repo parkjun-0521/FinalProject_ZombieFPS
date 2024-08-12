@@ -68,6 +68,7 @@ public class EnemyController : MonoBehaviourPun, IEnemy
     public CapsuleCollider capsuleCollider;
     public SphereCollider sphereCollider;
     public SphereCollider EnemyLookRange;
+    public Collider playerHit;
 
     public float searchInterval = 1.0f;
     public float nextSearchTime = 0f;
@@ -115,6 +116,7 @@ public class EnemyController : MonoBehaviourPun, IEnemy
                         if (distance < closestDistance) {
                             closestDistance = distance;
                             closestPlayer = hitCollider;
+                            playerHit = closestPlayer;
                         }
                     }
                 }
@@ -126,6 +128,12 @@ public class EnemyController : MonoBehaviourPun, IEnemy
         if (other.CompareTag("FireDotArea"))
         {
             Hp = -other.GetComponent<ItemFireGrenadeDotArea>().dotDamage;
+        }
+    }
+
+    private void OnTriggerExit( Collider other ) {
+        if (other.CompareTag("Player")) {
+            EnemyTracking(playerHit);
         }
     }
 
