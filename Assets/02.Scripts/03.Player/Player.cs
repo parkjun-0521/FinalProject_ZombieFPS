@@ -537,10 +537,13 @@ public class Player : PlayerController
                 }
                 else if (hit.collider.CompareTag("Npc"))
                 {
+                    playerReviveUI.SetActive(true);
+                    playerReviveUI.GetComponentInChildren<Text>().text = string.Format("'E' Npc와 대화하기");
                     if (Input.GetKeyDown(keyManager.GetKeyCode(KeyCodeTypes.Interaction)))
                     {
                         Debug.Log("대화");
-                        
+                        QuestManager.instance.QuestClearRPC(1);
+
                         PhotonView photonView = PhotonView.Get(this);
                         if (photonView != null)
                         {
@@ -559,6 +562,7 @@ public class Player : PlayerController
                                     string spriteName = imageComponent.sprite.name;
                                     if (spriteName.Equals("QuestItem")) {
                                         Debug.Log("퀘스트 완료");
+                                        QuestManager.instance.QuestClearRPC(2);
                                         if (photonView != null)
                                         {
                                             photonView.RPC("QuestCompleteRPC", RpcTarget.AllBuffered, true);
