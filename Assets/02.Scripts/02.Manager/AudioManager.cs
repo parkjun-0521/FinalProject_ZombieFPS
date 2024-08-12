@@ -103,8 +103,10 @@ public class AudioManager : MonoBehaviour
         if (isPlay) {
             if (stageCount == 0)
                 bgmPlayer.clip = bgmClips[0];
-            else if (stageCount == 1)
+            else if (stageCount == 1) {
                 bgmPlayer.clip = bgmClips[1];
+                SetBgmVolume(0.8f);
+            }
             else if (stageCount == 2)
                 bgmPlayer.clip = bgmClips[2];
             bgmPlayer.Play();

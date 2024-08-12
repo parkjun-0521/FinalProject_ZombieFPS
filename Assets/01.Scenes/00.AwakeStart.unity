@@ -160,6 +160,7 @@ MonoBehaviour:
   roomID: {fileID: 0}
   playerName: 
   inputRoomFail: {fileID: 0}
+  resignRoom: {fileID: 0}
   cellBtn: []
   previousBtn: {fileID: 0}
   nextBtn: {fileID: 0}
@@ -249,7 +250,7 @@ MonoBehaviour:
   bgmClips:
   - {fileID: 8300000, guid: 98a0b581d2bd3d94cad8c2aa7a166e65, type: 3}
   - {fileID: 8300000, guid: ffcfa88dcef0abe4caadd3bced3ae2fd, type: 3}
-  - {fileID: 8300000, guid: 8058da31f71cd1544b83247046df9c6a, type: 3}
+  - {fileID: 8300000, guid: 24c4df9e1e9733c4882dfd5a28535a97, type: 3}
   bgmVolume: 0.2
   sfxClips:
   - {fileID: 8300000, guid: bc47b004898d5ca418b7d46e8d09e76a, type: 3}
@@ -349,6 +350,7 @@ MonoBehaviour:
   playerCount: 0
   stageCount: 0
   readyUserCount: 0
+  isResign: 0
 --- !u!1 &2081829925
 GameObject:
   m_ObjectHideFlags: 0

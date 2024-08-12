@@ -55,6 +55,7 @@ public class Player : PlayerController
             Cursor.visible = false;                         // 마우스 커서 비활성화
             Cursor.lockState = CursorLockMode.Locked;       // 마우스 커서 현재 위치 고정 
             rotateToMouse = GetComponentInChildren<RotateToMouse>();
+            ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
         }
     }
 
