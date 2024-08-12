@@ -234,8 +234,10 @@ public class EliteMeleeEnemy : EnemyController {
 
     public override void EnemyDead()
     {
+        if (!photonView.IsMine) return;
         if (hp <= 0) {
             photonView.RPC("HandleEnemyDeath", RpcTarget.AllBuffered);
+            photonView.RPC("DeadState", RpcTarget.OthersBuffered);
             if (!isDead) {
                 isDead = true;
                 for (int i = 0; i < 4; i++) {
@@ -279,6 +281,11 @@ public class EliteMeleeEnemy : EnemyController {
         OnEnemyDead -= EnemyDead;
     }
 
+    [PunRPC]
+    public void DeadState() {
+        isDead = true;
+    }
+
     IEnumerator AnimationFalse(string str)
     {
         yield return new WaitForSeconds(0.1f);
@@ -294,7 +301,6 @@ public class EliteMeleeEnemy : EnemyController {
     public void NormalEnemyChangeHpRPC(float value)
     {
         hp += value;
-        EnemyDead();
     }
 
 

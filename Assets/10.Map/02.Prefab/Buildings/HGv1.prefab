@@ -231,9 +231,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3656407878562255024}
   - component: {fileID: 1615089035}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GateMechanism
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -331,9 +331,9 @@ GameObject:
   - component: {fileID: 1425268133}
   - component: {fileID: 1425268134}
   - component: {fileID: 1425268135}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: HGv1Gate
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -493,6 +493,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOpen: 0
+  otherObject: {fileID: 0}
 --- !u!1 &7357078473023122542
 GameObject:
   m_ObjectHideFlags: 0

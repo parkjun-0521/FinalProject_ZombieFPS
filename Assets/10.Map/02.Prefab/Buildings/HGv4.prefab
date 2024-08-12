@@ -98,9 +98,9 @@ GameObject:
   - component: {fileID: 171226888}
   - component: {fileID: 171226887}
   - component: {fileID: 171226886}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Hangar_v2_7_gate4
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -216,6 +216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOpen: 0
+  otherObject: {fileID: 0}
 --- !u!114 &171226887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,9 +277,9 @@ GameObject:
   - component: {fileID: 1422489413}
   - component: {fileID: 1422489412}
   - component: {fileID: 1422489411}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Hangar_v2_7_gate3
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -394,6 +395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOpen: 0
+  otherObject: {fileID: 0}
 --- !u!114 &1422489412
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -703,9 +705,9 @@ GameObject:
   - component: {fileID: 8880921574607414469}
   - component: {fileID: 5826192540459484288}
   - component: {fileID: 4528417609846510848}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Hangar_v2_7_door1
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -865,6 +867,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOpen: 0
+  otherObject: {fileID: 0}
 --- !u!1 &2363267610792799776
 GameObject:
   m_ObjectHideFlags: 0
@@ -1050,9 +1053,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2364265418051063562}
   - component: {fileID: 1704761574}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GateMechanism2
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1099,9 +1102,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2364265418905324591}
   - component: {fileID: 4634156120810074709}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: DoorMechanism
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1148,9 +1151,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2364265419062436709}
   - component: {fileID: 749717846}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GateMechanism
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

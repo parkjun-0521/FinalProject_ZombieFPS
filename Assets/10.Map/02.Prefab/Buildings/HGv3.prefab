@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8968705588926423695}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!65 &7693794990660001143
 BoxCollider:
@@ -61,9 +61,9 @@ GameObject:
   - component: {fileID: 848462246}
   - component: {fileID: 848462247}
   - component: {fileID: 3323234830886936842}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: HGv3Gate
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -179,6 +179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOpen: 0
+  otherObject: {fileID: 0}
 --- !u!114 &848462247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,51 +224,6 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!1 &2360731722173218864
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6679039188052169648}
-  - component: {fileID: 2035454572768346257}
-  m_Layer: 0
-  m_Name: Side (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6679039188052169648
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2360731722173218864}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -1.64, z: -5.521}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8968705588926423695}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!65 &2035454572768346257
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2360731722173218864}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 5.36, z: 10.27}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3013939431421514260
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,9 +234,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3013939431421514259}
   - component: {fileID: 2298453973151604074}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: DoorMechanism
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -327,9 +283,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3013939432454078303}
   - component: {fileID: 231947007}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GateMechanism
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -381,9 +337,10 @@ GameObject:
   - component: {fileID: 7485510255404874865}
   - component: {fileID: 564594082148681994}
   - component: {fileID: 7328774927927603652}
-  m_Layer: 0
+  - component: {fileID: 9084413723844562737}
+  m_Layer: 11
   m_Name: HGv3Door
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -530,6 +487,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.14, y: 2.6384966, z: 3.409693}
   m_Center: {x: 0.0000009536743, y: 0.0000020265581, z: -0.000005722048}
+--- !u!114 &9084413723844562737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3604711875104513581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a35b266d864df234aaf4fb49cc7545ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOpen: 0
+  otherObject: {fileID: 0}
 --- !u!1 &5597994181622648791
 GameObject:
   m_ObjectHideFlags: 0
@@ -699,7 +670,6 @@ Transform:
   m_Children:
   - {fileID: 9024384882788686414}
   - {fileID: 5040740635600644302}
-  - {fileID: 6679039188052169648}
   - {fileID: 5670892839519557234}
   m_Father: {fileID: 7551780925888859100}
   m_RootOrder: 4

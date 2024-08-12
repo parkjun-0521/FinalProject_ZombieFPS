@@ -1,6 +1,7 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -31,6 +32,7 @@ public class EnemyController : MonoBehaviourPun, IEnemy
     public Transform enemySpawn;
     [SerializeField] public float maxHp;
     public float hp;
+
     public virtual float Hp {
         get { return hp; }
         set {
@@ -39,7 +41,10 @@ public class EnemyController : MonoBehaviourPun, IEnemy
                 Debug.Log(hp);
             }
             else if (hp <= 0) {
-                EnemyDead();
+                if (!isDie) {
+                    isDie = true;
+                    EnemyDead();
+                }
             }
         }
     }
@@ -52,6 +57,8 @@ public class EnemyController : MonoBehaviourPun, IEnemy
     public bool isRun;
     public bool isAttack;
     public bool isTracking;
+    public bool isDie;
+
     public PhotonView PV;
     public Transform playerTr;
     public Rigidbody rigid;
