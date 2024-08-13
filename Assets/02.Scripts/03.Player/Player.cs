@@ -31,8 +31,8 @@ public class Player : PlayerController
     public bool cursorLocked = true;
 
     // 상호작용 Ray  
-
     Ray ray;
+    RaycastHit hit;
     bool isRayPlayer = false;
 
     //dot damage 코루틴
@@ -463,7 +463,7 @@ public class Player : PlayerController
     {
         if (PV.IsMine)
         {
-            RaycastHit hit;
+
 
             int layerMask = LayerMask.GetMask("LocalPlayer", "Item", "Door", "Npc");
             foreach (SelectedOutline outlineComponent in FindObjectsOfType<SelectedOutline>())
