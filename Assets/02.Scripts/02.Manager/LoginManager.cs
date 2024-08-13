@@ -59,7 +59,6 @@ public class LoginManager : MonoBehaviour
             if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError) {
                 StatusText.text = "Error connecting to server: " + www.error;
                 Debug.LogError(www.error);
-                NetworkManager.Instance.Connect();
             }
             else {
                 if (www.downloadHandler.text == "1") // 로그인 성공
