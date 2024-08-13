@@ -1708,7 +1708,7 @@ public class Player : PlayerController
                 UIManager.Instance.transform.GetChild(0).gameObject.SetActive(false);
                 watchingPanel = UIManager.Instance.transform.GetChild(7).gameObject;
                 watchingPanel.SetActive(true);
-                watchingPanel.GetComponentInChildren<Text>().text = "관전중 : " + PhotonNetwork.PlayerList[playerCount].NickName;
+                watchingPanel.GetComponentInChildren<Text>().text = "관전중 : " + PhotonNetwork.PlayerList[1].NickName;
                 foreach (GameObject player in players)
                 {
                     if (player.GetComponent<PhotonView>().IsMine == false)
