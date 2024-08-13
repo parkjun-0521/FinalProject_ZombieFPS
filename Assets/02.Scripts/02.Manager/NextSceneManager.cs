@@ -175,7 +175,7 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
     {
         isSceneChange = true;
         yield return new WaitForSeconds(4.5f);
-        photonView.RPC("ResetCount", RpcTarget.All, ScenesManagerment.Instance.stageCount);
+        photonView.RPC("ResetCount1", RpcTarget.All, ScenesManagerment.Instance.stageCount);
         yield return new WaitForSeconds(0.5f);
         PhotonNetwork.LoadLevel("03.MainGameScene_1");
     }
@@ -184,26 +184,52 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
     {
         isSceneChange = true;
         yield return new WaitForSeconds(3.5f);
-        photonView.RPC("ResetCount", RpcTarget.All, ScenesManagerment.Instance.stageCount);
+        photonView.RPC("ResetCount2", RpcTarget.All, ScenesManagerment.Instance.stageCount);
         yield return new WaitForSeconds(1.5f);
         PhotonNetwork.LoadLevel("03.MainGameScene_2");
     }
 
-    IEnumerator SenecChange3() {
+    IEnumerator SenecChange3()
+    {
         isSceneChange = true;
-        yield return new WaitForSeconds(3.5f);     
-        photonView.RPC("ResetCount", RpcTarget.All , ScenesManagerment.Instance.stageCount);
+        yield return new WaitForSeconds(3.5f);
+        photonView.RPC("ResetCount3", RpcTarget.All, ScenesManagerment.Instance.stageCount);
         yield return new WaitForSeconds(1.5f);
         PhotonNetwork.LoadLevel("04.Ending");
     }
 
     [PunRPC]
-    public void ResetCount(int stageCount) {
+    public void ResetCount1(int stageCount)
+    {
         if (ScenesManagerment.Instance.stageCount > stageCount)
             return;
         Debug.Log(stageCount);
         AudioManager.Instance.PlayBgm(false, stageCount);
-        ScenesManagerment.Instance.stageCount += 1;
+        ScenesManagerment.Instance.stageCount = 1;
+        ScenesManagerment.Instance.playerCount = 0;
+        deadPlayerCount = 0;
+    }
+
+    [PunRPC]
+    public void ResetCount2(int stageCount)
+    {
+        if (ScenesManagerment.Instance.stageCount > stageCount)
+            return;
+        Debug.Log(stageCount);
+        AudioManager.Instance.PlayBgm(false, stageCount);
+        ScenesManagerment.Instance.stageCount = 2;
+        ScenesManagerment.Instance.playerCount = 0;
+        deadPlayerCount = 0;
+    }
+
+    [PunRPC]
+    public void ResetCount3(int stageCount)
+    {
+        if (ScenesManagerment.Instance.stageCount > stageCount)
+            return;
+        Debug.Log(stageCount);
+        AudioManager.Instance.PlayBgm(false, stageCount);
+        ScenesManagerment.Instance.stageCount = 3;
         ScenesManagerment.Instance.playerCount = 0;
         deadPlayerCount = 0;
     }

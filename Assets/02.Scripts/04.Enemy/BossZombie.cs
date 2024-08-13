@@ -40,7 +40,6 @@ public class BossZombie : EnemyController {
     float AttackCooltime;
 
 
-    private bool isDead = false;
 
     public GameObject projectilePrefab;
     public Transform bulletPos;
@@ -84,7 +83,6 @@ public class BossZombie : EnemyController {
         capsuleCollider.enabled = true;
         rigid.isKinematic = false;
         nav.enabled = true;
-        isDead = false;
         bloodParticle.Stop();
         hp = maxHp;
         RandomMove();
@@ -490,10 +488,11 @@ public class BossZombie : EnemyController {
     }
 
     public override void EnemyDead() {
-        if (hp <= 0 && !isDead) {
-            isDead = true;
+        if (!PV.IsMine) return;
+        if (hp <= 0) {
             photonView.RPC("HandleEnemyDeath", RpcTarget.AllBuffered);
             Pooling.instance.GetObject("QuestItem", transform.position);
+            Debug.Log("보스잡고 아이템 나옴");
         }
     }
     [PunRPC]
