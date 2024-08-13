@@ -129,6 +129,8 @@ public class EnemyController : MonoBehaviourPun, IEnemy
         }
     }
 
+  
+
     public virtual void ChangeHp(float value) { }
     public virtual void BloodEffect(Vector3 pos, Collider other = null)
     {
@@ -145,4 +147,5 @@ public class EnemyController : MonoBehaviourPun, IEnemy
         Hp = -damage;
     }
     
+
 }

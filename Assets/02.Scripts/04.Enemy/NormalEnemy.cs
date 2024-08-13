@@ -193,8 +193,8 @@ public class NormalEnemy : EnemyController {
 
         isAttack = true;
         nav.isStopped = true;
-        ani.SetBool("isAttack", true);
-
+        //ani.SetBool("isAttack", true);
+        ani.SetInteger("isAttackInt", Random.Range(0, 2));
         // 공격 애니메이션을 수행
         // 애니메이션 이벤트 또는 코루틴을 통해 실제 데미지를 적용
         if (!AudioManager.Instance.IsPlaying(AudioManager.Sfx.Zombie_attack2)) {
@@ -208,7 +208,8 @@ public class NormalEnemy : EnemyController {
         yield return new WaitForSeconds(meleeDelay);
 
         isAttack = false;
-        ani.SetBool("isAttack", false);
+        //ani.SetBool("isAttack", false);
+        ani.SetInteger("isAttackInt", 3);
         if (hp <= 0 || playerTr == null || isAttack) yield break;
         nav.isStopped = false;
         if (playerTr != null) {

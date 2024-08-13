@@ -55,6 +55,7 @@ public class Player : PlayerController
             Cursor.visible = false;                         // 마우스 커서 비활성화
             Cursor.lockState = CursorLockMode.Locked;       // 마우스 커서 현재 위치 고정 
             rotateToMouse = GetComponentInChildren<RotateToMouse>();
+            ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
         }
     }
 
@@ -1130,7 +1131,6 @@ public class Player : PlayerController
                             Vector3 targetPoint;
                             // 맞았을 때 , 안맞았을 때 충돌 지점 지정 
                             targetPoint = ray.GetPoint(1000);
-
                             // 던질 방향 계산
                             Vector3 throwDirection = (targetPoint - grenade.transform.position).normalized;
 
@@ -1152,7 +1152,7 @@ public class Player : PlayerController
                             Vector3 targetPoint;
 
                             // 맞았을 때 , 안맞았을 때 충돌 지점 지정 
-                            targetPoint = (Physics.Raycast(ray, out hit)) ? hit.point : ray.GetPoint(1000);
+                            targetPoint =  ray.GetPoint(1000);
 
                             // 던질 방향 계산
                             Vector3 throwDirection = (targetPoint - grenade.transform.position).normalized;
@@ -1175,7 +1175,7 @@ public class Player : PlayerController
                             Vector3 targetPoint;
 
                             // 맞았을 때 , 안맞았을 때 충돌 지점 지정 
-                            targetPoint = (Physics.Raycast(ray, out hit)) ? hit.point : ray.GetPoint(1000);
+                            targetPoint = ray.GetPoint(1000);
 
                             // 던질 방향 계산
                             Vector3 throwDirection = (targetPoint - grenade.transform.position).normalized;
@@ -1688,6 +1688,7 @@ public class Player : PlayerController
     GameObject spectateCamera;
     List<GameObject> otherPlayers = new List<GameObject>();
     int playerCount = 0;
+    GameObject watchingPanel;
     void PlayerSpectate() //관전
     {
         if (PhotonNetwork.CurrentRoom.PlayerCount == 1) return;
@@ -1707,7 +1708,9 @@ public class Player : PlayerController
                 bloodScreen.gameObject.SetActive(false);
                 aimingObj.SetActive(false);
                 UIManager.Instance.transform.GetChild(0).gameObject.SetActive(false);
-
+                watchingPanel = UIManager.Instance.transform.GetChild(7).gameObject;
+                watchingPanel.SetActive(true);
+                watchingPanel.GetComponentInChildren<Text>().text = "관전중 : " + PhotonNetwork.PlayerList[playerCount].NickName;
                 foreach (GameObject player in players)
                 {
                     if (player.GetComponent<PhotonView>().IsMine == false)
@@ -1725,6 +1728,7 @@ public class Player : PlayerController
             {
                 playerCount = 0;
             }
+            watchingPanel.GetComponentInChildren<Text>().text = "관전중 : " + PhotonNetwork.PlayerList[playerCount].NickName;
         }
         spectateCamera.transform.parent = otherPlayers[playerCount].transform.GetChild(1);
         spectateCamera.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
