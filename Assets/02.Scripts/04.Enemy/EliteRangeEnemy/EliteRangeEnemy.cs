@@ -196,7 +196,6 @@ public class EliteRangeEnemy : EnemyController
         if (versusDist < attackRange) {
             rigid.velocity = Vector3.zero;
             nav.isStopped = true;
-            
         }
         else {
             nav.isStopped = false;
@@ -205,8 +204,6 @@ public class EliteRangeEnemy : EnemyController
 
     public void EnemyRangeAttack()
     {
-        ani.SetTrigger("isIdle");
-        StartCoroutine(AnimReset("isIdle"));
         nextAttack += Time.deltaTime;
         if (nextAttack > meleeDelay) {
             ani.SetBool("isAttack", true);
