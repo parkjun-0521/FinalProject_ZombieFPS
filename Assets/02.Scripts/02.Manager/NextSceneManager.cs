@@ -189,7 +189,8 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
         PhotonNetwork.LoadLevel("03.MainGameScene_2");
     }
 
-    IEnumerator SenecChange3() {
+    IEnumerator SenecChange3()
+    {
         isSceneChange = true;
         yield return new WaitForSeconds(3.5f);     
         photonView.RPC("ResetCount3", RpcTarget.All , ScenesManagerment.Instance.stageCount);

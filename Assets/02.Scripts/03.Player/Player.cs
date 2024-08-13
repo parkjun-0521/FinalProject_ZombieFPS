@@ -463,8 +463,6 @@ public class Player : PlayerController
     {
         if (PV.IsMine)
         {
-            
-
             int layerMask = LayerMask.GetMask("LocalPlayer", "Item", "Door", "Npc");
             foreach (SelectedOutline outlineComponent in FindObjectsOfType<SelectedOutline>())
             {

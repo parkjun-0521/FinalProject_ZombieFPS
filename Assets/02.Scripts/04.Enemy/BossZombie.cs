@@ -40,7 +40,6 @@ public class BossZombie : EnemyController {
     int randPattern;
     float AttackCooltime;
 
-
     public GameObject projectilePrefab;
     public Transform bulletPos;
 
@@ -492,6 +491,7 @@ public class BossZombie : EnemyController {
         if (hp <= 0) {
             photonView.RPC("HandleEnemyDeath", RpcTarget.AllBuffered);
             Pooling.instance.GetObject("QuestItem", transform.position);
+            Debug.Log("보스잡고 아이템 나옴");
         }
     }
     [PunRPC]

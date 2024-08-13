@@ -276,6 +276,7 @@ public class EliteMeleeEnemy : EnemyController {
         isTracking = true;
         EnemyLookRange.enabled = false;
         nav.isStopped = true;
+        nav.enabled = false;
         rigid.isKinematic = true;
         nav.enabled = false;
         capsuleCollider.enabled = false;

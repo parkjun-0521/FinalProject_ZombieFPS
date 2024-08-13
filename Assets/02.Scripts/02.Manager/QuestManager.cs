@@ -73,16 +73,22 @@ public class QuestManager : MonoBehaviourPun
 
         if (stageCount == 0)
         {
+            if (!questDic.ContainsKey(isQuest)) yield break;
+
             text.text = questDic[isQuest];
             questDic.Remove(isQuest);
         }
         else if(stageCount == 1)
         {
+            if (!questDic.ContainsKey(isQuest)) yield break;
+
             text.text = questDic1[isQuest];
             questDic.Remove(isQuest);
         }
         else if(stageCount == 2)
         {
+            if (!questDic.ContainsKey(isQuest)) yield break;
+
             text.text = questDic2[isQuest];
             questDic.Remove(isQuest);
         }
