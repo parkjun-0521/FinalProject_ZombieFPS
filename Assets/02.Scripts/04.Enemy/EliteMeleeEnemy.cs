@@ -48,6 +48,7 @@ public class EliteMeleeEnemy : EnemyController {
 
     void Start()
     {
+        nav.enabled = true;
         RandomMove();
 
         SphereCollider lookRangeCollider = EnemyLookRange; // EnemyLookRange 콜라이더 참조
@@ -276,6 +277,7 @@ public class EliteMeleeEnemy : EnemyController {
         EnemyLookRange.enabled = false;
         nav.isStopped = true;
         rigid.isKinematic = true;
+        nav.enabled = false;
         capsuleCollider.enabled = false;
         ani.SetBool("isDead", true);
         StartCoroutine(AnimationFalse("isDead"));

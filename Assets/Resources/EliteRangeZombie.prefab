@@ -52,21 +52,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b56b1f3c87c345458bc1e78a2b2de7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 5
   runSpeed: 7
   maxTracingSpeed: 5
   maxMoveDirTime: 3
   curMoveTime: 3
   meleeDelay: 5
   nextAttack: 0
-  attackRange: 10
+  attackRange: 12
   rangeOut: 100
   resetSpeed: 5
   enemySpawn: {fileID: 0}
   maxHp: 150
   hp: 150
   baseDamage: 10
-  damage: 1
+  damage: 4
   isRangeOut: 0
   shouldEvaluate: 0
   isWalk: 0

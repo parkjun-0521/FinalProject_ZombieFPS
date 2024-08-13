@@ -19,7 +19,6 @@ interface IEnemy
 public class EnemyController : MonoBehaviourPun, IEnemy
 {
     // 좀비 걷기 속도 
-    [SerializeField] public float baseSpeed;
     [SerializeField] protected float runSpeed;
     public float maxTracingSpeed;
     public float maxMoveDirTime = 3;

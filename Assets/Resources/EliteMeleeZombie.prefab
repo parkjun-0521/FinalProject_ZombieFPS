@@ -160,8 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c48c1572b85d6b545a1a886004523ea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 0
-  runSpeed: 7
+  runSpeed: 8
   maxTracingSpeed: 5
   maxMoveDirTime: 3
   curMoveTime: 3
@@ -171,10 +170,10 @@ MonoBehaviour:
   rangeOut: 100
   resetSpeed: 5
   enemySpawn: {fileID: 0}
-  maxHp: 120
-  hp: 120
-  baseDamage: 1
-  damage: 1
+  maxHp: 150
+  hp: 150
+  baseDamage: 7
+  damage: 7
   isRangeOut: 0
   shouldEvaluate: 0
   isWalk: 0

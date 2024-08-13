@@ -2,6 +2,7 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -39,8 +40,6 @@ public class BossZombie : EnemyController {
     int randPattern;
     float AttackCooltime;
 
-
-    private bool isDead = false;
 
     public GameObject projectilePrefab;
     public Transform bulletPos;
@@ -84,7 +83,6 @@ public class BossZombie : EnemyController {
         capsuleCollider.enabled = true;
         rigid.isKinematic = false;
         nav.enabled = true;
-        isDead = false;
         bloodParticle.Stop();
         hp = maxHp;
         RandomMove();
@@ -490,8 +488,8 @@ public class BossZombie : EnemyController {
     }
 
     public override void EnemyDead() {
-        if (hp <= 0 && !isDead) {
-            isDead = true;
+        if (!photonView.IsMine) return;
+        if (hp <= 0) {
             photonView.RPC("HandleEnemyDeath", RpcTarget.AllBuffered);
             Pooling.instance.GetObject("QuestItem", transform.position);
         }
