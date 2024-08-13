@@ -25,6 +25,9 @@ public class PlayerInteract : MonoBehaviour
 
     [Space(20)]
     //[SerializeField] private CharacterController cc;
+    public Transform rayOrigin;  // 컨트롤러에서 레이캐스트를 시작할 위치
+    public float interactionRange = 5f;  // 상호작용 가능한 최대 거리
+    public LayerMask interactableLayers;  // 상호작용 가능한 레이어
     private float gravity = -9.81f;
     private Vector3 velocity;
     bool isGrounded = true;
@@ -50,15 +53,7 @@ public class PlayerInteract : MonoBehaviour
         if (doorButton.action.WasPerformedThisFrame())
         {
 
-            //Door door = hit.transform.GetComponentInChildren<Door>();
-            //if (door.isOpen)
-            //{
-            //    door.CloseDoorRPC();
-            //}
-            //else if (!door.isOpen)
-            //{
-            //    door.OpenDoorRPC();
-            //}
+            InteractWithDoor();
         }
 
 
@@ -82,5 +77,32 @@ public class PlayerInteract : MonoBehaviour
         }
         Destroy(bullet, 2f);
     }
-
+    void InteractWithDoor()
+    {
+        RaycastHit hit;
+        // 레이캐스트를 발사하여 상호작용할 오브젝트를 탐색
+        if (Physics.Raycast(rayOrigin.position, rayOrigin.forward, out hit, interactionRange, interactableLayers))
+        {
+            Door door = hit.transform.GetComponentInChildren<Door>();
+            if (door != null)
+            {
+                if (door.isOpen)
+                {
+                    door.CloseDoor();   
+                }
+                else
+                {
+                    door.OpenDoor();   
+                }
+            }
+        }
+    }
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
+        
+    }
 }

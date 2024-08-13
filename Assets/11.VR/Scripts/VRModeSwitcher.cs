@@ -39,11 +39,7 @@ public class VRModeSwitcher : MonoBehaviour
             xrManager.StartSubsystems();
             Debug.Log("XR started successfully.");
 
-            // VR Rig È°¼ºÈ­
-            if (vrRig != null)
-            {
-                vrRig.SetActive(true);
-            }
+            
         }
 
         yield return null;
