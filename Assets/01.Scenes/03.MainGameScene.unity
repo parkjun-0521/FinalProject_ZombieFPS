@@ -32800,6 +32800,7 @@ GameObject:
   - component: {fileID: 6514787770411831057}
   - component: {fileID: 6514787770408406833}
   - component: {fileID: 6514787770409537009}
+  - component: {fileID: 6514787770411831058}
   m_Layer: 15
   m_Name: BlockFence
   m_TagString: Untagged
@@ -32822,6 +32823,19 @@ Transform:
   m_Father: {fileID: 9041557828730867410}
   m_RootOrder: 105
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!65 &6514787770411831058
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6514787770411733809}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.1808, y: 5.1099997, z: 8.000002}
+  m_Center: {x: 0.00000011920932, y: 2.5549998, z: 0.0000019073486}
 --- !u!65 &6637735365766878794
 BoxCollider:
   m_ObjectHideFlags: 0

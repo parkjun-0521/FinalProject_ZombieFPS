@@ -247,7 +247,12 @@ public class NormalEnemy : EnemyController {
     }
 
     public override void ChangeHp( float value ) {
-        photonView.RPC("NormalEnemyChangeHpRPC", RpcTarget.AllBuffered, value);
+        if (UnityEngine.XR.XRSettings.isDeviceActive) {
+            hp += value;
+        }
+        else {
+            photonView.RPC("NormalEnemyChangeHpRPC", RpcTarget.AllBuffered, value);
+        }
     }
 
     [PunRPC]

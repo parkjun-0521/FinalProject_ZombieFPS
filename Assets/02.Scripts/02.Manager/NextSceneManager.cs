@@ -199,6 +199,9 @@ public class NextSceneManager : MonoBehaviourPunCallbacks {
 
     [PunRPC]
     public void ResetCount(int stageCount) {
+        if (ScenesManagerment.Instance.stageCount > stageCount)
+            return;
+        Debug.Log(stageCount);
         AudioManager.Instance.PlayBgm(false, stageCount);
         ScenesManagerment.Instance.stageCount += 1;
         ScenesManagerment.Instance.playerCount = 0;
