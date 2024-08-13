@@ -60,15 +60,7 @@ public class IKFootSolver : MonoBehaviour
             oldNormal = newNormal;
         }
     }
-
-    private void OnDrawGizmos()
-    {
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(newPosition, 0.5f);
-    }
-
-
+     
 
     public bool IsMoving()
     {
