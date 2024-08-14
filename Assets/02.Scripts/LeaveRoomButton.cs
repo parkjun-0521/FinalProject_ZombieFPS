@@ -15,11 +15,7 @@ public class LeaveRoomButton : MonoBehaviour
 
     void OnLeaveRoom() {
         StartCoroutine(DeleteItemData(PhotonNetwork.NickName));
-        AudioManager.Instance.PlayBgm(false, ScenesManagerment.Instance.stageCount);
-        ScenesManagerment.Instance.readyUserCount = 0;
-        ScenesManagerment.Instance.stageCount = 0;
-        ScenesManagerment.Instance.playerCount = 0;
-        NetworkManager.Instance.LeaveRoom();
+       
     }
 
     IEnumerator DeleteItemData(string userID)
@@ -30,5 +26,13 @@ public class LeaveRoomButton : MonoBehaviour
         using (UnityWebRequest www = UnityWebRequest.Post(URLs.ItemDeleteURL, form)) {
             yield return www.SendWebRequest();
         }
+
+        yield return new WaitForSeconds(0.2f);
+
+        AudioManager.Instance.PlayBgm(false, ScenesManagerment.Instance.stageCount);
+        ScenesManagerment.Instance.readyUserCount = 0;
+        ScenesManagerment.Instance.stageCount = 0;
+        ScenesManagerment.Instance.playerCount = 0;
+        NetworkManager.Instance.LeaveRoom();
     }
 }
