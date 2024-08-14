@@ -220,9 +220,6 @@ public class Player : PlayerController
                 InventoryClose();
             }
 
-            // 플레이어 상호작용
-            if (bulletPos.position != null && ray.direction != null)
-                OnPlayerInteraction?.Invoke();
             // 플레이어 회전
             OnPlayerRotation?.Invoke();
 
@@ -232,13 +229,14 @@ public class Player : PlayerController
                 ToggleCursor();
             }
 
-            
-
             //사람 죽은놈 쪽으로 레이쏴서 ui true
 
             OnPlayerSpectate?.Invoke();  // 죽었을때 관전
             OnZoomMiniMap?.Invoke(); //미니맵 확대, 축소
 
+            // 플레이어 상호작용
+            if (bulletPos.position != null && ray.direction != null)
+                OnPlayerInteraction?.Invoke();
         }
     }
 
