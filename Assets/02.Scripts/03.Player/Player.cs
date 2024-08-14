@@ -1708,7 +1708,7 @@ public class Player : PlayerController
                 UIManager.Instance.transform.GetChild(0).gameObject.SetActive(false);
                 watchingPanel = UIManager.Instance.transform.GetChild(7).gameObject;
                 watchingPanel.SetActive(true);
-                watchingPanel.GetComponentInChildren<Text>().text = "관전중 : " + PhotonNetwork.PlayerList[playerCount].NickName;
+                
                 foreach (GameObject player in players)
                 {
                     if (player.GetComponent<PhotonView>().IsMine == false)
@@ -1716,6 +1716,7 @@ public class Player : PlayerController
                         otherPlayers.Add(player);
                     }
                 }
+                watchingPanel.GetComponentInChildren<Text>().text = "관전중 : " + otherPlayers[0].GetComponent<Player>().nickNameText.text;
             }
         }
 
@@ -1726,7 +1727,7 @@ public class Player : PlayerController
             {
                 playerCount = 0;
             }
-            watchingPanel.GetComponentInChildren<Text>().text = "관전중 : " + PhotonNetwork.PlayerList[playerCount].NickName;
+            watchingPanel.GetComponentInChildren<Text>().text = "관전중 : " + otherPlayers[playerCount].GetComponent<Player>().nickNameText.text;
         }
         spectateCamera.transform.parent = otherPlayers[playerCount].transform.GetChild(1);
         spectateCamera.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
