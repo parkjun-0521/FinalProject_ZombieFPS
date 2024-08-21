@@ -12,7 +12,7 @@
   
   [5. 흐름도](#5-흐름도) 
   
-  [6. 프로젝트 핵심 구현](#6-프로젝트-핵심-구현) 
+  [6. 프로젝트 기능](#6-프로젝트-기능) 
   
   [7. 아쉬운 부분](#7-아쉬운-부분)   
 
@@ -82,7 +82,7 @@
   ## 5. 흐름도 
   <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/흐름도.png" width="60%" height="30%" />
 
-  ## 6. 프로젝트 핵심 구현 
+  ## 6. 프로젝트 기능
 
   ### 네트워크 
   - Photon Pun2 를 사용하여 네트워크를 구현하였습니다.
@@ -91,7 +91,38 @@
   - [네트워크 Code](https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Assets/02.Scripts/01.Network/NetworkManager.cs)
 
   ### 로그인
-  <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/로그인.png" width="50%" height="50%" />
+  <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/로그인.png" width="50%" height="50%" /> <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/로그인DB.png" width="30%" height="30%" />
+
+  - 게임을 시작하면 가장 먼저 등장하게되는 화면이며 로그인을 하게 되면 서버접속과 동시에 로비로 들어가지게 됩니다.
+  - 각 아이디 정보는 DB에 들어가 있으며 해당 ID에 맞는 비밀번호를 입력해야 들어갈 수 있도록 구현하였습니다.
+
+  <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/회원가입.PNG" width="50%" height="50%" />
+
+  - 아이디가 없을 경우는 회원가입을 통해 계정을 생성할 수 있습니다.
+  - 계정을 생성하게 되면 해당 계정 정보는 DB에 저장되어 로그인 정보를 유지할 수 있도록 구현하였습니다.
+
+  - [로그인 Code](https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Assets/02.Scripts/02.Manager/LoginManager.cs)
+
+  ### 로비 
+
+  <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/방입장.png" width="50%" height="50%" />
+
+  - 로그인을 하게되면 등장하게 되는 로비 화면입니다.
+  - 로비화면 같은 경우 사용자의 시각적인 재미를 주기 위해 배경화면의 이미지를 MP4로 하여 움직이는 배경화면을 구현하였습니다.
+  - 오른쪽의 RoomList는 현재 만들어져 있는 방들의 이름을 나타내며 해당 버튼을 눌러 방에 들어갈 수 있습니다.
+  - < > 화살표 버튼을 통해 다음 페이지로 넘겨가며 방을 찾을 수 있습니다. 또한 방이 많아지는 것을 대비하여 Input Field 만들어 방의 이름으로도 들어갈 수 있도록 구현하였습니다.
+
+  ### 방 입장 ( 방장, 플레이어 ) 
+
+  <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/방에입장시.png" width="70%" height="50%" />
+
+  <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/모든플레이어준비.png" width="70%" height="50%" />
+
+  - 왼쪽은 방장의 화면이며 오른쪽은 로컬플레이어의 화면입니다.
+  - 방장은 항상 빨간 테두리로 상단에 표시되도록 구현하였으며 로컬플레이어는 자신이 누구인지 알 수 있도록 초록색 외곽선 테두리로 표시하였습니다.
+  - 방장의 경우 로컬플레이어 이름 옆에 X 표시가 보이게 되는데 해당 기능은 강퇴기능으로 자신이 모르는 플레이어가 들어왔을 때는 강퇴를 할 수 있도록 구현하였습니다.
+  - 로컬플레이어 같은 경우 준비 버튼을 누르게 되면 해당 이름 Text가 초록색으로 변하게 되며 준비가 된 상태라는 것을 모두에게 알려주도록 RPC를 보내 동기화를 하였습니다.
+  - 모든 플레이어가 준비를 할 경우 방장의 게임시작 버튼이 초록색으로 변하게 되며 게임시작을 할 수 있는 상태가 됩니다. 
   
   ### 플레이어
 
