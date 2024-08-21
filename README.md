@@ -73,15 +73,38 @@
 
 
   ## 4. 개발 일정 
-  [개발 일정관리 노션 링크](https://dark-background-538.notion.site/d6830528245e483098e0bcc56151fcf7?v=963fb2bc1f604f26bf04f5a224c15e14&pvs=4)
+  - 개발 일정 관리의 일부 
+  <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/개발일정.PNG" width="100%" height="50%" />
+  
+  - [전체 개발 일정관리 노션 링크](https://dark-background-538.notion.site/d6830528245e483098e0bcc56151fcf7?v=963fb2bc1f604f26bf04f5a224c15e14&pvs=4)
 
 
   ## 5. 흐름도 
-  <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/%ED%9D%90%EB%A6%84%EB%8F%84.png" width="60%" height="30%" />
-
+  <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/흐름도.png" width="60%" height="30%" />
 
   ## 6. 프로젝트 핵심 구현 
 
+  ### 네트워크 
+  - Photon Pun2 를 사용하여 네트워크를 구현하였습니다.
+  - 서버 접속과 로비접속, 방 입장, 방 생성 부분을 구현하였으며 이전 프로젝트와 다르게 네트워크 외의 기능은 독립적으로 구현하였습니다.
+  - 기본적인 네크워크 구성 외에도 각 오브젝트의 RPC 작업을 해주어 동기화를 구현하였습니다.
+  - [네트워크 Code](https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Assets/02.Scripts/01.Network/NetworkManager.cs)
 
+  ### 로그인
+  <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/로그인.png" width="50%" height="50%" />
+  
+  ### 플레이어
+
+  ### 인벤토리
+
+  ### 좀비 
+
+  ### 맵 
+
+  ### 사운드 
+
+  ### UI/UX
+
+  ### 최적화 
 
   ## 7. 아쉬운 부분
