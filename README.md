@@ -293,7 +293,7 @@
 
 
   ### UI/UX
-
+  
   <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/UI오류.PNG" width="50%" height="50%" /> 
 
   - 로그인 실패시 사용자가 확인할 수 있도록 가시성을 추가한 UI 입니다.
@@ -313,6 +313,7 @@
   - 좌측 하단은 자신의 닉네임과 현재 채력 상태를 알 수 있도록 구현하였습니다. 
   - 좌측 상단은 다른 플레이어들의 체력과 위치를 알 수 있는 미니맵을 구현하였습니다. 
 
+  - [인게임 UI Code](https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Assets/02.Scripts/02.Manager/UIManager.cs)
   <p align="left">
   <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/GIF/미니맵.gif" width="50%" height="50%" /> 
   </p>
