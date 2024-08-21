@@ -125,8 +125,30 @@
   - 모든 플레이어가 준비를 할 경우 방장의 게임시작 버튼이 초록색으로 변하게 되며 게임시작을 할 수 있는 상태가 됩니다. 
   
   ### 플레이어
+  - 전반적인 플레이어 구현 Code
+  - [Player Controller Code](https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Assets/02.Scripts/03.Player/PlayerController.cs)
+  - [플레이어 구현 Code](https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Assets/02.Scripts/03.Player/Player.cs) 
+  #### 이동 및 회전 
+  - 가장 기본적인 동작으로 wasd 를 사용하여 캐릭터가 이동할 수 있습니다.
+  - 회전 같은 경우는 현재의 카메라 시점으로 기준으로 하여 마우스를 회전시켜 카메라가 보는 방향으로 앞으로 할 수 있도록 구현하였습니다.
+  - 또한 카메라의 회전을 부드럽게 하기위해 Lerp() 메소드를 사용하여 회전 보간을 잡아주었습니다.
+  - [회전 Code](https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Assets/02.Scripts/03.Player/RotateToMouse.cs)
 
-  ### 인벤토리
+  #### 1인칭 시점 카메라
+  - 플레이어의 카메라의 같은 경우 손 은 보여주어야 하며 내 플레이어는 보여주지 않도록 하여야 하며
+  - 상대플레이어는 보여주며 상대플레이어의 손은 안보여줘야하는 모순적인 상황이 발생하게 되었다.
+  - 이를 해결하기 위해 LayerMask를 사용하여 생성되는 플레이어와 로컬플레이어의 Layer를 바꿔주게 하여 카메라에서 랜더링 되지 않게 구현하였습니다.
+  - [카메라 렌더링 Code](https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Assets/02.Scripts/03.Player/PlayerSetup.cs)
+  
+  #### 공격 및 무기 스왑 
+
+  <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/총.gif" width="50%" height="50%" /><img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/샷건.gif" width="50%" height="50%" />
+  <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/칼수류탄.gif" width="50%" height="50%" />
+  
+  
+  #### 상호작용 
+  #### 기절 및 부활 
+  #### 사망 
 
   ### 좀비 
 
