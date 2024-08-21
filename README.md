@@ -211,7 +211,7 @@
 
   #### 좀비 종류 
   <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/노말좀비.png" width="17%" height="50%" /> <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/엘리트근거리.png" width="17%" height="50%" /> <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/엘리트원거리.png" width="17%" height="50%" />  <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/보스1.png" width="17%" height="50%" />  <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/보스2.png" width="17%" height="50%" />  
-      기본좀비       엘리트 근거리 좀비      엘리트 원거리 좀비        보스 좀비1           보스 좀비2 
+      기본좀비     엘리트 근거리 좀비    엘리트 원거리 좀비      보스 좀비1         보스 좀비2 
   - 각 좀비는 기본 좀비를 상속받아 구현하였으며 공격로직 특수 공격 로직은 부모의 메소드를 오버라이딩하여 구현하였습니다.
   - '엘리트 근거리 좀비'는 죽게되면 자폭 데미지와 함깨 4마리의 작은 좀비를 분열시켜 등장하는 능력을 구현하였습니다.
   - '엘리트 원거리 좀비'는 공격이 지형지물에 맞게되면 초당 도트데미지를 주는 장판을 생성하는 능력을 구현하였습니다.
