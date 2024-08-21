@@ -350,8 +350,17 @@
 
   <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/풀링.png" width="20%" height="20%" /> 
 
+  - 가장 기본적인 최적화방식인 오브젝트 풀링입니다.
+  - 기존의 오브젝트 풀링 방식인 [기존 오브젝트 풀링](https://github.com/parkjun-0521/unity_-practice/tree/main/ObjectPooing) index로 찾는 방식으로는 index에 무슨 아이템이 매핑되어있는지 외워야한다는 단점이 있었습니다.
+  - 그래서 변경하였습니다. [변경한 오브젝트 풀링](https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Assets/02.Scripts/02.Manager/Pooling.cs) String 즉, 오브젝트 프리펩의 이름으로 찾을 수 있는 방법으로 변경하였습니다.
+  - 이렇게 변경함으로써 index를 외우고 있지 않아도 오브젝트의 이름으로 아이템을 생성할 수 있게 되어 코드의 가독성이 향상되었습니다. 
+
   <p align="left">
   <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/GIF/OcclusionCulling.gif" width="50%" height="50%" /> 
   </p>
+
+  - 카메라 최적화 부분인 OcclusionCulling입니다.
+  - 카메라가 랜더링 하고있지 않은 부분은 오브젝트를 보이지 않게 하는 방식이며 특정 오브젝트 뒤에 있는 오브젝트들도 보이지 않게 하여 메모리를 관리할 수 있는 카메라 최적화 기법입니다.
+  - 실제로 해당 최적화를 진행하지 않았을 때 좀비가 50~100 마리 생성되어있는지역에서 버벅임이 발생하였습니다. 하지만 해당 최적화를 진행하고 난 후에는 이전 보다 상대적으로 버벅임이 적어졌습니다.
 
   ## 7. 아쉬운 부분
