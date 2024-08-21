@@ -191,7 +191,7 @@
   - 살아나게된 플레이어는 체력이 절반 회복됩니다. 
   
   #### 사망 
-   <p align="left">
+  <p align="left">
   <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/GIF/사망.gif" width="50%" height="50%" /> 
   </p>
 
@@ -201,12 +201,42 @@
   
   ### 좀비 
 
+  #### 좀비 종류 
+  <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/노말좀비.png" width="15%" height="50%" /> <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/엘리트근거리.png" width="15%" height="50%" /> <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/엘리트원거리.png" width="15%" height="50%" />  <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/보스1.png" width="15%" height="50%" />  <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/보스2.png" width="15%" height="50%" />  
+      기본좀비     엘리트 근거리 좀비     엘리트 원거리 좀비      보스 좀비1          보스 좀비2 
+  - 각 좀비는 기본 좀비를 상속받아 구현하였으며 공격로직 특수 공격 로직은 부모의 메소드를 오버라이딩하여 구현하였습니다.
+  - '엘리트 근거리 좀비'는 죽게되면 자폭 데미지와 함깨 4마리의 작은 좀비를 분열시켜 등장하는 능력을 구현하였습니다.
+  - '엘리트 원거리 좀비'는 공격이 지형지물에 맞게되면 초당 도트데미지를 주는 장판을 생성하는 능력을 구현하였습니다.
+
+  - 보스 좀비는 공통적으로 여러 패턴을 가지고 있으며 일정 주기에 따라 패턴이 랜덤적으로 등장하도록 구현하였습니다. 
+  - '보스 좀비1'은 기본 패턴으로 물기, 마구찍기, 브레스뱉기, 꼬리치기 가 있으며 탐색하는 플레이어가 일정거리 이상 멀어질 경우 특수 패턴으로 굴러서 돌진하는 패턴을 구현하였습니다
+  - '보스 좀비2'는 기본 패턴으로 지면 충격파, 칼 휘두르기 패턴이 있으며 탐색하는 플레이어가 일정거리 이상 멀어질 경우 특수 패턴으로 돌진하는 패턴을 구현하였습니다
+
+
+  #### 좀비 추적
+  <p align="left">
+  <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/GIF/추적2.gif" width="30%" height="30%" /> 
+  </p>
+
+  - 좀비는 일정 범위안에 들어온 플레이어를 추격하며 내부의 작은 콜라이더 범위에 닿았을 경우에는 공격을 시전합니다.
+  - 내부의 들어온 플레이어가 여럿일 경우는 가장 가까운 플레이어를 탐색하여 추적하도록 구현하였습니다 
+
+  #### 어그로 변경 
+  <p align="left">
+  <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/GIF/어그로.gif" width="30%" height="30%" /> 
+  </p>
+
   ### 맵 
 
   <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/맵1.png" width="30%" height="50%" /> 
   <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/맵2.png" width="30%" height="50%" /> 
-  <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/맵3.png" width="30%" height="50%" /> 
-  
+  <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/맵3.png" width="30%" height="50%" />   
+
+  ### 맵 전환
+
+  <p align="left">
+  <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/GIF/씬이동.gif" width="50%" height="50%" /> 
+  </p>
 
   ### 사운드 
 
@@ -217,6 +247,11 @@
   <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/UI오류.PNG" width="50%" height="50%" /> 
   <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/UI표시.png" width="50%" height="50%" /> 
   <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/인게임UI.png" width="50%" height="50%" /> 
+
+  <p align="left">
+  <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/GIF/미니맵.gif" width="50%" height="50%" /> 
+  </p>
+
 
   ### 쉐이더
   <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/외곽선셰이더.png" width="50%" height="50%" /> 
@@ -231,5 +266,9 @@
   ### 최적화 
 
   <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/풀링.png" width="20%" height="20%" /> 
+
+  <p align="left">
+  <img src="https://github.com/parkjun-0521/FinalProject_ZombieFPS/blob/master/Image/GIF/OcclusionCulling.gif" width="50%" height="50%" /> 
+  </p>
 
   ## 7. 아쉬운 부분
